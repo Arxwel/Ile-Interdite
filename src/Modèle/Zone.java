@@ -18,6 +18,7 @@ public enum Zone {
 	LeMaraisBrumeux,
 	Observatoire,
 	LeRocherFantome,
+        LaCaverneDuBrasier,
 	LeTempleDuSoleil,
 	LeTempleDeLaLune,
 	LePalaisDesMarees,

@@ -24,30 +24,30 @@ public class Grille {
     }
 
     private void initGrilleTest() {
-        tuiles[0][3] = new Tuile();
-        tuiles[1][2] = ;
-        tuiles[1][1] = ;
-        tuiles[1][2] = ;
-        tuiles[1][3] = ;
-        tuiles[1][4] = ;
-        tuiles[2][0] = ;
-        tuiles[2][1] = ;
-        tuiles[2][2] = ;
-        tuiles[2][3] = ;
-        tuiles[2][4] = ;
-        tuiles[2][5] = ;
-        tuiles[3][0] = ;
-        tuiles[3][1] = ;
-        tuiles[3][2] = ;
-        tuiles[3][3] = ;
-        tuiles[3][4] = ;
-        tuiles[3][5] = ;
-        tuiles[4][1] = ;
-        tuiles[4][2] = ;
-        tuiles[4][3] = ;
-        tuiles[4][4] = ;
-        tuiles[5][2] = ;
-        tuiles[5][3] = ;
+        tuiles[0][3] = new Tuile(Zone.LePontDesAbimes, Etat.Sec);
+        tuiles[1][2] = new Tuile(Zone.LaPorteDeBronze, Etat.Inondé);
+        tuiles[1][1] = new Tuile(Zone.LaCaverneDesOmbres, Etat.Sec);
+        tuiles[1][2] = new Tuile(Zone.LaPorteDeFer, Etat.Sec);
+        tuiles[1][3] = new Tuile(Zone.LaPorteDOr, Etat.Sec);
+        tuiles[1][4] = new Tuile(Zone.LesFalaisesDeLOubli, Etat.Sec);
+        tuiles[2][0] = new Tuile(Zone.LePalaisDeCorail, Etat.Sec);
+        tuiles[2][1] = new Tuile(Zone.LaPorteDArgent, Etat.Sec);
+        tuiles[2][2] = new Tuile(Zone.LesDunesDeLIllusion, Etat.Sombré);
+        tuiles[2][3] = new Tuile(Zone.Heliport, Etat.Sec);
+        tuiles[2][4] = new Tuile(Zone.LaPorteDeCuivre, Etat.Sec);
+        tuiles[2][5] = new Tuile(Zone.LeJardinDesHurlements, Etat.Sec);
+        tuiles[3][0] = new Tuile(Zone.LaForetPourpre, Etat.Sec);
+        tuiles[3][1] = new Tuile(Zone.LeLagonPerdu, Etat.Inondé);
+        tuiles[3][2] = new Tuile(Zone.LeMaraisBrumeux, Etat.Sombré);
+        tuiles[3][3] = new Tuile(Zone.Observatoire, Etat.Inondé);
+        tuiles[3][4] = new Tuile(Zone.LeRocherFantome, Etat.Sombré);
+        tuiles[3][5] = new Tuile(Zone.LaCaverneDuBrasier, Etat.Inondé);
+        tuiles[4][1] = new Tuile(Zone.LeTempleDuSoleil, Etat.Sec);
+        tuiles[4][2] = new Tuile(Zone.LeTempleDeLaLune, Etat.Sombré);
+        tuiles[4][3] = new Tuile(Zone.LePalaisDesMarees, Etat.Sec);
+        tuiles[4][4] = new Tuile(Zone.LeValDuCrepuscule, Etat.Sec);
+        tuiles[5][2] = new Tuile(Zone.LaTourDuGuet, Etat.Sec);
+        tuiles[5][3] = new Tuile(Zone.LeJardinDesMurmures, Etat.Inondé);
     }
 
 }
