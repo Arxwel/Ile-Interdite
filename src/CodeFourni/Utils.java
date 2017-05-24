@@ -5,12 +5,13 @@
  */
 package CodeFourni;
 
+import CodeFourni.Parameters;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import javax.swing.JOptionPane;
-import model.aventuriers.Aventurier;
+import Modèle.*;
 
 /**
  *
@@ -72,7 +73,7 @@ public class Utils {
         }
     }
 
-    public static ArrayList<Aventurier> melangerAventuriers(ArrayList<Aventurier> arrayList) {
+    public static ArrayList<Joueur> melangerAventuriers(ArrayList<Joueur> arrayList) {
         if (Parameters.ALEAS) {
             Collections.shuffle(arrayList);
         }

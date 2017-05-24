@@ -1,13 +1,14 @@
 package Modèle;
 
+import java.awt.Color;
 import java.util.*;
 
 public abstract class Joueur {
 
 	Tuile position;
 	Collection<CarteTrésor> carteTrésors;
-	private string nom;
-	private Couleur couleur;
+	private String nom;
+	private Color couleur;
 
 	public Joueur() {
 		// TODO - implement Joueur.Joueur

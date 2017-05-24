@@ -1,24 +1,20 @@
-package Modèle;
+package Controleur;
 
+import Modèle.CarteInondation;
+import Modèle.Grille;
+import Modèle.Joueur;
 import java.util.*;
 
 public class Controleur {
-
-	Collection<CarteInondation> cartesInondation;
-	VueAventurier vueAventurier;
-	Collection<Joueur> joueurs;
-	private Collection<CarteInondation> défausseInondation;
-	private Collection<CarteInondation> cimetièreInondation;
-
-
-	Grille grille = new Grille();
-
-
-	/**
-	 *
-	 * @param joueur
-	 */
-	private void verifMain(Joueur joueur) {
+    
+    private Collection<CarteInondation> cartesInondation;
+    //private VueAventurier vueAventurier;
+    private Grille grille;
+    private Collection<Joueur> joueurs;
+    private Collection<CarteInondation> défausseInondation;
+    private Collection<CarteInondation> cimetièreInondation;
+    
+    private void verifMain(Joueur joueur) {
 		// TODO - implement Controleur.verifMain
 		throw new UnsupportedOperationException();
 	}
@@ -52,6 +48,15 @@ public class Controleur {
 		// TODO - implement Controleur.isReliquePossible
 		throw new UnsupportedOperationException();
 	}
-        //vous avez des questions?
+    
+    public static void main(String[] args) {
 
+	
+
+	/**
+	 * 
+	 * @param joueur
+	 */
+	
+    }
 }
