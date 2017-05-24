@@ -47,6 +47,9 @@ public class Controleur {
 
     private static  void inscriptionJoueurs() {
         Joueur j1 = new Explorateur("John",Color.RED);
+        Joueur j2 = new Navigateur("John",Color.GREEN);
+        Joueur j3 = new Messager("John",Color.ORANGE);
+        Joueur j4 = new Explorateur("John",Color.PINK);
     }
     
 }
