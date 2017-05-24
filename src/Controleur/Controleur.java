@@ -16,6 +16,8 @@ public class Controleur {
     private static Stack<CarteInondation> piocheInondation;
     private static Stack<CarteInondation> défausseInondation;
     private static Stack<CarteInondation> cimetièreInondation;
+
+    
     private Scanner sc = new Scanner(System.in);
     private static Stack<CarteTresor> piocheCarteTresor;
     
@@ -27,6 +29,11 @@ public class Controleur {
         //Créer les Vues
         initPiocheTresor();
         initPiocheInondation();
+        for (Joueur j: joueurs) {
+            for (int i=0; i<4; i++) {
+                donnerCarte(j);
+          }
+        }
         
 	
 
@@ -90,5 +97,10 @@ public class Controleur {
             }
         }
         Collections.shuffle(piocheInondation);
+    }
+    
+    private static void donnerCarte(Joueur j) {
+        j.getCarteTrésors().add(piocheCarteTresor.firstElement());
+        piocheCarteTresor.remove(0);
     }
 }

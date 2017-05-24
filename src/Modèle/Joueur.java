@@ -94,14 +94,14 @@ public abstract class Joueur {
     /**
      * @return the position
      */
-    private Tuile getPosition() {
+    public Tuile getPosition() {
         return position;
     }
 
     /**
      * @return the carteTrésors
      */
-    private Collection<CarteTresor> getCarteTrésors() {
+    public Collection<CarteTresor> getCarteTrésors() {
         return carteTrésors;
     }
 
