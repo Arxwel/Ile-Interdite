@@ -1,15 +1,15 @@
 package Modèle;
 
 public enum Zone {
-	LePontdesAbimes,
-	LaPortedeBronze,
-	LaCavernedesOmbres,
-	LaPortedeFer,
-	LaPortedOr,
-	LesFalaisesdeLOubli,
-	LePalaisdeCorail,
+	LePontDesAbimes,
+	LaPorteDeBronze,
+	LaCaverneDesOmbres,
+	LaPorteDeFer,
+	LaPorteDOr,
+	LesFalaisesDeLOubli,
+	LePalaisDeCorail,
 	LaPorteDArgent,
-	LesDunesdeLIllusion,
+	LesDunesDeLIllusion,
 	Heliport,
 	LaPorteDeCuivre,
 	LeJardinDesHurlements,
