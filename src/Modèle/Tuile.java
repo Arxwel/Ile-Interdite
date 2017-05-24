@@ -8,12 +8,15 @@ public class Tuile {
 	private ArrayList<Joueur> locataires;
 	private Zone intitule;
 	private Etat etat;
+        private Grille plateau;
 
-        public Tuile(Zone nom, Etat etat) {
+        public Tuile(Zone nom, Etat etat, Grille grille) {
             setIntitule(nom);
             setEtat(etat);
             setCoordonees(coordonees);
             locataires = new ArrayList<>();
+            plateau = grille;
+          
         }
         
 	/**

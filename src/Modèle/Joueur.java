@@ -22,7 +22,8 @@ public abstract class Joueur {
 
 	public ArrayList<Tuile> listerCasesDispo() {
            ArrayList<Tuile> tuileslibres = new ArrayList<>();
-           Tuile t =
+           Tuile t;
+            getTuile(position.getCoordonees().getX(),position.getCoordonees().getY());
            if (position.getCoordonees().getX()) {
                
            }
