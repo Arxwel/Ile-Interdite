@@ -22,6 +22,10 @@ public class Grille {
             }
         }
     }
+    
+    public Tuile getTuile(int x, int y) {
+        return tuiles[x][y];
+    }
 
     private void initGrilleTest() {
         tuiles[0][3] = new Tuile(Zone.LePontDesAbimes, Etat.Sec);
