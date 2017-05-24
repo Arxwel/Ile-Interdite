@@ -6,7 +6,7 @@ public abstract class Joueur {
 
 	Tuile position;
 	Collection<CarteTrésor> carteTrésors;
-	private string nom;
+	private String nom;
 	private Couleur couleur;
 
 	public Joueur() {
