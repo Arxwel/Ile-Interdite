@@ -2,11 +2,11 @@ package Modèle;
 
 public class CarteInondation {
 
-	private Tuile tuile;
+    private Tuile tuile;
         
-        public CarteInondation(Tuile tuile) {
-            setTuile(tuile);
-        }
+    public CarteInondation(Tuile tuile) {
+        setTuile(tuile);
+    }
 
     /**
      * @return the tuile
