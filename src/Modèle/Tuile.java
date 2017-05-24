@@ -12,6 +12,7 @@ public class Tuile {
         public Tuile(Zone nom, Etat etat) {
             setIntitule(nom);
             setEtat(etat);
+            setCoordonees(coordonees);
             locataires = new ArrayList<>();
         }
         
@@ -71,7 +72,7 @@ public class Tuile {
     /**
      * @return the coordonees
      */
-    private Coordonees getCoordonees() {
+    public Coordonees getCoordonees() {
         return coordonees;
     }
 
