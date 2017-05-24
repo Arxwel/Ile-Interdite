@@ -1,6 +1,7 @@
 package Modèle;
 
 import java.util.*;
+import java.util.Arrays;
 
 public class Grille {
 
@@ -12,15 +13,36 @@ public class Grille {
     }
         
     public void initGrille() {
-        for (int l = 0; l < 6; l++) {
-            for (int c = 0; l < 6; l++) {
-                if ((l == 0 && c == 0) || (l == 0 && c == 1) || (l == 1 && c == 0) || (l == 0 && c == 4) || (l == 0 && c == 5) || (l == 1 && c == 5) || (l == 4 && c == 0) || (l == 5 && c == 0) || (l == 5 && c == 1) || (l == 4 && c == 5) || (l == 5 && c == 4) || (l == 5 && c == 5)) {
-                    tuiles[l][c] = null;
-                } else if (l == 0 && c == 2) {
-                        
-                }
+        Random randomGenerator = new Random();
+        //On met toutes les valeurs de la classe énumérée Zone dans une arraylist
+        ArrayList<Zone> listezones = new ArrayList<Zone>(EnumSet.allOf(Zone.class));
+        int index;
+        
+        for (int x = 0; x < 6; x=x+5) {
+            for (int y = 2; y < 4; y++) {
+                index = randomGenerator.nextInt(listezones.size());
+                tuiles[x][y] = new Tuile(listezones.get(index),Etat.Sec, this);
+                listezones.remove(index);
             }
         }
+        
+        for (int x = 1; x < 5; x=x+3) {
+            for (int y = 1; y < 5; y++) {
+                index = randomGenerator.nextInt(listezones.size());
+                tuiles[x][y] = new Tuile(listezones.get(index),Etat.Sec, this);
+                listezones.remove(index);
+            }
+        }
+        
+        for (int x = 2; x < 4; x=x++) {
+            for (int y = 0; y < 6; y++) {
+                index = randomGenerator.nextInt(listezones.size());
+                tuiles[x][y] = new Tuile(listezones.get(index),Etat.Sec, this);
+                listezones.remove(index);
+            }
+        }
+
+
     }
     
     public Tuile getTuile(int x, int y) {
@@ -28,8 +50,8 @@ public class Grille {
     }
 
     private void initGrilleTest() {
-        tuiles[0][3] = new Tuile(Zone.LePontDesAbimes, Etat.Sec, this);
-        tuiles[1][2] = new Tuile(Zone.LaPorteDeBronze, Etat.Inondé, this);
+        tuiles[0][2] = new Tuile(Zone.LePontDesAbimes, Etat.Sec, this);
+        tuiles[0][3] = new Tuile(Zone.LaPorteDeBronze, Etat.Inondé, this);
         tuiles[1][1] = new Tuile(Zone.LaCaverneDesOmbres, Etat.Sec, this);
         tuiles[1][2] = new Tuile(Zone.LaPorteDeFer, Etat.Sec, this);
         tuiles[1][3] = new Tuile(Zone.LaPorteDOr, Etat.Sec, this);
