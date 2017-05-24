@@ -4,8 +4,8 @@ import java.util.*;
 
 public class Tuile {
 
-	Coordonees coordonees;
-	ArrayList<Joueur> locataires;
+	private Coordonees coordonees;
+	private ArrayList<Joueur> locataires;
 	private Zone intitule;
 	private Etat etat;
 
@@ -20,8 +20,7 @@ public class Tuile {
 	 * @param joueur
 	 */
 	public void addLocataire(Joueur joueur) {
-		// TODO - implement Tuile.addLocataire
-		throw new UnsupportedOperationException();
+            this.locataires.add(joueur);
 	}
 
 	/**
@@ -29,8 +28,7 @@ public class Tuile {
 	 * @param joueur
 	 */
 	public void delLocataire(Joueur joueur) {
-		// TODO - implement Tuile.delLocataire
-		throw new UnsupportedOperationException();
+            this.locataires.remove(joueur);
 	}
 
 	/**
@@ -68,6 +66,34 @@ public class Tuile {
      */
     private void setEtat(Etat etat) {
         this.etat = etat;
+    }
+
+    /**
+     * @return the coordonees
+     */
+    private Coordonees getCoordonees() {
+        return coordonees;
+    }
+
+    /**
+     * @param coordonees the coordonees to set
+     */
+    private void setCoordonees(Coordonees coordonees) {
+        this.coordonees = coordonees;
+    }
+
+    /**
+     * @return the locataires
+     */
+    private ArrayList<Joueur> getLocataires() {
+        return locataires;
+    }
+
+    /**
+     * @param locataires the locataires to set
+     */
+    private void setLocataires(ArrayList<Joueur> locataires) {
+        this.locataires = locataires;
     }
 
 }
