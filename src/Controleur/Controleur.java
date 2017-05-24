@@ -1,17 +1,21 @@
 package Modèle;
 
 import java.util.*;
-/*test test*/
+
 public class Controleur {
 
 	Collection<CarteInondation> cartesInondation;
 	VueAventurier vueAventurier;
-	Grille grille;
 	Collection<Joueur> joueurs;
 	private Collection<CarteInondation> défausseInondation;
 	private Collection<CarteInondation> cimetièreInondation;
+
+
+	Grille grille = new Grille();
+
+
 	/**
-	 * 
+	 *
 	 * @param joueur
 	 */
 	private void verifMain(Joueur joueur) {
