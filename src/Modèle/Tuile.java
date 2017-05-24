@@ -9,7 +9,7 @@ public class Tuile {
 	private Zone intitule;
 	private Etat etat;
 
-        public Tuile(Zone nom, Etat etat, Coordonees position) {
+        public Tuile(Zone nom, Etat etat) {
             setIntitule(nom);
             setEtat(etat);
             locataires = new ArrayList<>();
