@@ -63,8 +63,21 @@ public class Controleur {
     }
     
     private static void initPiocheTresor() {
-        for (int i=0, i<5, i++) {
-            piocheCarteTresor.add(new CarteTresor());
+        for (int i=0; i<5; i++) {
+            piocheCarteTresor.add(new CarteRelique(Color.BLACK));
+            piocheCarteTresor.add(new CarteRelique(Color.GREEN));
+            piocheCarteTresor.add(new CarteRelique(Color.RED));
+            piocheCarteTresor.add(new CarteRelique(Color.YELLOW));
         }
+        for (int i=0; i<3; i++) {
+            piocheCarteTresor.add(new CarteMonteeDesEaux());
+        }
+        for (int i=0; i<3; i++) {
+            piocheCarteTresor.add(new CarteSpeciale(TypeSpé.Hélicoptère));
+        }
+        for (int i=0; i<2; i++) {
+           piocheCarteTresor.add(new CarteSpeciale(TypeSpé.SacDeSable));
+        }
+        Collections.shuffle(piocheCarteTresor);
     }
 }
