@@ -7,7 +7,7 @@ import java.util.Scanner;
 public abstract class Joueur {
 
 	private Tuile position;
-	private Collection<CarteTrésor> carteTrésors;
+	private Collection<CarteTresor> carteTrésors;
 	private String nom;
 	private Color couleur;
         
@@ -87,14 +87,14 @@ public abstract class Joueur {
     /**
      * @return the carteTrésors
      */
-    private Collection<CarteTrésor> getCarteTrésors() {
+    private Collection<CarteTresor> getCarteTrésors() {
         return carteTrésors;
     }
 
     /**
      * @param carteTrésors the carteTrésors to set
      */
-    private void setCarteTrésors(Collection<CarteTrésor> carteTrésors) {
+    private void setCarteTrésors(Collection<CarteTresor> carteTrésors) {
         this.carteTrésors = carteTrésors;
     }
 
