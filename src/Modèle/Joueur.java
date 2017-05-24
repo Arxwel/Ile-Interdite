@@ -6,7 +6,7 @@ public abstract class Joueur {
 
 	Tuile position;
 	Collection<CarteTrésor> carteTrésors;
-	private String nom;
+	private string nom;
 	private Couleur couleur;
 
 	public Joueur() {
@@ -31,7 +31,7 @@ public abstract class Joueur {
 
 	public void prendreTrésor() {
 		// TODO - implement Joueur.prendreTrésor
-		System.out.println("J'ai pris le trésor");
+		throw new UnsupportedOperationException();
 	}
 
 	/**

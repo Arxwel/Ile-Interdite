@@ -2,5 +2,5 @@ package Modèle;
 
 public enum TypeSpé {
 	Hélicoptère,
-	SacDeSable
+	Sac de Sable
 }
