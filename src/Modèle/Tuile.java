@@ -100,4 +100,11 @@ public class Tuile {
         this.locataires = locataires;
     }
 
+    /**
+     * @return the plateau
+     */
+    public Grille getPlateau() {
+        return plateau;
+    }
+
 }
