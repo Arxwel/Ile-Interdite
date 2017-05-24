@@ -21,8 +21,12 @@ public abstract class Joueur {
 	}
 
 	public ArrayList<Tuile> listerCasesDispo() {
-		// TODO - implement Joueur.listerCasesDispo
-		throw new UnsupportedOperationException();
+           ArrayList<Tuile> tuileslibres = new ArrayList<>();
+           Tuile t;
+            getTuile(position.getCoordonees().getX(),position.getCoordonees().getY());
+           if (position.getCoordonees().getX()) {
+               
+           }
 	}
 
 	public void assécher() {
