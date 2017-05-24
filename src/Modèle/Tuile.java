@@ -39,9 +39,8 @@ public class Tuile {
 	 * 
 	 * @param newEtat
 	 */
-	public void updateEtat(String newEtat) {
-		// TODO - implement Tuile.updateEtat
-		throw new UnsupportedOperationException();
+	public void updateEtat(Etat newEtat) {
+            this.etat = newEtat;
 	}
 
     /**

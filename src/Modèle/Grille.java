@@ -45,6 +45,10 @@ public class Grille {
 
     }
     
+    public Tuile[][] getTuiles() {
+        return this.tuiles;
+    }
+    
     public Tuile getTuile(int x, int y) {
         return tuiles[x][y];
     }

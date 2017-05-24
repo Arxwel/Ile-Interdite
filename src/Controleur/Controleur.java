@@ -9,12 +9,15 @@ import java.util.Scanner;
 public class Controleur {
 
     
-    private Stack<CarteInondation> cartesInondation;
+    
     //private VueAventurier vueAventurier;
     private static Grille grille;
     private static ArrayList<Joueur> joueurs;
-    private Stack<CarteInondation> défausseInondation;
-    private Stack<CarteInondation> cimetièreInondation;
+    private static Stack<CarteInondation> piocheInondation;
+    private static Stack<CarteInondation> défausseInondation;
+    private static Stack<CarteInondation> cimetièreInondation;
+
+    
     private Scanner sc = new Scanner(System.in);
     private static Stack<CarteTresor> piocheCarteTresor;
     
@@ -25,6 +28,12 @@ public class Controleur {
         grille = new Grille();
         //Créer les Vues
         initPiocheTresor();
+        initPiocheInondation();
+        for (Joueur j: joueurs) {
+            for (int i=0; i<4; i++) {
+                donnerCarte(j);
+          }
+        }
         
 	
 
@@ -79,5 +88,19 @@ public class Controleur {
            piocheCarteTresor.add(new CarteSpeciale(TypeSpé.SacDeSable));
         }
         Collections.shuffle(piocheCarteTresor);
+    }
+    
+    private static void initPiocheInondation() {
+        for (Tuile[] tArray: grille.getTuiles()) {
+            for (Tuile t: tArray) {
+                piocheInondation.add(new CarteInondation(t));
+            }
+        }
+        Collections.shuffle(piocheInondation);
+    }
+    
+    private static void donnerCarte(Joueur j) {
+        j.getCarteTrésors().add(piocheCarteTresor.firstElement());
+        piocheCarteTresor.remove(0);
     }
 }
