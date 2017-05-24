@@ -1,8 +1,8 @@
 package Controleur;
 
-import Modèle.CarteInondation;
-import Modèle.Grille;
-import Modèle.Joueur;
+
+import Modèle.*;
+import java.awt.Color;
 import java.util.*;
 import java.util.Scanner;
 
@@ -46,7 +46,7 @@ public class Controleur {
     }
 
     private static  void inscriptionJoueurs() {
-        
+        Joueur j1 = new Explorateur("John",Color.RED);
     }
     
 }
