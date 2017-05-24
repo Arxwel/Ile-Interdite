@@ -1,7 +1,7 @@
 package Modèle;
 
 import java.util.*;
-/* JESUS */
+
 public class Controleur {
 
 	Collection<CarteInondation> cartesInondation;
