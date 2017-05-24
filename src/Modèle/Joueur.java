@@ -31,7 +31,7 @@ public abstract class Joueur {
 
 	public void prendreTrésor() {
 		// TODO - implement Joueur.prendreTrésor
-		throw new UnsupportedOperationException();
+		System.out.println("J'ai pris le trésor");
 	}
 
 	/**
