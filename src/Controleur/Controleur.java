@@ -10,6 +10,10 @@ public class Controleur {
 	Collection<Joueur> joueurs;
 	private Collection<CarteInondation> défausseInondation;
 	private Collection<CarteInondation> cimetièreInondation;
+        
+        private void jesusReviens() {
+            
+        }
 
 	/**
 	 * 
