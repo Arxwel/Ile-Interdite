@@ -3,11 +3,12 @@ package Modèle;
 import java.awt.Color;
 import java.util.*;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public abstract class Joueur {
 
 	private Tuile position;
-	private Collection<CarteTresor> carteTrésors;
+	private ArrayList<CarteTresor> cartesTrésor;
 	private String nom;
 	private Color couleur;
         
@@ -16,6 +17,7 @@ public abstract class Joueur {
         
 
 	public Joueur(String nom, Color couleur) {
+            cartesTrésor = new ArrayList<>();
             this.setNom(nom);
             this.setCouleur(couleur);
 	}
@@ -101,15 +103,15 @@ public abstract class Joueur {
     /**
      * @return the carteTrésors
      */
-    public Collection<CarteTresor> getCarteTrésors() {
-        return carteTrésors;
+    public Collection<CarteTresor> getCartesTrésor() {
+        return cartesTrésor;
     }
 
     /**
      * @param carteTrésors the carteTrésors to set
      */
     private void setCarteTrésors(Collection<CarteTresor> carteTrésors) {
-        this.carteTrésors = carteTrésors;
+        this.cartesTrésor = cartesTrésor;
     }
 
     /**
