@@ -33,7 +33,6 @@ public class Controleur {
         grille = new Grille();
         //Créer les Vues
         
-        
         initPiocheTresor();
         initPiocheInondation();
         

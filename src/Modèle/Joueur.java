@@ -11,6 +11,7 @@ public abstract class Joueur {
 	private ArrayList<CarteTresor> cartesTrésor;
 	private String nom;
 	private Color couleur;
+        private Zone spawnPoint;
         
         
         private Scanner sc = new Scanner(System.in);
@@ -164,5 +165,9 @@ public abstract class Joueur {
 		// TODO - implement Controleur.isDonPossible
 		throw new UnsupportedOperationException();
 	}
+        
+        public Zone getSpawnPoint() {
+            return this.spawnPoint;
+        }
 
 }
