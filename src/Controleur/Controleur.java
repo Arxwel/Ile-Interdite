@@ -23,12 +23,19 @@ public class Controleur {
     
     
     public static void main(String[] args) {
+        piocheCarteTresor = new Stack<>();
+        piocheInondation = new Stack<>();
+        défausseInondation = new Stack<>();
+        cimetièreInondation = new Stack<>();
+                
         joueurs = new ArrayList<>();
         inscriptionJoueurs();
         grille = new Grille();
         //Créer les Vues
+        
         initPiocheTresor();
         initPiocheInondation();
+        
         for (Joueur j: joueurs) {
             for (int i=0; i<4; i++) {
                 donnerCarte(j);
@@ -100,7 +107,7 @@ public class Controleur {
     }
     
     private static void donnerCarte(Joueur j) {
-        j.getCarteTrésors().add(piocheCarteTresor.firstElement());
+        j.getCartesTrésor().add(piocheCarteTresor.firstElement());
         piocheCarteTresor.remove(0);
     }
 }
