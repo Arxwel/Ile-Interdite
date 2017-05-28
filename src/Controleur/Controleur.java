@@ -46,6 +46,9 @@ public class Controleur {
           }
         }
         
+        
+        // A vérifier avec D de Sequence
+        
         while (!isPartieFinie()) {
             débutTour();
         } 
