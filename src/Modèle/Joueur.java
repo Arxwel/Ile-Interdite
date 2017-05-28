@@ -89,9 +89,23 @@ public abstract class Joueur {
             
 	}
 
-	public Collection<Tuile> listerTuilesAss() {
-		// TODO - implement Joueur.listerTuilesAss
-		throw new UnsupportedOperationException();
+	public ArrayList<Tuile> listerTuilesAss() {
+		 ArrayList<Tuile> tuilesinond = new ArrayList<>();
+
+           if (((position.getPlateau().getTuile(position.getCoordonees().getX()-1,position.getCoordonees().getY()) != null)) && (position.getPlateau().getTuile(position.getCoordonees().getX()-1,position.getCoordonees().getY()).getEtat() == Etat.Inondé)) {
+               //tuile à gauche du joueur
+               tuilesinond.add(position.getPlateau().getTuile(position.getCoordonees().getX()-1,position.getCoordonees().getY()));
+           } else if(((position.getPlateau().getTuile(position.getCoordonees().getX()+1,position.getCoordonees().getY()) != null)) && (position.getPlateau().getTuile(position.getCoordonees().getX()+1,position.getCoordonees().getY()).getEtat() == Etat.Inondé)) {
+               //tuile à droite du joueur
+               tuilesinond.add(position.getPlateau().getTuile(position.getCoordonees().getX()+1,position.getCoordonees().getY()));
+           } else if(((position.getPlateau().getTuile(position.getCoordonees().getY()-1,position.getCoordonees().getY()) != null)) && (position.getPlateau().getTuile(position.getCoordonees().getX(),position.getCoordonees().getY()-1).getEtat() == Etat.Inondé)) {
+               //tuile en dessous du joueur
+               tuilesinond.add(position.getPlateau().getTuile(position.getCoordonees().getX(),position.getCoordonees().getY()-1));
+           } else if(((position.getPlateau().getTuile(position.getCoordonees().getY()+1,position.getCoordonees().getY()) != null)) && (position.getPlateau().getTuile(position.getCoordonees().getX(),position.getCoordonees().getY()+1).getEtat() == Etat.Inondé)){
+               //tuile au-dessus du joueur
+               tuilesinond.add(position.getPlateau().getTuile(position.getCoordonees().getX(),position.getCoordonees().getY()+1));
+           }
+           return tuilesinond;
 	}
 
     /**
