@@ -17,6 +17,10 @@ public class Controleur {
     private static Stack<CarteInondation> défausseInondation;
     private static Stack<CarteInondation> cimetièreInondation;
 
+    private static boolean isPartieFinie() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     
     private Scanner sc = new Scanner(System.in);
     private static Stack<CarteTresor> piocheCarteTresor;
@@ -42,6 +46,9 @@ public class Controleur {
           }
         }
         
+        while (!isPartieFinie()) {
+            débutTour();
+        } 
 	
 
 	
@@ -54,7 +61,7 @@ public class Controleur {
     }
 
 
-    public void débutTour() {
+    public static void débutTour() {
 	// TODO - implement Controleur.débutTour
 	throw new UnsupportedOperationException();
     }
