@@ -17,11 +17,24 @@ public class Grille {
         //On met toutes les valeurs de la classe énumérée Zone dans une arraylist
         ArrayList<Zone> listezones = new ArrayList<Zone>(EnumSet.allOf(Zone.class));
         int index;
+        //On initialise les tuiles impossibles à atteindre pour pouvoir faire des tests plus tard
+        tuiles[0][0] = null;
+        tuiles[0][1] = null;
+        tuiles[0][4] = null;
+        tuiles[0][5] = null;
+        tuiles[1][0] = null;
+        tuiles[1][5] = null;
+        tuiles[4][0] = null;
+        tuiles[4][5] = null;
+        tuiles[5][0] = null;
+        tuiles[5][1] = null;
+        tuiles[5][4] = null;
+        tuiles[5][5] = null;
         
         for (int x = 0; x < 6; x=x+5) {
             for (int y = 2; y < 4; y++) {
-                index = randomGenerator.nextInt(listezones.size());
-                tuiles[x][y] = new Tuile(listezones.get(index),Etat.Sec, this);
+                index = randomGenerator.nextInt(listezones.size()); //On prends l'index d'une zone au hasard parmi celles qui restent
+                tuiles[x][y] = new Tuile(listezones.get(index),Etat.Sec, this); //On créé la tuile avec la zone récupérée, on initialise à Sec
                 listezones.remove(index);
             }
         }
@@ -54,6 +67,20 @@ public class Grille {
     }
 
     private void initGrilleTest() {
+        //Tuiles Impossibles
+        tuiles[0][0] = null;
+        tuiles[0][1] = null;
+        tuiles[0][4] = null;
+        tuiles[0][5] = null;
+        tuiles[1][0] = null;
+        tuiles[1][5] = null;
+        tuiles[4][0] = null;
+        tuiles[4][5] = null;
+        tuiles[5][0] = null;
+        tuiles[5][1] = null;
+        tuiles[5][4] = null;
+        tuiles[5][5] = null;
+        //
         tuiles[0][2] = new Tuile(Zone.LePontDesAbimes, Etat.Sec, this);
         tuiles[0][3] = new Tuile(Zone.LaPorteDeBronze, Etat.Inondé, this);
         tuiles[1][1] = new Tuile(Zone.LaCaverneDesOmbres, Etat.Sec, this);
