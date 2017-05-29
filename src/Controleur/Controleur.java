@@ -16,24 +16,29 @@ public class Controleur {
     private static Stack<CarteInondation> piocheInondation;
     private static Stack<CarteInondation> défausseInondation;
     private static Stack<CarteInondation> cimetièreInondation;
+    private static Joueur joueurActif;
+    private static int numTour = 0;
+    private static int nbact;
+    private static boolean[] actionsPossibles = new boolean[4];
+    private static Scanner sc = new Scanner(System.in);
+    private static Stack<CarteTresor> piocheCarteTresor;
+    
 
     private static boolean isPartieFinie() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     
-    private Scanner sc = new Scanner(System.in);
-    private static Stack<CarteTresor> piocheCarteTresor;
-    
     
     public static void main(String[] args) {
+        
         piocheCarteTresor = new Stack<>();
         piocheInondation = new Stack<>();
         défausseInondation = new Stack<>();
         cimetièreInondation = new Stack<>();
                 
         joueurs = new ArrayList<>();
-        inscriptionJoueurs();
+        inscriptionJoueurs(); // A faire
         grille = new Grille();
         //Créer les Vues
         
@@ -51,8 +56,15 @@ public class Controleur {
         
         while (!isPartieFinie()) {
             débutTour();
-        }
-    }
+            
+            
+            }
+            
+            
+    
+            numTour++;
+        } 
+	
     
     private void verifMain(Joueur joueur) {
 	// TODO - implement Controleur.verifMain
@@ -61,13 +73,59 @@ public class Controleur {
 
 
     public static void débutTour() {
-	// TODO - implement Controleur.débutTour
-	throw new UnsupportedOperationException();
+        setJoueurActif();
+        nbact =3;
+        while (nbact>0) {
+            actionsPossibles[0]=joueurActif.isMvmntPossible();
+            actionsPossibles[1]=joueurActif.isAssPossible();
+            actionsPossibles[2]=joueurActif.isDonPossible();
+            actionsPossibles[3]=joueurActif.isReliquePossible();
+            
+            boolean choixValide = false; // /!\ ATTENTION C'EST DANGEREUX !!!!!
+            while (!choixValide) {
+                if (actionsPossibles[0]) {
+                    System.out.println("1. Déplacer");
+                }
+                if (actionsPossibles[1]) {
+                    System.out.println("2. Assécher");
+                }
+                if (actionsPossibles[2]) {
+                    System.out.println("3. Donner");
+                }
+                if (actionsPossibles[3]) {
+                    System.out.println("4. Ramasser");
+                }
+                System.out.println("Saisissez le numéro de l'action:    STP rentre pas nawak");
+                int choix;
+                choix = sc.nextInt();
+                if (sc.hasNextInt(choix) && choix<5) {
+                    if (actionsPossibles[choix-1]) {
+                        choixValide = true;
+                        switch (choix-1) {
+                            case 0:
+                                joueurActif.déplacer();
+                                break;
+                            case 1:
+                                joueurActif.assécher();
+                                break;
+                            case 2:
+                                joueurActif.donnerCarte();
+                                break;
+                            case 3:
+                                joueurActif.prendreTrésor();
+                                break;
+                                
+                        }
+                    }
+                }
+            }
+        nbact--;
+	
+        }
     }
 
-    public void setJoueurActif() {
-        // TODO - implement Controleur.setJoueurActif
-	throw new UnsupportedOperationException();
+    public static void setJoueurActif() {
+        joueurActif = joueurs.get(numTour%4);
     }
 
     private static void inscriptionJoueurs() {
