@@ -166,8 +166,8 @@ public abstract class Joueur {
             return !this.listerTuilesAssechables().isEmpty();
 	}
 
-	public boolean isReliquePossible() {
-            return true; //En construction /!\
+	public boolean isReliquePossible(Color c) {
+            return 
 	}
         
 	public boolean isDonPossible(Joueur destinataire) {
