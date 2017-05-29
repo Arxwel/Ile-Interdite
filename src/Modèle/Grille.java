@@ -80,7 +80,7 @@ public class Grille {
         tuiles[5][1] = null;
         tuiles[5][4] = null;
         tuiles[5][5] = null;
-        //
+        //Tuiles existantes
         tuiles[0][2] = new Tuile(Zone.LePontDesAbimes, Etat.Sec, this);
         tuiles[0][3] = new Tuile(Zone.LaPorteDeBronze, Etat.Inondé, this);
         tuiles[1][1] = new Tuile(Zone.LaCaverneDesOmbres, Etat.Sec, this);

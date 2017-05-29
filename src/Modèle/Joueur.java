@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public abstract class Joueur {
 
 	private Tuile position;
-	private ArrayList<CarteTresor> cartesTrésor;
+	private ArrayList<CarteTresor> mainJoueur;
 	private String nom;
 	private Color couleur;
         private Zone spawnPoint;
@@ -18,7 +18,7 @@ public abstract class Joueur {
         
 
 	public Joueur(String nom, Color couleur) {
-            cartesTrésor = new ArrayList<>();
+            mainJoueur = new ArrayList<>();
             this.setNom(nom);
             this.setCouleur(couleur);
 	}
@@ -89,7 +89,7 @@ public abstract class Joueur {
             
 	}
 
-	public ArrayList<Tuile> listerTuilesAss() {
+	public ArrayList<Tuile> listerTuilesAssechables() {
 		 ArrayList<Tuile> tuilesinond = new ArrayList<>();
 
            if (((position.getPlateau().getTuile(position.getCoordonees().getX()-1,position.getCoordonees().getY()) != null)) && (position.getPlateau().getTuile(position.getCoordonees().getX()-1,position.getCoordonees().getY()).getEtat() == Etat.Inondé)) {
@@ -119,14 +119,14 @@ public abstract class Joueur {
      * @return the carteTrésors
      */
     public Collection<CarteTresor> getCartesTrésor() {
-        return cartesTrésor;
+        return mainJoueur;
     }
 
     /**
      * @param carteTrésors the carteTrésors to set
      */
     private void setCarteTrésors(Collection<CarteTresor> carteTrésors) {
-        this.cartesTrésor = cartesTrésor;
+        this.mainJoueur = mainJoueur;
     }
 
     /**
@@ -158,26 +158,20 @@ public abstract class Joueur {
     }
     
     
-	public void isMvmntPossible() {
-		// TODO - implement Controleur.isMvmntPossible
-		throw new UnsupportedOperationException();
+	public boolean isMvmntPossible() {
+            return !this.listerCasesDispo().isEmpty();
 	}
 
-	public void isAssPossible() {
-		// TODO - implement Controleur.isAssPossible
-		throw new UnsupportedOperationException();
+	public boolean isAssPossible() {
+            return !this.listerTuilesAssechables().isEmpty();
 	}
 
-	public void isReliquePossible() {
-		// TODO - implement Controleur.isReliquePossible
-		throw new UnsupportedOperationException();
+	public boolean isReliquePossible() {
+            return true; //En construction /!\
 	}
         
-        
-
-	public void isDonPossible() {
-		// TODO - implement Controleur.isDonPossible
-		throw new UnsupportedOperationException();
+	public boolean isDonPossible(Joueur destinataire) {
+            return (!this.getCartesTrésor().isEmpty()) && (this.getPosition() == destinataire.getPosition());
 	}
         
         public Zone getSpawnPoint() {

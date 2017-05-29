@@ -51,11 +51,7 @@ public class Controleur {
         
         while (!isPartieFinie()) {
             débutTour();
-        } 
-	
-
-	
-	
+        }
     }
     
     private void verifMain(Joueur joueur) {

@@ -1,5 +1,6 @@
 package Modèle;
 
+import java.awt.Color;
 import java.util.*;
 
 public class Tuile {
@@ -9,6 +10,7 @@ public class Tuile {
 	private Zone intitule;
 	private Etat etat;
         private Grille plateau;
+        private Color reliqueDispo;
 
         public Tuile(Zone nom, Etat etat, Grille grille) {
             setIntitule(nom);
@@ -17,6 +19,15 @@ public class Tuile {
             locataires = new ArrayList<>();
             plateau = grille;
           
+        }
+        
+        public Tuile(Zone nom, Etat etat, Grille grille, Color reliqueDispo) {
+            setIntitule(nom);
+            setEtat(etat);
+            setCoordonees(coordonees);
+            locataires = new ArrayList<>();
+            plateau = grille;
+            this.reliqueDispo = reliqueDispo;
         }
         
 	/**
