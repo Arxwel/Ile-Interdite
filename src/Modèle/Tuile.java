@@ -99,7 +99,7 @@ public class Tuile {
     /**
      * @return the locataires
      */
-    private ArrayList<Joueur> getLocataires() {
+    public ArrayList<Joueur> getLocataires() {
         return locataires;
     }
 
@@ -115,6 +115,20 @@ public class Tuile {
      */
     public Grille getPlateau() {
         return plateau;
+    }
+
+    /**
+     * @return the reliqueDispo
+     */
+    public Color getReliqueDispo() {
+        return reliqueDispo;
+    }
+
+    /**
+     * @param reliqueDispo the reliqueDispo to set
+     */
+    private void setReliqueDispo(Color reliqueDispo) {
+        this.reliqueDispo = reliqueDispo;
     }
 
 }

@@ -118,14 +118,14 @@ public abstract class Joueur {
     /**
      * @return the carteTrésors
      */
-    public Collection<CarteTresor> getCartesTrésor() {
+    public Collection<CarteTresor> getMainJoueur() {
         return mainJoueur;
     }
 
     /**
-     * @param carteTrésors the carteTrésors to set
+     * @param carteTresor the carteTresor to set
      */
-    private void setCarteTrésors(Collection<CarteTresor> carteTrésors) {
+    private void setCarteTresor(Collection<CarteTresor> carteTresor) {
         this.mainJoueur = mainJoueur;
     }
 
@@ -166,12 +166,23 @@ public abstract class Joueur {
             return !this.listerTuilesAssechables().isEmpty();
 	}
 
-	public boolean isReliquePossible(Color c) {
-            return 
+	public boolean isReliquePossible() {
+            //couleur relique == couleur cartes && position joueur == tuile relique && nb cartes relique >= 4
+            //return c.equals(this.getPosition().getReliqueDispo()) && c.equals(this.getCartesTresor())
+            int n = 0;
+            if (this.getPosition().getReliqueDispo() != null) {
+                Color c = this.getPosition().getReliqueDispo();
+                for(CarteTresor carte: this.getMainJoueur()) {
+                    if (carte.equals(new CarteRelique(c))) {
+                        n++;
+                    }
+                }
+            }
+            return (n>=4);
 	}
         
-	public boolean isDonPossible(Joueur destinataire) {
-            return (!this.getCartesTrésor().isEmpty()) && (this.getPosition() == destinataire.getPosition());
+	public boolean isDonPossible() {
+            return (!this.getMainJoueur().isEmpty()) && (this.getPosition().getLocataires().size()>1);
 	}
         
         public Zone getSpawnPoint() {

@@ -113,7 +113,7 @@ public class Controleur {
     }
     
     private static void donnerCarte(Joueur j) {
-        j.getCartesTrésor().add(piocheCarteTresor.firstElement());
+        j.getCartesTresor().add(piocheCarteTresor.firstElement());
         piocheCarteTresor.remove(0);
     }
 }
