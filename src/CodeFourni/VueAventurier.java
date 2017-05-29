@@ -1,6 +1,6 @@
 package CodeFourni;
 
-﻿package Vue;
+package Vue;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

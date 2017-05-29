@@ -71,10 +71,10 @@ public class Controleur {
     }
 
     private static void inscriptionJoueurs() {
-        Joueur j1 = new Explorateur("John",Color.RED);
-        Joueur j2 = new Navigateur("John",Color.GREEN);
+        Joueur j1 = new Explorateur("Jason",Color.RED);
+        Joueur j2 = new Navigateur("Tommy",Color.GREEN);
         Joueur j3 = new Messager("John",Color.ORANGE);
-        Joueur j4 = new Explorateur("John",Color.PINK);
+        Joueur j4 = new Explorateur("Kim",Color.PINK);
         joueurs.add(j1);
         joueurs.add(j2);
         joueurs.add(j3);
@@ -113,7 +113,7 @@ public class Controleur {
     }
     
     private static void donnerCarte(Joueur j) {
-        j.getCartesTresor().add(piocheCarteTresor.firstElement());
+        j.getMainJoueur().add(piocheCarteTresor.firstElement());
         piocheCarteTresor.remove(0);
     }
 }
