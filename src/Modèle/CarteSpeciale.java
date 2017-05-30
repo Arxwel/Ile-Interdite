@@ -12,4 +12,13 @@ public class CarteSpeciale extends CarteTresor {
         this.type = type;
     }
 
+    /**
+     * @return the type
+     */
+    public TypeSpé getType() {
+        return type;
+    }
+    
+    
+
 }

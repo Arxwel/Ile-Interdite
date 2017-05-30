@@ -118,7 +118,7 @@ public abstract class Joueur {
     /**
      * @return the carteTrésors
      */
-    public Collection<CarteTresor> getMainJoueur() {
+    public ArrayList<CarteTresor> getMainJoueur() {
         return mainJoueur;
     }
 
@@ -132,7 +132,7 @@ public abstract class Joueur {
     /**
      * @return the nom
      */
-    private String getNom() {
+    public String getNom() {
         return nom;
     }
 
@@ -158,17 +158,16 @@ public abstract class Joueur {
     }
     
     
-	public boolean isMvmntPossible() {
-            return !this.listerCasesDispo().isEmpty();
-	}
+    public boolean isMvmntPossible() {
+        return !this.listerCasesDispo().isEmpty();
+    }
 
-	public boolean isAssPossible() {
-            return !this.listerTuilesAssechables().isEmpty();
-	}
+    public boolean isAssPossible() {
+        return !this.listerTuilesAssechables().isEmpty();
+    }
 
 	public boolean isReliquePossible() {
             //couleur relique == couleur cartes && position joueur == tuile relique && nb cartes relique >= 4
-            //return c.equals(this.getPosition().getReliqueDispo()) && c.equals(this.getCartesTresor())
             int n = 0;
             if (this.getPosition().getReliqueDispo() != null) {
                 Color c = this.getPosition().getReliqueDispo();
@@ -187,6 +186,14 @@ public abstract class Joueur {
         
         public Zone getSpawnPoint() {
             return this.spawnPoint;
+        }
+        
+        public void defausserCarte() {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+        
+        public void useCarteSpe() {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
 
 }

@@ -66,10 +66,29 @@ public class Controleur {
         } 
 	
     
-    private void verifMain(Joueur joueur) {
-	// TODO - implement Controleur.verifMain
-	throw new UnsupportedOperationException();
+    private void verifMain(Joueur joueur) {        
+        while (joueur.getMainJoueur().size() >= 6) {
+            System.out.println(joueur.getNom() + " a trop de cartes en main. Il doit en défausser ou en utiliser jusqu'à en avoir 5 au plus.");
+            CarteSpeciale cs1 = new CarteSpeciale(TypeSpé.Hélicoptère);
+            CarteSpeciale cs2 = new CarteSpeciale(TypeSpé.SacDeSable);
+            for (int i = 1; i<joueur.getMainJoueur().size(); i++) {
+                if (joueur.getMainJoueur().get(i).equals(cs1)||(joueur.getMainJoueur().get(i).equals(cs2))) {
+                    System.out.println("Carte Hélicoptère. Choisissez votre action: Utiliser, Defausser ou Rien.");                    
+                    String choix = sc.nextLine();
+                    if (choix=="Utiliser") {
+                        joueur.useCarteSpe();
+                    } else if (choix=="Defausser") {
+                        joueur.defausserCarte();
+                    } else if (choix=="Rien") {
+                        
+                    }
+                }
+                
+            }
+        }
     }
+    
+    
 
 
     public static void débutTour() {
