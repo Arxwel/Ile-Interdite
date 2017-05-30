@@ -11,8 +11,8 @@ public class Pilote extends Joueur {
 
     @Override
 	public ArrayList<Tuile> listerCasesDispo() {
-		// TODO - implement Pilote.listerCasesDispo
-		throw new UnsupportedOperationException();
+            Coordonnees coor = this.getPosition().getCoordonees();
+            
 	}
 
 }
