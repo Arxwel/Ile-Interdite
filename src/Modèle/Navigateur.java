@@ -7,6 +7,7 @@ public class Navigateur extends Joueur {
 
     public Navigateur(String nom, Color couleur) {
         super(nom, couleur);
+        this.spawnPoint = Zone.LaPorteDOr;
     }
 
 	public ArrayList<Tuile> listerCasesDispo() {

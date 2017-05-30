@@ -7,6 +7,7 @@ public class Explorateur extends Joueur {
 
     public Explorateur(String nom, Color couleur) {
         super(nom, couleur);
+        this.spawnPoint = Zone.LaPorteDeCuivre;
     }
 
     @Override
