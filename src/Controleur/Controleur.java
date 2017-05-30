@@ -132,7 +132,7 @@ public class Controleur {
         Joueur j1 = new Explorateur("Jason",Color.RED);
         Joueur j2 = new Navigateur("Tommy",Color.GREEN);
         Joueur j3 = new Messager("John",Color.ORANGE);
-        Joueur j4 = new Explorateur("Kim",Color.PINK);
+        Joueur j4 = new Pilote("Kim",Color.PINK);
         joueurs.add(j1);
         joueurs.add(j2);
         joueurs.add(j3);
