@@ -2,6 +2,8 @@ package Controleur;
 
 
 import Modèle.*;
+import Vue.VueInscription;
+import Vue.VueInscription;
 import java.awt.Color;
 import java.util.*;
 import java.util.Scanner;
@@ -129,6 +131,7 @@ public class Controleur {
     }
 
     private static void inscriptionJoueurs() {
+        /*
         Joueur j1 = new Explorateur("Jason",Color.RED);
         Joueur j2 = new Navigateur("Tommy",Color.GREEN);
         Joueur j3 = new Messager("John",Color.ORANGE);
@@ -137,7 +140,7 @@ public class Controleur {
         joueurs.add(j2);
         joueurs.add(j3);
         joueurs.add(j4);
-        
+        */
         
         
     }
