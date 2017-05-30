@@ -42,6 +42,7 @@ public class Controleur {
         joueurs = new ArrayList<>();
         inscriptionJoueurs(); // A faire
         grille = new Grille();
+        initPositionAventurier();
         //Créer les Vues
         
         initPiocheTresor();
@@ -66,6 +67,20 @@ public class Controleur {
     
             numTour++;
         } 
+
+    private static void initPositionAventurier() {
+        for (Joueur j: joueurs) {
+            Zone spawn = j.getSpawnPoint();
+            for (Tuile[] tArr: grille.getTuiles()) {
+                for (Tuile t: tArr) {
+                    if (t.getIntitule() == spawn) {
+                        t.addLocataire(j);
+                        j.setPosition((t));
+                    }
+                }
+            }
+        }
+    }
 	
     
     private void verifMain(Joueur joueur) {

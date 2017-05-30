@@ -11,7 +11,7 @@ public abstract class Joueur {
 	private ArrayList<CarteTresor> mainJoueur;
 	private String nom;
 	private Color couleur;
-        private Zone spawnPoint;
+        protected Zone spawnPoint;
         
         
         private Scanner sc = new Scanner(System.in);

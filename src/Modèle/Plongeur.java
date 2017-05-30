@@ -7,6 +7,7 @@ public class Plongeur extends Joueur {
 
     public Plongeur(String nom, Color couleur) {
         super(nom, couleur);
+        this.spawnPoint = Zone.LaPorteDeFer;
     }
 
     @Override
