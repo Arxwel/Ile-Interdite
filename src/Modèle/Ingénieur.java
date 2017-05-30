@@ -6,6 +6,7 @@ public class Ingénieur extends Joueur {
 
     public Ingénieur(String nom, Color couleur) {
         super(nom, couleur);
+        this.spawnPoint = Zone.LaPorteDeBronze;
         //this.spawnPoint = Zone.
     }
     

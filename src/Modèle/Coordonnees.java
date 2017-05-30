@@ -1,10 +1,10 @@
 package Modèle;
 
-public class Coordonees {
+public class Coordonnees {
 
 	private int x;
 	private int y;
-        public Coordonees(Integer x, Integer y) {
+        public Coordonnees(Integer x, Integer y) {
             this.setX(x);
             this.setY(y);
         }

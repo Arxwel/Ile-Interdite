@@ -2,6 +2,8 @@ package Controleur;
 
 
 import Modèle.*;
+import Vue.VueInscription;
+import Vue.VueInscription;
 import java.awt.Color;
 import java.util.*;
 import java.util.Scanner;
@@ -25,7 +27,7 @@ public class Controleur {
     
 
     private static boolean isPartieFinie() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return false;
     }
 
     
@@ -40,6 +42,7 @@ public class Controleur {
         joueurs = new ArrayList<>();
         inscriptionJoueurs(); // A faire
         grille = new Grille();
+        initPositionAventurier();
         //Créer les Vues
         
         initPiocheTresor();
@@ -64,6 +67,20 @@ public class Controleur {
     
             numTour++;
         } 
+
+    private static void initPositionAventurier() {
+        for (Joueur j: joueurs) {
+            Zone spawn = j.getSpawnPoint();
+            for (Tuile[] tArr: grille.getTuiles()) {
+                for (Tuile t: tArr) {
+                    if (t.getIntitule() == spawn) {
+                        t.addLocataire(j);
+                        j.setPosition((t));
+                    }
+                }
+            }
+        }
+    }
 	
     
     private void verifMain(Joueur joueur) {        
@@ -148,15 +165,16 @@ public class Controleur {
     }
 
     private static void inscriptionJoueurs() {
+        /*
         Joueur j1 = new Explorateur("Jason",Color.RED);
         Joueur j2 = new Navigateur("Tommy",Color.GREEN);
         Joueur j3 = new Messager("John",Color.ORANGE);
-        Joueur j4 = new Explorateur("Kim",Color.PINK);
+        Joueur j4 = new Pilote("Kim",Color.PINK);
         joueurs.add(j1);
         joueurs.add(j2);
         joueurs.add(j3);
         joueurs.add(j4);
-        
+        */
         
         
     }

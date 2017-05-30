@@ -7,12 +7,21 @@ public class Pilote extends Joueur {
 
     public Pilote(String nom, Color couleur) {
         super(nom, couleur);
+        this.spawnPoint = Zone.Heliport;
     }
 
     @Override
 	public ArrayList<Tuile> listerCasesDispo() {
-		// TODO - implement Pilote.listerCasesDispo
-		throw new UnsupportedOperationException();
+            ArrayList<Tuile> dispo = new ArrayList<>();
+            Coordonnees coor = this.getPosition().getCoordonees();
+            for (Tuile[] tArr: this.getPosition().getPlateau().getTuiles()) {
+                for (Tuile t: tArr) {
+                    if (t != null && t.getCoordonees() != coor && t.getEtat() == Etat.Sec) {
+                        dispo.add(t);
+                    }
+                }
+            }
+            return dispo;
 	}
 
 }
