@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Tuile {
 
-	private Coordonees coordonees;
+	private Coordonnees coordonees;
 	private ArrayList<Joueur> locataires;
 	private Zone intitule;
 	private Etat etat;
@@ -85,14 +85,14 @@ public class Tuile {
     /**
      * @return the coordonees
      */
-    public Coordonees getCoordonees() {
+    public Coordonnees getCoordonees() {
         return coordonees;
     }
 
     /**
      * @param coordonees the coordonees to set
      */
-    private void setCoordonees(Coordonees coordonees) {
+    private void setCoordonees(Coordonnees coordonees) {
         this.coordonees = coordonees;
     }
 
