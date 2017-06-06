@@ -5,10 +5,12 @@ import Modèle.*;
 import Vue.VueInscription;
 import Vue.VueInscription;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.*;
 import java.util.Scanner;
 
-public class Controleur {
+public class Controleur implements ActionListener {
 
     
     
@@ -210,5 +212,10 @@ public class Controleur {
     private static void donnerCarte(Joueur j) {
         j.getMainJoueur().add(piocheCarteTresor.firstElement());
         piocheCarteTresor.remove(0);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        
     }
 }

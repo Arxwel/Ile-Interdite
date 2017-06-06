@@ -5,9 +5,10 @@ import java.util.ArrayList;
 
 public class Explorateur extends Joueur {
 
-    public Explorateur(String nom, Color couleur) {
-        super(nom, couleur);
+    public Explorateur(String nom) {
+        super(nom);
         this.spawnPoint = Zone.LaPorteDeCuivre;
+        this.setCouleur(Color.GREEN);
     }
 
     @Override
