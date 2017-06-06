@@ -16,9 +16,13 @@ public class Explorateur extends Joueur {
             Coordonnees coo = this.getPosition().getCoordonees();
             for(int x=-1; x<=1; x++) {
                 for (int y=-1; y<=1; y++) {
-                    if (!((x==0)&&(y==0))&&(this.getPosition().getPlateau().getTuile(coo.getX()+x, coo.getY()+y).getEtat()==Etat.Sec)) {
-                        tuilesDispo.add(this.getPosition().getPlateau().getTuile(coo.getX()+x, coo.getY()+y));
-                    }
+                    Tuile t = this.getPosition();
+                    System.out.println(t.getIntitule().toString() + t.getCoordonees().getX() + t.getCoordonees().getY());
+                    /*if (!((x==0)&&(y==0))&&(this.getPosition().getPlateau().getTuile(coo.getX()+x, coo.getY()+y)!=null)) {
+                        if (this.getPosition().getPlateau().getTuile(coo.getX()+x, coo.getY()+y).getEtat()==Etat.Sec) {
+                            tuilesDispo.add(this.getPosition().getPlateau().getTuile(coo.getX()+x, coo.getY()+y));
+                        }
+                    }*/
                 }
             }
             return tuilesDispo;
