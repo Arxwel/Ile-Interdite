@@ -242,8 +242,7 @@ public class Controleur implements Observateur {
                  JFrame frame = new JFrame("Saisie du Nom");
                  nom = JOptionPane.showInputDialog(frame, "Joueur 1 : Saisisszez votre nom");
                     System.exit(0);
-            }
-             }  
+            }  
                 switch (Vue.VueInscription.getRoleComboJ1()) {
                     case ("Explorateur"):
                         j1 = new Explorateur(nom);
