@@ -7,9 +7,9 @@ package Vue;
 
 import Controleur.Controleur;
 import Modèle.*;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.ArrayList;
-import javafx.scene.paint.Color;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
