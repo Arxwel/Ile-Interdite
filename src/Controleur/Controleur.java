@@ -9,11 +9,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 import java.util.Scanner;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
-public class Controleur implements ActionListener {
-
-    
-    
+public class Controleur implements Observateur {
+  
     //private VueAventurier vueAventurier;
     private static Grille grille;
     private static ArrayList<Joueur> joueurs;
@@ -26,6 +26,21 @@ public class Controleur implements ActionListener {
     private static boolean[] actionsPossibles = new boolean[4];
     private static Scanner sc = new Scanner(System.in);
     private static Stack<CarteTresor> piocheCarteTresor;
+    
+    private VueInscription vueInscription;
+    
+    public Controleur() {
+        grille = null;
+        joueurs = new ArrayList<>();
+        piocheInondation = new Stack<>();
+        défausseInondation = new Stack<>();
+        cimetièreInondation = new Stack<>();
+        joueurActif = null;
+        nbact = 3;
+        piocheCarteTresor = new Stack<>();
+        vueInscription = new VueInscription();
+        vueInscription.setObservateur(this);
+    }
     
 
     private static boolean isPartieFinie() {
@@ -214,8 +229,30 @@ public class Controleur implements ActionListener {
         piocheCarteTresor.remove(0);
     }
 
+    
+
     @Override
-    public void actionPerformed(ActionEvent e) {
-        
+    public void traiterMessage(Message msg) {
+        switch (msg.getType().toString()) {
+            case ("Valider"):
+               Joueur j1, j2, j3, j4;
+               String nom;
+               nom = Vue.VueInscription.getNomFieldJ1();
+             while(nom == null) {
+                 JFrame frame = new JFrame("Saisie du Nom");
+                 nom = JOptionPane.showInputDialog(frame, "Joueur 1 : Saisisszez votre nom");
+                    System.exit(0);
+            }
+             }  
+                switch (Vue.VueInscription.getRoleComboJ1()) {
+                    case ("Explorateur"):
+                        j1 = new Explorateur(nom);
+                    break;
+                    case ("Ingénieur"):
+                        j1 = new Ingénieur(nom);
+                    break;
+                } 
+            break;
+        }
     }
 }

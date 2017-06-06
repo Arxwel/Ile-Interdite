@@ -6,6 +6,9 @@
 package Vue;
 
 import Controleur.Controleur;
+import Controleur.Message;
+import Controleur.Observateur;
+import Controleur.TypeMessage;
 import Modèle.Joueur;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -49,29 +52,31 @@ public class VueInscription {
     private final JLabel roleLabel1;
     private final JLabel j1Label;
     private final JPanel j1GridPanel;
-    private final JTextField nomFieldJ1;
-    private final JComboBox roleComboJ1;
+    private static JTextField nomFieldJ1;
+    private static JComboBox roleComboJ1;
     
     private final JLabel nomLabel2;
     private final JLabel roleLabel2;
     private final JLabel j2Label;
     private final JPanel j2GridPanel;
-    private final JTextField nomFieldJ2;
-    private final JComboBox roleComboJ2;
+    private static JTextField nomFieldJ2;
+    private static JComboBox roleComboJ2;
     
     private final JLabel nomLabel3;
     private final JLabel roleLabel3;
     private final JLabel j3Label;
     private final JPanel j3GridPanel;
-    private final JTextField nomFieldJ3;
-    private final JComboBox roleComboJ3;
+    private static JTextField nomFieldJ3;
+    private static JComboBox roleComboJ3;
     
     private final JLabel nomLabel4;
     private final JLabel roleLabel4;
     private final JLabel j4Label;
     private final JPanel j4GridPanel;
-    private final JTextField nomFieldJ4;
-    private final JComboBox roleComboJ4;
+    private static JTextField nomFieldJ4;
+    private static JComboBox roleComboJ4;
+    
+    private Observateur observateur;
     
     
     public VueInscription() {
@@ -228,7 +233,14 @@ public class VueInscription {
         j4GridPanel.add(new JPanel());
         
         
-        buttVal.addActionListener(Controleur);
+        buttVal.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message msg = new Message(TypeMessage.Valider);
+                observateur.traiterMessage(msg);
+            }
+            
+        });
         
         window.setVisible(true);
     }
@@ -236,5 +248,65 @@ public class VueInscription {
     public static void main(String [] args) {
         // Instanciation de la fenêtre 
         VueInscription v = new VueInscription();
+    }
+
+    /**
+     * @return the nomFieldJ1
+     */
+    public static String getNomFieldJ1() {
+        return nomFieldJ1.getSelectedText();
+    }
+
+    /**
+     * @return the roleComboJ1
+     */
+    public static String getRoleComboJ1() {
+        return roleComboJ1.getSelectedItem().toString();
+    }
+
+    /**
+     * @return the nomFieldJ2
+     */
+    public static String getNomFieldJ2() {
+        return nomFieldJ2.getSelectedText();
+    }
+
+    /**
+     * @return the roleComboJ2
+     */
+    public static String getRoleComboJ2() {
+        return roleComboJ2.getSelectedItem().toString();
+    }
+
+    /**
+     * @return the nomFieldJ3
+     */
+    public static String getNomFieldJ3() {
+        return nomFieldJ3.getSelectedText();
+    }
+
+    /**
+     * @return the roleComboJ3
+     */
+    public static String getRoleComboJ3() {
+        return roleComboJ3.getSelectedItem().toString();
+    }
+
+    /**
+     * @return the nomFieldJ4
+     */
+    public static String getNomFieldJ4() {
+        return nomFieldJ4.getSelectedText();
+    }
+
+    /**
+     * @return the roleComboJ4
+     */
+    public static String getRoleComboJ4() {
+        return roleComboJ4.getSelectedItem().toString();
+    }
+    
+    public void setObservateur(Observateur o) {
+        this.observateur = o;
     }
 }
