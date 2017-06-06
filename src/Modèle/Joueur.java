@@ -46,7 +46,23 @@ public abstract class Joueur {
 
 	public void assécher() {
 		// TODO - implement Joueur.assécher
-		throw new UnsupportedOperationException();
+            ArrayList<Tuile> tuilesInon = new ArrayList<>(listerTuilesAssechables());
+            
+            Integer i = 0;
+            for (Tuile t: tuilesInon) {
+                System.out.println(i);
+                System.out.println(t.getIntitule().toString());
+                i++;
+            }
+            System.out.println("Choisissez:");
+            String choix = sc.nextLine();
+            //Jusque ici
+            
+            
+            
+            Tuile tuileAAssecher = tuilesInon.get(Integer.getInteger(choix));            
+            tuileAAssecher.setEtat(Etat.Sec);
+
 	}
 
 	public void donnerCarte() {
@@ -195,7 +211,7 @@ public abstract class Joueur {
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
         
-        public void useCarteSpe() {
+        public void useCarteSpe(CarteSpeciale cs) {
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
 
