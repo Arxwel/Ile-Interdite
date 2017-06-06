@@ -193,7 +193,7 @@ public abstract class Joueur {
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
         
-        public void useCarteSpe() {
+        public void useCarteSpe(CarteSpeciale cs) {
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
 
