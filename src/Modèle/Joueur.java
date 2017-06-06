@@ -46,10 +46,10 @@ public abstract class Joueur {
 
 	public void assécher() {
 		// TODO - implement Joueur.assécher
-            ArrayList<Tuile> tuilesAss = new ArrayList<>(listerTuilesAssechables());
+            ArrayList<Tuile> tuilesInon = new ArrayList<>(listerTuilesAssechables());
             
             Integer i = 0;
-            for (Tuile t: tuilesAss) {
+            for (Tuile t: tuilesInon) {
                 System.out.println(i);
                 System.out.println(t.getIntitule().toString());
                 i++;
@@ -60,11 +60,8 @@ public abstract class Joueur {
             
             
             
-            Tuile caseDepl = tuilesAss.get(Integer.getInteger(choix));
-            Tuile tuileQuittee = this.getPosition();
-            tuileQuittee.delLocataire(this);
-            this.setPosition(caseDepl);
-            caseDepl.addLocataire(this);
+            Tuile tuileAAssecher = tuilesInon.get(Integer.getInteger(choix));            
+            tuileAAssecher.setEtat(Etat.Sec);
 
 	}
 

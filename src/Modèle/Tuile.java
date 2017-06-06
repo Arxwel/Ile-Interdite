@@ -78,7 +78,7 @@ public class Tuile {
     /**
      * @param etat the etat to set
      */
-    private void setEtat(Etat etat) {
+    protected void setEtat(Etat etat) {
         this.etat = etat;
     }
 
