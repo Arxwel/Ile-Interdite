@@ -12,16 +12,16 @@ public class Tuile {
         private Grille plateau;
         private Color reliqueDispo;
 
-        public Tuile(Zone nom, Etat etat, Grille grille) {
+        public Tuile(Zone nom, Etat etat, Grille grille, Coordonnees coo) {
             setIntitule(nom);
             setEtat(etat);
-            setCoordonees(coordonees);
+            setCoordonees(coo);
             locataires = new ArrayList<>();
             plateau = grille;
           
         }
         
-        public Tuile(Zone nom, Etat etat, Grille grille, Color reliqueDispo) {
+        public Tuile(Zone nom, Etat etat, Grille grille, Coordonnees coo, Color reliqueDispo) {
             setIntitule(nom);
             setEtat(etat);
             setCoordonees(coordonees);

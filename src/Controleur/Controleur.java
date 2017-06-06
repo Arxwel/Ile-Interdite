@@ -5,10 +5,12 @@ import Modèle.*;
 import Vue.VueInscription;
 import Vue.VueInscription;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.*;
 import java.util.Scanner;
 
-public class Controleur {
+public class Controleur implements ActionListener {
 
     
     
@@ -40,7 +42,7 @@ public class Controleur {
         cimetièreInondation = new Stack<>();
                 
         joueurs = new ArrayList<>();
-        inscriptionJoueurs(); // A faire
+        inscriptionJoueurs();
         grille = new Grille();
         initPositionAventurier();
         //Créer les Vues
@@ -56,6 +58,10 @@ public class Controleur {
         
         
         // A vérifier avec D de Sequence
+        //test
+        for (Joueur j: joueurs) {
+            System.out.println(j.getPosition().getCoordonees().getX()+j.getPosition().getCoordonees().getY());
+        }
         
         while (!isPartieFinie()) {
             débutTour();
@@ -73,7 +79,8 @@ public class Controleur {
             Zone spawn = j.getSpawnPoint();
             for (Tuile[] tArr: grille.getTuiles()) {
                 for (Tuile t: tArr) {
-                    if (t.getIntitule() == spawn) {
+                    if (t!=null && t.getIntitule().equals(spawn)) {
+                        System.out.println(t.getCoordonees().getX());
                         t.addLocataire(j);
                         j.setPosition((t));
                     }
@@ -261,11 +268,11 @@ public class Controleur {
     }
 
     public static void setJoueurActif() {
-        joueurActif = joueurs.get(numTour%4);
+        joueurActif = joueurs.get(numTour%joueurs.size());
     }
 
     private static void inscriptionJoueurs() {
-        /*
+        
         Joueur j1 = new Explorateur("Jason",Color.RED);
         Joueur j2 = new Navigateur("Tommy",Color.GREEN);
         Joueur j3 = new Messager("John",Color.ORANGE);
@@ -274,7 +281,7 @@ public class Controleur {
         joueurs.add(j2);
         joueurs.add(j3);
         joueurs.add(j4);
-        */
+        
         
         
     }
@@ -310,5 +317,10 @@ public class Controleur {
     private static void donnerCarte(Joueur j) {
         j.getMainJoueur().add(piocheCarteTresor.firstElement());
         piocheCarteTresor.remove(0);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        
     }
 }

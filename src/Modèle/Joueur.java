@@ -17,10 +17,12 @@ public abstract class Joueur {
         private Scanner sc = new Scanner(System.in);
         
 
-	public Joueur(String nom, Color couleur) {
+	public Joueur(String nom) {
             mainJoueur = new ArrayList<>();
             this.setNom(nom);
-            this.setCouleur(couleur);
+            this.setCouleur(null);
+            this.spawnPoint = null;
+            this.setPosition(null);
 	}
 
 	public ArrayList<Tuile> listerCasesDispo() {
@@ -154,7 +156,7 @@ public abstract class Joueur {
     /**
      * @param couleur the couleur to set
      */
-    private void setCouleur(Color couleur) {
+    protected void setCouleur(Color couleur) {
         this.couleur = couleur;
     }
     

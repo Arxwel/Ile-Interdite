@@ -5,9 +5,10 @@ import java.util.ArrayList;
 
 public class Plongeur extends Joueur {
 
-    public Plongeur(String nom, Color couleur) {
-        super(nom, couleur);
+    public Plongeur(String nom) {
+        super(nom);
         this.spawnPoint = Zone.LaPorteDeFer;
+        this.setCouleur(Color.BLACK);
     }
 
     @Override
