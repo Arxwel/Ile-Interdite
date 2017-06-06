@@ -273,10 +273,10 @@ public class Controleur implements ActionListener {
 
     private static void inscriptionJoueurs() {
         
-        Joueur j1 = new Explorateur("Jason",Color.RED);
-        Joueur j2 = new Navigateur("Tommy",Color.GREEN);
-        Joueur j3 = new Messager("John",Color.ORANGE);
-        Joueur j4 = new Pilote("Kim",Color.PINK);
+        Joueur j1 = new Explorateur("Jason");
+        Joueur j2 = new Navigateur("Tommy");
+        Joueur j3 = new Messager("John");
+        Joueur j4 = new Pilote("Kim");
         joueurs.add(j1);
         joueurs.add(j2);
         joueurs.add(j3);

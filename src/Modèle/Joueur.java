@@ -46,7 +46,26 @@ public abstract class Joueur {
 
 	public void assécher() {
 		// TODO - implement Joueur.assécher
-		throw new UnsupportedOperationException();
+            ArrayList<Tuile> tuilesAss = new ArrayList<>(listerTuilesAssechables());
+            
+            Integer i = 0;
+            for (Tuile t: tuilesAss) {
+                System.out.println(i);
+                System.out.println(t.getIntitule().toString());
+                i++;
+            }
+            System.out.println("Choisissez:");
+            String choix = sc.nextLine();
+            //Jusque ici
+            
+            
+            
+            Tuile caseDepl = tuilesAss.get(Integer.getInteger(choix));
+            Tuile tuileQuittee = this.getPosition();
+            tuileQuittee.delLocataire(this);
+            this.setPosition(caseDepl);
+            caseDepl.addLocataire(this);
+
 	}
 
 	public void donnerCarte() {
