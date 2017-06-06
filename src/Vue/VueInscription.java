@@ -191,8 +191,12 @@ public class VueInscription {
         
         j2GridPanel.add(nomLabel2);
         j2GridPanel.add(nomFieldJ2);
+        j2GridPanel.add(new JPanel());
+        j2GridPanel.add(new JPanel());
         j2GridPanel.add(roleLabel2);
         j2GridPanel.add(roleComboJ2);
+        j2GridPanel.add(new JPanel());
+        j2GridPanel.add(new JPanel());
 
         // Joueur 3
         j3Panel.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -211,7 +215,7 @@ public class VueInscription {
         j3GridPanel.add(roleLabel3);
         j3GridPanel.add(roleComboJ3);
         j3GridPanel.add(new JPanel());
-        j2GridPanel.add(new JPanel());
+        j3GridPanel.add(new JPanel());
         
         // Joueur 4
         j4Panel.setBorder(BorderFactory.createLineBorder(Color.black));
