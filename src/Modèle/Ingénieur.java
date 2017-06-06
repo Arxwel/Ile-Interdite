@@ -4,9 +4,10 @@ import java.awt.Color;
 
 public class Ingénieur extends Joueur {
 
-    public Ingénieur(String nom, Color couleur) {
-        super(nom, couleur);
+    public Ingénieur(String nom) {
+        super(nom);
         this.spawnPoint = Zone.LaPorteDeBronze;
+        this.setCouleur(Color.RED);
         //this.spawnPoint = Zone.
     }
     

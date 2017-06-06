@@ -5,9 +5,10 @@ import java.util.ArrayList;
 
 public class Pilote extends Joueur {
 
-    public Pilote(String nom, Color couleur) {
-        super(nom, couleur);
+    public Pilote(String nom) {
+        super(nom);
         this.spawnPoint = Zone.Heliport;
+        this.setCouleur(Color.BLUE);
     }
 
     @Override

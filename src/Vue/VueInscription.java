@@ -5,12 +5,16 @@
  */
 package Vue;
 
+import Controleur.Controleur;
+import Modèle.Joueur;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -80,7 +84,7 @@ public class VueInscription {
         mainPanel = new JPanel(new BorderLayout());
         this.window.add(mainPanel);
         
-        String[] roles = {"Aléatoire","Pilote","Messager","Explorateur","Navigateur","Plongeur","Ingénieur"};
+        String[] roles = {"Aléatoire","Pilote","Messager","Explorateur","Navigateur","Plongeur","Ingénieur", "Vide"};
         
         titrePanel = new JPanel();
         buttPanel = new JPanel(new GridLayout(1,6));
@@ -177,18 +181,13 @@ public class VueInscription {
         roleLabel2.setText("Role : ");
         nomFieldJ2.setText("Joueur");
         j2Label.setText("Joueur 2");
-        
         j2Panel.add(j2Label, BorderLayout.NORTH);
         j2Panel.add(j2GridPanel, BorderLayout.CENTER);
         
         j2GridPanel.add(nomLabel2);
         j2GridPanel.add(nomFieldJ2);
-        j2GridPanel.add(new JPanel());
-        j2GridPanel.add(new JPanel());
         j2GridPanel.add(roleLabel2);
         j2GridPanel.add(roleComboJ2);
-        j2GridPanel.add(new JPanel());
-        j2GridPanel.add(new JPanel());
 
         // Joueur 3
         j3Panel.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -229,9 +228,7 @@ public class VueInscription {
         j4GridPanel.add(new JPanel());
         
         
-        
-        
-        
+        buttVal.addActionListener(Controleur);
         
         window.setVisible(true);
     }

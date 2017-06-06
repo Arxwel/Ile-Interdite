@@ -4,9 +4,10 @@ import java.awt.Color;
 
 public class Messager extends Joueur {
 
-    public Messager(String nom, Color couleur) {
-        super(nom, couleur);
+    public Messager(String nom) {
+        super(nom);
         this.spawnPoint = Zone.LaPorteDArgent;
+        this.setCouleur(Color.WHITE);
     }
 
 	public void donnerCarte() {
