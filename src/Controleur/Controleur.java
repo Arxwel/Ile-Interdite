@@ -4,6 +4,7 @@ package Controleur;
 import Modèle.*;
 import Vue.VueInscription;
 import Vue.VueInscription;
+import Vue.VuePlateau;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,6 +29,7 @@ public class Controleur implements Observateur {
     private static Stack<CarteTresor> piocheCarteTresor;
     
     private VueInscription vueInscription;
+    private VuePlateau vuePlateau;
     
     public Controleur() {
         grille = null;
@@ -358,5 +360,8 @@ public class Controleur implements Observateur {
                 } 
             break;
         }
+    }
+    public Grille getGrille() {
+        return grille;
     }
 }
