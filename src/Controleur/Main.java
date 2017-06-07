@@ -23,7 +23,7 @@ public static void main(String[] args) {
         while(!c.isSuite()) {
             System.out.print("");
          }
-        vuePlateau = new VuePlateau();
+        vuePlateau = new VuePlateau(c);
         vuePlateau.getWindow().setVisible(true);
         c.play();
     } 

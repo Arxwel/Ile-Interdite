@@ -38,7 +38,7 @@ public class Controleur implements Observateur {
     private VuePlateau vuePlateau;
     
     public Controleur() {
-        grille = new Grille();;
+        grille = new Grille();
         joueurs = new ArrayList<>();
         piocheInondation = new Stack<>();
         défausseInondation = new Stack<>();
