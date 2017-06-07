@@ -16,6 +16,7 @@ import javax.swing.SwingConstants;
 import static javax.swing.SwingConstants.CENTER;
 import javax.swing.border.MatteBorder;
 import CodeFourni.Utils.Pion;
+import Modèle.*;
 
  
 public class VueAventurier  {
@@ -31,32 +32,32 @@ public class VueAventurier  {
     private final JButton btnTerminerTour;
     private final JTextField position;
     
-    public VueAventurier (String nomJoueur, String nomAventurier, Color couleur){
+    public VueAventurier (Joueur j){
 
         this.window = new JFrame();
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         window.setSize(350, 200);
 
-        window.setTitle(nomJoueur);
+        window.setTitle(j.getNom());
         mainPanel = new JPanel(new BorderLayout());
         this.window.add(mainPanel);
 
         mainPanel.setBackground(new Color(230, 230, 230));
-        mainPanel.setBorder(BorderFactory.createLineBorder(couleur, 2)) ;
+        mainPanel.setBorder(BorderFactory.createLineBorder(j.getCouleur(), 2)) ;
 
         // =================================================================================
         // NORD : le titre = nom de l'aventurier + nom du joueur sur la couleurActive du pion
 
         this.panelAventurier = new JPanel();
-        panelAventurier.setBackground(couleur);
-        panelAventurier.add(new JLabel(nomAventurier,SwingConstants.CENTER ));
+        panelAventurier.setBackground(j.getCouleur());
+        panelAventurier.add(new JLabel(j.getNom(),SwingConstants.CENTER ));
         mainPanel.add(panelAventurier, BorderLayout.NORTH);
    
         // =================================================================================
         // CENTRE : 1 ligne pour position courante
         this.panelCentre = new JPanel(new GridLayout(2, 1));
         this.panelCentre.setOpaque(false);
-        this.panelCentre.setBorder(new MatteBorder(0, 0, 2, 0, couleur));
+        this.panelCentre.setBorder(new MatteBorder(0, 0, 2, 0, j.getCouleur()));
         mainPanel.add(this.panelCentre, BorderLayout.CENTER);
         
         panelCentre.add(new JLabel ("Position", SwingConstants.CENTER));
@@ -83,33 +84,13 @@ public class VueAventurier  {
 
         this.window.setVisible(true);
         mainPanel.repaint();
-    }  
-
-     public JButton getBtnAutreAction() {
-        return btnAutreAction;
-    }
-
-    public void setPosition(String pos) {
-        this.position.setText(pos);
-    }
-
-    public JButton getBtnAller() {
-        return btnAller;
-    }
-    
-    public JButton getBtnAssecher() {
-        return btnAssecher;
-    }
-
-    public JButton getBtnTerminerTour() {
-        return btnTerminerTour;
     }
  
 
     
      public static void main(String [] args) {
         // Instanciation de la fenêtre 
-        VueAventurier vueAventurier = new VueAventurier ("Manon", "Explorateur",Pion.ROUGE.getCouleur() );
+        VueAventurier vueAventurier = new VueAventurier (new Messager("Jack"));
     }
 
     /**

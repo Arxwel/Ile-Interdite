@@ -26,7 +26,7 @@ public class Explorateur extends Joueur {
             return tuilesDispo;
 	}
         
-    @Override
+    @Override //peut assecher des tuiles en diagonale
         public ArrayList<Tuile> listerTuilesAssechables() {
             ArrayList<Tuile> tuilesDispo = new ArrayList<>();
             Coordonnees coo = this.getPosition().getCoordonees();
@@ -40,11 +40,5 @@ public class Explorateur extends Joueur {
             }
             return tuilesDispo;
         }
-
-    @Override //peut assecher des tuiles en diagonale
-	public void assécher() {
-		// TODO - implement Explorateur.assécher
-		throw new UnsupportedOperationException();
-	}
 
 }

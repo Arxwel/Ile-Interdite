@@ -27,10 +27,10 @@ public static void main(String[] args) {
         while(!c.isSuite()) {
             System.out.print("");
         }
-        vj1 = new VueAventurier(c.getJoueurs().get(0).getNom(), c.getJoueurs().get(0).getClass().toString(), c.getJoueurs().get(0).getCouleur());
-        vj2 = new VueAventurier(c.getJoueurs().get(1).getNom(), c.getJoueurs().get(1).getClass().toString(), c.getJoueurs().get(1).getCouleur());
-        vj3 = new VueAventurier(c.getJoueurs().get(2).getNom(), c.getJoueurs().get(2).getClass().toString(), c.getJoueurs().get(2).getCouleur());
-        vj4 = new VueAventurier(c.getJoueurs().get(3).getNom(), c.getJoueurs().get(3).getClass().toString(), c.getJoueurs().get(3).getCouleur());
+        vj1 = new VueAventurier(c.getJoueurs().get(0));
+        vj2 = new VueAventurier(c.getJoueurs().get(1));
+        vj3 = new VueAventurier(c.getJoueurs().get(2));
+        vj4 = new VueAventurier(c.getJoueurs().get(3));
         vuePlateau = new VuePlateau(c);
         vj1.getWindow().setVisible(true);
         vj2.getWindow().setVisible(true);
