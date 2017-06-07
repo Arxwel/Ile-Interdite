@@ -29,7 +29,7 @@ public class VuePlateau {
         window.setSize(800, 600);
         window.setBackground(Color.BLUE);
         
-        ArrayList<JLabel> labelTuiles = new ArrayList<>();
+        ArrayList<JPanel> labelTuiles = new ArrayList<>();
         
         JPanel mapPanel = new JPanel(new GridLayout(6,6));
         window.add(mapPanel);
@@ -42,18 +42,22 @@ public class VuePlateau {
                 Tuile t = g.getTuile(x,y);
                 //fin du test
                 if (t==null || t.getEtat()==Etat.Sombré) {
-                    mapPanel.add(new JPanel());
+                    labelTuiles.add(new JPanel());
+                    labelTuiles.get(labelTuiles.size()-1).setBackground(Color.blue);
                 } else {
                     if (t.getEtat()==Etat.Inondé) {
                         colorBack = Color.BLUE;
                     } else {
                         colorBack = Color.YELLOW;
                     }
-                    labelTuiles.add(new JLabel(t.getIntitule().toString()));
+                    labelTuiles.add(new JPanel());
                     labelTuiles.get(labelTuiles.size()-1).setBackground(colorBack);
-                    mapPanel.add(labelTuiles.get(labelTuiles.size()-1));
+                    labelTuiles.get(labelTuiles.size()-1).add(new JLabel(t.getIntitule().toString()));
                 }
             }
+        }
+        for (JPanel jpp: labelTuiles) {
+            mapPanel.add(jpp);
         }
         window.setVisible(true);
         
