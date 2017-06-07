@@ -106,11 +106,6 @@ public class Grille {
         tuiles[5][2] = new Tuile(Zone.LaTourDuGuet, Etat.Sec, this, new Coordonnees(5,2));
         tuiles[5][3] = new Tuile(Zone.LeJardinDesMurmures, Etat.Inondé, this, new Coordonnees(5,3));
         
-        for (Tuile[] tArr: tuiles) {
-            for (Tuile t: tArr) {
-                System.out.println(t.getCoordonees().getX());
-            }
-        }
     }
 
 }
