@@ -111,6 +111,7 @@ public class VueInscription {
         j1GridPanel = new JPanel(new GridLayout(4,2));
         nomFieldJ1 = new JTextField();
         roleComboJ1 = new JComboBox(roles);
+        roleComboJ1.setSelectedItem(roles[1]);
         
         nomLabel2 = new JLabel();
         roleLabel2= new JLabel();
@@ -118,6 +119,7 @@ public class VueInscription {
         j2GridPanel = new JPanel(new GridLayout(4,2));
         nomFieldJ2 = new JTextField();
         roleComboJ2 = new JComboBox(roles);
+        roleComboJ2.setSelectedItem(roles[2]);
         
         nomLabel3 = new JLabel();
         roleLabel3= new JLabel();
@@ -125,6 +127,7 @@ public class VueInscription {
         j3GridPanel = new JPanel(new GridLayout(4,2));
         nomFieldJ3= new JTextField();
         roleComboJ3= new JComboBox(roles);
+        roleComboJ3.setSelectedItem(roles[3]);
         
         nomLabel4 = new JLabel();
         roleLabel4= new JLabel();
@@ -132,6 +135,7 @@ public class VueInscription {
         j4GridPanel = new JPanel(new GridLayout(4,2));
         nomFieldJ4 = new JTextField();
         roleComboJ4 = new JComboBox(roles);
+        roleComboJ4.setSelectedItem(roles[4]);
         
         
         

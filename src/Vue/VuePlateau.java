@@ -21,15 +21,15 @@ import javax.swing.JPanel;
  * @author Alexandre
  */
 public class VuePlateau {
-    Controleur controleur;
-    public static void main(String [] args) {
-        VuePlateau v = new VuePlateau();
-    }
-    public VuePlateau() {
-        JFrame window = new JFrame();
+    private Controleur controleur;
+    private JFrame window;
+    
+    public VuePlateau(Controleur c) {
+        window = new JFrame();
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         window.setSize(1024, 768);
         window.setBackground(Color.BLUE);
+        this.setControleur(c);
         
         ArrayList<JPanel> caseTuiles = new ArrayList<>();
         ArrayList<JPanel> upGridPanels = new ArrayList<>();
@@ -45,7 +45,7 @@ public class VuePlateau {
             for (int y=0; y<=5; y++) {
                 //Tuile t = controleur.getGrille().getTuile(x, y);
                 // Test
-                Grille g = new Grille();
+                Grille g = controleur.getGrille();
                 Tuile t = g.getTuile(x,y);
                 //fin du test
                 if (t==null) {
@@ -98,4 +98,11 @@ public class VuePlateau {
     
     public void setControleur(Controleur c) {
         this.controleur=c;    }
+
+    /**
+     * @return the window
+     */
+    public JFrame getWindow() {
+        return window;
+    }
 }
