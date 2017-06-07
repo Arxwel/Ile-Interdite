@@ -26,8 +26,15 @@ public class Controleur implements Observateur {
     private static boolean[] actionsPossibles = new boolean[4];
     private static Scanner sc = new Scanner(System.in);
     private static Stack<CarteTresor> piocheCarteTresor;
-    
+    private static boolean suite = false;
     private static VueInscription vueInscription;
+
+    /**
+     * @return the suite
+     */
+    public static boolean isSuite() {
+        return suite;
+    }
     private VuePlateau vuePlateau;
     
     public Controleur() {
@@ -450,7 +457,7 @@ public class Controleur implements Observateur {
                     break;
                 }
                 vueInscription.getWindow().dispose();
-                this.play();
+                suite = true;
             break;
             case ("Annuler"):
                 System.exit(0);

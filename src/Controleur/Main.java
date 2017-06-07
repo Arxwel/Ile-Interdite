@@ -6,6 +6,7 @@
 package Controleur;
 
 import Vue.VueInscription;
+import Vue.VuePlateau;
 
 /**
  *
@@ -13,11 +14,18 @@ import Vue.VueInscription;
  */
 public class Main {
     private static VueInscription vueInscription;
+    private static VuePlateau vuePlateau;
 public static void main(String[] args) {
         vueInscription = new VueInscription();
         Controleur c = new Controleur();
         getVueInscription().setObservateur(c);
         getVueInscription().getWindow().setVisible(true);
+        while(!c.isSuite()) {
+            System.out.print("");
+         }
+        vuePlateau = new VuePlateau();
+        vuePlateau.getWindow().setVisible(true);
+        c.play();
     } 
 
     /**
