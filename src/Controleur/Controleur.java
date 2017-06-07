@@ -27,11 +27,11 @@ public class Controleur implements Observateur {
     private static Scanner sc = new Scanner(System.in);
     private static Stack<CarteTresor> piocheCarteTresor;
     
-    private VueInscription vueInscription;
+    private static VueInscription vueInscription;
     private VuePlateau vuePlateau;
     
     public Controleur() {
-        grille = null;
+        grille = new Grille();;
         joueurs = new ArrayList<>();
         piocheInondation = new Stack<>();
         défausseInondation = new Stack<>();
@@ -44,22 +44,10 @@ public class Controleur implements Observateur {
     }
     
 
-    private static boolean isPartieFinie() {
-        return false;
-    }
-
     
     
     public static void main(String[] args) {
         
-        piocheCarteTresor = new Stack<>();
-        piocheInondation = new Stack<>();
-        défausseInondation = new Stack<>();
-        cimetièreInondation = new Stack<>();
-                
-        joueurs = new ArrayList<>();
-        inscriptionJoueurs();
-        grille = new Grille();
         initPositionAventurier();
         //Créer les Vues
         
@@ -75,20 +63,22 @@ public class Controleur implements Observateur {
         
         // A vérifier avec D de Sequence
         //test
+        System.out.println("test");
         for (Joueur j: joueurs) {
-            System.out.println(j.getPosition().getCoordonees().getX()+j.getPosition().getCoordonees().getY());
+            System.out.println(j.getPosition().getCoordonees().getX()+"ping"+j.getPosition().getCoordonees().getY());
         }
         
         while (!isPartieFinie()) {
             débutTour();
-            
-            
-            }
-            
-            
-    
             numTour++;
-        } 
+        }    
+    } 
+    
+    
+
+    private static boolean isPartieFinie() {
+        return false;
+    }
 
     private static void initPositionAventurier() {
         for (Joueur j: joueurs) {
@@ -96,7 +86,7 @@ public class Controleur implements Observateur {
             for (Tuile[] tArr: grille.getTuiles()) {
                 for (Tuile t: tArr) {
                     if (t!=null && t.getIntitule().equals(spawn)) {
-                        System.out.println(t.getCoordonees().getX());
+                        System.out.println(t.getCoordonees().getX()); //Trace Test Coordonnées
                         t.addLocataire(j);
                         j.setPosition((t));
                     }
@@ -287,20 +277,6 @@ public class Controleur implements Observateur {
         joueurActif = joueurs.get(numTour%joueurs.size());
     }
 
-    private static void inscriptionJoueurs() {
-        
-        Joueur j1 = new Explorateur("Jason");
-        Joueur j2 = new Navigateur("Tommy");
-        Joueur j3 = new Messager("John");
-        Joueur j4 = new Pilote("Kim");
-        joueurs.add(j1);
-        joueurs.add(j2);
-        joueurs.add(j3);
-        joueurs.add(j4);
-        
-        
-        
-    }
     
     private static void initPiocheTresor() {
         for (int i=0; i<5; i++) {
