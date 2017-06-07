@@ -21,12 +21,13 @@ import javax.swing.JPanel;
  * @author Alexandre
  */
 public class VuePlateau {
-    Controleur controleur;
+    private Controleur controleur;
+    private JFrame window;
     public static void main(String [] args) {
         VuePlateau v = new VuePlateau();
     }
     public VuePlateau() {
-        JFrame window = new JFrame();
+        window = new JFrame();
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         window.setSize(1024, 768);
         window.setBackground(Color.BLUE);
@@ -79,9 +80,9 @@ public class VuePlateau {
                        caseTuiles.get(caseTuiles.size()-1).setBorder(BorderFactory.createLineBorder(Color.RED));
                     }
                 }
-                if (t.getReliqueDispo() != null) {
+                /*if (t.getReliqueDispo() != null) {
                     
-                }
+                }*/
                 
             }
         }
@@ -94,4 +95,11 @@ public class VuePlateau {
     
     public void setControleur(Controleur c) {
         this.controleur=c;    }
+
+    /**
+     * @return the window
+     */
+    public JFrame getWindow() {
+        return window;
+    }
 }
