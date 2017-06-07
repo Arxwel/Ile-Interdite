@@ -11,7 +11,7 @@ public class Plongeur extends Joueur {
         this.setCouleur(Color.BLACK);
     }
 
-    @Override
+    @Override //peut traverser des tuiles inondées et des tuiles sombrées
 	public ArrayList<Tuile> listerCasesDispo() {
             ArrayList<Tuile> tuileslibres = new ArrayList<>();
 

@@ -11,7 +11,7 @@ public class Ingénieur extends Joueur {
         //this.spawnPoint = Zone.
     }
     
-    @Override
+    @Override //peut assecher 2 tuiles a la fois
     public void assécher() {
 	// TODO - implement Ingénieur.assécher
 	throw new UnsupportedOperationException();

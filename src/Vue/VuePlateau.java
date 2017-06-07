@@ -89,6 +89,9 @@ public class VuePlateau {
         for (JPanel jpp: caseTuiles) {
             mapPanel.add(jpp);
         }
+        //window.pack();
+        //window.setLocationRelativeTo(null);  centre la fenêtre
+        window.setSize(1024, 1024);
         window.setVisible(true);
         
     }
