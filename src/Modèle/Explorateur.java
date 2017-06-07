@@ -11,7 +11,7 @@ public class Explorateur extends Joueur {
         this.setCouleur(Color.GREEN);
     }
 
-    @Override
+    @Override //peut se deplaser en diagonale
 	public ArrayList<Tuile> listerCasesDispo() {
             ArrayList<Tuile> tuilesDispo = new ArrayList<>();
             Coordonnees coo = this.getPosition().getCoordonees();
@@ -41,7 +41,7 @@ public class Explorateur extends Joueur {
             return tuilesDispo;
         }
 
-    @Override
+    @Override //peut assecher des tuiles en diagonale
 	public void assécher() {
 		// TODO - implement Explorateur.assécher
 		throw new UnsupportedOperationException();

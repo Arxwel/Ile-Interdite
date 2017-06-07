@@ -9,7 +9,7 @@ public class Messager extends Joueur {
         this.spawnPoint = Zone.LaPorteDArgent;
         this.setCouleur(Color.WHITE);
     }
-
+        @Override //peut donner des cartes a distance
 	public void donnerCarte() {
 		// TODO - implement Messager.donnerCarte
 		throw new UnsupportedOperationException();

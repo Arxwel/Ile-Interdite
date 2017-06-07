@@ -11,7 +11,7 @@ public class Pilote extends Joueur {
         this.setCouleur(Color.BLUE);
     }
 
-    @Override
+    @Override //peut se deplacer sur n'importe quelle case seche du plateau
 	public ArrayList<Tuile> listerCasesDispo() {
             ArrayList<Tuile> dispo = new ArrayList<>();
             Coordonnees coor = this.getPosition().getCoordonees();
