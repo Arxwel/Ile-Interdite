@@ -3,7 +3,6 @@ package Controleur;
 
 import Modèle.*;
 import Vue.VueInscription;
-import Vue.VueInscription;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -345,7 +344,7 @@ public class Controleur implements Observateur {
                nom = Vue.VueInscription.getNomFieldJ1();
              while(nom == null) {
                  JFrame frame = new JFrame("Saisie du Nom");
-                 nom = JOptionPane.showInputDialog(frame, "Joueur 1 : Saisisszez votre nom");
+                 nom = JOptionPane.showInputDialog(frame, "Joueur 1 : Saisissez votre nom");
                     System.exit(0);
             }  
                 switch (Vue.VueInscription.getRoleComboJ1()) {
