@@ -76,7 +76,7 @@ public class VueInscription {
     private static JTextField nomFieldJ4;
     private static JComboBox roleComboJ4;
     
-    private Observateur observateur;
+    private static Observateur observateur;
     
     
     public VueInscription() {
@@ -267,7 +267,7 @@ public class VueInscription {
      * @return the nomFieldJ1
      */
     public static String getNomFieldJ1() {
-        return nomFieldJ1.getSelectedText();
+        return nomFieldJ1.getText();
     }
 
     /**
@@ -281,7 +281,7 @@ public class VueInscription {
      * @return the nomFieldJ2
      */
     public static String getNomFieldJ2() {
-        return nomFieldJ2.getSelectedText();
+        return nomFieldJ2.getText();
     }
 
     /**
@@ -295,7 +295,7 @@ public class VueInscription {
      * @return the nomFieldJ3
      */
     public static String getNomFieldJ3() {
-        return nomFieldJ3.getSelectedText();
+        return nomFieldJ3.getText();
     }
 
     /**
@@ -309,7 +309,7 @@ public class VueInscription {
      * @return the nomFieldJ4
      */
     public static String getNomFieldJ4() {
-        return nomFieldJ4.getSelectedText();
+        return nomFieldJ4.getText();
     }
 
     /**
@@ -319,7 +319,14 @@ public class VueInscription {
         return roleComboJ4.getSelectedItem().toString();
     }
     
-    public void setObservateur(Observateur o) {
-        this.observateur = o;
+    public static void setObservateur(Observateur o) {
+        observateur = o;
+    }
+
+    /**
+     * @return the window
+     */
+    public JFrame getWindow() {
+        return window;
     }
 }

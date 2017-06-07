@@ -39,17 +39,14 @@ public class Controleur implements Observateur {
         joueurActif = null;
         nbact = 3;
         piocheCarteTresor = new Stack<>();
-        vueInscription = new VueInscription();
-        vueInscription.setObservateur(this);
+        vueInscription = Main.getVueInscription();
     }
     
 
     
     
     public static void main(String[] args) {
-        
         initPositionAventurier();
-        //Créer les Vues
         
         initPiocheTresor();
         initPiocheInondation();
@@ -61,19 +58,30 @@ public class Controleur implements Observateur {
         }
         
         
-        // A vérifier avec D de Sequence
-        //test
-        System.out.println("test");
+        while (!isPartieFinie()) {
+            débutTour();
+            numTour++;
+        }    
+    } 
+    public void play() {
+        
+        initPositionAventurier();
+        
+        initPiocheTresor();
+        initPiocheInondation();
+        
         for (Joueur j: joueurs) {
-            System.out.println(j.getPosition().getCoordonees().getX()+"ping"+j.getPosition().getCoordonees().getY());
+            for (int i=0; i<4; i++) {
+                donnerCarte(j);
+          }
         }
+        
         
         while (!isPartieFinie()) {
             débutTour();
             numTour++;
         }    
     } 
-    
     
 
     private static boolean isPartieFinie() {
@@ -319,11 +327,11 @@ public class Controleur implements Observateur {
             case ("Valider"):
                Joueur j1, j2, j3, j4;
                String nom;
-               nom = Vue.VueInscription.getNomFieldJ1();
+               nom = vueInscription.getNomFieldJ1();
                 while(nom == null) {
                     nom = fenetreNom("Joueur 1");
                 }  
-                switch (Vue.VueInscription.getRoleComboJ1()) {
+                switch (vueInscription.getRoleComboJ1()) {
                     case ("Explorateur"):
                         j1 = new Explorateur(nom);
                         joueurs.add(j1);
@@ -349,11 +357,11 @@ public class Controleur implements Observateur {
                         joueurs.add(j1);
                     break;
                 } 
-                nom = Vue.VueInscription.getNomFieldJ2();
+                nom = vueInscription.getNomFieldJ2();
                 while(nom == null) {
                     nom = fenetreNom("Joueur 2");
                 }  
-                switch (Vue.VueInscription.getRoleComboJ2()) {
+                switch (vueInscription.getRoleComboJ2()) {
                     case ("Explorateur"):
                         j2 = new Explorateur(nom);
                         joueurs.add(j2);
@@ -380,11 +388,11 @@ public class Controleur implements Observateur {
                     break;
                 }
                 
-                nom = Vue.VueInscription.getNomFieldJ3();
+                nom = vueInscription.getNomFieldJ3();
                 while(nom == null) {
                     nom = fenetreNom("Joueur 3");
                 }  
-                switch (Vue.VueInscription.getRoleComboJ3()) {
+                switch (vueInscription.getRoleComboJ3()) {
                     case ("Explorateur"):
                         j3 = new Explorateur(nom);
                         joueurs.add(j3);
@@ -411,11 +419,11 @@ public class Controleur implements Observateur {
                     break;
                 }
                 
-                nom = Vue.VueInscription.getNomFieldJ4();
+                nom = vueInscription.getNomFieldJ4();
                 while(nom == null) {
                     nom = fenetreNom("Joueur 4");
                 }  
-                switch (Vue.VueInscription.getRoleComboJ4()) {
+                switch (vueInscription.getRoleComboJ4()) {
                     case ("Explorateur"):
                         j4 = new Explorateur(nom);
                         joueurs.add(j4);
@@ -441,6 +449,8 @@ public class Controleur implements Observateur {
                         joueurs.add(j4);
                     break;
                 }
+                vueInscription.getWindow().dispose();
+                this.play();
             break;
             case ("Annuler"):
                 System.exit(0);
@@ -455,7 +465,6 @@ public class Controleur implements Observateur {
         String nom;
         JFrame frame = new JFrame("Saisie du Nom");
         nom = JOptionPane.showInputDialog(frame, Joueur + " : Saisissez votre nom");
-        System.exit(0);
         return nom;
     }
 }
