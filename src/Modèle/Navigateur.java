@@ -14,6 +14,7 @@ public class Navigateur extends Joueur {
 	public ArrayList<Tuile> listerCasesDispo() {
 		// TODO - implement Navigateur.listerCasesDispo
 		throw new UnsupportedOperationException();
+                
 	}
 
 }
