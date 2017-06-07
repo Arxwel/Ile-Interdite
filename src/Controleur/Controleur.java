@@ -35,6 +35,13 @@ public class Controleur implements Observateur {
     public static boolean isSuite() {
         return suite;
     }
+
+    /**
+     * @return the joueurs
+     */
+    public static ArrayList<Joueur> getJoueurs() {
+        return joueurs;
+    }
     private VuePlateau vuePlateau;
     
     public Controleur() {
@@ -58,7 +65,7 @@ public class Controleur implements Observateur {
         initPiocheTresor();
         initPiocheInondation();
         
-        for (Joueur j: joueurs) {
+        for (Joueur j: getJoueurs()) {
             for (int i=0; i<4; i++) {
                 donnerCarte(j);
           }
@@ -77,7 +84,7 @@ public class Controleur implements Observateur {
         initPiocheTresor();
         initPiocheInondation();
         
-        for (Joueur j: joueurs) {
+        for (Joueur j: getJoueurs()) {
             for (int i=0; i<4; i++) {
                 donnerCarte(j);
           }
@@ -96,7 +103,7 @@ public class Controleur implements Observateur {
     }
 
     private static void initPositionAventurier() {
-        for (Joueur j: joueurs) {
+        for (Joueur j: getJoueurs()) {
             Zone spawn = j.getSpawnPoint();
             for (Tuile[] tArr: grille.getTuiles()) {
                 for (Tuile t: tArr) {
@@ -289,7 +296,7 @@ public class Controleur implements Observateur {
     }
 
     public static void setJoueurActif() {
-        joueurActif = joueurs.get(numTour%joueurs.size());
+        joueurActif = getJoueurs().get(numTour%getJoueurs().size());
     }
 
     
@@ -341,27 +348,27 @@ public class Controleur implements Observateur {
                 switch (vueInscription.getRoleComboJ1()) {
                     case ("Explorateur"):
                         j1 = new Explorateur(nom);
-                        joueurs.add(j1);
+                        getJoueurs().add(j1);
                     break;
                     case ("Ingénieur"):
                         j1 = new Ingénieur(nom);
-                        joueurs.add(j1);
+                        getJoueurs().add(j1);
                     break;
                     case ("Messager"):
                         j1 = new Messager(nom);
-                        joueurs.add(j1);
+                        getJoueurs().add(j1);
                     break;
                     case ("Navigateur"):
                         j1 = new Navigateur(nom);
-                        joueurs.add(j1);
+                        getJoueurs().add(j1);
                     break;
                     case ("Pilote"):
                         j1 = new Pilote(nom);
-                        joueurs.add(j1);
+                        getJoueurs().add(j1);
                     break;
                     case ("Plongeur"):
                         j1 = new Plongeur(nom);
-                        joueurs.add(j1);
+                        getJoueurs().add(j1);
                     break;
                 } 
                 nom = vueInscription.getNomFieldJ2();
@@ -371,27 +378,27 @@ public class Controleur implements Observateur {
                 switch (vueInscription.getRoleComboJ2()) {
                     case ("Explorateur"):
                         j2 = new Explorateur(nom);
-                        joueurs.add(j2);
+                        getJoueurs().add(j2);
                     break;
                     case ("Ingénieur"):
                         j2 = new Ingénieur(nom);
-                        joueurs.add(j2);
+                        getJoueurs().add(j2);
                     break;
                     case ("Messager"):
                         j2 = new Messager(nom);
-                        joueurs.add(j2);
+                        getJoueurs().add(j2);
                     break;
                     case ("Navigateur"):
                         j2 = new Navigateur(nom);
-                        joueurs.add(j2);
+                        getJoueurs().add(j2);
                     break;
                     case ("Pilote"):
                         j2 = new Pilote(nom);
-                        joueurs.add(j2);
+                        getJoueurs().add(j2);
                     break;
                     case ("Plongeur"):
                         j2 = new Plongeur(nom);
-                        joueurs.add(j2);
+                        getJoueurs().add(j2);
                     break;
                 }
                 
@@ -402,27 +409,27 @@ public class Controleur implements Observateur {
                 switch (vueInscription.getRoleComboJ3()) {
                     case ("Explorateur"):
                         j3 = new Explorateur(nom);
-                        joueurs.add(j3);
+                        getJoueurs().add(j3);
                     break;
                     case ("Ingénieur"):
                         j3 = new Ingénieur(nom);
-                        joueurs.add(j3);
+                        getJoueurs().add(j3);
                     break;
                     case ("Messager"):
                         j3 = new Messager(nom);
-                        joueurs.add(j3);
+                        getJoueurs().add(j3);
                     break;
                     case ("Navigateur"):
                         j3 = new Navigateur(nom);
-                        joueurs.add(j3);
+                        getJoueurs().add(j3);
                     break;
                     case ("Pilote"):
                         j3 = new Pilote(nom);
-                        joueurs.add(j3);
+                        getJoueurs().add(j3);
                     break;
                     case ("Plongeur"):
                         j3 = new Plongeur(nom);
-                        joueurs.add(j3);
+                        getJoueurs().add(j3);
                     break;
                 }
                 
@@ -433,27 +440,27 @@ public class Controleur implements Observateur {
                 switch (vueInscription.getRoleComboJ4()) {
                     case ("Explorateur"):
                         j4 = new Explorateur(nom);
-                        joueurs.add(j4);
+                        getJoueurs().add(j4);
                     break;
                     case ("Ingénieur"):
                         j4 = new Ingénieur(nom);
-                        joueurs.add(j4);
+                        getJoueurs().add(j4);
                     break;
                     case ("Messager"):
                         j4 = new Messager(nom);
-                        joueurs.add(j4);
+                        getJoueurs().add(j4);
                     break;
                     case ("Navigateur"):
                         j4 = new Navigateur(nom);
-                        joueurs.add(j4);
+                        getJoueurs().add(j4);
                     break;
                     case ("Pilote"):
                         j4 = new Pilote(nom);
-                        joueurs.add(j4);
+                        getJoueurs().add(j4);
                     break;
                     case ("Plongeur"):
                         j4 = new Plongeur(nom);
-                        joueurs.add(j4);
+                        getJoueurs().add(j4);
                     break;
                 }
                 vueInscription.getWindow().dispose();

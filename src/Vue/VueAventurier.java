@@ -111,6 +111,13 @@ public class VueAventurier  {
         // Instanciation de la fenêtre 
         VueAventurier vueAventurier = new VueAventurier ("Manon", "Explorateur",Pion.ROUGE.getCouleur() );
     }
+
+    /**
+     * @return the window
+     */
+    public JFrame getWindow() {
+        return window;
+    }
 }
 
  
