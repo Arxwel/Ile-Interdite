@@ -165,7 +165,7 @@ public abstract class Joueur {
     /**
      * @return the couleur
      */
-    private Color getCouleur() {
+    public Color getCouleur() {
         return couleur;
     }
 

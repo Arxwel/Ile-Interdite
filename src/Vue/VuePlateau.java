@@ -7,6 +7,7 @@ package Vue;
 
 import Controleur.Controleur;
 import Modèle.*;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.util.ArrayList;
@@ -30,11 +31,16 @@ public class VuePlateau {
         window.setSize(1024, 768);
         window.setBackground(Color.BLUE);
         
-        ArrayList<JPanel> labelTuiles = new ArrayList<>();
+        ArrayList<JPanel> caseTuiles = new ArrayList<>();
+        ArrayList<JPanel> upGridPanels = new ArrayList<>();
+        ArrayList<JPanel> downGridPanels = new ArrayList<>();
+        
         
         JPanel mapPanel = new JPanel(new GridLayout(6,6));
         window.add(mapPanel);
+        
         Color colorBack;
+        
         for (int x=0; x<=5; x++) {
             for (int y=0; y<=5; y++) {
                 //Tuile t = controleur.getGrille().getTuile(x, y);
@@ -43,25 +49,34 @@ public class VuePlateau {
                 Tuile t = g.getTuile(x,y);
                 //fin du test
                 if (t==null) {
-                    labelTuiles.add(new JPanel());
-                    labelTuiles.get(labelTuiles.size()-1).setBackground(new Color(0,191,255)); //deepsky blue
-                } else if (t.getEtat()==Etat.Sombré) {
-                    labelTuiles.add(new JPanel());
-                    labelTuiles.get(labelTuiles.size()-1).setBackground(Color.LIGHT_GRAY);
-                    labelTuiles.get(labelTuiles.size()-1).setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                    labelTuiles.get(labelTuiles.size()-1).add(new JLabel(t.getIntitule().toString()));
+                    caseTuiles.add(new JPanel());
+                    caseTuiles.get(caseTuiles.size()-1).setBackground(new Color(0,191,255)); //deepsky blue
                 } else {
                     if (t.getEtat()==Etat.Inondé) {
                         colorBack = new Color(10,110,230); //bleu clair
-                    } else {
+                    } else if (t.getEtat()==Etat.Sec) {
                         colorBack = new Color(240,230,140); //jaune sable
+                    } else {
+                        colorBack = Color.LIGHT_GRAY;
                     }
-                    labelTuiles.add(new JPanel());
-                    labelTuiles.get(labelTuiles.size()-1).setBackground(colorBack);
-                    labelTuiles.get(labelTuiles.size()-1).add(new JLabel(t.getIntitule().toString()));
-                    labelTuiles.get(labelTuiles.size()-1).setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                    caseTuiles.add(new JPanel(new BorderLayout()));
+                    upGridPanels.add(new JPanel(new GridLayout(1,4)));
+                    downGridPanels.add(new JPanel(new BorderLayout(1,3)));
+                    
+                    caseTuiles.get(caseTuiles.size()-1).setBackground(colorBack);
+                    caseTuiles.get(caseTuiles.size()-1).setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                    
+                    caseTuiles.get(caseTuiles.size()-1).add(new JLabel(t.getIntitule().toString()),BorderLayout.CENTER);
+                    caseTuiles.get(caseTuiles.size()-1).add(upGridPanels.get(caseTuiles.size()-1),BorderLayout.NORTH);
+                    caseTuiles.get(caseTuiles.size()-1).add(downGridPanels.get(caseTuiles.size()-1),BorderLayout.SOUTH);
+                            
+                    for (Joueur j: t.getLocataires()) {
+                        upGridPanels.get(caseTuiles.size()-1).add(new JPanel());//A finir
+                    }
+                    
+                    
                     if (t.getIntitule() == Zone.Heliport) {
-                       labelTuiles.get(labelTuiles.size()-1).setBorder(BorderFactory.createLineBorder(Color.RED));
+                       caseTuiles.get(caseTuiles.size()-1).setBorder(BorderFactory.createLineBorder(Color.RED));
                     }
                 }
                 if (t.getReliqueDispo() != null) {
@@ -70,7 +85,7 @@ public class VuePlateau {
                 
             }
         }
-        for (JPanel jpp: labelTuiles) {
+        for (JPanel jpp: caseTuiles) {
             mapPanel.add(jpp);
         }
         window.setVisible(true);
