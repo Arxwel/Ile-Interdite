@@ -246,6 +246,15 @@ public class VueInscription {
             
         });
         
+        buttQui.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message msg = new Message(TypeMessage.Annuler);
+                observateur.traiterMessage(msg);
+            }
+            
+        });
+        
         window.setVisible(true);
     }
     
