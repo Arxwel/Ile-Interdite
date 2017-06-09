@@ -31,13 +31,16 @@ public abstract class Joueur {
            if (((position.getPlateau().getTuile(position.getCoordonees().getX()-1,position.getCoordonees().getY()) != null)) && (position.getPlateau().getTuile(position.getCoordonees().getX()-1,position.getCoordonees().getY()).getEtat() == Etat.Sec)) {
                //tuile à gauche du joueur
                tuileslibres.add(position.getPlateau().getTuile(position.getCoordonees().getX()-1,position.getCoordonees().getY()));
-           } else if(((position.getPlateau().getTuile(position.getCoordonees().getX()+1,position.getCoordonees().getY()) != null)) && (position.getPlateau().getTuile(position.getCoordonees().getX()+1,position.getCoordonees().getY()).getEtat() == Etat.Sec)) {
+           } 
+           if(((position.getPlateau().getTuile(position.getCoordonees().getX()+1,position.getCoordonees().getY()) != null)) && (position.getPlateau().getTuile(position.getCoordonees().getX()+1,position.getCoordonees().getY()).getEtat() == Etat.Sec)) {
                //tuile à droite du joueur
                tuileslibres.add(position.getPlateau().getTuile(position.getCoordonees().getX()+1,position.getCoordonees().getY()));
-           } else if(((position.getPlateau().getTuile(position.getCoordonees().getY()-1,position.getCoordonees().getY()) != null)) && (position.getPlateau().getTuile(position.getCoordonees().getX(),position.getCoordonees().getY()-1).getEtat() == Etat.Sec)) {
+           } 
+           if(((position.getPlateau().getTuile(position.getCoordonees().getY()-1,position.getCoordonees().getY()) != null)) && (position.getPlateau().getTuile(position.getCoordonees().getX(),position.getCoordonees().getY()-1).getEtat() == Etat.Sec)) {
                //tuile en dessous du joueur
                tuileslibres.add(position.getPlateau().getTuile(position.getCoordonees().getX(),position.getCoordonees().getY()-1));
-           } else if(((position.getPlateau().getTuile(position.getCoordonees().getY()+1,position.getCoordonees().getY()) != null)) && (position.getPlateau().getTuile(position.getCoordonees().getX(),position.getCoordonees().getY()+1).getEtat() == Etat.Sec)){
+           } 
+           if(((position.getPlateau().getTuile(position.getCoordonees().getY()+1,position.getCoordonees().getY()) != null)) && (position.getPlateau().getTuile(position.getCoordonees().getX(),position.getCoordonees().getY()+1).getEtat() == Etat.Sec)){
                //tuile au-dessus du joueur
                tuileslibres.add(position.getPlateau().getTuile(position.getCoordonees().getX(),position.getCoordonees().getY()+1));
            }
@@ -114,13 +117,16 @@ public abstract class Joueur {
            if (((position.getPlateau().getTuile(coor.getX()-1,coor.getY()) != null)) && (position.getPlateau().getTuile(coor.getX()-1,coor.getY()).getEtat() == Etat.Inondé)) {
                //tuile à gauche du joueur
                tuilesinond.add(position.getPlateau().getTuile(coor.getX()-1,coor.getY()));
-           } else if(((position.getPlateau().getTuile(coor.getX()+1,coor.getY()) != null)) && (position.getPlateau().getTuile(coor.getX()+1,coor.getY()).getEtat() == Etat.Inondé)) {
+           } 
+           if(((position.getPlateau().getTuile(coor.getX()+1,coor.getY()) != null)) && (position.getPlateau().getTuile(coor.getX()+1,coor.getY()).getEtat() == Etat.Inondé)) {
                //tuile à droite du joueur
                tuilesinond.add(position.getPlateau().getTuile(coor.getX()+1,coor.getY()));
-           } else if(((position.getPlateau().getTuile(coor.getX(),coor.getY()-1) != null)) && (position.getPlateau().getTuile(coor.getX(),coor.getY()-1).getEtat() == Etat.Inondé)) {
+           } 
+           if(((position.getPlateau().getTuile(coor.getX(),coor.getY()-1) != null)) && (position.getPlateau().getTuile(coor.getX(),coor.getY()-1).getEtat() == Etat.Inondé)) {
                //tuile en dessous du joueur
                tuilesinond.add(position.getPlateau().getTuile(coor.getX(),coor.getY()-1));
-           } else if(((position.getPlateau().getTuile(coor.getX(),coor.getY()+1) != null)) && (position.getPlateau().getTuile(coor.getX(),coor.getY()+1).getEtat() == Etat.Inondé)){
+           } 
+           if(((position.getPlateau().getTuile(coor.getX(),coor.getY()+1) != null)) && (position.getPlateau().getTuile(coor.getX(),coor.getY()+1).getEtat() == Etat.Inondé)){
                //tuile au-dessus du joueur
                tuilesinond.add(position.getPlateau().getTuile(coor.getX(),coor.getY()+1));
            }
