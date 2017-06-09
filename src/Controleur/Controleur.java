@@ -58,7 +58,7 @@ public class Controleur implements Observateur {
     
 
     
-    
+    // méthode main temporaire pour tester
     public static void main(String[] args) {
         initPositionAventurier();
         
@@ -79,10 +79,13 @@ public class Controleur implements Observateur {
     } 
     public void play() {
         
+        //Initialisation des pioches et position des joueurs
         initPositionAventurier();
         
         initPiocheTresor();
         initPiocheInondation();
+        
+        //distribution des cartes
         
         for (Joueur j: getJoueurs()) {
             for (int i=0; i<4; i++) {
@@ -90,18 +93,18 @@ public class Controleur implements Observateur {
           }
         }
         
-        
+        //Boucle de jeu
         while (!isPartieFinie()) {
             débutTour();
             numTour++;
         }    
     } 
     
-
     private static boolean isPartieFinie() {
         return false;
     }
 
+    //Place les aventuriers sur le plateau dans leur position de départ
     private static void initPositionAventurier() {
         for (Joueur j: getJoueurs()) {
             Zone spawn = j.getSpawnPoint();
@@ -117,8 +120,8 @@ public class Controleur implements Observateur {
         }
     }
 	
-    
-    private void verifMain(Joueur joueur) {        
+    //Assure que le joueur a moins de 6 cartes en main et propose l'utilisation ou la défausse de cartes
+    private void verifMain(Joueur joueur) {   
         while (joueur.getMainJoueur().size() >= 6) {
             System.out.println(joueur.getNom() + " a trop de cartes en main. Il doit en défausser ou en utiliser jusqu'à en avoir 5 au plus.");
             CarteSpeciale cs1 = new CarteSpeciale(TypeSpé.Hélicoptère);
@@ -242,7 +245,7 @@ public class Controleur implements Observateur {
     
     
 
-
+    //décompte le nombre d'actions disponibles pour le joueur et propose les actions en fonction de leur disponibilité
     public static void débutTour() {
         setJoueurActif();
         nbact =3;
@@ -295,11 +298,13 @@ public class Controleur implements Observateur {
         }
     }
 
+    //Détermine le joueur dont c'est le tour de jouer en début de tour
     public static void setJoueurActif() {
         joueurActif = getJoueurs().get(numTour%getJoueurs().size());
     }
 
     
+    //met les bonnes cartes dans la pioche trésor et les mélange
     private static void initPiocheTresor() {
         for (int i=0; i<5; i++) {
             piocheCarteTresor.add(new CarteRelique(Color.BLACK));
@@ -319,6 +324,7 @@ public class Controleur implements Observateur {
         Collections.shuffle(piocheCarteTresor);
     }
     
+    //met les bonnes cartes dans la pioche inondation et les mélange
     private static void initPiocheInondation() {
         for (Tuile[] tArray: grille.getTuiles()) {
             for (Tuile t: tArray) {
@@ -328,6 +334,7 @@ public class Controleur implements Observateur {
         Collections.shuffle(piocheInondation);
     }
     
+    // gère l'action "donner carte"
     private static void donnerCarte(Joueur j) {
         j.getMainJoueur().add(piocheCarteTresor.firstElement());
         piocheCarteTresor.remove(0);
@@ -335,6 +342,7 @@ public class Controleur implements Observateur {
 
     
 
+    //traite les messages en provenance des vues
     @Override
     public void traiterMessage(Message msg) {
         switch (msg.getType().toString()) {
@@ -471,10 +479,13 @@ public class Controleur implements Observateur {
             break;
         }
     }
+    
+    
     public Grille getGrille() {
         return grille;
     }
     
+    //message d'erreur en cas de pseudo null
     public String fenetreNom(String Joueur) {
         String nom;
         JFrame frame = new JFrame("Saisie du Nom");

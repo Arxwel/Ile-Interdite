@@ -78,7 +78,7 @@ public class VueInscription {
     
     private static Observateur observateur;
     
-    
+    //crée l'interface permettant l'inscription des joueurs (choix du rôle et du pseudonyme)
     public VueInscription() {
         window = new JFrame();
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);

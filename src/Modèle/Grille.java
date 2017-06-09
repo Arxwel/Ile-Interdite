@@ -11,7 +11,8 @@ public class Grille {
         tuiles = new Tuile[6][6];
         initGrilleTest();
     }
-        
+    
+    //crée une grille aléatoirement
     public void initGrille() {
         Random randomGenerator = new Random();
         //On met toutes les valeurs de la classe énumérée Zone dans une arraylist
@@ -65,7 +66,7 @@ public class Grille {
     public Tuile getTuile(int x, int y) {
         return tuiles[x][y];
     }
-
+    //crée la grille de test
     private void initGrilleTest() {
         //Tuiles Impossibles
         tuiles[0][0] = null;

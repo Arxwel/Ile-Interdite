@@ -25,6 +25,8 @@ public abstract class Joueur {
             this.setPosition(null);
 	}
 
+            //lister les cases sur lesquelles le joueur peut se déplacer en usant une seule action
+            //Cette méthodes est redéfinie pour les type de joueurs ayant des mouvements spécifiques
 	public ArrayList<Tuile> listerCasesDispo() {
            ArrayList<Tuile> tuileslibres = new ArrayList<>();
 
@@ -44,6 +46,7 @@ public abstract class Joueur {
            return tuileslibres;
 	}
 
+        //Gère l'assèchement des cases par les joueurs
 	public void assécher() {
 		// TODO - implement Joueur.assécher
             ArrayList<Tuile> tuilesInon = new ArrayList<>(listerTuilesAssechables());
@@ -65,11 +68,13 @@ public abstract class Joueur {
 
 	}
 
+        //Gère le don de cartes par les joueurs
 	public void donnerCarte() {
 		// TODO - implement Joueur.donnerCarte
 		throw new UnsupportedOperationException();
 	}
 
+        //Gère la prise de trésors par les joueurs
 	public void prendreTrésor() {
 		// TODO - implement Joueur.prendreTrésor
 		throw new UnsupportedOperationException();
@@ -83,6 +88,7 @@ public abstract class Joueur {
 		this.position = tuile;
 	}
 
+        //Gère le déplacement des joueurs
 	public void déplacer() {
             ArrayList<Tuile> casesDispo = new ArrayList<>(listerCasesDispo());
             
@@ -107,6 +113,8 @@ public abstract class Joueur {
             
 	}
 
+            //lister les cases que le joueur peut assécher en usant une seule action
+            //Cette méthodes est redéfinie pour les type de joueurs ayant des mouvements spécifiques
 	public ArrayList<Tuile> listerTuilesAssechables() {
 		 ArrayList<Tuile> tuilesinond = new ArrayList<>();
                  Coordonnees coor = new Coordonnees(position.getCoordonees().getX(),position.getCoordonees().getY());
@@ -176,11 +184,12 @@ public abstract class Joueur {
         this.couleur = couleur;
     }
     
-    
+    //true si le joueur peut se déplacer quelquepart
     public boolean isMvmntPossible() {
         return !this.listerCasesDispo().isEmpty();
     }
 
+    //true si le joueur peut assécher une case
     public boolean isAssPossible() {
         return !this.listerTuilesAssechables().isEmpty();
     }
@@ -199,18 +208,22 @@ public abstract class Joueur {
             return (n>=4);
 	}
         
+        //true si le don d'une carte est possible
 	public boolean isDonPossible() {
             return (!this.getMainJoueur().isEmpty()) && (this.getPosition().getLocataires().size()>1);
 	}
         
+        //retourne le point d'appartion originel des joueurs en fonction de leur Classe
         public Zone getSpawnPoint() {
             return this.spawnPoint;
         }
         
+        //gère la défausse d'une carte
         public void defausserCarte() {
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
         
+        //gère l'utilisation de cartes spéciales (sac de sable, hélicoptère)
         public void useCarteSpe(CarteSpeciale cs) {
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }

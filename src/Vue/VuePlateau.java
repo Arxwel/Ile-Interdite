@@ -24,6 +24,7 @@ public class VuePlateau {
     private Controleur controleur;
     private JFrame window;
     
+    //Affiche le plateau
     public VuePlateau(Controleur c) {
         window = new JFrame();
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
