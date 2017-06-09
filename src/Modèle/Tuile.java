@@ -34,6 +34,7 @@ public class Tuile {
 	 * 
 	 * @param joueur
 	 */
+        //ajoute un joueur sur la tuile
 	public void addLocataire(Joueur joueur) {
             this.locataires.add(joueur);
 	}
@@ -42,6 +43,7 @@ public class Tuile {
 	 * 
 	 * @param joueur
 	 */
+        //retire un joueur de la Tuile
 	public void delLocataire(Joueur joueur) {
             this.locataires.remove(joueur);
 	}
@@ -50,6 +52,7 @@ public class Tuile {
 	 * 
 	 * @param newEtat
 	 */
+        //change la tuiles d'Etat
 	public void updateEtat(Etat newEtat) {
             this.etat = newEtat;
 	}

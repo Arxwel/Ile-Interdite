@@ -20,22 +20,28 @@ public class Main {
     private static VuePlateau vuePlateau;
     private static VueAventurier vj1,vj2,vj3,vj4;
 public static void main(String[] args) {
+        // Initalise la Vue Inscription et le controleur et rends la vue inscription visible et fonctionelle
         vueInscription = new VueInscription();
+        
         Controleur c = new Controleur();
+        
         getVueInscription().setObservateur(c);
         getVueInscription().getWindow().setVisible(true);
+        
+        // Assure l'inscription est complétée et que le jeu peut commencer
         while(!c.isSuite()) {
             System.out.print("");
         }
+        //Crée les vues aventurier et plateau et les afficher
         vj1 = new VueAventurier(c.getJoueurs().get(0));
         vj2 = new VueAventurier(c.getJoueurs().get(1));
         vj3 = new VueAventurier(c.getJoueurs().get(2));
         vj4 = new VueAventurier(c.getJoueurs().get(3));
-        vuePlateau = new VuePlateau(c);
         vj1.getWindow().setVisible(true);
         vj2.getWindow().setVisible(true);
         vj3.getWindow().setVisible(true);
         vj4.getWindow().setVisible(true);
+        vuePlateau = new VuePlateau(c);
         vuePlateau.getWindow().setVisible(true);
         
         c.play();
