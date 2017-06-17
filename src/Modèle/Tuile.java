@@ -31,6 +31,7 @@ public class Tuile {
             locataires = new ArrayList<>();
             plateau = grille;
             this.reliqueDispo = reliqueDispo; //quand relique recuperée supprimer reliqueDispo ou changer la couleur dans un truc qui n'existe pas
+            image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.png"));
         }
         
 	/**
