@@ -21,16 +21,16 @@ public class Tuile {
             locataires = new ArrayList<>();
             plateau = grille;
             if(null == etat) {
-                image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.jpg"));
+                image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.png"));
             } else switch (etat) {
                 case Sec:
-                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/"+nom.name()+".jpg"));
+                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/"+nom.name()+".png"));
                     break;
                 case Inondé:
-                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/"+nom.name()+"2.jpg"));
+                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/"+nom.name()+"2.png"));
                     break;
                 default:
-                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.jpg"));
+                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.png"));
                     break;
             }
 
@@ -45,16 +45,16 @@ public class Tuile {
             plateau = grille;
             this.reliqueDispo = reliqueDispo; //quand relique recuperée supprimer reliqueDispo ou changer la couleur dans un truc qui n'existe pas
             if(null == etat) {
-                image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.jpg"));
+                image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.png"));
             } else switch (etat) {
                 case Sec:
-                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/"+nom.name()+".jpg"));
+                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/"+nom.name()+".png"));
                     break;
                 case Inondé:
-                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/"+nom.name()+"2.jpg"));
+                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/"+nom.name()+"2.png"));
                     break;
                 default:
-                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.jpg"));
+                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.png"));
                     break;
             }
         }
