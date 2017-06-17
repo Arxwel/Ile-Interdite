@@ -52,8 +52,11 @@ public class VuePlateau {
                 Tuile t = g.getTuile(x,y);
                 //fin du test
                 if (t==null) {
-                    caseTuiles.add(new JPanel());
+                    caseTuiles.add(new JPanel(new BorderLayout()));
                     caseTuiles.get(caseTuiles.size()-1).setBackground(new Color(0,191,255)); //deepsky blue
+                    ImageIcon icona = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.png"));
+                    icona = new ImageIcon(icona.getImage().getScaledInstance(180,180, Image.SCALE_DEFAULT));
+                    caseTuiles.get(caseTuiles.size()-1).add(new JLabel(icona), BorderLayout.CENTER);
                 } else {
                     if (null==t.getEtat()) {
                         colorBack = Color.LIGHT_GRAY;
