@@ -20,19 +20,20 @@ public class Tuile {
             setCoordonees(coo);
             locataires = new ArrayList<>();
             plateau = grille;
-            if(null == etat) {
-                image = new ImageIcon(this.getClass().getResource("ImagesTuiles/Eau.png"));
-            } else switch (etat) {
-                case Sec:
-                    image = new ImageIcon(this.getClass().getResource("ImagesTuiles/"+nom+".png"));
-                    break;
-                case Inondé:
-                    image = new ImageIcon(this.getClass().getResource("ImagesTuiles/"+nom+".png"));
-                    break;
-                default:
-                    image = new ImageIcon(this.getClass().getResource("ImagesTuiles/Eau.png"));
-                    break;
-            }
+            image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.png"));
+//            if(null == etat) {
+//                image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.png"));
+//            } else switch (etat) {
+//                case Sec:
+//                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/"+nom.name()+".png"));
+//                    break;
+//                case Inondé:
+//                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/"+nom.name()+".png"));
+//                    break;
+//                default:
+//                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.png"));
+//                    break;
+//            }
           
         }
         
