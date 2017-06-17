@@ -74,7 +74,7 @@ public class VuePlateau {
                     
                     caseTuiles.get(caseTuiles.size()-1).setBackground(colorBack);
                     caseTuiles.get(caseTuiles.size()-1).setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                    ImageIcon icon = new ImageIcon(t.getImage().getImage().getScaledInstance(170,180, Image.SCALE_DEFAULT));
+                    ImageIcon icon = new ImageIcon(t.getImage().getImage().getScaledInstance(170,170, Image.SCALE_DEFAULT));
                     caseTuiles.get(caseTuiles.size()-1).add(new JLabel(icon),BorderLayout.CENTER);
                     caseTuiles.get(caseTuiles.size()-1).add(new JLabel(t.getIntitule().nomEspace()),BorderLayout.SOUTH);
                     caseTuiles.get(caseTuiles.size()-1).add(new JLabel("          "),BorderLayout.NORTH);
