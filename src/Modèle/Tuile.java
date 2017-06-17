@@ -20,7 +20,20 @@ public class Tuile {
             setCoordonees(coo);
             locataires = new ArrayList<>();
             plateau = grille;
-            image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.png"));
+            if(null == etat) {
+                image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.jpg"));
+            } else switch (etat) {
+                case Sec:
+                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/"+nom.name()+".jpg"));
+                    break;
+                case Inondé:
+                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/"+nom.name()+"2.jpg"));
+                    break;
+                default:
+                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.jpg"));
+                    break;
+            }
+
           
         }
         
@@ -31,7 +44,19 @@ public class Tuile {
             locataires = new ArrayList<>();
             plateau = grille;
             this.reliqueDispo = reliqueDispo; //quand relique recuperée supprimer reliqueDispo ou changer la couleur dans un truc qui n'existe pas
-            image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.png"));
+            if(null == etat) {
+                image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.jpg"));
+            } else switch (etat) {
+                case Sec:
+                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/"+nom.name()+".jpg"));
+                    break;
+                case Inondé:
+                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/"+nom.name()+"2.jpg"));
+                    break;
+                default:
+                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.jpg"));
+                    break;
+            }
         }
         
 	/**
