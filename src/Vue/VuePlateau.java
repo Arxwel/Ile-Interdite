@@ -27,6 +27,7 @@ import javax.swing.JPanel;
  */
 public class VuePlateau extends JFrame{
     private Controleur controleur;
+    private ImageIcon icona;
     
     //Affiche le plateau
     public VuePlateau(Controleur c) {
@@ -55,7 +56,11 @@ public class VuePlateau extends JFrame{
                 if (t==null) {
                     caseTuiles.add(new JPanel(new BorderLayout()));
                     caseTuiles.get(caseTuiles.size()-1).setBackground(new Color(0,191,255)); //deepsky blue
-                    ImageIcon icona = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.png"));
+                    if(x== 0 && y ==5) {
+                    icona = new ImageIcon(this.getClass().getResource("/ImagesTuiles/EauRoseVent.png"));
+                    } else {
+                    icona = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.png"));
+                    }
                     icona = new ImageIcon(icona.getImage().getScaledInstance(180,180, Image.SCALE_DEFAULT));
                     caseTuiles.get(caseTuiles.size()-1).add(new JLabel(icona), BorderLayout.CENTER);
                 } else {
@@ -72,7 +77,6 @@ public class VuePlateau extends JFrame{
                             colorBack = Color.LIGHT_GRAY;
                             break;
                     }
-                    caseTuiles.get(5).add(new JLabel(new ImageIcon(this.getClass().getResource("/ImagesTuiles/EauRoseVent.png"))), BorderLayout.CENTER);
                     
                     caseTuiles.add(new JPanel(new BorderLayout()));
                     //upGridPanels.add(new JPanel(new GridLayout(1,4)));
