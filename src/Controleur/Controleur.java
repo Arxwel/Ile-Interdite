@@ -92,8 +92,7 @@ public class Controleur implements Observateur {
             numTour++;
         }    
     } */
-    public void play() {
-        
+    public void init() {
         //Initialisation des pioches et position des joueurs
         initPositionAventurier();
         
@@ -103,10 +102,15 @@ public class Controleur implements Observateur {
         //distribution des cartes
         
         for (Joueur j: getJoueurs()) {
+            System.out.println("Distribution à "+j.getNom());
             for (int i=0; i<4; i++) {
                 piocherCarte(j);
           }
         }
+        
+    }
+    public void play() {
+        
         
         //Boucle de jeu
         while (!isPartieFinie()) {

@@ -5,6 +5,8 @@
  */
 package Controleur;
 
+import static Controleur.Controleur.getJoueurs;
+import Modèle.CarteTresor;
 import Modèle.Joueur;
 import Vue.VueAventurier;
 import Vue.VueInscription;
@@ -32,7 +34,17 @@ public static void main(String[] args) {
         while(!c.isSuite()) {
             System.out.print("");
         }
+        
         //Crée les vues aventurier et plateau et les afficher
+        
+        c.init();
+        for (Joueur j: c.getJoueurs()) {
+            System.out.println(j.getNom());
+            for (CarteTresor ca : j.getMainJoueur()) {
+                System.out.println(ca.getType().toString());
+            }
+        }
+        
         vj1 = new VueAventurier(c.getJoueurs().get(0));
         vj2 = new VueAventurier(c.getJoueurs().get(1));
         vj3 = new VueAventurier(c.getJoueurs().get(2));
@@ -47,7 +59,6 @@ public static void main(String[] args) {
         vj4.getWindow().setVisible(true);
         vuePlateau = new VuePlateau(c);
         vuePlateau.getWindow().setVisible(true);
-        
         c.play();
     } 
 
