@@ -116,14 +116,7 @@ public class Controleur implements Observateur {
         }
         
     }
-    public void play() {
-        
-        
-    }
-    public void play() {
-        
-        
-    }
+    
     public void play() {
         
         
@@ -197,7 +190,7 @@ public class Controleur implements Observateur {
                                 joueur.useCarteSpe(cs1);
                                 break;
                             case 1:
-                                joueur.defausserCarte();
+                                joueur.defausserCarte(cs1);
                                 break;
                             case 2:
                                 break;
@@ -213,7 +206,7 @@ public class Controleur implements Observateur {
                                 joueur.useCarteSpe(cs2);
                                 break;
                             case 1:
-                                joueur.defausserCarte();
+                                joueur.defausserCarte(cs2);
                                 break;
                             case 2:
                                 break;
@@ -226,7 +219,7 @@ public class Controleur implements Observateur {
                     if (sc.hasNextInt(choix) && choix<4) {
                         switch (choix-1) {
                             case 0:
-                                joueur.defausserCarte();
+                                joueur.defausserCarte(cr1);
                                 break;
                             case 1:
                                 break;
@@ -239,7 +232,7 @@ public class Controleur implements Observateur {
                     if (sc.hasNextInt(choix) && choix<4) {
                         switch (choix-1) {
                             case 0:
-                                joueur.defausserCarte();
+                                joueur.defausserCarte(cr2);
                                 break;
                             case 1:
                                 break;
@@ -252,7 +245,7 @@ public class Controleur implements Observateur {
                     if (sc.hasNextInt(choix) && choix<4) {
                         switch (choix-1) {
                             case 0:
-                                joueur.defausserCarte();
+                                joueur.defausserCarte(cr3);
                                 break;
                             case 1:
                                 break;
@@ -265,7 +258,7 @@ public class Controleur implements Observateur {
                     if (sc.hasNextInt(choix) && choix<4) {
                         switch (choix-1) {
                             case 0:
-                                joueur.defausserCarte();
+                                joueur.defausserCarte(cr4);
                                 break;
                             case 1:
                                 break;
@@ -352,27 +345,27 @@ public class Controleur implements Observateur {
                 }  
                 switch (vueInscription.getRoleComboJ1()) {
                     case ("Explorateur"):
-                        j1 = new Explorateur(nom);
+                        j1 = new Explorateur(nom, this);
                         getJoueurs().add(j1);
                     break;
                     case ("Ingénieur"):
-                        j1 = new Ingénieur(nom);
+                        j1 = new Ingénieur(nom, this);
                         getJoueurs().add(j1);
                     break;
                     case ("Messager"):
-                        j1 = new Messager(nom);
+                        j1 = new Messager(nom, this);
                         getJoueurs().add(j1);
                     break;
                     case ("Navigateur"):
-                        j1 = new Navigateur(nom);
+                        j1 = new Navigateur(nom, this);
                         getJoueurs().add(j1);
                     break;
                     case ("Pilote"):
-                        j1 = new Pilote(nom);
+                        j1 = new Pilote(nom, this);
                         getJoueurs().add(j1);
                     break;
                     case ("Plongeur"):
-                        j1 = new Plongeur(nom);
+                        j1 = new Plongeur(nom, this);
                         getJoueurs().add(j1);
                     break;
                 } 
@@ -382,27 +375,27 @@ public class Controleur implements Observateur {
                 }  
                 switch (vueInscription.getRoleComboJ2()) {
                     case ("Explorateur"):
-                        j2 = new Explorateur(nom);
+                        j2 = new Explorateur(nom, this);
                         getJoueurs().add(j2);
                     break;
                     case ("Ingénieur"):
-                        j2 = new Ingénieur(nom);
+                        j2 = new Ingénieur(nom, this);
                         getJoueurs().add(j2);
                     break;
                     case ("Messager"):
-                        j2 = new Messager(nom);
+                        j2 = new Messager(nom, this);
                         getJoueurs().add(j2);
                     break;
                     case ("Navigateur"):
-                        j2 = new Navigateur(nom);
+                        j2 = new Navigateur(nom, this);
                         getJoueurs().add(j2);
                     break;
                     case ("Pilote"):
-                        j2 = new Pilote(nom);
+                        j2 = new Pilote(nom, this);
                         getJoueurs().add(j2);
                     break;
                     case ("Plongeur"):
-                        j2 = new Plongeur(nom);
+                        j2 = new Plongeur(nom, this);
                         getJoueurs().add(j2);
                     break;
                 }
@@ -413,27 +406,27 @@ public class Controleur implements Observateur {
                 }  
                 switch (vueInscription.getRoleComboJ3()) {
                     case ("Explorateur"):
-                        j3 = new Explorateur(nom);
+                        j3 = new Explorateur(nom, this);
                         getJoueurs().add(j3);
                     break;
                     case ("Ingénieur"):
-                        j3 = new Ingénieur(nom);
+                        j3 = new Ingénieur(nom, this);
                         getJoueurs().add(j3);
                     break;
                     case ("Messager"):
-                        j3 = new Messager(nom);
+                        j3 = new Messager(nom, this);
                         getJoueurs().add(j3);
                     break;
                     case ("Navigateur"):
-                        j3 = new Navigateur(nom);
+                        j3 = new Navigateur(nom, this);
                         getJoueurs().add(j3);
                     break;
                     case ("Pilote"):
-                        j3 = new Pilote(nom);
+                        j3 = new Pilote(nom, this);
                         getJoueurs().add(j3);
                     break;
                     case ("Plongeur"):
-                        j3 = new Plongeur(nom);
+                        j3 = new Plongeur(nom, this);
                         getJoueurs().add(j3);
                     break;
                 }
@@ -444,27 +437,27 @@ public class Controleur implements Observateur {
                 }  
                 switch (vueInscription.getRoleComboJ4()) {
                     case ("Explorateur"):
-                        j4 = new Explorateur(nom);
+                        j4 = new Explorateur(nom, this);
                         getJoueurs().add(j4);
                     break;
                     case ("Ingénieur"):
-                        j4 = new Ingénieur(nom);
+                        j4 = new Ingénieur(nom, this);
                         getJoueurs().add(j4);
                     break;
                     case ("Messager"):
-                        j4 = new Messager(nom);
+                        j4 = new Messager(nom, this);
                         getJoueurs().add(j4);
                     break;
                     case ("Navigateur"):
-                        j4 = new Navigateur(nom);
+                        j4 = new Navigateur(nom, this);
                         getJoueurs().add(j4);
                     break;
                     case ("Pilote"):
-                        j4 = new Pilote(nom);
+                        j4 = new Pilote(nom, this);
                         getJoueurs().add(j4);
                     break;
                     case ("Plongeur"):
-                        j4 = new Plongeur(nom);
+                        j4 = new Plongeur(nom, this);
                         getJoueurs().add(j4);
                     break;
                 }

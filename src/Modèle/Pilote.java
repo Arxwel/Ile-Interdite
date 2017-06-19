@@ -1,12 +1,13 @@
 package Modèle;
 
+import Controleur.Controleur;
 import java.awt.Color;
 import java.util.ArrayList;
 
 public class Pilote extends Joueur {
 
-    public Pilote(String nom) {
-        super(nom);
+    public Pilote(String nom, Controleur controleur) {
+        super(nom, controleur);
         this.spawnPoint = Zone.Heliport;
         this.setCouleur(Color.BLUE);
     }

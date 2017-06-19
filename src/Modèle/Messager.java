@@ -1,11 +1,12 @@
 package Modèle;
 
+import Controleur.Controleur;
 import java.awt.Color;
 
 public class Messager extends Joueur {
-
-    public Messager(String nom) {
-        super(nom);
+    
+    public Messager(String nom, Controleur controleur) {
+        super(nom, controleur);
         this.spawnPoint = Zone.LaPorteDArgent;
         this.setCouleur(Color.WHITE);
     }
