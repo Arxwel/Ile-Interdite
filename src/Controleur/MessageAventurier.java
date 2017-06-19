@@ -17,6 +17,7 @@ public class MessageAventurier extends Message{
     
     public MessageAventurier(TypeMessage type, Joueur joueur) {
         super(type);
+        this.setJoueur(joueur);
     }
     
     
@@ -26,6 +27,10 @@ public class MessageAventurier extends Message{
      */
     public Joueur getJoueur() {
         return joueur;
+    }
+
+    private void setJoueur(Joueur joueur) {
+        this.joueur = joueur;
     }
     
     

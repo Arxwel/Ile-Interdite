@@ -123,7 +123,7 @@ public abstract class Joueur {
         //lister les cases que le joueur peut assécher en usant une seule action
         //Cette méthodes est redéfinie pour les type de joueurs ayant des mouvements spécifiques
 	public ArrayList<Tuile> listerTuilesAssechables() {
-            ArrayList<Tuile> tuilesAss = new ArrayList<>();
+           ArrayList<Tuile> tuilesAss = new ArrayList<>();
 
            Coordonnees coo = this.getPosition().getCoordonees();
            Grille g = this.getPosition().getPlateau();
