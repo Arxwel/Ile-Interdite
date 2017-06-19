@@ -53,11 +53,13 @@ public static void main(String[] args) {
         c.getJoueurs().get(1).setVueAventurier(vj2);
         c.getJoueurs().get(2).setVueAventurier(vj3);
         c.getJoueurs().get(3).setVueAventurier(vj4);
-        vj1.getWindow().setLocation(10, 0);
+        vj1.getWindow().setLocation(15, 15);
         vj1.getWindow().setVisible(true);
-        vj2.getWindow().setLocation(0, 0);
+        vj2.getWindow().setLocation(15, 265);
         vj2.getWindow().setVisible(true);
+        vj3.getWindow().setLocation(15, 515);
         vj3.getWindow().setVisible(true);
+        vj4.getWindow().setLocation(15, 765);
         vj4.getWindow().setVisible(true);
         vuePlateau = new VuePlateau(c);
         vuePlateau.getWindow().setVisible(true);
