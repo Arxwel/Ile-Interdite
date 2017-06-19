@@ -16,6 +16,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 import Modèle.*;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 
  
@@ -35,7 +37,7 @@ public class VueAventurier  {
     private final JButton btnTerminerTour;
     
     
-    public VueAventurier (Joueur j){
+    public VueAventurier (Joueur j) {
 
         this.window = new JFrame();
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
@@ -80,12 +82,54 @@ public class VueAventurier  {
         this.panelBoutons = new JPanel(new GridLayout(3,2));
         mainPanel.add(this.panelBoutons, BorderLayout.SOUTH);
 
-        this.btnAller = new JButton("Aller") ;
-        this.btnAssecher = new JButton( "Assecher");
-        this.btnDonner = new JButton( "Donner une Carte");
-        this.btnRelique = new JButton( "Prendre Relique");
-        this.btnAutreAction = new JButton("AutreAction") ;
-        this.btnTerminerTour = new JButton("Terminer Tour") ;
+        this.btnAller = new JButton("Déplacer");
+        btnAller.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Deplacement");
+            }
+        });
+        this.btnAssecher = new JButton("Assécher");
+        btnAssecher.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Assechement");
+            }
+        });
+        this.btnDonner = new JButton("Donner une Carte");
+        btnDonner.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Don de carte");
+            }
+        });
+        this.btnRelique = new JButton("Prendre Relique");
+        btnRelique.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Prise de relique");
+            }
+        });
+        this.btnAutreAction = new JButton("AutreAction");
+        btnAutreAction.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Autre action");
+            }
+        });
+        this.btnTerminerTour = new JButton("Terminer Tour");
+        btnTerminerTour.addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Fin de tour");
+            }
+        });
         
         this.panelBoutons.add(btnAller);
         this.panelBoutons.add(btnAssecher);

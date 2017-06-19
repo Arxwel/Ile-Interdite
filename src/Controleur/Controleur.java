@@ -122,6 +122,7 @@ public class Controleur implements Observateur {
         
         //Boucle de jeu
         while (!isPartieFinie()) {
+            setJoueurActif();
             débutTour();
             numTour++;
         }    
@@ -274,7 +275,6 @@ public class Controleur implements Observateur {
 
     //décompte le nombre d'actions disponibles pour le joueur et propose les actions en fonction de leur disponibilité
     public static void débutTour() {
-        setJoueurActif();
         nbact =3;
         while (nbact>0) {
             actionsPossibles[0]=joueurActif.isMvmntPossible();
