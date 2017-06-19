@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -43,10 +44,12 @@ public class VuePlateau extends JFrame{
         ArrayList<JPanel> panelPions = new ArrayList<>();
         ArrayList<JButton> caseButtons = new ArrayList<>();
         JLayeredPane calque = new JLayeredPane();
-        calque.setLayout(new BorderLayout());
         calque.setPreferredSize(this.getPreferredSize());
         JPanel mapPanel = new JPanel(new GridLayout(6,6));
-        JPanel pionsPlateau = new JPanel(new GridLayout(6,6));
+        mapPanel.setBounds(this.getBounds());
+        JComponent pionsPlateau = new JPanel(new GridLayout(6,6));
+        pionsPlateau.setOpaque(false);
+        pionsPlateau.setSize(this.getBounds().getSize());
         
         Color colorBack;
         
@@ -59,6 +62,7 @@ public class VuePlateau extends JFrame{
                     caseTuiles.add(new JPanel(new BorderLayout()));
                     panelPions.add(new JPanel(new GridLayout(1,4)));
                     caseTuiles.get(caseTuiles.size()-1).setBackground(new Color(0,191,255)); //deepsky blue
+                    panelPions.get(panelPions.size()-1).setOpaque(false);
                     if(x== 0 && y ==5) {
                     icona = new ImageIcon(this.getClass().getResource("/ImagesTuiles/EauRoseVent.png"));
                     } else {
@@ -88,7 +92,8 @@ public class VuePlateau extends JFrame{
                     ImageIcon icon = new ImageIcon(t.getImage().getImage().getScaledInstance(170,170, Image.SCALE_DEFAULT));
                     for(Joueur j : t.getLocataires()) {
                         if(j!= null) {
-                           panelPions.get(panelPions.size()-1).add(new JLabel(new ImageIcon(j.getImage().getImage().getScaledInstance(30,30, Image.SCALE_DEFAULT))),BorderLayout.CENTER);
+                           JLabel label = new JLabel(new ImageIcon(j.getImage().getImage().getScaledInstance(30,30, Image.SCALE_DEFAULT)));
+                           panelPions.get(panelPions.size()-1).add(label,BorderLayout.NORTH);
                         }
                     }
                     caseTuiles.get(caseTuiles.size()-1).add(new JLabel(icon),BorderLayout.CENTER);
@@ -111,9 +116,13 @@ public class VuePlateau extends JFrame{
         for (JPanel jpp: caseTuiles) {
             mapPanel.add(jpp);
         }
+        for (JPanel jppion : panelPions) {
+            jppion.setOpaque(false);
+            pionsPlateau.add(jppion);
+        }
         //window.setLocationRelativeTo(null);  centre la fenêtre
-        calque.add(mapPanel,BorderLayout.CENTER,Integer.valueOf(1));
-        calque.setOpaque(true);
+        calque.add(mapPanel,Integer.valueOf(1));
+        calque.add(pionsPlateau,Integer.valueOf(3));
         this.add(calque, BorderLayout.CENTER);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
