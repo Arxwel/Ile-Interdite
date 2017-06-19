@@ -69,7 +69,8 @@ public class VueAventurier  {
 //            panelCartes.add(new JLabel(c.getType().toString()));
 //        }
         for (CarteTresor c : j.getMainJoueur()) {
-            panelCartes.add(new JLabel(new ImageIcon(c.getImage().getImage().getScaledInstance(95,95, Image.SCALE_DEFAULT))));
+            JLabel imgCarte = new JLabel(new ImageIcon(c.getImage().getImage().getScaledInstance(77,77, Image.SCALE_DEFAULT)));
+            panelCartes.add(imgCarte);
         }
         
 
