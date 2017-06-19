@@ -160,7 +160,7 @@ public class Controleur implements Observateur {
                     if (sc.hasNextInt(choix) && choix<4) {
                         switch (choix-1) {
                             case 0:
-                                joueur.useCarteSpe(cs1);
+                                //joueur.useCarteSpe(cs1);
                                 break;
                             case 1:
                                 joueur.defausserCarte();
@@ -176,7 +176,7 @@ public class Controleur implements Observateur {
                     if (sc.hasNextInt(choix) && choix<4) {
                         switch (choix-1) {
                             case 0:
-                                joueur.useCarteSpe(cs2);
+                                //joueur.useCarteSpe(cs2);
                                 break;
                             case 1:
                                 joueur.defausserCarte();
