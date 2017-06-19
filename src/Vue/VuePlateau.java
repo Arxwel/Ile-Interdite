@@ -16,6 +16,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -49,14 +50,14 @@ public class VuePlateau extends JFrame{
         ArrayList<JPanel> panelPions = new ArrayList<>();
         ArrayList<JButton> buttonsCase = new ArrayList<>();
         JLayeredPane calque = new JLayeredPane();
-        calque.setPreferredSize(this.getPreferredSize());
+        calque.setPreferredSize(this.getSize());
         JPanel mapPanel = new JPanel(new GridLayout(6,6));
-        mapPanel.setBounds(this.getBounds());
+        mapPanel.setBounds(new Rectangle(new Dimension(this.getBounds().width,this.getBounds().height-33)));
         JComponent pionsPlateau = new JPanel(new GridLayout(6,6));
         pionsPlateau.setOpaque(false);
-        pionsPlateau.setSize(this.getBounds().getSize());
+        pionsPlateau.setBounds(new Rectangle(new Dimension(this.getBounds().width,this.getBounds().height-33)));
         JComponent calqueButtons = new JPanel(new GridLayout(6,6));
-        calqueButtons.setSize(this.getBounds().getSize());
+        calqueButtons.setBounds(new Rectangle(new Dimension(this.getBounds().width,this.getBounds().height-33)));
         calqueButtons.setOpaque(false);
         Color colorBack;
         
