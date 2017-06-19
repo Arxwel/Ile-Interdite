@@ -129,10 +129,10 @@ public class Controleur implements Observateur {
             System.out.println(joueur.getNom() + " a trop de cartes en main. Il doit en défausser ou en utiliser jusqu'à en avoir 5 au plus.");
             CarteTresor cs1 = new CarteTresor(TypeCarte.SpécialHélicoptère);
             CarteTresor cs2 = new CarteTresor(TypeCarte.SpécialSacDeSable);
-            CarteTresor cr1 = new CarteTresor(TypeCarte.TresorVert);
-            CarteTresor cr2 = new CarteTresor(TypeCarte.TresorNoir);
-            CarteTresor cr3 = new CarteTresor(TypeCarte.TresorRouge);
-            CarteTresor cr4 = new CarteTresor(TypeCarte.TresorJaune);
+            CarteTresor cr1 = new CarteTresor(TypeCarte.TresorCyan);
+            CarteTresor cr2 = new CarteTresor(TypeCarte.TresorGray);
+            CarteTresor cr3 = new CarteTresor(TypeCarte.TresorMagenta);
+            CarteTresor cr4 = new CarteTresor(TypeCarte.TresorOrange);
             for (int i = 1; i<joueur.getMainJoueur().size(); i++) {
                 /*if (joueur.getMainJoueur().get(i).equals(cs1)) {
                     System.out.println("Carte Hélicoptère. Choisissez votre action: Utiliser, Defausser ou Rien.");                    
@@ -190,7 +190,7 @@ public class Controleur implements Observateur {
                         }
                     }
                 } else if (joueur.getMainJoueur().get(i).equals(cr1)) {
-                    System.out.println("Carte relique Turquoise. Choisissez votre action: Defausser (1) ou Rien (2).");
+                    System.out.println("Carte relique Cyan. Choisissez votre action: Defausser (1) ou Rien (2).");
                     choix = sc.nextInt();
                     if (sc.hasNextInt(choix) && choix<4) {
                         switch (choix-1) {
@@ -273,10 +273,10 @@ public class Controleur implements Observateur {
     //met les bonnes cartes dans la pioche trésor et les mélange
     private static void initPiocheTresor() {
         for (int i=0; i<5; i++) {
-            piocheCarteTresor.add(new CarteTresor(TypeCarte.TresorNoir));
-            piocheCarteTresor.add(new CarteTresor(TypeCarte.TresorVert));
-            piocheCarteTresor.add(new CarteTresor(TypeCarte.TresorRouge));
-            piocheCarteTresor.add(new CarteTresor(TypeCarte.TresorJaune));
+            piocheCarteTresor.add(new CarteTresor(TypeCarte.TresorGray));
+            piocheCarteTresor.add(new CarteTresor(TypeCarte.TresorCyan));
+            piocheCarteTresor.add(new CarteTresor(TypeCarte.TresorMagenta));
+            piocheCarteTresor.add(new CarteTresor(TypeCarte.TresorOrange));
         }
         for (int i=0; i<3; i++) {
             piocheCarteTresor.add(new CarteTresor(TypeCarte.MontéeEaux));

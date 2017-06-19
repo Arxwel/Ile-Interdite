@@ -10,10 +10,10 @@ package Modèle;
  * @author salmona
  */
 public enum TypeCarte {
-    TresorRouge,
-    TresorNoir,
-    TresorVert,
-    TresorJaune,
+    TresorMagenta,
+    TresorGray,
+    TresorCyan,
+    TresorOrange,
     SpécialHélicoptère,
     SpécialSacDeSable,
     MontéeEaux

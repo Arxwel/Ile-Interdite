@@ -9,38 +9,39 @@ import Controleur.Controleur;
 import Modèle.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
 /**
  *
  * @author Alexandre
  */
-public class VuePlateau {
+public class VuePlateau extends JFrame{
     private Controleur controleur;
-    private JFrame window;
     
     //Affiche le plateau
     public VuePlateau(Controleur c) {
-        window = new JFrame();
-        window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        window.setSize(1024, 768);
-        window.setBackground(Color.BLUE);
+        super("Ile Interdite");
+        this.setSize(1000, 1000);
+        this.setLayout(new BorderLayout());
+        this.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         this.setControleur(c);
         
         ArrayList<JPanel> caseTuiles = new ArrayList<>();
-        ArrayList<JPanel> upGridPanels = new ArrayList<>();
-        ArrayList<JPanel> downGridPanels = new ArrayList<>();
-        
-        
+        JLayeredPane calque = new JLayeredPane();
+        calque.setLayout(new BorderLayout());
+        calque.setPreferredSize(this.getPreferredSize());
         JPanel mapPanel = new JPanel(new GridLayout(6,6));
-        window.add(mapPanel);
+        JPanel pionsPlateau = new JPanel(new GridLayout(6,6));
         
         Color colorBack;
         
@@ -71,6 +72,8 @@ public class VuePlateau {
                             colorBack = Color.LIGHT_GRAY;
                             break;
                     }
+                    caseTuiles.get(5).add(new JLabel(new ImageIcon(this.getClass().getResource("/ImagesTuiles/EauRoseVent.png"))), BorderLayout.CENTER);
+                    
                     caseTuiles.add(new JPanel(new BorderLayout()));
                     //upGridPanels.add(new JPanel(new GridLayout(1,4)));
                     //downGridPanels.add(new JPanel(new BorderLayout(1,3)));
@@ -80,7 +83,7 @@ public class VuePlateau {
                     ImageIcon icon = new ImageIcon(t.getImage().getImage().getScaledInstance(170,170, Image.SCALE_DEFAULT));
                     caseTuiles.get(caseTuiles.size()-1).add(new JLabel(icon),BorderLayout.CENTER);
                     caseTuiles.get(caseTuiles.size()-1).add(new JLabel(t.getIntitule().nomEspace()),BorderLayout.SOUTH);
-                    caseTuiles.get(caseTuiles.size()-1).add(new JLabel("          "),BorderLayout.NORTH);
+                    //caseTuiles.get(caseTuiles.size()-1).add(new JLabel("          "),BorderLayout.NORTH);
                     //caseTuiles.get(caseTuiles.size()-1).add(upGridPanels.get(caseTuiles.size()-1),BorderLayout.NORTH);
                     //caseTuiles.get(caseTuiles.size()-1).add(downGridPanels.get(caseTuiles.size()-1),BorderLayout.SOUTH);
                     
@@ -103,11 +106,12 @@ public class VuePlateau {
         for (JPanel jpp: caseTuiles) {
             mapPanel.add(jpp);
         }
-        //window.pack();
         //window.setLocationRelativeTo(null);  centre la fenêtre
-        window.setSize(1024, 1024);
-        window.setResizable(false);
-        window.setVisible(true);
+        calque.add(mapPanel,BorderLayout.CENTER,Integer.valueOf(1));
+        calque.setOpaque(true);
+        this.add(calque, BorderLayout.CENTER);
+        this.setResizable(false);
+        this.setVisible(true);
              
     }
     
@@ -118,6 +122,6 @@ public class VuePlateau {
      * @return the window
      */
     public JFrame getWindow() {
-        return window;
+        return this;
     }
 }
