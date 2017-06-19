@@ -56,24 +56,25 @@ public class VuePlateau extends JFrame{
         pionsPlateau.setOpaque(false);
         pionsPlateau.setSize(this.getBounds().getSize());
         JComponent calqueButtons = new JPanel(new GridLayout(6,6));
+        calqueButtons.setSize(this.getBounds().getSize());
+        calqueButtons.setOpaque(false);
         Color colorBack;
         
         for (int x=0; x<6; x++) {
             for (int y=0; y<6; y++) {
                 Grille g = controleur.getGrille();
                 Tuile t = g.getTuile(x,y);
-                
-                buttonsCase.add(new JButton("YOLOLOLOLOLOLOLOLO"));
+                buttonsCase.add(new JButton(""));
                 buttonsCase.get(buttonsCase.size()-1).addActionListener(new ActionListener() {
 
                     @Override
                     public void actionPerformed(ActionEvent e) {
+                        System.out.println("ActionListener pour"+t.getIntitule().toString());
+                        System.out.println("à l'emplacement"+t.getCoordonees().getX()+t.getCoordonees().getY());
                         MessagePlateau msg = new MessagePlateau(TypeMessage.ClicPlateau, t.getCoordonees());
                         observateur.traiterMessagePlateau(msg);
-                        System.out.println(msg.getCoo().getX()+" "+msg.getCoo().getY()+" a été cliqué.");
                     }
                 });
-                
                 if (t==null) {
                     buttonsCase.get(buttonsCase.size()-1).setEnabled(false);
                     caseTuiles.add(new JPanel(new BorderLayout()));
@@ -134,6 +135,8 @@ public class VuePlateau extends JFrame{
             mapPanel.add(jpp);
         }
         for (JButton jp: buttonsCase) {
+            jp.setOpaque(false);
+            jp.setContentAreaFilled(false);
             calqueButtons.add(jp);
         }
         for (JPanel jppion : panelPions) {

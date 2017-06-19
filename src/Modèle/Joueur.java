@@ -37,21 +37,21 @@ public abstract class Joueur {
 	public ArrayList<Tuile> listerCasesDispo() {
            ArrayList<Tuile> tuileslibres = new ArrayList<>();
 
-           if (((position.getPlateau().getTuile(position.getCoordonees().getX()-1,position.getCoordonees().getY()) != null)) && (position.getPlateau().getTuile(position.getCoordonees().getX()-1,position.getCoordonees().getY()).getEtat() == Etat.Sec)) {
-               //tuile à gauche du joueur
-               tuileslibres.add(position.getPlateau().getTuile(position.getCoordonees().getX()-1,position.getCoordonees().getY()));
-           } 
-           if(((position.getPlateau().getTuile(position.getCoordonees().getX()+1,position.getCoordonees().getY()) != null)) && (position.getPlateau().getTuile(position.getCoordonees().getX()+1,position.getCoordonees().getY()).getEtat() == Etat.Sec)) {
-               //tuile à droite du joueur
-               tuileslibres.add(position.getPlateau().getTuile(position.getCoordonees().getX()+1,position.getCoordonees().getY()));
-           } 
-           if(((position.getPlateau().getTuile(position.getCoordonees().getY()-1,position.getCoordonees().getY()) != null)) && (position.getPlateau().getTuile(position.getCoordonees().getX(),position.getCoordonees().getY()-1).getEtat() == Etat.Sec)) {
-               //tuile en dessous du joueur
-               tuileslibres.add(position.getPlateau().getTuile(position.getCoordonees().getX(),position.getCoordonees().getY()-1));
-           } 
-           if(((position.getPlateau().getTuile(position.getCoordonees().getY()+1,position.getCoordonees().getY()) != null)) && (position.getPlateau().getTuile(position.getCoordonees().getX(),position.getCoordonees().getY()+1).getEtat() == Etat.Sec)){
-               //tuile au-dessus du joueur
-               tuileslibres.add(position.getPlateau().getTuile(position.getCoordonees().getX(),position.getCoordonees().getY()+1));
+           Coordonnees coo = this.getPosition().getCoordonees();
+           Grille g = this.getPosition().getPlateau();
+           Tuile t;
+           Coordonnees[] cooAdj = new Coordonnees[4];
+           cooAdj[0]=new Coordonnees(coo.getX()+1,coo.getY());
+           cooAdj[1]=new Coordonnees(coo.getX()-1,coo.getY());
+           cooAdj[2]=new Coordonnees(coo.getX(),coo.getY()+1);
+           cooAdj[3]=new Coordonnees(coo.getX(),coo.getY()-1);
+           for (Coordonnees c: cooAdj) {
+               if (c.getX()>0 && c.getX()<6 && c.getY()>0 && c.getY()<6) {
+                   t = g.getTuile(c);
+                   if (t!=null && t.getEtat()==Etat.Sec) {
+                       tuileslibres.add(t);
+                   }
+               }
            }
            return tuileslibres;
 	}
@@ -123,26 +123,25 @@ public abstract class Joueur {
         //lister les cases que le joueur peut assécher en usant une seule action
         //Cette méthodes est redéfinie pour les type de joueurs ayant des mouvements spécifiques
 	public ArrayList<Tuile> listerTuilesAssechables() {
-		 ArrayList<Tuile> tuilesinond = new ArrayList<>();
-                 Coordonnees coor = new Coordonnees(position.getCoordonees().getX(),position.getCoordonees().getY());
-                 
-           if (((position.getPlateau().getTuile(coor.getX()-1,coor.getY()) != null)) && (position.getPlateau().getTuile(coor.getX()-1,coor.getY()).getEtat() == Etat.Inondé)) {
-               //tuile à gauche du joueur
-               tuilesinond.add(position.getPlateau().getTuile(coor.getX()-1,coor.getY()));
-           } 
-           if(((position.getPlateau().getTuile(coor.getX()+1,coor.getY()) != null)) && (position.getPlateau().getTuile(coor.getX()+1,coor.getY()).getEtat() == Etat.Inondé)) {
-               //tuile à droite du joueur
-               tuilesinond.add(position.getPlateau().getTuile(coor.getX()+1,coor.getY()));
-           } 
-           if(((position.getPlateau().getTuile(coor.getX(),coor.getY()-1) != null)) && (position.getPlateau().getTuile(coor.getX(),coor.getY()-1).getEtat() == Etat.Inondé)) {
-               //tuile en dessous du joueur
-               tuilesinond.add(position.getPlateau().getTuile(coor.getX(),coor.getY()-1));
-           } 
-           if(((position.getPlateau().getTuile(coor.getX(),coor.getY()+1) != null)) && (position.getPlateau().getTuile(coor.getX(),coor.getY()+1).getEtat() == Etat.Inondé)){
-               //tuile au-dessus du joueur
-               tuilesinond.add(position.getPlateau().getTuile(coor.getX(),coor.getY()+1));
+            ArrayList<Tuile> tuilesAss = new ArrayList<>();
+
+           Coordonnees coo = this.getPosition().getCoordonees();
+           Grille g = this.getPosition().getPlateau();
+           Tuile t;
+           Coordonnees[] cooAdj = new Coordonnees[4];
+           cooAdj[0]=new Coordonnees(coo.getX()+1,coo.getY());
+           cooAdj[1]=new Coordonnees(coo.getX()-1,coo.getY());
+           cooAdj[2]=new Coordonnees(coo.getX(),coo.getY()+1);
+           cooAdj[3]=new Coordonnees(coo.getX(),coo.getY()-1);
+           for (Coordonnees c: cooAdj) {
+               if (c.getX()>0 && c.getX()<6 && c.getY()>0 && c.getY()<6) {
+                   t = g.getTuile(c);
+                   if (t!=null && t.getEtat()==Etat.Inondé) {
+                       tuilesAss.add(t);
+                   }
+               }
            }
-           return tuilesinond;
+           return tuilesAss;
 	}
 
     /**

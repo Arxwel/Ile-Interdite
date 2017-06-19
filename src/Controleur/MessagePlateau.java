@@ -16,6 +16,7 @@ public class MessagePlateau extends Message {
     private Coordonnees coo;
     public MessagePlateau(TypeMessage type, Coordonnees coo) {
         super(type);
+        this.coo = coo;
     }
 
     public Coordonnees getCoo() {

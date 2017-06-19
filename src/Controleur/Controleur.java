@@ -483,6 +483,7 @@ public class Controleur implements Observateur {
         return nom;
     }
 
+    @Override
     public void traiterMessagePlateau(MessagePlateau msg) {
         System.out.println(msg.getCoo().getX()+" "+msg.getCoo().getY()+" a été cliqué.");
     }
