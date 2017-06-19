@@ -62,6 +62,7 @@ public static void main(String[] args) {
         vj4.getWindow().setLocation(15, 765);
         vj4.getWindow().setVisible(true);
         vuePlateau = new VuePlateau(c);
+        vuePlateau.setObservateur(c);
         vuePlateau.getWindow().setVisible(true);
         c.play();
     } 

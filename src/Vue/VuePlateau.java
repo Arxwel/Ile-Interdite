@@ -6,6 +6,10 @@
 package Vue;
 
 import Controleur.Controleur;
+import Controleur.Message;
+import Controleur.MessagePlateau;
+import Controleur.Observateur;
+import Controleur.TypeMessage;
 import Modèle.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -31,6 +35,7 @@ import javax.swing.JPanel;
 public class VuePlateau extends JFrame{
     private Controleur controleur;
     private ImageIcon icona;
+    private Observateur observateur;
     
     //Affiche le plateau
     public VuePlateau(Controleur c) {
@@ -53,8 +58,8 @@ public class VuePlateau extends JFrame{
         
         Color colorBack;
         
-        for (int x=0; x<=5; x++) {
-            for (int y=0; y<=5; y++) {
+        for (int x=0; x<6; x++) {
+            for (int y=0; y<6; y++) {
                 Grille g = controleur.getGrille();
                 Tuile t = g.getTuile(x,y);
                 
@@ -111,10 +116,24 @@ public class VuePlateau extends JFrame{
                     
                 }*/
                 
+                buttonsCase.add(new JButton());
+                buttonsCase.get(buttonsCase.size()-1).addActionListener(new ActionListener() {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        MessagePlateau msg = new MessagePlateau(TypeMessage.ClicPlateau, t.getCoordonees());
+                        observateur.traiterMessagePlateau(msg);
+                        System.out.println(msg.getCoo().getX()+" "+msg.getCoo().getY()+" a été cliqué.");
+                    }
+                });
+                
             }
         }
         for (JPanel jpp: caseTuiles) {
             mapPanel.add(jpp);
+        }
+        for (JButton jp: buttonsCase) {
+            calqueButtons.add(jp);
         }
         for (JPanel jppion : panelPions) {
             jppion.setOpaque(false);
@@ -131,7 +150,12 @@ public class VuePlateau extends JFrame{
     }
     
     public void setControleur(Controleur c) {
-        this.controleur=c;    }
+        this.controleur=c;    
+    }
+    
+    public void setObservateur(Observateur o) {
+        this.observateur = o;
+    }
 
     /**
      * @return the window
