@@ -64,7 +64,6 @@ public class VuePlateau extends JFrame{
             for (int y=0; y<6; y++) {
                 Grille g = controleur.getGrille();
                 Tuile t = g.getTuile(x,y);
-                JButton butt = new JButton();
                 buttonsCase.add(new JButton(""));
                 buttonsCase.get(buttonsCase.size()-1).addActionListener(new ActionListener() {
 
