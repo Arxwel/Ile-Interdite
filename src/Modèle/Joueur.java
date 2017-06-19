@@ -208,7 +208,7 @@ public abstract class Joueur {
             if (this.getPosition().getReliqueDispo() != null) {
                 Color c = this.getPosition().getReliqueDispo();
                 for(CarteTresor carte: this.getMainJoueur()) {
-                    //exemple: si TypeCarte == TresorMagenta && couleur case == rouge
+                    //exemple: si TypeCarte == TresorMagenta && couleur case == magenta
                     if ((carte.getType()== TypeCarte.TresorMagenta && c == Color.MAGENTA)
                          ||(carte.getType()== TypeCarte.TresorCyan && c == Color.CYAN)
                          ||(carte.getType()== TypeCarte.TresorGray && c == Color.GRAY)
