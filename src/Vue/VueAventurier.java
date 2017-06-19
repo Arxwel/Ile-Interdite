@@ -13,9 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import static javax.swing.SwingConstants.CENTER;
 import javax.swing.border.MatteBorder;
-import CodeFourni.Utils.Pion;
 import Modèle.*;
 import javax.swing.ImageIcon;
 
@@ -30,9 +28,10 @@ public class VueAventurier  {
     private final JPanel mainPanel;
     private final JButton btnAller  ;
     private final JButton btnAssecher;
+    private final JButton btnDonner;
+    private final JButton btnRelique;
     private final JButton btnAutreAction;
     private final JButton btnTerminerTour;
-    private final JTextField position;
     
     
     public VueAventurier (Joueur j){
@@ -62,24 +61,31 @@ public class VueAventurier  {
         this.panelCentre.setBorder(new MatteBorder(0, 0, 2, 0, j.getCouleur()));
         mainPanel.add(this.panelCentre, BorderLayout.CENTER);
         
-        panelCentre.add(new JLabel ("Cartes", SwingConstants.CENTER));
-        
+        panelCentre.add(new JLabel ("Cartes", SwingConstants.CENTER),BorderLayout.NORTH);
+        panelCartes = new JPanel(new GridLayout(1,5));
+        panelCentre.add(panelCartes,BorderLayout.CENTER);
+        for (CarteTresor c : j.getMainJoueur()) {
+            panelCartes.add(new JLabel(new ImageIcon(this.getClass().getResource("/resources.Trésors/"+c.getType().toString()))));
+        }
         
 
 
         // =================================================================================
         // SUD : les boutons
-        this.panelBoutons = new JPanel(new GridLayout(2,2));
-        this.panelBoutons.setOpaque(false);
+        this.panelBoutons = new JPanel(new GridLayout(3,2));
         mainPanel.add(this.panelBoutons, BorderLayout.SOUTH);
 
         this.btnAller = new JButton("Aller") ;
         this.btnAssecher = new JButton( "Assecher");
+        this.btnDonner = new JButton( "Donner une Carte");
+        this.btnRelique = new JButton( "Prendre Relique");
         this.btnAutreAction = new JButton("AutreAction") ;
         this.btnTerminerTour = new JButton("Terminer Tour") ;
         
         this.panelBoutons.add(btnAller);
         this.panelBoutons.add(btnAssecher);
+        this.panelBoutons.add(btnDonner);
+        this.panelBoutons.add(btnRelique);
         this.panelBoutons.add(btnAutreAction);
         this.panelBoutons.add(btnTerminerTour);
 
