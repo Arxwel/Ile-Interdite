@@ -17,12 +17,14 @@ import static javax.swing.SwingConstants.CENTER;
 import javax.swing.border.MatteBorder;
 import CodeFourni.Utils.Pion;
 import Modèle.*;
+import javax.swing.ImageIcon;
 
  
 public class VueAventurier  {
      
     private final JPanel panelBoutons ;
     private final JPanel panelCentre ;
+    private final JPanel panelCartes ;
     private final JFrame window;
     private final JPanel panelAventurier;
     private final JPanel mainPanel;
@@ -31,6 +33,7 @@ public class VueAventurier  {
     private final JButton btnAutreAction;
     private final JButton btnTerminerTour;
     private final JTextField position;
+    
     
     public VueAventurier (Joueur j){
 
@@ -50,20 +53,18 @@ public class VueAventurier  {
 
         this.panelAventurier = new JPanel();
         panelAventurier.setBackground(j.getCouleur());
-        panelAventurier.add(new JLabel(j.getNom(),SwingConstants.CENTER ));
+        panelAventurier.add(new JLabel(j.getClass().toString().substring(13),SwingConstants.CENTER ));
         mainPanel.add(panelAventurier, BorderLayout.NORTH);
    
         // =================================================================================
-        // CENTRE : 1 ligne pour position courante
-        this.panelCentre = new JPanel(new GridLayout(2, 1));
-        this.panelCentre.setOpaque(false);
+        // CENTRE : Cartes en Main
+        this.panelCentre = new JPanel(new BorderLayout());
         this.panelCentre.setBorder(new MatteBorder(0, 0, 2, 0, j.getCouleur()));
         mainPanel.add(this.panelCentre, BorderLayout.CENTER);
         
-        panelCentre.add(new JLabel ("Position", SwingConstants.CENTER));
-        position = new  JTextField(30); 
-        position.setHorizontalAlignment(CENTER);
-        panelCentre.add(position);
+        panelCentre.add(new JLabel ("Cartes", SwingConstants.CENTER));
+        
+        
 
 
         // =================================================================================

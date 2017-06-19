@@ -1,5 +1,6 @@
 package Modèle;
 
+import Vue.VueAventurier;
 import java.awt.Color;
 import java.util.*;
 import java.util.Scanner;
@@ -12,6 +13,7 @@ public abstract class Joueur {
 	private String nom;
 	private Color couleur;
         protected Zone spawnPoint;
+        public VueAventurier vueAventurier;
         
         
         private Scanner sc = new Scanner(System.in);
@@ -227,5 +229,19 @@ public abstract class Joueur {
         public void useCarteSpe(CarteSpeciale cs) {
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
+
+    /**
+     * @return the vueAventurier
+     */
+    public VueAventurier getVueAventurier() {
+        return vueAventurier;
+    }
+
+    /**
+     * @param vueAventurier the vueAventurier to set
+     */
+    public void setVueAventurier(VueAventurier vueAventurier) {
+        this.vueAventurier = vueAventurier;
+    }
 
 }

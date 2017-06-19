@@ -59,7 +59,7 @@ public class Controleur implements Observateur {
 
     
     // méthode main temporaire pour tester
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         initPositionAventurier();
         
         initPiocheTresor();
@@ -76,7 +76,7 @@ public class Controleur implements Observateur {
             débutTour();
             numTour++;
         }    
-    } 
+    } */
     public void play() {
         
         //Initialisation des pioches et position des joueurs
@@ -124,12 +124,12 @@ public class Controleur implements Observateur {
     private void verifMain(Joueur joueur) {   
         while (joueur.getMainJoueur().size() >= 6) {
             System.out.println(joueur.getNom() + " a trop de cartes en main. Il doit en défausser ou en utiliser jusqu'à en avoir 5 au plus.");
-            CarteSpeciale cs1 = new CarteSpeciale(TypeSpé.Hélicoptère);
-            CarteSpeciale cs2 = new CarteSpeciale(TypeSpé.SacDeSable);
-            CarteRelique cr1 = new CarteRelique(Color.cyan);
-            CarteRelique cr2 = new CarteRelique(Color.GRAY);
-            CarteRelique cr3 = new CarteRelique(Color.MAGENTA);
-            CarteRelique cr4 = new CarteRelique(Color.ORANGE);
+            CarteTresor cs1 = new CarteTresor(TypeCarte.SpécialHélicoptère);
+            CarteTresor cs2 = new CarteTresor(TypeCarte.SpécialSacDeSable);
+            CarteTresor cr1 = new CarteTresor(TypeCarte.TresorVert);
+            CarteTresor cr2 = new CarteTresor(TypeCarte.TresorNoir);
+            CarteTresor cr3 = new CarteTresor(TypeCarte.TresorRouge);
+            CarteTresor cr4 = new CarteTresor(TypeCarte.TresorJaune);
             for (int i = 1; i<joueur.getMainJoueur().size(); i++) {
                 /*if (joueur.getMainJoueur().get(i).equals(cs1)) {
                     System.out.println("Carte Hélicoptère. Choisissez votre action: Utiliser, Defausser ou Rien.");                    
@@ -255,46 +255,9 @@ public class Controleur implements Observateur {
             actionsPossibles[2]=joueurActif.isDonPossible();
             actionsPossibles[3]=joueurActif.isReliquePossible();
             
-            boolean choixValide = false; // /!\ ATTENTION C'EST DANGEREUX !!!!!
-            while (!choixValide) {
-                if (actionsPossibles[0]) {
-                    System.out.println("1. Déplacer");
-                }
-                if (actionsPossibles[1]) {
-                    System.out.println("2. Assécher");
-                }
-                if (actionsPossibles[2]) {
-                    System.out.println("3. Donner");
-                }
-                if (actionsPossibles[3]) {
-                    System.out.println("4. Ramasser");
-                }
-                System.out.println("Saisissez le numéro de l'action:    STP rentre pas nawak");
-                int choix;
-                choix = sc.nextInt();
-                if (sc.hasNextInt(choix) && choix<5) {
-                    if (actionsPossibles[choix-1]) {
-                        choixValide = true;
-                        switch (choix-1) {
-                            case 0:
-                                joueurActif.déplacer();
-                                break;
-                            case 1:
-                                joueurActif.assécher();
-                                break;
-                            case 2:
-                                joueurActif.donnerCarte();
-                                break;
-                            case 3:
-                                joueurActif.prendreTrésor();
-                                break;
-                                
-                        }
-                    }
-                }
-            }
-        nbact--;
-	
+            joueurActif.getVueAventurier();
+            
+            nbact--;
         }
     }
 
@@ -307,19 +270,19 @@ public class Controleur implements Observateur {
     //met les bonnes cartes dans la pioche trésor et les mélange
     private static void initPiocheTresor() {
         for (int i=0; i<5; i++) {
-            piocheCarteTresor.add(new CarteRelique(Color.BLACK));
-            piocheCarteTresor.add(new CarteRelique(Color.GREEN));
-            piocheCarteTresor.add(new CarteRelique(Color.RED));
-            piocheCarteTresor.add(new CarteRelique(Color.YELLOW));
+            piocheCarteTresor.add(new CarteTresor(TypeCarte.TresorNoir));
+            piocheCarteTresor.add(new CarteTresor(TypeCarte.TresorVert));
+            piocheCarteTresor.add(new CarteTresor(TypeCarte.TresorRouge));
+            piocheCarteTresor.add(new CarteTresor(TypeCarte.TresorJaune));
         }
         for (int i=0; i<3; i++) {
-            piocheCarteTresor.add(new CarteMonteeDesEaux());
+            piocheCarteTresor.add(new CarteTresor(TypeCarte.MontéeEaux));
         }
         for (int i=0; i<3; i++) {
-            piocheCarteTresor.add(new CarteSpeciale(TypeSpé.Hélicoptère));
+            piocheCarteTresor.add(new CarteTresor(TypeCarte.SpécialHélicoptère));
         }
         for (int i=0; i<2; i++) {
-           piocheCarteTresor.add(new CarteSpeciale(TypeSpé.SacDeSable));
+           piocheCarteTresor.add(new CarteTresor(TypeCarte.SpécialSacDeSable));
         }
         Collections.shuffle(piocheCarteTresor);
     }
