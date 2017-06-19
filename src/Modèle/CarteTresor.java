@@ -1,9 +1,13 @@
 package Modèle;
 
+import javax.swing.ImageIcon;
+
 public class CarteTresor {
     private TypeCarte type;
+    private ImageIcon image;
     public CarteTresor(TypeCarte type) {
         this.setType(type);
+        image = new ImageIcon(this.getClass().getResource("/ImagesCartesTresor/"+type.name()+".png"));
     }
 
     /**
@@ -18,5 +22,12 @@ public class CarteTresor {
      */
     private void setType(TypeCarte type) {
         this.type = type;
+    }
+
+    /**
+     * @return the image
+     */
+    public ImageIcon getImage() {
+        return image;
     }
 }
