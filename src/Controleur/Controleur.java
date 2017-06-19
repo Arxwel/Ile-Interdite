@@ -77,8 +77,7 @@ public class Controleur implements Observateur {
             numTour++;
         }    
     } */
-    public void play() {
-        
+    public void init() {
         //Initialisation des pioches et position des joueurs
         initPositionAventurier();
         
@@ -92,6 +91,10 @@ public class Controleur implements Observateur {
                 donnerCarte(j);
           }
         }
+        
+    }
+    public void play() {
+        
         
         //Boucle de jeu
         while (!isPartieFinie()) {
