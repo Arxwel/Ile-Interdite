@@ -63,7 +63,19 @@ public class VuePlateau extends JFrame{
                 Grille g = controleur.getGrille();
                 Tuile t = g.getTuile(x,y);
                 
+                buttonsCase.add(new JButton("YOLOLOLOLOLOLOLOLO"));
+                buttonsCase.get(buttonsCase.size()-1).addActionListener(new ActionListener() {
+
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        MessagePlateau msg = new MessagePlateau(TypeMessage.ClicPlateau, t.getCoordonees());
+                        observateur.traiterMessagePlateau(msg);
+                        System.out.println(msg.getCoo().getX()+" "+msg.getCoo().getY()+" a été cliqué.");
+                    }
+                });
+                
                 if (t==null) {
+                    buttonsCase.get(buttonsCase.size()-1).setEnabled(false);
                     caseTuiles.add(new JPanel(new BorderLayout()));
                     panelPions.add(new JPanel(new GridLayout(1,4)));
                     caseTuiles.get(caseTuiles.size()-1).setBackground(new Color(0,191,255)); //deepsky blue
@@ -116,17 +128,6 @@ public class VuePlateau extends JFrame{
                     
                 }*/
                 
-                buttonsCase.add(new JButton());
-                buttonsCase.get(buttonsCase.size()-1).addActionListener(new ActionListener() {
-
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        MessagePlateau msg = new MessagePlateau(TypeMessage.ClicPlateau, t.getCoordonees());
-                        observateur.traiterMessagePlateau(msg);
-                        System.out.println(msg.getCoo().getX()+" "+msg.getCoo().getY()+" a été cliqué.");
-                    }
-                });
-                
             }
         }
         for (JPanel jpp: caseTuiles) {
@@ -141,7 +142,8 @@ public class VuePlateau extends JFrame{
         }
         //window.setLocationRelativeTo(null);  centre la fenêtre
         calque.add(mapPanel,Integer.valueOf(1));
-        calque.add(pionsPlateau,Integer.valueOf(3));
+        calque.add(pionsPlateau,Integer.valueOf(2));
+        calque.add(calqueButtons,Integer.valueOf(3));
         this.add(calque, BorderLayout.CENTER);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
