@@ -1,6 +1,11 @@
 package Vue;
 
 
+import Controleur.Controleur;
+import Controleur.Message;
+import Controleur.MessageAventurier;
+import Controleur.Observateur;
+import Controleur.TypeMessage;
 import java.awt.BorderLayout;
 import java.awt.Color;
 
@@ -35,6 +40,8 @@ public class VueAventurier  {
     private final JButton btnRelique;
     private final JButton btnAutreAction;
     private final JButton btnTerminerTour;
+    
+    private static Observateur observateur;
     
     
     public VueAventurier (Joueur j) {
@@ -87,7 +94,10 @@ public class VueAventurier  {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Deplacement");
+                MessageAventurier msg = new MessageAventurier(TypeMessage.Deplacer, j);
+                observateur.traiterMessageAventurier(msg);
+                System.out.println("Deplacement de " + msg.getJoueur().getNom());
+
             }
         });
         this.btnAssecher = new JButton("Assécher");
@@ -96,6 +106,8 @@ public class VueAventurier  {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Assechement");
+                MessageAventurier msg = new MessageAventurier(TypeMessage.Assecher, j);
+                observateur.traiterMessageAventurier(msg);
             }
         });
         this.btnDonner = new JButton("Donner une Carte");
@@ -104,6 +116,8 @@ public class VueAventurier  {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Don de carte");
+                MessageAventurier msg = new MessageAventurier(TypeMessage.Donner, j);
+                observateur.traiterMessageAventurier(msg);
             }
         });
         this.btnRelique = new JButton("Prendre Relique");
@@ -112,6 +126,8 @@ public class VueAventurier  {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Prise de relique");
+                MessageAventurier msg = new MessageAventurier(TypeMessage.PrendreRelique, j);
+                observateur.traiterMessageAventurier(msg);
             }
         });
         this.btnAutreAction = new JButton("AutreAction");
@@ -120,6 +136,8 @@ public class VueAventurier  {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Autre action");
+                MessageAventurier msg = new MessageAventurier(TypeMessage.AutreAction, j);
+                observateur.traiterMessageAventurier(msg);
             }
         });
         this.btnTerminerTour = new JButton("Terminer Tour");
@@ -127,7 +145,10 @@ public class VueAventurier  {
             
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Fin de tour");
+                MessageAventurier msg = new MessageAventurier(TypeMessage.TerminerTour, j);
+                observateur.traiterMessageAventurier(msg);
+                System.out.println("Fin de tour de " + msg.getJoueur().getNom());
+
             }
         });
         
@@ -154,6 +175,10 @@ public class VueAventurier  {
      */
     public JFrame getWindow() {
         return window;
+    }
+
+    public void setObservateur(Observateur o) {
+        this.observateur = o;
     }
 }
 

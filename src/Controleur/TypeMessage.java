@@ -13,4 +13,10 @@ public enum TypeMessage {
     Annuler,
     Valider,
     ClicPlateau,
+    Deplacer,
+    Assecher,
+    Donner,
+    PrendreRelique,
+    AutreAction,
+    TerminerTour
 }

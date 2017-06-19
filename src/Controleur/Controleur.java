@@ -486,4 +486,9 @@ public class Controleur implements Observateur {
     public void traiterMessagePlateau(MessagePlateau msg) {
         System.out.println(msg.getCoo().getX()+" "+msg.getCoo().getY()+" a été cliqué.");
     }
+
+    @Override
+    public void traiterMessageAventurier(MessageAventurier msg) {
+        System.out.println("Le Joueur "+msg.getJoueur().getNom()+" a cliqué "+msg.getType().toString());
+    }
 }

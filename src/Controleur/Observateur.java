@@ -13,4 +13,6 @@ public interface Observateur {
     public void traiterMessage(Message msg);
 
     public void traiterMessagePlateau(MessagePlateau msg);
+    
+    public void traiterMessageAventurier(MessageAventurier msg);
 }

@@ -61,6 +61,10 @@ public static void main(String[] args) {
         vj3.getWindow().setVisible(true);
         vj4.getWindow().setLocation(15, 765);
         vj4.getWindow().setVisible(true);
+        vj1.setObservateur(c);
+        vj2.setObservateur(c);
+        vj3.setObservateur(c);
+        vj4.setObservateur(c);
         vuePlateau = new VuePlateau(c);
         vuePlateau.setObservateur(c);
         vuePlateau.getWindow().setVisible(true);
