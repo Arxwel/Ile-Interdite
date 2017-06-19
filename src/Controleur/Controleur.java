@@ -26,6 +26,7 @@ public class Controleur implements Observateur {
     private static boolean[] actionsPossibles = new boolean[4];
     private static Scanner sc = new Scanner(System.in);
     private static Stack<CarteTresor> piocheCarteTresor;
+    private static Stack<CarteTresor> defausseCarteTresor;
     private static boolean suite = false;
     private static VueInscription vueInscription;
 
@@ -41,6 +42,20 @@ public class Controleur implements Observateur {
      */
     public static ArrayList<Joueur> getJoueurs() {
         return joueurs;
+    }
+
+    /**
+     * @return the defausseCarteTresor
+     */
+    public static Stack<CarteTresor> getDefausseCarteTresor() {
+        return defausseCarteTresor;
+    }
+
+    /**
+     * @param aDefausseCarteTresor the defausseCarteTresor to set
+     */
+    private static void setDefausseCarteTresor(Stack<CarteTresor> aDefausseCarteTresor) {
+        defausseCarteTresor = aDefausseCarteTresor;
     }
     private VuePlateau vuePlateau;
     
@@ -99,6 +114,14 @@ public class Controleur implements Observateur {
                 }
           }
         }
+        
+    }
+    public void play() {
+        
+        
+    }
+    public void play() {
+        
         
     }
     public void play() {
@@ -171,7 +194,7 @@ public class Controleur implements Observateur {
                     if (sc.hasNextInt(choix) && choix<4) {
                         switch (choix-1) {
                             case 0:
-                                //joueur.useCarteSpe(cs1);
+                                joueur.useCarteSpe(cs1);
                                 break;
                             case 1:
                                 joueur.defausserCarte();
@@ -187,7 +210,7 @@ public class Controleur implements Observateur {
                     if (sc.hasNextInt(choix) && choix<4) {
                         switch (choix-1) {
                             case 0:
-                                //joueur.useCarteSpe(cs2);
+                                joueur.useCarteSpe(cs2);
                                 break;
                             case 1:
                                 joueur.defausserCarte();
@@ -309,12 +332,12 @@ public class Controleur implements Observateur {
     }
     
     // gère l'action "donner carte"
-    private static void donnerCarte(Joueur j) {
+    private static void piocherCarte(Joueur j) {
         j.getMainJoueur().add(piocheCarteTresor.firstElement());
         piocheCarteTresor.remove(0);
     }
 
-    
+
 
     //traite les messages en provenance des vues
     @Override
