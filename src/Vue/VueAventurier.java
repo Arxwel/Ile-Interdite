@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 import Modèle.*;
+import java.awt.Image;
 import javax.swing.ImageIcon;
 
  
@@ -68,7 +69,7 @@ public class VueAventurier  {
 //            panelCartes.add(new JLabel(c.getType().toString()));
 //        }
         for (CarteTresor c : j.getMainJoueur()) {
-            panelCartes.add(new JLabel(c.getImage()));
+            panelCartes.add(new JLabel(new ImageIcon(c.getImage().getImage().getScaledInstance(95,95, Image.SCALE_DEFAULT))));
         }
         
 
