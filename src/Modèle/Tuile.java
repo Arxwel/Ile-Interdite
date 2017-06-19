@@ -2,6 +2,7 @@ package Modèle;
 
 import java.awt.Color;
 import java.util.*;
+import javax.swing.ImageIcon;
 
 public class Tuile {
 
@@ -11,6 +12,7 @@ public class Tuile {
 	private Etat etat;
         private Grille plateau;
         private Color reliqueDispo;
+        private ImageIcon image;
 
         public Tuile(Zone nom, Etat etat, Grille grille, Coordonnees coo) {
             setIntitule(nom);
@@ -18,6 +20,20 @@ public class Tuile {
             setCoordonees(coo);
             locataires = new ArrayList<>();
             plateau = grille;
+            if(null == etat) {
+                image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.png"));
+            } else switch (etat) {
+                case Sec:
+                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/"+nom.name()+".png"));
+                    break;
+                case Inondé:
+                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/"+nom.name()+"2.png"));
+                    break;
+                default:
+                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.png"));
+                    break;
+            }
+
           
         }
         
@@ -28,6 +44,19 @@ public class Tuile {
             locataires = new ArrayList<>();
             plateau = grille;
             this.reliqueDispo = reliqueDispo; //quand relique recuperée supprimer reliqueDispo ou changer la couleur dans un truc qui n'existe pas
+            if(null == etat) {
+                image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.png"));
+            } else switch (etat) {
+                case Sec:
+                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/"+nom.name()+".png"));
+                    break;
+                case Inondé:
+                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/"+nom.name()+"2.png"));
+                    break;
+                default:
+                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.png"));
+                    break;
+            }
         }
         
 	/**
@@ -132,6 +161,13 @@ public class Tuile {
      */
     private void setReliqueDispo(Color reliqueDispo) {
         this.reliqueDispo = reliqueDispo;
+    }
+
+    /**
+     * @return the image
+     */
+    public ImageIcon getImage() {
+        return image;
     }
 
 }
