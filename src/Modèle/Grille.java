@@ -67,6 +67,10 @@ public class Grille {
     public Tuile getTuile(int x, int y) {
         return tuiles[x][y];
     }
+    
+    public Tuile getTuile(Coordonnees coo) {
+        return tuiles[coo.getX()][coo.getY()];
+    }
     //crée la grille de test
     private void initGrilleTest() {
         //Tuiles Impossibles
