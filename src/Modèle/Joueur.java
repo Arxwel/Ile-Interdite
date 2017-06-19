@@ -1,5 +1,6 @@
 package Modèle;
 
+import Controleur.Controleur;
 import Vue.VueAventurier;
 import java.awt.Color;
 import java.util.*;
@@ -14,17 +15,19 @@ public abstract class Joueur {
 	private Color couleur;
         protected Zone spawnPoint;
         public VueAventurier vueAventurier;
+        private Controleur controleur;
         
         
         private Scanner sc = new Scanner(System.in);
         
 
-	public Joueur(String nom) {
+	public Joueur(String nom, Controleur controleur) {
             mainJoueur = new ArrayList<>();
             this.setNom(nom);
             this.setCouleur(null);
             this.spawnPoint = null;
             this.setPosition(null);
+            this.setControleur(controleur);
 	}
 
             //lister les cases sur lesquelles le joueur peut se déplacer en usant une seule action
@@ -64,21 +67,18 @@ public abstract class Joueur {
             }
             System.out.println("Choisissez:");
             String choix = sc.nextLine();
-            //Jusque ici
-            
-            
             
             Tuile tuileAAssecher = tuilesInon.get(Integer.getInteger(choix));            
             tuileAAssecher.setEtat(Etat.Sec);
 
 	}
 
-        //Gère le don de cartes par les joueurs
+        //Gère l'action "donner carte"
 	public void donnerCarte() {
-		// TODO - implement Joueur.donnerCarte
+		// TODO - implement Joueur.prendreTrésor
 		throw new UnsupportedOperationException();
 	}
-
+        
         //Gère la prise de trésors par les joueurs
 	public void prendreTrésor() {
 		// TODO - implement Joueur.prendreTrésor
@@ -215,10 +215,6 @@ public abstract class Joueur {
                          ||(carte.getType()== TypeCarte.TresorOrange && c == Color.ORANGE)) {
                         n++;
                     }
-                    
-                    /*if (carte.equals(new CarteTresor(c))) {
-                        n++;
-                    }*/
                 }
             }
             return (n>=4);
@@ -235,13 +231,48 @@ public abstract class Joueur {
         }
         
         //gère la défausse d'une carte
-        public void defausserCarte() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        public void defausserCarte(CarteTresor c) {
+            //ajouter la carte à la pile de défausse
+            this.getMainJoueur().remove(c);
         }
         
         //gère l'utilisation de cartes spéciales (sac de sable, hélicoptère)
         public void useCarteSpe(CarteTresor c) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            if (c.getType()==TypeCarte.SpécialSacDeSable) {
+                ArrayList<Tuile> tuilesInon = new ArrayList<>();
+                Coordonnees coor = new Coordonnees(position.getCoordonees().getX(),position.getCoordonees().getY());
+                for (int x=0; x<=5; x++) {
+                    for (int y=0; y<=5; y++) {
+                        if (((position.getPlateau().getTuile(coor.getX()-1,coor.getY()) != null)) && (position.getPlateau().getTuile(coor.getX()-1,coor.getY()).getEtat() == Etat.Inondé)) {
+                            tuilesInon.add(position.getPlateau().getTuile(coor.getX(),coor.getY()));
+                        }
+                    }
+                }
+                // assécher la tuile désirée
+                
+                //affichage console
+               /* Integer i = 0;
+                for (Tuile t: tuilesInon) {
+                   System.out.println(i);
+                   System.out.println(t.getIntitule().toString());
+                   i++;
+                }
+                System.out.println("Choisissez:");
+                String choix = sc.nextLine();
+            
+                Tuile tuileAAssecher = tuilesInon.get(Integer.getInteger(choix));            
+                tuileAAssecher.setEtat(Etat.Sec); */ 
+            } else if (c.getType()==TypeCarte.SpécialHélicoptère) {
+                ArrayList<Tuile> tuileslibres = new ArrayList<>();
+                for (int x=0; x<=5; x++) {
+                    for (int y=0; y<=5; y++) {
+                        if (((position.getPlateau().getTuile(position.getCoordonees().getX(),position.getCoordonees().getY()) != null)) && (position.getPlateau().getTuile(position.getCoordonees().getX()-1,position.getCoordonees().getY()).getEtat() == Etat.Sec)) {
+                            tuileslibres.add(position.getPlateau().getTuile(position.getCoordonees().getX(),position.getCoordonees().getY()));
+                        } 
+                    }
+                }
+                //déplacer le joueur désiré
+            }
         }
 
     /**
@@ -256,6 +287,20 @@ public abstract class Joueur {
      */
     public void setVueAventurier(VueAventurier vueAventurier) {
         this.vueAventurier = vueAventurier;
+    }
+
+    /**
+     * @return the controleur
+     */
+    public Controleur getControleur() {
+        return controleur;
+    }
+
+    /**
+     * @param controleur the controleur to set
+     */
+    private void setControleur(Controleur controleur) {
+        this.controleur = controleur;
     }
 
 }
