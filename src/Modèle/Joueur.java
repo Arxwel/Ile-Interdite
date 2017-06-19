@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.util.*;
 import java.util.Scanner;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 
 public abstract class Joueur {
 
@@ -16,6 +17,7 @@ public abstract class Joueur {
         protected Zone spawnPoint;
         public VueAventurier vueAventurier;
         private Controleur controleur;
+        private ImageIcon image;
         
         
         private Scanner sc = new Scanner(System.in);
@@ -301,6 +303,20 @@ public abstract class Joueur {
      */
     private void setControleur(Controleur controleur) {
         this.controleur = controleur;
+    }
+
+    /**
+     * @return the image
+     */
+    public ImageIcon getImage() {
+        return image;
+    }
+
+    /**
+     * @param image the image to set
+     */
+    protected void setImage(ImageIcon image) {
+        this.image = image;
     }
 
 }

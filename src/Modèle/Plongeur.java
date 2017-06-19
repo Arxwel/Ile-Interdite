@@ -3,6 +3,7 @@ package Modèle;
 import Controleur.Controleur;
 import java.awt.Color;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 
 public class Plongeur extends Joueur {
     
@@ -10,6 +11,7 @@ public class Plongeur extends Joueur {
         super(nom, controleur);
         this.spawnPoint = Zone.LaPorteDeFer;
         this.setCouleur(Color.BLACK);
+        this.setImage(new ImageIcon(this.getClass().getResource("/ImagesAventuriers/Plongeur.png")));
     }
 
     @Override //peut traverser des tuiles inondées et des tuiles sombrées

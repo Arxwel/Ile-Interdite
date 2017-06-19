@@ -2,6 +2,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import java.awt.Color;
+import javax.swing.ImageIcon;
 
 public class Ingénieur extends Joueur {
     
@@ -9,7 +10,7 @@ public class Ingénieur extends Joueur {
         super(nom, controleur);
         this.spawnPoint = Zone.LaPorteDeBronze;
         this.setCouleur(Color.RED);
-        //this.spawnPoint = Zone.
+        this.setImage(new ImageIcon(this.getClass().getResource("/ImagesAventuriers/Ingenieur.png")));
     }
     
     @Override //peut assecher 2 tuiles a la fois
