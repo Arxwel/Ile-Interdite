@@ -106,8 +106,9 @@ public class VuePlateau {
         //window.pack();
         //window.setLocationRelativeTo(null);  centre la fenêtre
         window.setSize(1024, 1024);
+        window.setResizable(false);
         window.setVisible(true);
-        
+             
     }
     
     public void setControleur(Controleur c) {
