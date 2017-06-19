@@ -71,6 +71,8 @@ public class VuePlateau {
                             colorBack = Color.LIGHT_GRAY;
                             break;
                     }
+                    caseTuiles.get(5).add(new JLabel(new ImageIcon(this.getClass().getResource("/ImagesTuiles/EauRoseVent.png"))), BorderLayout.CENTER);
+                    
                     caseTuiles.add(new JPanel(new BorderLayout()));
                     //upGridPanels.add(new JPanel(new GridLayout(1,4)));
                     //downGridPanels.add(new JPanel(new BorderLayout(1,3)));
