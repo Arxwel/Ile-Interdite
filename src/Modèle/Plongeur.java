@@ -13,22 +13,32 @@ public class Plongeur extends Joueur {
 
     @Override //peut traverser des tuiles inondées et des tuiles sombrées
 	public ArrayList<Tuile> listerCasesDispo() {
-            ArrayList<Tuile> tuileslibres = new ArrayList<>();
-
-           if (((getPosition().getPlateau().getTuile(getPosition().getCoordonees().getX()-1,getPosition().getCoordonees().getY()) != null))) {
-               //tuile à gauche du joueur
-               tuileslibres.add(getPosition().getPlateau().getTuile(getPosition().getCoordonees().getX()-1,getPosition().getCoordonees().getY()));
-           } else if(((getPosition().getPlateau().getTuile(getPosition().getCoordonees().getX()+1,getPosition().getCoordonees().getY()) != null))) {
-               //tuile à droite du joueur
-               tuileslibres.add(getPosition().getPlateau().getTuile(getPosition().getCoordonees().getX()+1,getPosition().getCoordonees().getY()));
-           } else if(((getPosition().getPlateau().getTuile(getPosition().getCoordonees().getY()-1,getPosition().getCoordonees().getY()) != null))) {
-               //tuile en dessous du joueur
-               tuileslibres.add(getPosition().getPlateau().getTuile(getPosition().getCoordonees().getX(),getPosition().getCoordonees().getY()-1));
-           } else if(((getPosition().getPlateau().getTuile(getPosition().getCoordonees().getY()+1,getPosition().getCoordonees().getY()) != null))){
-               //tuile au-dessus du joueur
-               tuileslibres.add(getPosition().getPlateau().getTuile(getPosition().getCoordonees().getX(),getPosition().getCoordonees().getY()+1));
-           }
-           return tuileslibres;
-	}
-
+            Tuile posJ = this.getPosition();
+            ArrayList<Tuile> tuilesATester = new ArrayList<>();
+            ArrayList<Tuile> tuilesDispo = new ArrayList<>();
+            tuilesATester.add(posJ);
+            Grille g = posJ.getPlateau();
+            Coordonnees coo;
+            for (Tuile t: tuilesATester) {
+                if (t.equals(posJ)) {
+                    coo = t.getCoordonees();
+                    tuilesATester.add(g.getTuile(coo.getX()+1, coo.getY()));
+                    tuilesATester.add(g.getTuile(coo.getX()-1, coo.getY()));
+                    tuilesATester.add(g.getTuile(coo.getX(), coo.getY()+1));
+                    tuilesATester.add(g.getTuile(coo.getX(), coo.getY()-1));
+                } else {
+                    if (t.getEtat() == Etat.Sec) {
+                        tuilesATester.remove(t);
+                        tuilesDispo.add(t);
+                    } else {
+                        coo = t.getCoordonees();
+                    tuilesATester.add(g.getTuile(coo.getX()+1, coo.getY()));
+                    tuilesATester.add(g.getTuile(coo.getX()-1, coo.getY()));
+                    tuilesATester.add(g.getTuile(coo.getX(), coo.getY()+1));
+                    tuilesATester.add(g.getTuile(coo.getX(), coo.getY()-1));
+                    }
+                }
+            }
+            return tuilesDispo;
+        }
 }
