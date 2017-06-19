@@ -245,7 +245,7 @@ public abstract class Joueur {
                 Coordonnees coor = new Coordonnees(position.getCoordonees().getX(),position.getCoordonees().getY());
                 for (int x=0; x<=5; x++) {
                     for (int y=0; y<=5; y++) {
-                        if (((position.getPlateau().getTuile(coor.getX()-1,coor.getY()) != null)) && (position.getPlateau().getTuile(coor.getX()-1,coor.getY()).getEtat() == Etat.Inondé)) {
+                        if (((position.getPlateau().getTuile(coor.getX(),coor.getY()) != null)) && (position.getPlateau().getTuile(coor.getX(),coor.getY()).getEtat() == Etat.Inondé)) {
                             tuilesInon.add(position.getPlateau().getTuile(coor.getX(),coor.getY()));
                         }
                     }
