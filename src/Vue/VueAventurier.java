@@ -38,7 +38,7 @@ public class VueAventurier  {
 
         this.window = new JFrame();
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        window.setSize(350, 200);
+        window.setSize(410, 250);
 
         window.setTitle(j.getNom());
         mainPanel = new JPanel(new BorderLayout());

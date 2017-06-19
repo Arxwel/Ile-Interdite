@@ -111,7 +111,7 @@ public class VueInscription {
         j1GridPanel = new JPanel(new GridLayout(4,2));
         nomFieldJ1 = new JTextField();
         roleComboJ1 = new JComboBox(roles);
-        roleComboJ1.setSelectedItem(roles[1]);
+        roleComboJ1.setSelectedItem(roles[6]);
         
         nomLabel2 = new JLabel();
         roleLabel2= new JLabel();
@@ -119,7 +119,7 @@ public class VueInscription {
         j2GridPanel = new JPanel(new GridLayout(4,2));
         nomFieldJ2 = new JTextField();
         roleComboJ2 = new JComboBox(roles);
-        roleComboJ2.setSelectedItem(roles[2]);
+        roleComboJ2.setSelectedItem(roles[1]);
         
         nomLabel3 = new JLabel();
         roleLabel3= new JLabel();
@@ -127,7 +127,7 @@ public class VueInscription {
         j3GridPanel = new JPanel(new GridLayout(4,2));
         nomFieldJ3= new JTextField();
         roleComboJ3= new JComboBox(roles);
-        roleComboJ3.setSelectedItem(roles[3]);
+        roleComboJ3.setSelectedItem(roles[4]);
         
         nomLabel4 = new JLabel();
         roleLabel4= new JLabel();
@@ -135,7 +135,7 @@ public class VueInscription {
         j4GridPanel = new JPanel(new GridLayout(4,2));
         nomFieldJ4 = new JTextField();
         roleComboJ4 = new JComboBox(roles);
-        roleComboJ4.setSelectedItem(roles[4]);
+        roleComboJ4.setSelectedItem(roles[3]);
         
         
         
@@ -168,7 +168,7 @@ public class VueInscription {
         j1Panel.setBorder(BorderFactory.createLineBorder(Color.black));
         nomLabel1.setText("Nom : ");
         roleLabel1.setText("Role : ");
-        nomFieldJ1.setText("Joueur");
+        nomFieldJ1.setText("Jason");
         j1Label.setText("Joueur 1");
         
         j1Panel.add(j1Label, BorderLayout.NORTH);
@@ -188,7 +188,7 @@ public class VueInscription {
         j2Panel.setBorder(BorderFactory.createLineBorder(Color.black));
         nomLabel2.setText("Nom : ");
         roleLabel2.setText("Role : ");
-        nomFieldJ2.setText("Joueur");
+        nomFieldJ2.setText("Billy");
         j2Label.setText("Joueur 2");
         j2Panel.add(j2Label, BorderLayout.NORTH);
         j2Panel.add(j2GridPanel, BorderLayout.CENTER);
@@ -206,7 +206,7 @@ public class VueInscription {
         j3Panel.setBorder(BorderFactory.createLineBorder(Color.black));
         nomLabel3.setText("Nom : ");
         roleLabel3.setText("Role : ");
-        nomFieldJ3.setText("Joueur");
+        nomFieldJ3.setText("Trini");
         j3Label.setText("Joueur 3");
         
         j3Panel.add(j3Label, BorderLayout.NORTH);
@@ -225,7 +225,7 @@ public class VueInscription {
         j4Panel.setBorder(BorderFactory.createLineBorder(Color.black));
         nomLabel4.setText("Nom : ");
         roleLabel4.setText("Role : ");
-        nomFieldJ4.setText("Joueur");
+        nomFieldJ4.setText("Tommy");
         j4Label.setText("Joueur 4");
         
         j4Panel.add(j4Label, BorderLayout.NORTH);

@@ -53,7 +53,9 @@ public static void main(String[] args) {
         c.getJoueurs().get(1).setVueAventurier(vj2);
         c.getJoueurs().get(2).setVueAventurier(vj3);
         c.getJoueurs().get(3).setVueAventurier(vj4);
+        vj1.getWindow().setLocation(10, 0);
         vj1.getWindow().setVisible(true);
+        vj2.getWindow().setLocation(0, 0);
         vj2.getWindow().setVisible(true);
         vj3.getWindow().setVisible(true);
         vj4.getWindow().setVisible(true);

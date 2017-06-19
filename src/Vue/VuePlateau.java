@@ -110,6 +110,7 @@ public class VuePlateau extends JFrame{
         calque.setOpaque(true);
         this.add(calque, BorderLayout.CENTER);
         this.setResizable(false);
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
              
     }
