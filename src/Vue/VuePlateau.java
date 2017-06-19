@@ -41,6 +41,7 @@ public class VuePlateau extends JFrame{
         calque.setLayout(new BorderLayout());
         calque.setPreferredSize(this.getPreferredSize());
         JPanel mapPanel = new JPanel(new GridLayout(6,6));
+        JPanel pionsPlateau = new JPanel(new GridLayout(6,6));
         
         Color colorBack;
         
