@@ -123,6 +123,10 @@ public class Controleur implements Observateur {
     public void play() {
         
         
+    }
+    public void play() {
+        
+        
         //Boucle de jeu
         while (!isPartieFinie()) {
             débutTour();
