@@ -64,8 +64,11 @@ public class VueAventurier  {
         panelCentre.add(new JLabel ("Cartes", SwingConstants.CENTER),BorderLayout.NORTH);
         panelCartes = new JPanel(new GridLayout(1,5));
         panelCentre.add(panelCartes,BorderLayout.CENTER);
+//        for (CarteTresor c : j.getMainJoueur()) {
+//            panelCartes.add(new JLabel(c.getType().toString()));
+//        }
         for (CarteTresor c : j.getMainJoueur()) {
-            panelCartes.add(new JLabel(c.getType().toString()));
+            panelCartes.add(new JLabel(c.getImage()));
         }
         
 
