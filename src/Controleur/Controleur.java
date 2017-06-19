@@ -482,6 +482,8 @@ public class Controleur implements Observateur {
         nom = JOptionPane.showInputDialog(frame, Joueur + " : Saisissez votre nom");
         return nom;
     }
-    
-    
+
+    public void traiterMessagePlateau(MessagePlateau msg) {
+        System.out.println(msg.getCoo().getX()+" "+msg.getCoo().getY()+" a été cliqué.");
+    }
 }

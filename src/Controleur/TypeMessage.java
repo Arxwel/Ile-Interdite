@@ -11,5 +11,6 @@ package Controleur;
  */
 public enum TypeMessage {
     Annuler,
-    Valider
+    Valider,
+    ClicPlateau,
 }
