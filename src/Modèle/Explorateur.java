@@ -11,7 +11,7 @@ public class Explorateur extends Joueur {
         super(nom, controleur);
         this.spawnPoint = Zone.LaPorteDeCuivre;
         this.setCouleur(Color.GREEN);
-        this.setImage(new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.png")));
+        this.setImage(new ImageIcon(this.getClass().getResource("/ImagesAventuriers/Explorateur.png")));
     }
 
     @Override //peut se deplaser en diagonale

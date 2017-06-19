@@ -88,7 +88,7 @@ public class VuePlateau extends JFrame{
                     ImageIcon icon = new ImageIcon(t.getImage().getImage().getScaledInstance(170,170, Image.SCALE_DEFAULT));
                     for(Joueur j : t.getLocataires()) {
                         if(j!= null) {
-                           panelPions.get(panelPions.size()-1).add(new JLabel(icon),BorderLayout.CENTER);
+                           panelPions.get(panelPions.size()-1).add(new JLabel(new ImageIcon(j.getImage().getImage().getScaledInstance(30,30, Image.SCALE_DEFAULT))),BorderLayout.CENTER);
                         }
                     }
                     caseTuiles.get(caseTuiles.size()-1).add(new JLabel(icon),BorderLayout.CENTER);

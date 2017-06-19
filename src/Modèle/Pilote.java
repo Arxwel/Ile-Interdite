@@ -3,6 +3,7 @@ package Modèle;
 import Controleur.Controleur;
 import java.awt.Color;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 
 public class Pilote extends Joueur {
 
@@ -10,6 +11,7 @@ public class Pilote extends Joueur {
         super(nom, controleur);
         this.spawnPoint = Zone.Heliport;
         this.setCouleur(Color.BLUE);
+        this.setImage(new ImageIcon(this.getClass().getResource("/ImagesAventuriers/Pilote.png")));
     }
 
     @Override //peut se deplacer sur n'importe quelle case seche du plateau
