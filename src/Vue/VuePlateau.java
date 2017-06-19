@@ -10,8 +10,10 @@ import Modèle.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -50,15 +52,24 @@ public class VuePlateau {
                 Tuile t = g.getTuile(x,y);
                 //fin du test
                 if (t==null) {
-                    caseTuiles.add(new JPanel());
+                    caseTuiles.add(new JPanel(new BorderLayout()));
                     caseTuiles.get(caseTuiles.size()-1).setBackground(new Color(0,191,255)); //deepsky blue
+                    ImageIcon icona = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.png"));
+                    icona = new ImageIcon(icona.getImage().getScaledInstance(180,180, Image.SCALE_DEFAULT));
+                    caseTuiles.get(caseTuiles.size()-1).add(new JLabel(icona), BorderLayout.CENTER);
                 } else {
-                    if (t.getEtat()==Etat.Inondé) {
-                        colorBack = new Color(10,110,230); //bleu clair
-                    } else if (t.getEtat()==Etat.Sec) {
-                        colorBack = new Color(240,230,140); //jaune sable
-                    } else {
+                    if (null==t.getEtat()) {
                         colorBack = Color.LIGHT_GRAY;
+                    } else switch (t.getEtat()) {
+                        case Inondé:
+                            colorBack = new Color(10,110,230); //bleu clair
+                            break;
+                        case Sec:
+                            colorBack = new Color(240,230,140); //jaune sable
+                            break;
+                        default:
+                            colorBack = Color.LIGHT_GRAY;
+                            break;
                     }
                     caseTuiles.add(new JPanel(new BorderLayout()));
                     //upGridPanels.add(new JPanel(new GridLayout(1,4)));
@@ -66,8 +77,10 @@ public class VuePlateau {
                     
                     caseTuiles.get(caseTuiles.size()-1).setBackground(colorBack);
                     caseTuiles.get(caseTuiles.size()-1).setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                    
-                    caseTuiles.get(caseTuiles.size()-1).add(new JLabel(t.getIntitule().toString()),BorderLayout.CENTER);
+                    ImageIcon icon = new ImageIcon(t.getImage().getImage().getScaledInstance(170,170, Image.SCALE_DEFAULT));
+                    caseTuiles.get(caseTuiles.size()-1).add(new JLabel(icon),BorderLayout.CENTER);
+                    caseTuiles.get(caseTuiles.size()-1).add(new JLabel(t.getIntitule().nomEspace()),BorderLayout.SOUTH);
+                    caseTuiles.get(caseTuiles.size()-1).add(new JLabel("          "),BorderLayout.NORTH);
                     //caseTuiles.get(caseTuiles.size()-1).add(upGridPanels.get(caseTuiles.size()-1),BorderLayout.NORTH);
                     //caseTuiles.get(caseTuiles.size()-1).add(downGridPanels.get(caseTuiles.size()-1),BorderLayout.SOUTH);
                     
