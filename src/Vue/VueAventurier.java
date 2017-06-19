@@ -97,7 +97,7 @@ public class VueAventurier  {
     
      public static void main(String [] args) {
         // Instanciation de la fenêtre 
-        VueAventurier vueAventurier = new VueAventurier (new Messager("Jack"));
+        //VueAventurier vueAventurier = new VueAventurier (new Messager("Jack"));
     }
 
     /**

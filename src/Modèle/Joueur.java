@@ -118,8 +118,8 @@ public abstract class Joueur {
             
 	}
 
-            //lister les cases que le joueur peut assécher en usant une seule action
-            //Cette méthodes est redéfinie pour les type de joueurs ayant des mouvements spécifiques
+        //lister les cases que le joueur peut assécher en usant une seule action
+        //Cette méthodes est redéfinie pour les type de joueurs ayant des mouvements spécifiques
 	public ArrayList<Tuile> listerTuilesAssechables() {
 		 ArrayList<Tuile> tuilesinond = new ArrayList<>();
                  Coordonnees coor = new Coordonnees(position.getCoordonees().getX(),position.getCoordonees().getY());

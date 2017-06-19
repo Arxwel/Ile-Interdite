@@ -1,12 +1,13 @@
 package Modèle;
 
+import Controleur.Controleur;
 import java.awt.Color;
 import java.util.ArrayList;
 
 public class Explorateur extends Joueur {
-
-    public Explorateur(String nom) {
-        super(nom);
+    
+    public Explorateur(String nom, Controleur controleur) {
+        super(nom, controleur);
         this.spawnPoint = Zone.LaPorteDeCuivre;
         this.setCouleur(Color.GREEN);
     }

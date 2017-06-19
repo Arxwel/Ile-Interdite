@@ -1,11 +1,12 @@
 package Modèle;
 
+import Controleur.Controleur;
 import java.awt.Color;
 
 public class Ingénieur extends Joueur {
-
-    public Ingénieur(String nom) {
-        super(nom);
+    
+    public Ingénieur(String nom, Controleur controleur) {
+        super(nom, controleur);
         this.spawnPoint = Zone.LaPorteDeBronze;
         this.setCouleur(Color.RED);
         //this.spawnPoint = Zone.

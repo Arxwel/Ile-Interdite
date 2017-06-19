@@ -1,12 +1,13 @@
 package Modèle;
 
+import Controleur.Controleur;
 import java.awt.Color;
 import java.util.ArrayList;
 
 public class Plongeur extends Joueur {
-
-    public Plongeur(String nom) {
-        super(nom);
+    
+    public Plongeur(String nom, Controleur controleur) {
+        super(nom, controleur);
         this.spawnPoint = Zone.LaPorteDeFer;
         this.setCouleur(Color.BLACK);
     }
