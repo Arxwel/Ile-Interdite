@@ -43,7 +43,7 @@ public class Tuile {
         public Tuile(Zone nom, Etat etat, Grille grille, Coordonnees coo, Color reliqueDispo) {
             setIntitule(nom);
             setEtat(etat);
-            setCoordonees(coordonees);
+            setCoordonees(coo);
             locataires = new ArrayList<>();
             plateau = grille;
             this.reliqueDispo = reliqueDispo; //quand relique recuperée supprimer reliqueDispo ou changer la couleur dans un truc qui n'existe pas
