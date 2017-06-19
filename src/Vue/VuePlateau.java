@@ -47,7 +47,7 @@ public class VuePlateau extends JFrame{
         
         ArrayList<JPanel> caseTuiles = new ArrayList<>();
         ArrayList<JPanel> panelPions = new ArrayList<>();
-        ArrayList<JButton> caseButtons = new ArrayList<>();
+        ArrayList<JButton> buttonsCase = new ArrayList<>();
         JLayeredPane calque = new JLayeredPane();
         calque.setPreferredSize(this.getPreferredSize());
         JPanel mapPanel = new JPanel(new GridLayout(6,6));
@@ -55,7 +55,7 @@ public class VuePlateau extends JFrame{
         JComponent pionsPlateau = new JPanel(new GridLayout(6,6));
         pionsPlateau.setOpaque(false);
         pionsPlateau.setSize(this.getBounds().getSize());
-        
+        JComponent calqueButtons = new JPanel(new GridLayout(6,6));
         Color colorBack;
         
         for (int x=0; x<6; x++) {
