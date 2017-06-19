@@ -11,10 +11,4 @@ public class Navigateur extends Joueur {
         this.setCouleur(Color.YELLOW);
     }
 
-	public ArrayList<Tuile> listerCasesDispo() {
-		// TODO - implement Navigateur.listerCasesDispo
-		throw new UnsupportedOperationException();
-                
-	}
-
 }

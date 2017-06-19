@@ -12,6 +12,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -38,6 +40,7 @@ public class VuePlateau extends JFrame{
         this.setControleur(c);
         
         ArrayList<JPanel> caseTuiles = new ArrayList<>();
+        ArrayList<JButton> caseButtons = new ArrayList<>();
         JLayeredPane calque = new JLayeredPane();
         calque.setLayout(new BorderLayout());
         calque.setPreferredSize(this.getPreferredSize());
@@ -48,11 +51,9 @@ public class VuePlateau extends JFrame{
         
         for (int x=0; x<=5; x++) {
             for (int y=0; y<=5; y++) {
-                //Tuile t = controleur.getGrille().getTuile(x, y);
-                // Test
                 Grille g = controleur.getGrille();
                 Tuile t = g.getTuile(x,y);
-                //fin du test
+                
                 if (t==null) {
                     caseTuiles.add(new JPanel(new BorderLayout()));
                     caseTuiles.get(caseTuiles.size()-1).setBackground(new Color(0,191,255)); //deepsky blue
@@ -79,22 +80,16 @@ public class VuePlateau extends JFrame{
                     }
                     
                     caseTuiles.add(new JPanel(new BorderLayout()));
-                    //upGridPanels.add(new JPanel(new GridLayout(1,4)));
-                    //downGridPanels.add(new JPanel(new BorderLayout(1,3)));
                     
                     caseTuiles.get(caseTuiles.size()-1).setBackground(colorBack);
                     caseTuiles.get(caseTuiles.size()-1).setBorder(BorderFactory.createLineBorder(Color.BLACK));
                     ImageIcon icon = new ImageIcon(t.getImage().getImage().getScaledInstance(170,170, Image.SCALE_DEFAULT));
+                    
                     caseTuiles.get(caseTuiles.size()-1).add(new JLabel(icon),BorderLayout.CENTER);
                     caseTuiles.get(caseTuiles.size()-1).add(new JLabel(t.getIntitule().nomEspace()),BorderLayout.SOUTH);
-                    //caseTuiles.get(caseTuiles.size()-1).add(new JLabel("          "),BorderLayout.NORTH);
-                    //caseTuiles.get(caseTuiles.size()-1).add(upGridPanels.get(caseTuiles.size()-1),BorderLayout.NORTH);
-                    //caseTuiles.get(caseTuiles.size()-1).add(downGridPanels.get(caseTuiles.size()-1),BorderLayout.SOUTH);
                     
-                            
-                    /*for (Joueur j: t.getLocataires()) {
-                        upGridPanels.get(caseTuiles.size()-1).add(new JPanel());//A finir
-                    }*/
+                    
+                    
                     
                     
                     if (t.getIntitule() == Zone.Heliport) {

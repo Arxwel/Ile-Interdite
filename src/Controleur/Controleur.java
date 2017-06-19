@@ -87,7 +87,7 @@ public class Controleur implements Observateur {
         //distribution des cartes
         
         for (Joueur j: getJoueurs()) {
-            System.out.println("Distribution à"+j.getNom());
+            System.out.println("Distribution à "+j.getNom());
             for (int i=0; i<4; i++) {
                 CarteTresor c = piocheCarteTresor.firstElement();
                 piocheCarteTresor.remove(0);
