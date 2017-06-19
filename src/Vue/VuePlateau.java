@@ -40,6 +40,7 @@ public class VuePlateau extends JFrame{
         this.setControleur(c);
         
         ArrayList<JPanel> caseTuiles = new ArrayList<>();
+        ArrayList<JPanel> panelPions = new ArrayList<>();
         ArrayList<JButton> caseButtons = new ArrayList<>();
         JLayeredPane calque = new JLayeredPane();
         calque.setLayout(new BorderLayout());
@@ -56,6 +57,7 @@ public class VuePlateau extends JFrame{
                 
                 if (t==null) {
                     caseTuiles.add(new JPanel(new BorderLayout()));
+                    panelPions.add(new JPanel(new GridLayout(1,4)));
                     caseTuiles.get(caseTuiles.size()-1).setBackground(new Color(0,191,255)); //deepsky blue
                     if(x== 0 && y ==5) {
                     icona = new ImageIcon(this.getClass().getResource("/ImagesTuiles/EauRoseVent.png"));
@@ -80,11 +82,15 @@ public class VuePlateau extends JFrame{
                     }
                     
                     caseTuiles.add(new JPanel(new BorderLayout()));
-                    
+                    panelPions.add(new JPanel(new GridLayout(1,4)));
                     caseTuiles.get(caseTuiles.size()-1).setBackground(colorBack);
                     caseTuiles.get(caseTuiles.size()-1).setBorder(BorderFactory.createLineBorder(Color.BLACK));
                     ImageIcon icon = new ImageIcon(t.getImage().getImage().getScaledInstance(170,170, Image.SCALE_DEFAULT));
-                    
+                    for(Joueur j : t.getLocataires()) {
+                        if(j!= null) {
+                           panelPions.get(panelPions.size()-1).add(new JLabel(icon),BorderLayout.CENTER);
+                        }
+                    }
                     caseTuiles.get(caseTuiles.size()-1).add(new JLabel(icon),BorderLayout.CENTER);
                     caseTuiles.get(caseTuiles.size()-1).add(new JLabel(t.getIntitule().nomEspace()),BorderLayout.SOUTH);
                     
