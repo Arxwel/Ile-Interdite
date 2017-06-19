@@ -29,6 +29,9 @@ public class Tuile {
                 case Inondé:
                     image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/"+nom.name()+"2.png"));
                     break;
+                case Sombré:
+                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/EauSombree.png"));
+                    break;    
                 default:
                     image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.png"));
                     break;
@@ -52,6 +55,9 @@ public class Tuile {
                     break;
                 case Inondé:
                     image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/"+nom.name()+"2.png"));
+                    break;
+                case Sombré:
+                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/EauSombree.png"));
                     break;
                 default:
                     image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.png"));

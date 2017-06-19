@@ -208,9 +208,17 @@ public abstract class Joueur {
             if (this.getPosition().getReliqueDispo() != null) {
                 Color c = this.getPosition().getReliqueDispo();
                 for(CarteTresor carte: this.getMainJoueur()) {
-                    if (carte.equals(new CarteRelique(c))) {
+                    //exemple: si TypeCarte == TresorMagenta && couleur case == rouge
+                    if ((carte.getType()== TypeCarte.TresorMagenta && c == Color.MAGENTA)
+                         ||(carte.getType()== TypeCarte.TresorCyan && c == Color.CYAN)
+                         ||(carte.getType()== TypeCarte.TresorGray && c == Color.GRAY)
+                         ||(carte.getType()== TypeCarte.TresorOrange && c == Color.ORANGE)) {
                         n++;
                     }
+                    
+                    /*if (carte.equals(new CarteTresor(c))) {
+                        n++;
+                    }*/
                 }
             }
             return (n>=4);
@@ -232,7 +240,7 @@ public abstract class Joueur {
         }
         
         //gère l'utilisation de cartes spéciales (sac de sable, hélicoptère)
-        public void useCarteSpe(CarteSpeciale cs) {
+        public void useCarteSpe(CarteTresor c) {
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
 
