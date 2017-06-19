@@ -87,8 +87,16 @@ public class Controleur implements Observateur {
         //distribution des cartes
         
         for (Joueur j: getJoueurs()) {
+            System.out.println("Distribution à"+j.getNom());
             for (int i=0; i<4; i++) {
-                donnerCarte(j);
+                CarteTresor c = piocheCarteTresor.firstElement();
+                piocheCarteTresor.remove(0);
+                if (c.getType() == TypeCarte.MontéeEaux) {
+                    piocheCarteTresor.add(piocheCarteTresor.size(), c);
+                    i--;
+                } else {
+                    j.getMainJoueur().add(c);
+                }
           }
         }
         
