@@ -105,8 +105,6 @@ public class Controleur implements Observateur {
     }
     
     public void play() {
-        
-        
         //Boucle de jeu
         while (!isPartieFinie()) {
             setJoueurActif();
@@ -209,27 +207,6 @@ public class Controleur implements Observateur {
             CarteTresor cr3 = new CarteTresor(TypeCarte.TresorMagenta);
             CarteTresor cr4 = new CarteTresor(TypeCarte.TresorOrange);
             for (int i = 1; i<joueur.getMainJoueur().size(); i++) {
-                /*if (joueur.getMainJoueur().get(i).equals(cs1)) {
-                    System.out.println("Carte Hélicoptère. Choisissez votre action: Utiliser, Defausser ou Rien.");                    
-                    String choix = sc.nextLine();
-                    if (choix=="1") {
-                        joueur.useCarteSpe(cs1);
-                    } else if (choix=="2") {
-                        joueur.defausserCarte();
-                    } else if (choix=="3") {
-                        
-                    }
-                } else if (joueur.getMainJoueur().get(i).equals(cs2)) {
-                    System.out.println("Carte Sac de sable. Choisissez votre action: Utiliser (1), Defausser (2) ou Rien (3).");                    
-                    String choix = sc.nextLine();
-                    if (choix=="1") {
-                        joueur.useCarteSpe(cs1);
-                    } else if (choix=="2") {
-                        joueur.defausserCarte();
-                    } else if (choix=="3") {
-                        
-                    }
-                }*/
                 int choix;
                 
                 if (joueur.getMainJoueur().get(i).equals(cs1)) {
@@ -340,11 +317,7 @@ public class Controleur implements Observateur {
                     j.getVueAventurier().desactiverBoutons();
                 }
             }
-            /*for (int i = 0; i<getJoueurs().size(); i++) {
-                if (i == numTour%getJoueurs().size()) {
-                    getJoueurs().get(i).getVueAventurier().activerBoutons();
-                }
-            }*/
+            
             waitForInput();
             nbact--;
         }
