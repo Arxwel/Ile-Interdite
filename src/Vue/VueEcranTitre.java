@@ -5,6 +5,9 @@
  */
 package Vue;
 
+import Controleur.Message;
+import Controleur.Observateur;
+import Controleur.TypeMessage;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -41,6 +44,7 @@ public class VueEcranTitre extends JPanel {
     private Image image ;
     private Integer width, height ;
     private JFrame window = new JFrame() ;
+    private Observateur observateur;
 
     public VueEcranTitre() {
         super();
@@ -91,8 +95,8 @@ public class VueEcranTitre extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                getWindow().setVisible(false);
-                getWindow().dispose();
+                Message msg = new Message(TypeMessage.Jouer);
+                observateur.traiterMessage(msg);
             }
         });
         
@@ -140,6 +144,10 @@ public class VueEcranTitre extends JPanel {
      */
     public JFrame getWindow() {
         return window;
+    }
+    
+    public void setObservateur(Observateur o) {
+        observateur = o;
     }
     
 }

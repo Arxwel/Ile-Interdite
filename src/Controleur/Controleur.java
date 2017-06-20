@@ -2,8 +2,10 @@ package Controleur;
 
 
 import Modèle.*;
+import Vue.VueEcranTitre;
 import Vue.VueInscription;
 import Vue.VuePlateau;
+import Vue.VueEcranTitre;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,6 +31,7 @@ public class Controleur extends Observateur {
     private static Stack<CarteTresor> defausseCarteTresor;
     private static boolean suite = false;
     private static VueInscription vueInscription;
+    private static VueEcranTitre vueEcranTitre;
     private static boolean joueurMort = false;
     private static boolean[] reliquesPrises = new boolean[4]; //Magenta(brasier) Orange(Zéphir) Gris(Globe(pété)) Cyan(Calice)
     private static int niveauDEau;
@@ -42,6 +45,11 @@ public class Controleur extends Observateur {
         joueurActif = null;
         nbact = 3;
         piocheCarteTresor = new Stack<>();
+        
+        vueEcranTitre = new VueEcranTitre();
+        vueEcranTitre.setObservateur(this);
+        this.waitForInput();
+        
         
         vueInscription = new VueInscription();
         vueInscription.setObservateur(this);
@@ -589,6 +597,11 @@ public class Controleur extends Observateur {
             break;
             case ("Annuler"):
                 System.exit(0);
+            break;
+            case ("Jouer") :
+                vueEcranTitre.getWindow().setVisible(false);
+                vueEcranTitre.getWindow().dispose();
+                this.notifier();
             break;
         }
         

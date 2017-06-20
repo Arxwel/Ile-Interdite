@@ -12,6 +12,7 @@ package Controleur;
 public enum TypeMessage {
     Annuler,
     Valider,
+    Jouer,
     ClicPlateau,
     Deplacer,
     Assecher,
