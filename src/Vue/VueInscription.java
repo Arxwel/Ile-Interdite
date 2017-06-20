@@ -331,11 +331,6 @@ public class VueInscription {
         
         
     }
-    
-    public static void main(String [] args) {
-        // Instanciation de la fenêtre 
-        VueInscription v = new VueInscription();
-    }
 
     /**
      * @return the nomFieldJ1
@@ -409,5 +404,9 @@ public class VueInscription {
      */
     public String[] getRoles() {
         return roles;
+    }
+
+    public void afficher() {
+        this.window.setVisible(true);
     }
 }

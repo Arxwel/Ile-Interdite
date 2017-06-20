@@ -19,28 +19,13 @@ import java.awt.Color;
  * @author salmona
  */
 public class Main {
-    private static VueInscription vueInscription;
-    private static VuePlateau vuePlateau;
+    
     private static VueAventurier vj1,vj2,vj3,vj4;
 public static void main(String[] args) {
         // Initalise la Vue Inscription et le controleur et rends la vue inscription visible et fonctionelle
-        VueEcranTitre ecranTitre = new VueEcranTitre();
-        while(ecranTitre.getWindow().isVisible()){
-            System.out.println("");
-        }
-        vueInscription = new VueInscription();
+        
         Controleur c = new Controleur();
-        getVueInscription().setObservateur(c);
-        getVueInscription().getWindow().setVisible(true);
         
-        // Assure l'inscription est complétée et que le jeu peut commencer
-        while(!c.isSuite()) {
-            System.out.print("");
-        }
-        
-        //Crée les vues aventurier et plateau et les afficher
-        
-        c.init();
         for (Joueur j: c.getJoueurs()) {
             System.out.println(j.getNom());
             for (CarteTresor ca : j.getMainJoueur()) {
@@ -77,16 +62,11 @@ public static void main(String[] args) {
             vj4.setObservateur(c);
         }
 
-        vuePlateau = new VuePlateau(c);
-        vuePlateau.setObservateur(c);
-        vuePlateau.getWindow().setVisible(true);
+        
         c.play();
     } 
 
     /**
      * @return the vueInscription
      */
-    public static VueInscription getVueInscription() {
-        return vueInscription;
-    }
 }
