@@ -120,6 +120,7 @@ public class Controleur extends Observateur {
                 System.out.println("Joueur "+j.getNom());
                 if (j.equals(joueurActif)) {
                     System.out.println("joueur actif");
+                    j.getVueAventurier().desactiverBoutons();
                     j.getVueAventurier().activerBoutons();
                     if (j.isMvmntPossible()) {
                         j.getVueAventurier().activerBoutonAller();
@@ -142,7 +143,7 @@ public class Controleur extends Observateur {
             this.waitForInput();
             System.out.println("input Reçu");
             setNbact(getNbact() - 1);
-            vuePlateau.update();
+            //vuePlateau.update();
         }
     }
     
