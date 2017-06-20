@@ -32,6 +32,20 @@ public class Controleur extends Observateur {
     private static boolean joueurMort = false;
     private static boolean[] reliquesPrises = new boolean[4]; //Magenta(brasier) Orange(Zéphir) Gris(Globe(pété)) Cyan(Calice)
     private static int niveauDEau;
+
+    /**
+     * @return the nbact
+     */
+    public static int getNbact() {
+        return nbact;
+    }
+
+    /**
+     * @param aNbact the nbact to set
+     */
+    private static void setNbact(int aNbact) {
+        nbact = aNbact;
+    }
     private VuePlateau vuePlateau;
 
     /**
@@ -197,7 +211,7 @@ public class Controleur extends Observateur {
     //Assure que le joueur a moins de 6 cartes en main et propose l'utilisation ou la défausse de cartes
     private static void verifMain(Joueur joueur) {   
         while (joueur.getMainJoueur().size() >= 6) {
-            System.out.println(joueur.getNom() + " a trop de cartes en main. Il doit en défausser ou en utiliser jusqu'à en avoir 5 au plus.");
+            System.out.println(joueur.getNom() + " a trop de cartes en main. Il doit en défausser jusqu'à en avoir 5 au plus.");
             CarteTresor cs1 = new CarteTresor(TypeCarte.SpécialHélicoptère);
             CarteTresor cs2 = new CarteTresor(TypeCarte.SpécialSacDeSable);
             CarteTresor cr1 = new CarteTresor(TypeCarte.TresorCyan);
@@ -208,39 +222,33 @@ public class Controleur extends Observateur {
                 int choix;
                 
                 if (joueur.getMainJoueur().get(i).equals(cs1)) {
-                    System.out.println("Carte Hélicoptère. Choisissez votre action: Utiliser (1), Defausser (2) ou Rien (3).");
+                    System.out.println("Carte Hélicoptère. Choisissez votre action: Utiliser (1) ou Passer à la carte suivante (2).");
                     choix = sc.nextInt();
                     if (sc.hasNextInt(choix) && choix<4) {
                         switch (choix-1) {
                             case 0:
-                                joueur.useCarteSpe(cs1);
-                                break;
-                            case 1:
                                 joueur.defausserCarte(cs1);
                                 break;
-                            case 2:
+                            case 1:
                                 break;
                                 
                         }
                     }
                 } else if (joueur.getMainJoueur().get(i).equals(cs2)) {
-                    System.out.println("Carte Sac de sable. Choisissez votre action: Utiliser (1), Defausser (2) ou Rien (3).");
+                    System.out.println("Carte Sac de sable. Choisissez votre action: Utiliser (1) ou Passer à la carte suivante (2).");
                     choix = sc.nextInt();
                     if (sc.hasNextInt(choix) && choix<4) {
                         switch (choix-1) {
                             case 0:
-                                joueur.useCarteSpe(cs2);
-                                break;
-                            case 1:
                                 joueur.defausserCarte(cs2);
                                 break;
-                            case 2:
+                            case 1:
                                 break;
                                 
                         }
                     }
                 } else if (joueur.getMainJoueur().get(i).equals(cr1)) {
-                    System.out.println("Carte relique Cyan. Choisissez votre action: Defausser (1) ou Rien (2).");
+                    System.out.println("Carte relique Cyan. Choisissez votre action: Defausser (1) ou Passer à la carte suivante (2).");
                     choix = sc.nextInt();
                     if (sc.hasNextInt(choix) && choix<4) {
                         switch (choix-1) {
@@ -253,7 +261,7 @@ public class Controleur extends Observateur {
                         }
                     }
                 } else if (joueur.getMainJoueur().get(i).equals(cr2)) {
-                    System.out.println("Carte relique Grise. Choisissez votre action: Defausser (1) ou Rien (2).");
+                    System.out.println("Carte relique Grise. Choisissez votre action: Defausser (1) ou Passer à la carte suivante (2).");
                     choix = sc.nextInt();
                     if (sc.hasNextInt(choix) && choix<4) {
                         switch (choix-1) {
@@ -266,7 +274,7 @@ public class Controleur extends Observateur {
                         }
                     }
                 } else if (joueur.getMainJoueur().get(i).equals(cr3)) {
-                    System.out.println("Carte relique Magenta. Choisissez votre action: Defausser (1) ou Rien (2).");
+                    System.out.println("Carte relique Magenta. Choisissez votre action: Defausser (1) ou Passer à la carte suivante (2).");
                     choix = sc.nextInt();
                     if (sc.hasNextInt(choix) && choix<4) {
                         switch (choix-1) {
@@ -279,7 +287,7 @@ public class Controleur extends Observateur {
                         }
                     }
                 } else if (joueur.getMainJoueur().get(i).equals(cr4)) {
-                    System.out.println("Carte relique Orange. Choisissez votre action: Defausser (1) ou Rien (2).");
+                    System.out.println("Carte relique Orange. Choisissez votre action: Defausser (1) ou Passer à la carte suivante (2).");
                     choix = sc.nextInt();
                     if (sc.hasNextInt(choix) && choix<4) {
                         switch (choix-1) {
@@ -301,8 +309,12 @@ public class Controleur extends Observateur {
     //décompte le nombre d'actions disponibles pour le joueur et propose les actions en fonction de leur disponibilité
     public void débutTour() {
         verifMain(joueurActif);
-        nbact =3;
-        while (nbact>0) {
+        if (joueurActif.getCouleur()==Color.YELLOW) {
+            setNbact(4);
+        } else {
+            setNbact(3);
+        }        
+        while (getNbact()>0) {
             actionsPossibles[0]=joueurActif.isMvmntPossible();
             actionsPossibles[1]=joueurActif.isAssPossible();
             actionsPossibles[2]=joueurActif.isDonPossible();
@@ -334,9 +346,14 @@ public class Controleur extends Observateur {
             System.out.println("En attente d'un input");
             this.waitForInput();
             System.out.println("input Reçu");
-            nbact--;
+            setNbact(getNbact() - 1);
         }
     }
+    
+    public void terminerTour() {
+        setNbact(0);
+    }
+    
     
 
     //Détermine le joueur dont c'est le tour de jouer en début de tour
@@ -353,7 +370,7 @@ public class Controleur extends Observateur {
             piocheCarteTresor.add(new CarteTresor(TypeCarte.TresorMagenta));
             piocheCarteTresor.add(new CarteTresor(TypeCarte.TresorOrange));
         }
-        for (int i=0; i<3; i++) {
+        for (int i=0; i<2; i++) {
             piocheCarteTresor.add(new CarteTresor(TypeCarte.MontéeEaux));
         }
         for (int i=0; i<3; i++) {

@@ -38,7 +38,7 @@ public class VueAventurier  {
     private final JButton btnAssecher;
     private final JButton btnDonner;
     private final JButton btnRelique;
-    private final JButton btnAutreAction;
+    private final JButton btnCarteSpeciale;
     private final JButton btnTerminerTour;
     
     private static Observateur observateur;
@@ -130,13 +130,13 @@ public class VueAventurier  {
                 observateur.traiterMessageAventurier(msg);
             }
         });
-        this.btnAutreAction = new JButton("AutreAction");
-        btnAutreAction.addActionListener(new ActionListener() {
+        this.btnCarteSpeciale = new JButton("Carte Spéciale");
+        btnCarteSpeciale.addActionListener(new ActionListener() {
             
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println("Autre action");
-                MessageAventurier msg = new MessageAventurier(TypeMessage.AutreAction, j);
+                System.out.println("Carte Spéciale");
+                MessageAventurier msg = new MessageAventurier(TypeMessage.CarteSpe, j);
                 observateur.traiterMessageAventurier(msg);
             }
         });
@@ -156,7 +156,7 @@ public class VueAventurier  {
         this.panelBoutons.add(btnAssecher);
         this.panelBoutons.add(btnDonner);
         this.panelBoutons.add(btnRelique);
-        this.panelBoutons.add(btnAutreAction);
+        this.panelBoutons.add(btnCarteSpeciale);
         this.panelBoutons.add(btnTerminerTour);
 
         this.window.setVisible(true);
@@ -186,12 +186,12 @@ public class VueAventurier  {
         btnAssecher.setEnabled(false);
         btnDonner.setEnabled(false);
         btnRelique.setEnabled(false);
-        btnAutreAction.setEnabled(false);
+        btnCarteSpeciale.setEnabled(false);
         btnTerminerTour.setEnabled(false);
     }
     
     public void activerBoutons() {
-        btnAutreAction.setEnabled(true);
+        btnCarteSpeciale.setEnabled(true);
         btnTerminerTour.setEnabled(true);
     }
     
