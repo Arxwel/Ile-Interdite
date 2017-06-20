@@ -40,9 +40,11 @@ public class VueEcranTitre extends JPanel {
 
     private Image image ;
     private Integer width, height ;
+    private JFrame window = new JFrame() ;
 
     public VueEcranTitre() {
         super();
+        window.setSize(800, 600);
         ImageIcon icon = new ImageIcon(this.getClass().getResource("/resources/planches.jpg"));
         icon = new ImageIcon(icon.getImage().getScaledInstance(265, 65,Image.SCALE_DEFAULT));
         this.width = 800 ;
@@ -89,7 +91,8 @@ public class VueEcranTitre extends JPanel {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                
+                getWindow().setVisible(false);
+                getWindow().dispose();
             }
         });
         
@@ -112,8 +115,13 @@ public class VueEcranTitre extends JPanel {
                 System.exit(0);
             }
         });
-        
-        
+        // Centrage de la fenêtre sur l'écran
+        window.add(this);
+        window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+        window.setResizable(false);
+
+        window.setVisible(true);
+        this.repaint();
     }
 
     @Override
@@ -126,18 +134,12 @@ public class VueEcranTitre extends JPanel {
         super.paintComponent(g);
         g.drawImage(image, 0, 0, width, height, null, this);
     }
-    
-    public static void main(String[] args) {
-        JFrame window = new JFrame() ;
-        window.setSize(800, 600);
-        // Centrage de la fenêtre sur l'écran
-        VueEcranTitre demo = new VueEcranTitre();
-        window.add(demo);
-        window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        window.setResizable(false);
 
-        window.setVisible(true);
-        demo.repaint();
+    /**
+     * @return the window
+     */
+    public JFrame getWindow() {
+        return window;
     }
     
 }

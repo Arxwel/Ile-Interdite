@@ -9,6 +9,7 @@ import static Controleur.Controleur.getJoueurs;
 import Modèle.CarteTresor;
 import Modèle.Joueur;
 import Vue.VueAventurier;
+import Vue.VueEcranTitre;
 import Vue.VueInscription;
 import Vue.VuePlateau;
 import java.awt.Color;
@@ -23,7 +24,10 @@ public class Main {
     private static VueAventurier vj1,vj2,vj3,vj4;
 public static void main(String[] args) {
         // Initalise la Vue Inscription et le controleur et rends la vue inscription visible et fonctionelle
-        
+        VueEcranTitre ecranTitre = new VueEcranTitre();
+        while(ecranTitre.getWindow().isVisible()){
+            System.out.println("");
+        }
         vueInscription = new VueInscription();
         Controleur c = new Controleur();
         getVueInscription().setObservateur(c);
