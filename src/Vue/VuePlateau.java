@@ -38,6 +38,17 @@ public class VuePlateau extends JFrame{
     private ImageIcon icona;
     private Observateur observateur;
     
+    private ArrayList<JPanel> caseTuiles;
+    private ArrayList<JPanel> panelPions;
+    private ArrayList<JButton> buttonsCase;
+    
+    private JLayeredPane calque;
+    private JPanel mapPanel;
+    
+    private JComponent pionsPlateau;
+    private JComponent calqueButtons;
+    
+    
     //Affiche le plateau
     public VuePlateau(Controleur c) {
         super("Ile Interdite");
@@ -46,53 +57,63 @@ public class VuePlateau extends JFrame{
         this.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         this.setControleur(c);
         
-        ArrayList<JPanel> caseTuiles = new ArrayList<>();
-        ArrayList<JPanel> panelPions = new ArrayList<>();
-        ArrayList<JButton> buttonsCase = new ArrayList<>();
-        JLayeredPane calque = new JLayeredPane();
+        caseTuiles = new ArrayList<>();
+        panelPions = new ArrayList<>();
+        buttonsCase = new ArrayList<>();
+        
+        calque = new JLayeredPane();
         calque.setPreferredSize(this.getSize());
-        JPanel mapPanel = new JPanel(new GridLayout(6,6));
+        
+        mapPanel = new JPanel(new GridLayout(6,6));
         mapPanel.setBounds(new Rectangle(new Dimension(this.getBounds().width,this.getBounds().height-33)));
-        JComponent pionsPlateau = new JPanel(new GridLayout(6,6));
+        
+        pionsPlateau = new JPanel(new GridLayout(6,6));
         pionsPlateau.setOpaque(false);
         pionsPlateau.setBounds(new Rectangle(new Dimension(this.getBounds().width,this.getBounds().height-33)));
-        JComponent calqueButtons = new JPanel(new GridLayout(6,6));
+        
+        calqueButtons = new JPanel(new GridLayout(6,6));
         calqueButtons.setBounds(new Rectangle(new Dimension(this.getBounds().width,this.getBounds().height-33)));
         calqueButtons.setOpaque(false);
         Color colorBack;
         
-        for (int x=0; x<6; x++) {
+        Grille g = controleur.getGrille();
+        
+        for (int x=0; x<6; x++) {           //Pour toutes les cases de la Grille
             for (int y=0; y<6; y++) {
-                Grille g = controleur.getGrille();
+                
                 Tuile t = g.getTuile(x,y);
-                buttonsCase.add(new JButton(""));
+                
+                buttonsCase.add(new JButton(""));   //jouter un bouton sur le calque
                 buttonsCase.get(buttonsCase.size()-1).addActionListener(new ActionListener() {
-
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        System.out.println("ActionListener pour"+t.getIntitule().toString());
-                        System.out.println("à l'emplacement"+t.getCoordonees().getX()+t.getCoordonees().getY());
                         MessagePlateau msg = new MessagePlateau(TypeMessage.ClicPlateau, t.getCoordonees());
                         observateur.traiterMessagePlateau(msg);
                     }
                 });
-                if (t==null) {
-                    buttonsCase.get(buttonsCase.size()-1).setEnabled(false);
-                    caseTuiles.add(new JPanel(new BorderLayout()));
-                    panelPions.add(new JPanel(new GridLayout(1,4)));
-                    caseTuiles.get(caseTuiles.size()-1).setBackground(new Color(0,191,255)); //deepsky blue
-                    panelPions.get(panelPions.size()-1).setOpaque(false);
-                    if(x== 0 && y ==5) {
-                    icona = new ImageIcon(this.getClass().getResource("/ImagesTuiles/EauRoseVent.png"));
+                
+                
+                caseTuiles.add(new JPanel(new BorderLayout()));
+                panelPions.add(new JPanel(new GridLayout(1,4)));
+                
+                if (t==null) {      //Si la case est non jouable
+                    buttonsCase.get(buttonsCase.size()-1).setEnabled(false); //désactiver le bouton
+                    
+                    if(x== 0 && y ==5) {//Afficher Image de Fond
+                        icona = new ImageIcon(this.getClass().getResource("/ImagesTuiles/EauRoseVent.png"));
                     } else {
-                    icona = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.png"));
+                        icona = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.png"));
                     }
+                    
                     icona = new ImageIcon(icona.getImage().getScaledInstance(180,180, Image.SCALE_DEFAULT));
                     caseTuiles.get(caseTuiles.size()-1).add(new JLabel(icona), BorderLayout.CENTER);
-                } else {
+                    
+                } else {    //si Case Jouable
+                    
                     if (null==t.getEtat()) {
                         colorBack = Color.LIGHT_GRAY;
-                    } else switch (t.getEtat()) {
+                    } else 
+                        switch (t.getEtat()) {//choix de la couleur en fonction de l'état
                         case Inondé:
                             colorBack = new Color(10,110,230); //bleu clair
                             break;
@@ -104,55 +125,57 @@ public class VuePlateau extends JFrame{
                             break;
                     }
                     
-                    caseTuiles.add(new JPanel(new BorderLayout()));
-                    panelPions.add(new JPanel(new GridLayout(1,4)));
-                    caseTuiles.get(caseTuiles.size()-1).setBackground(colorBack);
+                    caseTuiles.get(caseTuiles.size()-1).setBackground(colorBack);//colorer la tuile avec la couleur précédemant choisie
                     caseTuiles.get(caseTuiles.size()-1).setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                    ImageIcon icon = new ImageIcon(t.getImage().getImage().getScaledInstance(170,170, Image.SCALE_DEFAULT));
-                    for(Joueur j : t.getLocataires()) {
+                    
+                    ImageIcon icon = new ImageIcon(t.getImage().getImage().getScaledInstance(170,170, Image.SCALE_DEFAULT));//Affichage d'une image de fond
+                    caseTuiles.get(caseTuiles.size()-1).add(new JLabel(icon),BorderLayout.CENTER);
+                    
+                    for(Joueur j : t.getLocataires()) {//affichage des pions
                         if(j!= null) {
                            JLabel label = new JLabel(new ImageIcon(j.getImage().getImage().getScaledInstance(30,30, Image.SCALE_DEFAULT)));
                            panelPions.get(panelPions.size()-1).add(label,BorderLayout.NORTH);
                         }
                     }
-                    caseTuiles.get(caseTuiles.size()-1).add(new JLabel(icon),BorderLayout.CENTER);
-                    caseTuiles.get(caseTuiles.size()-1).add(new JLabel(t.getIntitule().nomEspace()),BorderLayout.SOUTH);
                     
+                    caseTuiles.get(caseTuiles.size()-1).add(new JLabel(t.getIntitule().nomEspace()),BorderLayout.SOUTH);//affichage du nom de la case
                     
-                    
-                    
-                    
-                    if (t.getIntitule() == Zone.Heliport) {
-                       caseTuiles.get(caseTuiles.size()-1).setBorder(BorderFactory.createLineBorder(Color.RED));
+                    if (t.getIntitule() == Zone.Heliport) {//Mise en surbrillance de l'Héliport
+                       caseTuiles.get(caseTuiles.size()-1).setBorder(BorderFactory.createLineBorder(Color.YELLOW));
                     }
                 }
-                /*if (t.getReliqueDispo() != null) {
-                    
-                }*/
                 
             }
         }
-        for (JPanel jpp: caseTuiles) {
+        
+        for (JPanel jpp: caseTuiles) {//Ajout des cases au plateau
             mapPanel.add(jpp);
         }
-        for (JButton jp: buttonsCase) {
+        
+        for (JButton jp: buttonsCase) {//ajout des boutons au calque Boutons
             jp.setOpaque(false);
             jp.setContentAreaFilled(false);
             calqueButtons.add(jp);
         }
-        for (JPanel jppion : panelPions) {
+        
+        for (JPanel jppion : panelPions) {//ajout des pions au calque Pions
             jppion.setOpaque(false);
             pionsPlateau.add(jppion);
         }
-        //window.setLocationRelativeTo(null);  centre la fenêtre
+        
         calque.add(mapPanel,Integer.valueOf(1));
         calque.add(pionsPlateau,Integer.valueOf(2));
         calque.add(calqueButtons,Integer.valueOf(3));
+        
         this.add(calque, BorderLayout.CENTER);
+        
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        this.setVisible(true);
              
+    }
+    
+    public void afficher() {
+        this.setVisible(true);
     }
     
     public void setControleur(Controleur c) {
@@ -162,11 +185,8 @@ public class VuePlateau extends JFrame{
     public void setObservateur(Observateur o) {
         this.observateur = o;
     }
-
-    /**
-     * @return the window
-     */
-    public JFrame getWindow() {
-        return this;
+    
+    public void update() {
+        this.repaint();
     }
 }

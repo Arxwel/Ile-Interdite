@@ -86,7 +86,17 @@ public class Controleur extends Observateur {
         joueurActif = null;
         nbact = 3;
         piocheCarteTresor = new Stack<>();
-        vueInscription = Main.getVueInscription();
+        
+        vueInscription = new VueInscription();
+        vueInscription.setObservateur(this);
+        vueInscription.afficher();
+        
+        this.waitForInput();
+        this.init();
+        
+        vuePlateau = new VuePlateau(this);
+        vuePlateau.setObservateur(this);
+        vuePlateau.afficher();
     }
     
     public void init() {
@@ -347,6 +357,7 @@ public class Controleur extends Observateur {
             this.waitForInput();
             System.out.println("input Reçu");
             setNbact(getNbact() - 1);
+            vuePlateau.update();
         }
     }
     
@@ -568,6 +579,11 @@ public class Controleur extends Observateur {
                 listRoles.remove(role);
                 vueInscription.getWindow().dispose();
                 suite = true;
+                System.out.println("Joueurs Enregistrés: ");
+                for (Joueur j: this.getJoueurs()) {
+                    System.out.println(j.getNom()+" incarnant "+j.getClass().toString());
+                }
+                this.notifier();
             break;
             case ("Annuler"):
                 System.exit(0);

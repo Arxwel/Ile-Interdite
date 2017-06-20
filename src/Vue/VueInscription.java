@@ -410,4 +410,8 @@ public class VueInscription {
     public String[] getRoles() {
         return roles;
     }
+
+    public void afficher() {
+        this.window.setVisible(true);
+    }
 }
