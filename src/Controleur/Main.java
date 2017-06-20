@@ -34,6 +34,7 @@ public static void main(String[] args) {
         }
         
         
+        
         vj1 = new VueAventurier(c.getJoueurs().get(0));
         c.getJoueurs().get(0).setVueAventurier(vj1);
         vj1.getWindow().setLocation(15, 15);
