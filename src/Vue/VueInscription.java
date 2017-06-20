@@ -88,7 +88,7 @@ public class VueInscription {
         window.setSize(800, 600);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         window.setLocation(dim.width/2-window.getSize().width/2, dim.height/2-window.getSize().height/2);
-        window.setTitle("Inscription");
+        window.setTitle("L'Ile Interdite : Inscription");
         mainPanel = new JPanel(new BorderLayout());
         this.window.add(mainPanel);
         

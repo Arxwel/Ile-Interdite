@@ -43,12 +43,14 @@ public class VueEcranTitre extends JPanel {
 
     private Image image ;
     private Integer width, height ;
-    private JFrame window = new JFrame() ;
+    private JFrame window = new JFrame("L'Ile Interdite : Ecran Titre") ;
     private Observateur observateur;
 
     public VueEcranTitre() {
         super();
         window.setSize(800, 600);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        window.setLocation(dim.width/2-window.getSize().width/2, dim.height/2-window.getSize().height/2);
         ImageIcon icon = new ImageIcon(this.getClass().getResource("/resources/planches.jpg"));
         icon = new ImageIcon(icon.getImage().getScaledInstance(265, 65,Image.SCALE_DEFAULT));
         this.width = 800 ;

@@ -51,7 +51,7 @@ public class VuePlateau extends JFrame{
     
     //Affiche le plateau
     public VuePlateau(Controleur c) {
-        super("Ile Interdite");
+        super("L'Ile Interdite : Jeu");
         this.setSize(1000, 1000);
         this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
