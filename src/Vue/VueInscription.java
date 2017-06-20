@@ -79,6 +79,7 @@ public class VueInscription {
     private static JComboBox roleComboJ4;
     
     private static Observateur observateur;
+    String rolej1="",rolej2="",rolej3="",rolej4="";
     private String [] roles = {"Aléatoire","Pilote","Messager","Explorateur","Navigateur","Plongeur","Ingénieur", "Vide"};
     //crée l'interface permettant l'inscription des joueurs (choix du rôle et du pseudonyme)
     public VueInscription() {
@@ -113,6 +114,7 @@ public class VueInscription {
         roleComboJ1 = new JComboBox(roles);
         roleComboJ1.setSelectedItem(roles[0]);
         roleComboJ1.removeItem(roles[7]);
+        rolej1 = roleComboJ1.getSelectedItem().toString();
         
         nomLabel2 = new JLabel();
         roleLabel2= new JLabel();
@@ -122,6 +124,7 @@ public class VueInscription {
         roleComboJ2 = new JComboBox(roles);
         roleComboJ2.setSelectedItem(roles[0]);
         roleComboJ2.removeItem(roles[7]);
+        rolej2 = roleComboJ2.getSelectedItem().toString();
         
         nomLabel3 = new JLabel();
         roleLabel3= new JLabel();
@@ -130,6 +133,7 @@ public class VueInscription {
         nomFieldJ3= new JTextField();
         roleComboJ3= new JComboBox(roles);
         roleComboJ3.setSelectedItem(roles[0]);
+        rolej3 = roleComboJ3.getSelectedItem().toString();
         
         nomLabel4 = new JLabel();
         roleLabel4= new JLabel();
@@ -138,6 +142,7 @@ public class VueInscription {
         nomFieldJ4 = new JTextField();
         roleComboJ4 = new JComboBox(roles);
         roleComboJ4.setSelectedItem(roles[0]);
+        rolej4 = roleComboJ4.getSelectedItem().toString();
         
         
         
@@ -259,6 +264,69 @@ public class VueInscription {
                 observateur.traiterMessage(msg);
             }
             
+        });
+        
+        roleComboJ1.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(!"Vide".equals(rolej1) && !"Aléatoire".equals(rolej1)) {
+                    roleComboJ2.addItem(rolej1);
+                    roleComboJ3.addItem(rolej1);
+                    roleComboJ4.addItem(rolej1);
+                }
+                    rolej1 = getRoleComboJ1();
+                    roleComboJ2.removeItem(rolej1);
+                    roleComboJ3.removeItem(rolej1);
+                    roleComboJ4.removeItem(rolej1);
+            }
+        });
+        roleComboJ2.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(!"Vide".equals(rolej2) && !"Aléatoire".equals(rolej2)) {
+                    roleComboJ1.addItem(rolej2);
+                    roleComboJ3.addItem(rolej2);
+                    roleComboJ4.addItem(rolej2);
+                }
+                    rolej2 = getRoleComboJ2();
+                    roleComboJ1.removeItem(rolej2);
+                    roleComboJ3.removeItem(rolej2);
+                    roleComboJ4.removeItem(rolej2);
+            }
+        });
+        
+        roleComboJ3.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(!"Vide".equals(rolej3) && !"Aléatoire".equals(rolej3)) {
+                    roleComboJ1.addItem(rolej3);
+                    roleComboJ2.addItem(rolej3);
+                    roleComboJ4.addItem(rolej3);
+                }
+                    rolej3 = getRoleComboJ3();
+                    roleComboJ1.removeItem(rolej3);
+                    roleComboJ2.removeItem(rolej3);
+                    roleComboJ4.removeItem(rolej3);
+            }
+        });
+        
+        roleComboJ4.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(!"Vide".equals(rolej4) && !"Aléatoire".equals(rolej4)) {
+                    roleComboJ1.addItem(rolej4);
+                    roleComboJ2.addItem(rolej4);
+                    roleComboJ3.addItem(rolej4);
+                }
+                    rolej4 = getRoleComboJ4();
+                    roleComboJ1.removeItem(rolej4);
+                    roleComboJ2.removeItem(rolej4);
+                    roleComboJ3.removeItem(rolej4);
+            }
         });
         
         
