@@ -97,26 +97,24 @@ public abstract class Joueur {
 
         //Gère le déplacement des joueurs
 	public void déplacer() {
-            ArrayList<Tuile> casesDispo = new ArrayList<>(listerCasesDispo());
+            ArrayList<Tuile> casesDispo = new ArrayList<>(this.listerCasesDispo());
             
-            //A déplacer dans Controlleur
             Integer i = 0;
             for (Tuile t: casesDispo) {
-                System.out.println(i);
-                System.out.println(t.getIntitule().toString());
+                System.out.println(i+". "+t.getIntitule().toString());
                 i++;
             }
+            
             System.out.println("Choisissez:");
-            String choix = sc.nextLine();
-            //Jusque ici
+            int choix = sc.nextInt();
             
-            
-            
-            Tuile caseDepl = casesDispo.get(Integer.getInteger(choix));
+            Tuile caseDepl = casesDispo.get(choix);
             Tuile tuileQuittee = this.getPosition();
+            System.out.println("deplacement de "+tuileQuittee.getIntitule()+" a "+caseDepl.getIntitule());
             tuileQuittee.delLocataire(this);
             this.setPosition(caseDepl);
             caseDepl.addLocataire(this);
+            System.out.println("Le Joueur est maintenant à"+this.getPosition().getIntitule());
             
 	}
 

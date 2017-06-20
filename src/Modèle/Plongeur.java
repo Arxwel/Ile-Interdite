@@ -25,18 +25,25 @@ public class Plongeur extends Joueur {
             for (Tuile t: tuilesATester) {
                 if (t==posJ) {
                     tuilesATester.addAll(tuilesDispo);
+                    System.out.println("Tuile Départ");
                 } else {
+                    System.out.println("Tuile "+t.getIntitule());
                     if (t.getEtat()==Etat.Sec) {
+                        System.out.println("Sec");
                         tuilesDispo.add(t);
+                        System.out.println("ajouté");
                     } else if (t.getEtat()==Etat.Inondé) {
+                        System.out.println("inondé");
                         tuilesDispo.add(t);
+                        System.out.println("ajouté");
                         for(Tuile tAdj: t.getAdjacent()) {
                             if (!tuilesATester.contains(tAdj)) {
                                 tuilesATester.add(tAdj);
                             }
                         }
                     } else if (t.getEtat()==Etat.Sombré) {
-                       for(Tuile tAdj: t.getAdjacent()) {
+                        System.out.println("sombré");
+                        for(Tuile tAdj: t.getAdjacent()) {
                             if (!tuilesATester.contains(tAdj)) {
                                 tuilesATester.add(tAdj);
                             }
