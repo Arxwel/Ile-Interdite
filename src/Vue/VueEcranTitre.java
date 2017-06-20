@@ -9,14 +9,19 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -38,14 +43,18 @@ public class VueEcranTitre extends JPanel {
 
     public VueEcranTitre() {
         super();
-        ImageIcon icon = new ImageIcon(this.getClass().getResource("/resources/planches.png"));
-        icon = new ImageIcon(icon.getImage().getScaledInstance(200, 200,Image.SCALE_DEFAULT));
+        ImageIcon icon = new ImageIcon(this.getClass().getResource("/resources/planches.jpg"));
+        icon = new ImageIcon(icon.getImage().getScaledInstance(265, 65,Image.SCALE_DEFAULT));
         this.width = 800 ;
         this.height = 650 ;
-        JButton jouer = new JButton();
-        JButton quitter = new JButton("Quitter");
+        JButton jouer = new JButton(icon);
+        icon = new ImageIcon(this.getClass().getResource("/resources/planchesQuitter.jpg"));
+        icon = new ImageIcon(icon.getImage().getScaledInstance(265, 65,Image.SCALE_DEFAULT));
+        JButton quitter = new JButton(icon);
         quitter.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JButton regles = new JButton("Règles");
+        icon = new ImageIcon(this.getClass().getResource("/resources/planchesRegles.jpg"));
+        icon = new ImageIcon(icon.getImage().getScaledInstance(265, 65,Image.SCALE_DEFAULT));
+        JButton regles = new JButton(icon);
         regles.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         try {
@@ -76,7 +85,33 @@ public class VueEcranTitre extends JPanel {
                 
 
         this.add(boutons, BorderLayout.CENTER);
+        jouer.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+            }
+        });
         
+        regles.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Desktop.getDesktop().open(new File(System.getProperty("user.dir") + "/src/resources/regles.mp4"));
+                } catch (IOException ex) {
+                    Logger.getLogger(VueEcranTitre.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        
+        quitter.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
         
         
     }
