@@ -343,7 +343,21 @@ public class Controleur implements Observateur {
                 while(nom == null) {
                     nom = fenetreNom("Joueur 1");
                 }  
-                switch (vueInscription.getRoleComboJ1()) {
+                String role = vueInscription.getRoleComboJ1();
+                Random randomGenerator = new Random();
+                ArrayList<String> listRoles = new ArrayList<>();
+                for(String s : vueInscription.getRoles()) {
+                    if(!s.equals("Aléatoire") && !s.equals("Vide")) {
+                        listRoles.add(s);
+                    }
+                }
+                if(vueInscription.getRoleComboJ1() == "Aléatoire") {
+                    int index = randomGenerator.nextInt(listRoles.size());
+                    role = listRoles.get(index);
+                    listRoles.remove(index);
+                }
+                
+                switch (role) {
                     case ("Explorateur"):
                         j1 = new Explorateur(nom, this);
                         getJoueurs().add(j1);
@@ -373,7 +387,13 @@ public class Controleur implements Observateur {
                 while(nom == null) {
                     nom = fenetreNom("Joueur 2");
                 }  
-                switch (vueInscription.getRoleComboJ2()) {
+                role = vueInscription.getRoleComboJ2();
+                if(vueInscription.getRoleComboJ2() == "Aléatoire") {
+                    int index = randomGenerator.nextInt(listRoles.size());
+                    role = listRoles.get(index);
+                    listRoles.remove(index);
+                }
+                switch (role) {
                     case ("Explorateur"):
                         j2 = new Explorateur(nom, this);
                         getJoueurs().add(j2);
@@ -404,7 +424,13 @@ public class Controleur implements Observateur {
                 while(nom == null) {
                     nom = fenetreNom("Joueur 3");
                 }  
-                switch (vueInscription.getRoleComboJ3()) {
+                role = vueInscription.getRoleComboJ3();
+                if(vueInscription.getRoleComboJ3() == "Aléatoire") {
+                    int index = randomGenerator.nextInt(listRoles.size());
+                    role = listRoles.get(index);
+                    listRoles.remove(index);
+                }
+                switch (role) {
                     case ("Explorateur"):
                         j3 = new Explorateur(nom, this);
                         getJoueurs().add(j3);
@@ -429,13 +455,21 @@ public class Controleur implements Observateur {
                         j3 = new Plongeur(nom, this);
                         getJoueurs().add(j3);
                     break;
+                    case ("Vide"):
+                    break;
                 }
                 
                 nom = vueInscription.getNomFieldJ4();
                 while(nom == null) {
                     nom = fenetreNom("Joueur 4");
-                }  
-                switch (vueInscription.getRoleComboJ4()) {
+                }
+                role = vueInscription.getRoleComboJ4();
+                if(vueInscription.getRoleComboJ4() == "Aléatoire") {
+                    int index = randomGenerator.nextInt(listRoles.size());
+                    role = listRoles.get(index);
+                    listRoles.remove(index);
+                }
+                switch (role) {
                     case ("Explorateur"):
                         j4 = new Explorateur(nom, this);
                         getJoueurs().add(j4);
@@ -459,6 +493,8 @@ public class Controleur implements Observateur {
                     case ("Plongeur"):
                         j4 = new Plongeur(nom, this);
                         getJoueurs().add(j4);
+                    break;
+                    case ("Vide"):
                     break;
                 }
                 vueInscription.getWindow().dispose();
