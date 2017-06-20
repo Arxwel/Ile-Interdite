@@ -197,7 +197,7 @@ public class Controleur implements Observateur {
     }
 	
     //Assure que le joueur a moins de 6 cartes en main et propose l'utilisation ou la défausse de cartes
-    private void verifMain(Joueur joueur) {   
+    private static void verifMain(Joueur joueur) {   
         while (joueur.getMainJoueur().size() >= 6) {
             System.out.println(joueur.getNom() + " a trop de cartes en main. Il doit en défausser ou en utiliser jusqu'à en avoir 5 au plus.");
             CarteTresor cs1 = new CarteTresor(TypeCarte.SpécialHélicoptère);
@@ -302,6 +302,7 @@ public class Controleur implements Observateur {
 
     //décompte le nombre d'actions disponibles pour le joueur et propose les actions en fonction de leur disponibilité
     public static void débutTour() {
+        verifMain(joueurActif);
         nbact =3;
         while (nbact>0) {
             actionsPossibles[0]=joueurActif.isMvmntPossible();
