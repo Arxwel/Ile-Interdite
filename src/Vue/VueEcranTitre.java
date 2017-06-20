@@ -7,6 +7,8 @@ package Vue;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -16,7 +18,10 @@ import java.awt.Toolkit;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -33,11 +38,15 @@ public class VueEcranTitre extends JPanel {
 
     public VueEcranTitre() {
         super();
+        ImageIcon icon = new ImageIcon(this.getClass().getResource("/resources/planches.png"));
+        icon = new ImageIcon(icon.getImage().getScaledInstance(200, 200,Image.SCALE_DEFAULT));
         this.width = 800 ;
-        this.height = 600 ;
-        JButton jouer;
-        JButton quitter;
-        JButton regles;
+        this.height = 650 ;
+        JButton jouer = new JButton();
+        JButton quitter = new JButton("Quitter");
+        quitter.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JButton regles = new JButton("Règles");
+        regles.setAlignmentX(Component.CENTER_ALIGNMENT);
         
         try {
             this.image = ImageIO.read(new File(System.getProperty("user.dir") + "/src/resources/fond.png"));
@@ -46,6 +55,28 @@ public class VueEcranTitre extends JPanel {
         }
         
         this.setLayout(new BorderLayout());
+        JComponent boutons = new JPanel();
+        boutons.setLayout(new GridLayout(10, 3));
+        boutons.setOpaque(false);
+        boutons.setAlignmentX(Component.CENTER_ALIGNMENT);
+        for(int i = 0; i<13; i++) {
+            boutons.add(new JLabel(""));
+        }
+        boutons.add(jouer);
+        jouer.setContentAreaFilled(false);
+        boutons.add(new JLabel(""));
+        boutons.add(new JLabel(""));
+        boutons.add(regles);
+        boutons.add(new JLabel(""));
+        boutons.add(new JLabel(""));
+        boutons.add(quitter);
+        for(int i = 0; i<10; i++) {
+            boutons.add(new JLabel(""));
+        }
+                
+
+        this.add(boutons, BorderLayout.CENTER);
+        
         
         
     }
