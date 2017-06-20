@@ -18,6 +18,8 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -77,8 +79,7 @@ public class VueInscription {
     private static JComboBox roleComboJ4;
     
     private static Observateur observateur;
-    private String[] roles = {"Aléatoire","Pilote","Messager","Explorateur","Navigateur","Plongeur","Ingénieur", "Vide"};
-    
+    private String [] roles = {"Aléatoire","Pilote","Messager","Explorateur","Navigateur","Plongeur","Ingénieur", "Vide"};
     //crée l'interface permettant l'inscription des joueurs (choix du rôle et du pseudonyme)
     public VueInscription() {
         window = new JFrame();
@@ -109,8 +110,8 @@ public class VueInscription {
         j1Label = new JLabel();
         j1GridPanel = new JPanel(new GridLayout(4,2));
         nomFieldJ1 = new JTextField();
-        roleComboJ1 = new JComboBox(getRoles());
-        roleComboJ1.setSelectedItem(roles[6]);
+        roleComboJ1 = new JComboBox(roles);
+        roleComboJ1.setSelectedItem(roles[0]);
         roleComboJ1.removeItem(roles[7]);
         
         nomLabel2 = new JLabel();
@@ -118,8 +119,8 @@ public class VueInscription {
         j2Label = new JLabel();
         j2GridPanel = new JPanel(new GridLayout(4,2));
         nomFieldJ2 = new JTextField();
-        roleComboJ2 = new JComboBox(getRoles());
-        roleComboJ2.setSelectedItem(roles[1]);
+        roleComboJ2 = new JComboBox(roles);
+        roleComboJ2.setSelectedItem(roles[0]);
         roleComboJ2.removeItem(roles[7]);
         
         nomLabel3 = new JLabel();
@@ -127,16 +128,16 @@ public class VueInscription {
         j3Label = new JLabel();
         j3GridPanel = new JPanel(new GridLayout(4,2));
         nomFieldJ3= new JTextField();
-        roleComboJ3= new JComboBox(getRoles());
-        roleComboJ3.setSelectedItem(roles[4]);
+        roleComboJ3= new JComboBox(roles);
+        roleComboJ3.setSelectedItem(roles[0]);
         
         nomLabel4 = new JLabel();
         roleLabel4= new JLabel();
         j4Label = new JLabel();
         j4GridPanel = new JPanel(new GridLayout(4,2));
         nomFieldJ4 = new JTextField();
-        roleComboJ4 = new JComboBox(getRoles());
-        roleComboJ4.setSelectedItem(roles[3]);
+        roleComboJ4 = new JComboBox(roles);
+        roleComboJ4.setSelectedItem(roles[0]);
         
         
         
