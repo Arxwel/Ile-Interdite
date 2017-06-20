@@ -13,7 +13,7 @@ public class Messager extends Joueur {
         this.setImage(new ImageIcon(this.getClass().getResource("/ImagesAventuriers/Messager.png")));
     }
         @Override //peut donner des cartes a distance
-	public void donnerCarte() {
+	public void donnerCarte(Joueur jDest) {
 		// TODO - implement Messager.donnerCarte
 		throw new UnsupportedOperationException();
 	}

@@ -117,8 +117,8 @@ public class Controleur extends Observateur {
         for (int x=0; x<6; x++) {
             for (int y=0; y<6; y++) {
                 Tuile t = grille.getTuile(x,y);
-                if (t.getIntitule() == Zone.Heliport && t.getEtat() == Etat.Sombré) {
-                    resultat = true;
+                if (t!=null&&t.getIntitule()==Zone.Heliport&&t.getEtat()==Etat.Sombré) {
+                        resultat = true;
                 }
             }
         }
@@ -299,7 +299,7 @@ public class Controleur extends Observateur {
     
 
     //décompte le nombre d'actions disponibles pour le joueur et propose les actions en fonction de leur disponibilité
-    public static void débutTour() {
+    public void débutTour() {
         verifMain(joueurActif);
         nbact =3;
         while (nbact>0) {
@@ -307,10 +307,12 @@ public class Controleur extends Observateur {
             actionsPossibles[1]=joueurActif.isAssPossible();
             actionsPossibles[2]=joueurActif.isDonPossible();
             actionsPossibles[3]=joueurActif.isReliquePossible();
-            
-            joueurActif.getVueAventurier();            
+             
+            System.out.println("Désactivation interfaces");
             for (Joueur j: joueurs) {
+                System.out.println("Joueur "+j.getNom());
                 if (j.equals(joueurActif)) {
+                    System.out.println("joueur actif");
                     j.getVueAventurier().activerBoutons();
                     if (j.isMvmntPossible()) {
                         j.getVueAventurier().activerBoutonAller();
@@ -326,6 +328,7 @@ public class Controleur extends Observateur {
                     }
                 } else {
                     j.getVueAventurier().desactiverBoutons();
+                    System.out.println("joueur inactif");
                 }
             }
             this.waitForInput();
