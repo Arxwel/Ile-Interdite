@@ -270,30 +270,87 @@ public class VueInscription {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                boolean dejaPresent = false;
                 if(!"Vide".equals(rolej1) && !"Aléatoire".equals(rolej1)) {
-                    roleComboJ2.addItem(rolej1);
-                    roleComboJ3.addItem(rolej1);
-                    roleComboJ4.addItem(rolej1);
-                }
+                    for(int i=0; i < roleComboJ2.getItemCount(); i++) {
+                        if (roleComboJ2.getItemAt(i) == rolej1) {
+                            dejaPresent = true;
+                        }
+                    }
+                    if(!dejaPresent) {
+                     roleComboJ2.addItem(rolej1);   
+                    }
+                    dejaPresent = false;
+                    for(int i=0; i < roleComboJ3.getItemCount(); i++) {
+                        if (roleComboJ3.getItemAt(i) == rolej1) {
+                            dejaPresent = true;
+                        }
+                    }
+                    if(!dejaPresent) {
+                     roleComboJ3.addItem(rolej1);   
+                    }
+                    dejaPresent = false;
+                    for(int i=0; i < roleComboJ4.getItemCount(); i++) {
+                        if (roleComboJ4.getItemAt(i) == rolej1) {
+                            dejaPresent = true;
+                        }
+                    }
+                    if(!dejaPresent) {
+                     roleComboJ4.addItem(rolej1);   
+                    }
                     rolej1 = getRoleComboJ1();
+                    if(!"Vide".equals(rolej1) && !"Aléatoire".equals(rolej1)) {
                     roleComboJ2.removeItem(rolej1);
                     roleComboJ3.removeItem(rolej1);
                     roleComboJ4.removeItem(rolej1);
+                    }
+                } else {
+                    rolej1 = getRoleComboJ1();
+                }
             }
         });
         roleComboJ2.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                boolean dejaPresent = false;
                 if(!"Vide".equals(rolej2) && !"Aléatoire".equals(rolej2)) {
-                    roleComboJ1.addItem(rolej2);
-                    roleComboJ3.addItem(rolej2);
-                    roleComboJ4.addItem(rolej2);
-                }
+                    for(int i=0; i < roleComboJ1.getItemCount(); i++) {
+                        if (roleComboJ1.getItemAt(i) == rolej2) {
+                            dejaPresent = true;
+                        }
+                    }
+                    if(!dejaPresent) {
+                     roleComboJ1.addItem(rolej2);   
+                    }
+                    dejaPresent = false;
+                    for(int i=0; i < roleComboJ3.getItemCount(); i++) {
+                        if (roleComboJ3.getItemAt(i) == rolej2) {
+                            dejaPresent = true;
+                        }
+                    }
+                    if(!dejaPresent) {
+                     roleComboJ3.addItem(rolej2);   
+                    }
+                    dejaPresent = false;
+                    for(int i=0; i < roleComboJ4.getItemCount(); i++) {
+                        if (roleComboJ4.getItemAt(i) == rolej2) {
+                            dejaPresent = true;
+                        }
+                    }
+                    if(!dejaPresent) {
+                     roleComboJ4.addItem(rolej2);   
+                    }
                     rolej2 = getRoleComboJ2();
+                    if(!"Vide".equals(rolej2) && !"Aléatoire".equals(rolej2)) {
                     roleComboJ1.removeItem(rolej2);
                     roleComboJ3.removeItem(rolej2);
                     roleComboJ4.removeItem(rolej2);
+                    }
+                } else {
+                    rolej2 = getRoleComboJ2();
+                }
+
             }
         });
         
@@ -301,15 +358,43 @@ public class VueInscription {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                boolean dejaPresent = false;
                 if(!"Vide".equals(rolej3) && !"Aléatoire".equals(rolej3)) {
-                    roleComboJ1.addItem(rolej3);
-                    roleComboJ2.addItem(rolej3);
-                    roleComboJ4.addItem(rolej3);
-                }
+                    for(int i=0; i < roleComboJ2.getItemCount(); i++) {
+                        if (roleComboJ2.getItemAt(i) == rolej3) {
+                            dejaPresent = true;
+                        }
+                    }
+                    if(!dejaPresent) {
+                     roleComboJ2.addItem(rolej3);   
+                    }
+                    dejaPresent = false;
+                    for(int i=0; i < roleComboJ1.getItemCount(); i++) {
+                        if (roleComboJ1.getItemAt(i) == rolej3) {
+                            dejaPresent = true;
+                        }
+                    }
+                    if(!dejaPresent) {
+                     roleComboJ1.addItem(rolej3);   
+                    }
+                    dejaPresent = false;
+                    for(int i=0; i < roleComboJ4.getItemCount(); i++) {
+                        if (roleComboJ4.getItemAt(i) == rolej3) {
+                            dejaPresent = true;
+                        }
+                    }
+                    if(!dejaPresent) {
+                     roleComboJ4.addItem(rolej3);   
+                    }
                     rolej3 = getRoleComboJ3();
-                    roleComboJ1.removeItem(rolej3);
+                    if(!"Vide".equals(rolej3) && !"Aléatoire".equals(rolej3)) {
                     roleComboJ2.removeItem(rolej3);
+                    roleComboJ1.removeItem(rolej3);
                     roleComboJ4.removeItem(rolej3);
+                    }
+                } else {
+                    rolej3 = getRoleComboJ3();
+                }
             }
         });
         
@@ -317,15 +402,43 @@ public class VueInscription {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                               boolean dejaPresent = false;
                 if(!"Vide".equals(rolej4) && !"Aléatoire".equals(rolej4)) {
-                    roleComboJ1.addItem(rolej4);
-                    roleComboJ2.addItem(rolej4);
-                    roleComboJ3.addItem(rolej4);
-                }
+                    for(int i=0; i < roleComboJ2.getItemCount(); i++) {
+                        if (roleComboJ2.getItemAt(i) == rolej4) {
+                            dejaPresent = true;
+                        }
+                    }
+                    if(!dejaPresent) {
+                     roleComboJ2.addItem(rolej4);   
+                    }
+                    dejaPresent = false;
+                    for(int i=0; i < roleComboJ1.getItemCount(); i++) {
+                        if (roleComboJ1.getItemAt(i) == rolej4) {
+                            dejaPresent = true;
+                        }
+                    }
+                    if(!dejaPresent) {
+                     roleComboJ1.addItem(rolej4);   
+                    }
+                    dejaPresent = false;
+                    for(int i=0; i < roleComboJ3.getItemCount(); i++) {
+                        if (roleComboJ3.getItemAt(i) == rolej4) {
+                            dejaPresent = true;
+                        }
+                    }
+                    if(!dejaPresent) {
+                     roleComboJ3.addItem(rolej4);   
+                    }
                     rolej4 = getRoleComboJ4();
-                    roleComboJ1.removeItem(rolej4);
+                    if(!"Vide".equals(rolej4) && !"Aléatoire".equals(rolej4)) {
                     roleComboJ2.removeItem(rolej4);
+                    roleComboJ1.removeItem(rolej4);
                     roleComboJ3.removeItem(rolej4);
+                    }
+                } else {
+                    rolej4 = getRoleComboJ4();
+                }
             }
         });
         
