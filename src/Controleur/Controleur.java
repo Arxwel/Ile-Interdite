@@ -29,6 +29,9 @@ public class Controleur implements Observateur {
     private static Stack<CarteTresor> defausseCarteTresor;
     private static boolean suite = false;
     private static VueInscription vueInscription;
+    private static boolean joueurMort = false;
+    private static boolean[] reliquesPrises = new boolean[4]; //Magenta(brasier) Orange(Zéphir) Gris(Globe(pété)) Cyan(Calice)
+    private static int niveauDEau;
 
     /**
      * @return the suite
@@ -57,6 +60,9 @@ public class Controleur implements Observateur {
     private static void setDefausseCarteTresor(Stack<CarteTresor> aDefausseCarteTresor) {
         defausseCarteTresor = aDefausseCarteTresor;
     }
+
+    private static void waitForInput() {
+    }
     private VuePlateau vuePlateau;
     
     public Controleur() {
@@ -71,34 +77,15 @@ public class Controleur implements Observateur {
         vueInscription = Main.getVueInscription();
     }
     
-
-    
-    // méthode main temporaire pour tester
-    /*public static void main(String[] args) {
-        initPositionAventurier();
-        
-        initPiocheTresor();
-        initPiocheInondation();
-        
-        for (Joueur j: getJoueurs()) {
-            for (int i=0; i<4; i++) {
-                donnerCarte(j);
-          }
-        }
-        
-        
-        while (!isPartieFinie()) {
-            débutTour();
-            numTour++;
-        }    
-    } */
     public void init() {
         //Initialisation des pioches et position des joueurs
         initPositionAventurier();
-        
         initPiocheTresor();
         initPiocheInondation();
-        
+        for (int i=0; i<4; i++) {
+            reliquesPrises[i] = false;
+        }
+        niveauDEau = 1;
         //distribution des cartes
         
         for (Joueur j: getJoueurs()) {
@@ -118,8 +105,6 @@ public class Controleur implements Observateur {
     }
     
     public void play() {
-        
-        
         //Boucle de jeu
         while (!isPartieFinie()) {
             setJoueurActif();
@@ -128,8 +113,71 @@ public class Controleur implements Observateur {
         }    
     } 
     
+    private static boolean isPartiePerdue(){
+        boolean resultat = false;
+        // L'Héliport est il sombré?
+        for (int x=0; x<6; x++) {
+            for (int y=0; y<6; y++) {
+                Tuile t = grille.getTuile(x,y);
+                if (t.getIntitule() == Zone.Heliport && t.getEtat() == Etat.Sombré) {
+                    resultat = true;
+                }
+            }
+        }
+        // Un joueur est il "mort"?
+        resultat = (resultat||joueurMort);
+        // La récupération des reliques manquantes est elle possible?
+        for (int i=0; i<4; i++) {
+            if (!reliquesPrises[i]) {
+                switch(i) {
+                    case(0):
+                        resultat = (resultat||(grille.getTuile(Zone.LaCaverneDesOmbres).isSombre()&&grille.getTuile(Zone.LaCaverneDuBrasier).isSombre()));
+                        break;
+                    case(1):
+                        resultat = (resultat||(grille.getTuile(Zone.LeJardinDesHurlements).isSombre()&&grille.getTuile(Zone.LeJardinDesMurmures).isSombre()));
+                        break;
+                    case(2):
+                        resultat = (resultat||(grille.getTuile(Zone.LeTempleDeLaLune).isSombre()&&grille.getTuile(Zone.LeTempleDuSoleil).isSombre()));
+                        break;
+                    case(3):
+                        resultat = (resultat||(grille.getTuile(Zone.LePalaisDeCorail).isSombre()&&grille.getTuile(Zone.LePalaisDesMarees).isSombre()));
+                        break;
+                    
+                }
+            }
+        }
+        // Le niveau d'eau est il mortel
+        resultat = (resultat||niveauDEau>9);
+        
+        
+        return resultat;
+    }
+    
+    private static boolean isPartieGagnée(){
+        //Les joueurs sont ils tout les 4 sur l'héliport, ont ils les 4 reliques, ont ils au moins une carte hélicoptère
+        boolean resultat = false;
+        if (grille.getTuile(Zone.Heliport).getLocataires().size()==joueurs.size()) {
+            int nbPrises = 0;
+            for (int i=0;i<4;i++){
+                if (reliquesPrises[i]) {
+                    nbPrises++;
+                }
+            }
+            if (nbPrises==4){
+                for (Joueur j: joueurs) {
+                    for (CarteTresor c: j.getMainJoueur()){
+                        if (c.getType()==TypeCarte.SpécialHélicoptère) {
+                            resultat = true;
+                        }
+                    }
+                }
+            }
+        }
+        return resultat;
+    }
+    
     private static boolean isPartieFinie() {
-        return false;
+        return (isPartiePerdue() || isPartieGagnée());
     }
 
     //Place les aventuriers sur le plateau dans leur position de départ
@@ -159,27 +207,6 @@ public class Controleur implements Observateur {
             CarteTresor cr3 = new CarteTresor(TypeCarte.TresorMagenta);
             CarteTresor cr4 = new CarteTresor(TypeCarte.TresorOrange);
             for (int i = 1; i<joueur.getMainJoueur().size(); i++) {
-                /*if (joueur.getMainJoueur().get(i).equals(cs1)) {
-                    System.out.println("Carte Hélicoptère. Choisissez votre action: Utiliser, Defausser ou Rien.");                    
-                    String choix = sc.nextLine();
-                    if (choix=="1") {
-                        joueur.useCarteSpe(cs1);
-                    } else if (choix=="2") {
-                        joueur.defausserCarte();
-                    } else if (choix=="3") {
-                        
-                    }
-                } else if (joueur.getMainJoueur().get(i).equals(cs2)) {
-                    System.out.println("Carte Sac de sable. Choisissez votre action: Utiliser (1), Defausser (2) ou Rien (3).");                    
-                    String choix = sc.nextLine();
-                    if (choix=="1") {
-                        joueur.useCarteSpe(cs1);
-                    } else if (choix=="2") {
-                        joueur.defausserCarte();
-                    } else if (choix=="3") {
-                        
-                    }
-                }*/
                 int choix;
                 
                 if (joueur.getMainJoueur().get(i).equals(cs1)) {
@@ -282,14 +309,22 @@ public class Controleur implements Observateur {
             actionsPossibles[2]=joueurActif.isDonPossible();
             actionsPossibles[3]=joueurActif.isReliquePossible();
             
-            joueurActif.getVueAventurier();
+            joueurActif.getVueAventurier();            
+            for (Joueur j: joueurs) {
+                if (j.equals(joueurActif)) {
+                    j.getVueAventurier().activerBoutons();
+                } else {
+                    j.getVueAventurier().desactiverBoutons();
+                }
+            }
             
+            waitForInput();
             nbact--;
         }
     }
 
     //Détermine le joueur dont c'est le tour de jouer en début de tour
-    public static void setJoueurActif() {
+    private static void setJoueurActif() {
         joueurActif = getJoueurs().get(numTour%getJoueurs().size());
     }
 
@@ -512,7 +547,7 @@ public class Controleur implements Observateur {
     public Grille getGrille() {
         return grille;
     }
-    
+ 
     //message d'erreur en cas de pseudo null
     public String fenetreNom(String Joueur) {
         String nom;
