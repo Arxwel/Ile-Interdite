@@ -12,7 +12,7 @@ import java.util.Scanner;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-public class Controleur implements Observateur {
+public class Controleur extends Observateur {
   
     //private VueAventurier vueAventurier;
     private static Grille grille;
@@ -32,6 +32,7 @@ public class Controleur implements Observateur {
     private static boolean joueurMort = false;
     private static boolean[] reliquesPrises = new boolean[4]; //Magenta(brasier) Orange(Zéphir) Gris(Globe(pété)) Cyan(Calice)
     private static int niveauDEau;
+    private VuePlateau vuePlateau;
 
     /**
      * @return the suite
@@ -61,9 +62,6 @@ public class Controleur implements Observateur {
         defausseCarteTresor = aDefausseCarteTresor;
     }
 
-    private static void waitForInput() {
-    }
-    private VuePlateau vuePlateau;
     
     public Controleur() {
         grille = new Grille();
@@ -301,7 +299,7 @@ public class Controleur implements Observateur {
     
 
     //décompte le nombre d'actions disponibles pour le joueur et propose les actions en fonction de leur disponibilité
-    public static void débutTour() {
+    public void débutTour() {
         nbact =3;
         while (nbact>0) {
             actionsPossibles[0]=joueurActif.isMvmntPossible();
@@ -317,11 +315,11 @@ public class Controleur implements Observateur {
                     j.getVueAventurier().desactiverBoutons();
                 }
             }
-            
-            waitForInput();
+            this.waitForInput();
             nbact--;
         }
     }
+    
 
     //Détermine le joueur dont c'est le tour de jouer en début de tour
     private static void setJoueurActif() {
@@ -562,5 +560,6 @@ public class Controleur implements Observateur {
     @Override
     public void traiterMessageAventurier(MessageAventurier msg) {
         System.out.println("Le Joueur "+msg.getJoueur().getNom()+" a cliqué "+msg.getType().toString());
+        
     }
 }
