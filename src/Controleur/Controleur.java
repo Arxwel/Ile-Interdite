@@ -353,7 +353,7 @@ public class Controleur extends Observateur {
             piocheCarteTresor.add(new CarteTresor(TypeCarte.TresorMagenta));
             piocheCarteTresor.add(new CarteTresor(TypeCarte.TresorOrange));
         }
-        for (int i=0; i<3; i++) {
+        for (int i=0; i<2; i++) {
             piocheCarteTresor.add(new CarteTresor(TypeCarte.MontéeEaux));
         }
         for (int i=0; i<3; i++) {

@@ -21,24 +21,26 @@ public class Plongeur extends Joueur {
             ArrayList<Tuile> tuilesDispo = new ArrayList<>();
             tuilesATester.add(posJ);
             Grille g = posJ.getPlateau();
-            Coordonnees coo;
+            
             for (Tuile t: tuilesATester) {
-                if (t.equals(posJ)) {
-                    coo = t.getCoordonees();
-                    tuilesATester.add(g.getTuile(coo.getX()+1, coo.getY()));
-                    tuilesATester.add(g.getTuile(coo.getX()-1, coo.getY()));
-                    tuilesATester.add(g.getTuile(coo.getX(), coo.getY()+1));
-                    tuilesATester.add(g.getTuile(coo.getX(), coo.getY()-1));
+                if (t==posJ) {
+                    tuilesATester.addAll(tuilesDispo);
                 } else {
-                    if (t.getEtat() == Etat.Sec) {
-                        tuilesATester.remove(t);
+                    if (t.getEtat()==Etat.Sec) {
                         tuilesDispo.add(t);
-                    } else {
-                        coo = t.getCoordonees();
-                    tuilesATester.add(g.getTuile(coo.getX()+1, coo.getY()));
-                    tuilesATester.add(g.getTuile(coo.getX()-1, coo.getY()));
-                    tuilesATester.add(g.getTuile(coo.getX(), coo.getY()+1));
-                    tuilesATester.add(g.getTuile(coo.getX(), coo.getY()-1));
+                    } else if (t.getEtat()==Etat.Inondé) {
+                        tuilesDispo.add(t);
+                        for(Tuile tAdj: t.getAdjacent()) {
+                            if (!tuilesATester.contains(tAdj)) {
+                                tuilesATester.add(tAdj);
+                            }
+                        }
+                    } else if (t.getEtat()==Etat.Sombré) {
+                       for(Tuile tAdj: t.getAdjacent()) {
+                            if (!tuilesATester.contains(tAdj)) {
+                                tuilesATester.add(tAdj);
+                            }
+                        } 
                     }
                 }
             }

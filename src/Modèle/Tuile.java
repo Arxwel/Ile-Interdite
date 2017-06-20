@@ -65,6 +65,24 @@ public class Tuile {
             }
         }
         
+        public ArrayList<Tuile> getAdjacent() {
+            Grille g = this.getPlateau();
+            Coordonnees coo = this.getCoordonnees();
+            ArrayList<Tuile> tuilesAdj = new ArrayList();
+            Tuile t;
+            int[][] deltaCoo = {{1,1},{1,-1},{-1,1},{-1,-1}};
+            for (int[] tabI:deltaCoo) {
+                int[] cooATest = {coo.getX()+tabI[0],coo.getY()+tabI[1]};
+                if (cooATest[0]>0&&cooATest[0]<6&&cooATest[1]>0&&cooATest[1]<6) {
+                    t = g.getTuile(cooATest[0],cooATest[1]);
+                    if (t!=null) {
+                        tuilesAdj.add(t);
+                    }
+                }
+            }
+            return tuilesAdj;
+        }
+        
         public boolean isSombre() {
             return this.getEtat() == Etat.Sombré;
         }
@@ -179,6 +197,10 @@ public class Tuile {
      */
     public ImageIcon getImage() {
         return image;
+    }
+
+    private Coordonnees getCoordonnees() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
