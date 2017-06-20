@@ -289,6 +289,18 @@ public class Controleur implements Observateur {
             for (Joueur j: joueurs) {
                 if (j.equals(joueurActif)) {
                     j.getVueAventurier().activerBoutons();
+                    if (j.isMvmntPossible()) {
+                        j.getVueAventurier().activerBoutonAller();
+                    } 
+                    if (j.isAssPossible()) {
+                        j.getVueAventurier().activerBoutonAssecher();
+                    }
+                    if (j.isDonPossible()) {
+                        j.getVueAventurier().activerBoutonDonner();
+                    }
+                    if (j.isReliquePossible()) {
+                        j.getVueAventurier().activerBoutonRelique();
+                    }
                 } else {
                     j.getVueAventurier().desactiverBoutons();
                 }
