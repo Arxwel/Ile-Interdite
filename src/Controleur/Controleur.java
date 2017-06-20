@@ -354,7 +354,6 @@ public class Controleur implements Observateur {
                 if(vueInscription.getRoleComboJ1() == "Aléatoire") {
                     int index = randomGenerator.nextInt(listRoles.size());
                     role = listRoles.get(index);
-                    listRoles.remove(index);
                 }
                 
                 switch (role) {
@@ -383,6 +382,7 @@ public class Controleur implements Observateur {
                         getJoueurs().add(j1);
                     break;
                 } 
+                listRoles.remove(role);
                 nom = vueInscription.getNomFieldJ2();
                 while(nom == null) {
                     nom = fenetreNom("Joueur 2");
@@ -419,7 +419,7 @@ public class Controleur implements Observateur {
                         getJoueurs().add(j2);
                     break;
                 }
-                
+                listRoles.remove(role);
                 nom = vueInscription.getNomFieldJ3();
                 while(nom == null) {
                     nom = fenetreNom("Joueur 3");
@@ -458,7 +458,7 @@ public class Controleur implements Observateur {
                     case ("Vide"):
                     break;
                 }
-                
+                listRoles.remove(role);
                 nom = vueInscription.getNomFieldJ4();
                 while(nom == null) {
                     nom = fenetreNom("Joueur 4");
@@ -497,6 +497,7 @@ public class Controleur implements Observateur {
                     case ("Vide"):
                     break;
                 }
+                listRoles.remove(role);
                 vueInscription.getWindow().dispose();
                 suite = true;
             break;
@@ -504,6 +505,7 @@ public class Controleur implements Observateur {
                 System.exit(0);
             break;
         }
+        
     }
     
     
