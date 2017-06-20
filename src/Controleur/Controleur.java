@@ -195,7 +195,7 @@ public class Controleur extends Observateur {
     }
 	
     //Assure que le joueur a moins de 6 cartes en main et propose l'utilisation ou la défausse de cartes
-    private void verifMain(Joueur joueur) {   
+    private static void verifMain(Joueur joueur) {   
         while (joueur.getMainJoueur().size() >= 6) {
             System.out.println(joueur.getNom() + " a trop de cartes en main. Il doit en défausser ou en utiliser jusqu'à en avoir 5 au plus.");
             CarteTresor cs1 = new CarteTresor(TypeCarte.SpécialHélicoptère);
@@ -299,7 +299,8 @@ public class Controleur extends Observateur {
     
 
     //décompte le nombre d'actions disponibles pour le joueur et propose les actions en fonction de leur disponibilité
-    public void débutTour() {
+    public static void débutTour() {
+        verifMain(joueurActif);
         nbact =3;
         while (nbact>0) {
             actionsPossibles[0]=joueurActif.isMvmntPossible();
@@ -311,6 +312,18 @@ public class Controleur extends Observateur {
             for (Joueur j: joueurs) {
                 if (j.equals(joueurActif)) {
                     j.getVueAventurier().activerBoutons();
+                    if (j.isMvmntPossible()) {
+                        j.getVueAventurier().activerBoutonAller();
+                    } 
+                    if (j.isAssPossible()) {
+                        j.getVueAventurier().activerBoutonAssecher();
+                    }
+                    if (j.isDonPossible()) {
+                        j.getVueAventurier().activerBoutonDonner();
+                    }
+                    if (j.isReliquePossible()) {
+                        j.getVueAventurier().activerBoutonRelique();
+                    }
                 } else {
                     j.getVueAventurier().desactiverBoutons();
                 }
@@ -387,7 +400,6 @@ public class Controleur extends Observateur {
                 if(vueInscription.getRoleComboJ1() == "Aléatoire") {
                     int index = randomGenerator.nextInt(listRoles.size());
                     role = listRoles.get(index);
-                    listRoles.remove(index);
                 }
                 
                 switch (role) {
@@ -416,6 +428,7 @@ public class Controleur extends Observateur {
                         getJoueurs().add(j1);
                     break;
                 } 
+                listRoles.remove(role);
                 nom = vueInscription.getNomFieldJ2();
                 while(nom == null) {
                     nom = fenetreNom("Joueur 2");
@@ -452,7 +465,7 @@ public class Controleur extends Observateur {
                         getJoueurs().add(j2);
                     break;
                 }
-                
+                listRoles.remove(role);
                 nom = vueInscription.getNomFieldJ3();
                 while(nom == null) {
                     nom = fenetreNom("Joueur 3");
@@ -491,7 +504,7 @@ public class Controleur extends Observateur {
                     case ("Vide"):
                     break;
                 }
-                
+                listRoles.remove(role);
                 nom = vueInscription.getNomFieldJ4();
                 while(nom == null) {
                     nom = fenetreNom("Joueur 4");
@@ -530,6 +543,7 @@ public class Controleur extends Observateur {
                     case ("Vide"):
                     break;
                 }
+                listRoles.remove(role);
                 vueInscription.getWindow().dispose();
                 suite = true;
             break;
@@ -537,6 +551,7 @@ public class Controleur extends Observateur {
                 System.exit(0);
             break;
         }
+        
     }
     
     
