@@ -65,6 +65,10 @@ public class Tuile {
             }
         }
         
+        public boolean isSombre() {
+            return this.getEtat() == Etat.Sombré;
+        }
+        
 	/**
 	 * 
 	 * @param joueur
@@ -98,6 +102,7 @@ public class Tuile {
     public Zone getIntitule() {
         return intitule;
     }
+    
 
     /**
      * @param intitule the intitule to set
