@@ -98,7 +98,7 @@ public class VueEcranTitre extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Desktop.getDesktop().open(new File(System.getProperty("user.dir") + "/src/resources/regles.mp4"));
+                    Desktop.getDesktop().open(new File(System.getProperty("user.dir") + "/src/resources/regles.pdf"));
                 } catch (IOException ex) {
                     Logger.getLogger(VueEcranTitre.class.getName()).log(Level.SEVERE, null, ex);
                 }
