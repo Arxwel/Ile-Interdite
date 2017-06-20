@@ -76,9 +76,9 @@ public abstract class Joueur {
 	}
 
         //Gère l'action "donner carte"
-	public void donnerCarte() {
+	public void donnerCarte(Joueur jDest) {
 		// TODO - implement Joueur.prendreTrésor
-		throw new UnsupportedOperationException();
+            
 	}
         
         //Gère la prise de trésors par les joueurs

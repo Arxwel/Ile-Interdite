@@ -70,13 +70,7 @@ public class Grille {
     
     public Tuile getTuile(Zone libelle) {
         Tuile t = null;
-        for (int x=0; x<6; x++) {
-            for (int y=0; y<6; y++) {
-                if (tuiles[x][y].getIntitule()==libelle) {
-                    t = tuiles[x][y];
-                }
-            }
-        }
+        
         return t;
     }
     

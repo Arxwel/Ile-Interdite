@@ -12,7 +12,7 @@ import java.util.Scanner;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-public class Controleur implements Observateur {
+public class Controleur extends Observateur {
   
     //private VueAventurier vueAventurier;
     private static Grille grille;
@@ -32,6 +32,7 @@ public class Controleur implements Observateur {
     private static boolean joueurMort = false;
     private static boolean[] reliquesPrises = new boolean[4]; //Magenta(brasier) Orange(Zéphir) Gris(Globe(pété)) Cyan(Calice)
     private static int niveauDEau;
+    private VuePlateau vuePlateau;
 
     /**
      * @return the suite
@@ -61,9 +62,6 @@ public class Controleur implements Observateur {
         defausseCarteTresor = aDefausseCarteTresor;
     }
 
-    private static void waitForInput() {
-    }
-    private VuePlateau vuePlateau;
     
     public Controleur() {
         grille = new Grille();
@@ -119,8 +117,8 @@ public class Controleur implements Observateur {
         for (int x=0; x<6; x++) {
             for (int y=0; y<6; y++) {
                 Tuile t = grille.getTuile(x,y);
-                if (t.getIntitule() == Zone.Heliport && t.getEtat() == Etat.Sombré) {
-                    resultat = true;
+                if (t!=null&&t.getIntitule()==Zone.Heliport&&t.getEtat()==Etat.Sombré) {
+                        resultat = true;
                 }
             }
         }
@@ -197,7 +195,7 @@ public class Controleur implements Observateur {
     }
 	
     //Assure que le joueur a moins de 6 cartes en main et propose l'utilisation ou la défausse de cartes
-    private void verifMain(Joueur joueur) {   
+    private static void verifMain(Joueur joueur) {   
         while (joueur.getMainJoueur().size() >= 6) {
             System.out.println(joueur.getNom() + " a trop de cartes en main. Il doit en défausser ou en utiliser jusqu'à en avoir 5 au plus.");
             CarteTresor cs1 = new CarteTresor(TypeCarte.SpécialHélicoptère);
@@ -301,17 +299,20 @@ public class Controleur implements Observateur {
     
 
     //décompte le nombre d'actions disponibles pour le joueur et propose les actions en fonction de leur disponibilité
-    public static void débutTour() {
+    public void débutTour() {
+        verifMain(joueurActif);
         nbact =3;
         while (nbact>0) {
             actionsPossibles[0]=joueurActif.isMvmntPossible();
             actionsPossibles[1]=joueurActif.isAssPossible();
             actionsPossibles[2]=joueurActif.isDonPossible();
             actionsPossibles[3]=joueurActif.isReliquePossible();
-            
-            joueurActif.getVueAventurier();            
+             
+            System.out.println("Désactivation interfaces");
             for (Joueur j: joueurs) {
+                System.out.println("Joueur "+j.getNom());
                 if (j.equals(joueurActif)) {
+                    System.out.println("joueur actif");
                     j.getVueAventurier().activerBoutons();
                     if (j.isMvmntPossible()) {
                         j.getVueAventurier().activerBoutonAller();
@@ -327,13 +328,14 @@ public class Controleur implements Observateur {
                     }
                 } else {
                     j.getVueAventurier().desactiverBoutons();
+                    System.out.println("joueur inactif");
                 }
             }
-            
-            waitForInput();
+            this.waitForInput();
             nbact--;
         }
     }
+    
 
     //Détermine le joueur dont c'est le tour de jouer en début de tour
     private static void setJoueurActif() {
@@ -576,5 +578,6 @@ public class Controleur implements Observateur {
     @Override
     public void traiterMessageAventurier(MessageAventurier msg) {
         System.out.println("Le Joueur "+msg.getJoueur().getNom()+" a cliqué "+msg.getType().toString());
+        
     }
 }
