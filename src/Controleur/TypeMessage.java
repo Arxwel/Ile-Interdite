@@ -17,6 +17,6 @@ public enum TypeMessage {
     Assecher,
     Donner,
     PrendreRelique,
-    AutreAction,
+    CarteSpe,
     TerminerTour
 }

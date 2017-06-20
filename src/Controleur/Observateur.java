@@ -39,4 +39,13 @@ public abstract class Observateur {
         }
     }
     
+    public void notifier() {
+        lock.lock();
+        try{
+            condition.signal();
+        } finally {
+            lock.unlock();
+        }
+}
+    
 }

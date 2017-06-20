@@ -331,7 +331,9 @@ public class Controleur extends Observateur {
                     System.out.println("joueur inactif");
                 }
             }
+            System.out.println("En attente d'un input");
             this.waitForInput();
+            System.out.println("input Reçu");
             nbact--;
         }
     }
@@ -578,6 +580,26 @@ public class Controleur extends Observateur {
     @Override
     public void traiterMessageAventurier(MessageAventurier msg) {
         System.out.println("Le Joueur "+msg.getJoueur().getNom()+" a cliqué "+msg.getType().toString());
-        
+        switch(msg.getType().toString()){
+            case ("Deplacer"):
+                joueurActif.déplacer();
+                break;
+            case ("Assecher"):
+                joueurActif.assécher();
+                break;
+            case ("Donner"):
+                joueurActif.donCarte();
+                break;
+            case ("PrendreRelique"):
+                joueurActif.prendreRelique();
+                break;
+            case ("CarteSpe"):
+                joueurActif.utiliserCarte();
+                break;
+            case (" TerminerTour"):
+                this.terminerTour();
+                break;
+        }
+        this.notifier();
     }
 }
