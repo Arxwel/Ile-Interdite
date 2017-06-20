@@ -191,12 +191,24 @@ public class VueAventurier  {
     }
     
     public void activerBoutons() {
-        btnAller.setEnabled(true);
-        btnAssecher.setEnabled(true);
-        btnDonner.setEnabled(true);
-        btnRelique.setEnabled(true);
         btnAutreAction.setEnabled(true);
         btnTerminerTour.setEnabled(true);
+    }
+    
+    public void activerBoutonAller() {
+        btnAller.setEnabled(true);
+    }
+    
+    public void activerBoutonAssecher() {
+        btnAssecher.setEnabled(true);
+    }
+    
+    public void activerBoutonDonner() {
+        btnDonner.setEnabled(true);
+    }
+    
+    public void activerBoutonRelique() {
+        btnRelique.setEnabled(true);
     }
     
 }
