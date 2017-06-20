@@ -186,7 +186,4 @@ public class VuePlateau extends JFrame{
         this.observateur = o;
     }
     
-    public void update() {
-        this.repaint();
-    }
 }

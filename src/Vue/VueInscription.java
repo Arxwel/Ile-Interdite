@@ -331,11 +331,6 @@ public class VueInscription {
         
         
     }
-    
-    public static void main(String [] args) {
-        // Instanciation de la fenêtre 
-        VueInscription v = new VueInscription();
-    }
 
     /**
      * @return the nomFieldJ1

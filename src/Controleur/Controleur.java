@@ -32,7 +32,29 @@ public class Controleur extends Observateur {
     private static boolean joueurMort = false;
     private static boolean[] reliquesPrises = new boolean[4]; //Magenta(brasier) Orange(Zéphir) Gris(Globe(pété)) Cyan(Calice)
     private static int niveauDEau;
-
+    
+    public Controleur() {
+        grille = new Grille();
+        joueurs = new ArrayList<>();
+        piocheInondation = new Stack<>();
+        défausseInondation = new Stack<>();
+        cimetièreInondation = new Stack<>();
+        joueurActif = null;
+        nbact = 3;
+        piocheCarteTresor = new Stack<>();
+        
+        vueInscription = new VueInscription();
+        vueInscription.setObservateur(this);
+        vueInscription.afficher();
+        
+        this.waitForInput();
+        this.init();
+        
+        vuePlateau = new VuePlateau(this);
+        vuePlateau.setObservateur(this);
+        vuePlateau.afficher();
+    }
+    
     /**
      * @return the nbact
      */
@@ -77,26 +99,51 @@ public class Controleur extends Observateur {
     }
 
     
-    public Controleur() {
-        grille = new Grille();
-        joueurs = new ArrayList<>();
-        piocheInondation = new Stack<>();
-        défausseInondation = new Stack<>();
-        cimetièreInondation = new Stack<>();
-        joueurActif = null;
-        nbact = 3;
-        piocheCarteTresor = new Stack<>();
-        
-        vueInscription = new VueInscription();
-        vueInscription.setObservateur(this);
-        vueInscription.afficher();
-        
-        this.waitForInput();
-        this.init();
-        
-        vuePlateau = new VuePlateau(this);
-        vuePlateau.setObservateur(this);
-        vuePlateau.afficher();
+    
+    
+    //décompte le nombre d'actions disponibles pour le joueur et propose les actions en fonction de leur disponibilité
+    public void débutTour() {
+        verifMain(joueurActif);
+        if (joueurActif.getCouleur()==Color.YELLOW) {
+            setNbact(4);
+        } else {
+            setNbact(3);
+        }        
+        while (getNbact()>0) {
+            actionsPossibles[0]=joueurActif.isMvmntPossible();
+            actionsPossibles[1]=joueurActif.isAssPossible();
+            actionsPossibles[2]=joueurActif.isDonPossible();
+            actionsPossibles[3]=joueurActif.isReliquePossible();
+             
+            System.out.println("Désactivation interfaces");
+            for (Joueur j: joueurs) {
+                System.out.println("Joueur "+j.getNom());
+                if (j.equals(joueurActif)) {
+                    System.out.println("joueur actif");
+                    j.getVueAventurier().activerBoutons();
+                    if (j.isMvmntPossible()) {
+                        j.getVueAventurier().activerBoutonAller();
+                    } 
+                    if (j.isAssPossible()) {
+                        j.getVueAventurier().activerBoutonAssecher();
+                    }
+                    if (j.isDonPossible()) {
+                        j.getVueAventurier().activerBoutonDonner();
+                    }
+                    if (j.isReliquePossible()) {
+                        j.getVueAventurier().activerBoutonRelique();
+                    }
+                } else {
+                    j.getVueAventurier().desactiverBoutons();
+                    System.out.println("joueur inactif");
+                }
+            }
+            System.out.println("En attente d'un input");
+            this.waitForInput();
+            System.out.println("input Reçu");
+            setNbact(getNbact() - 1);
+            vuePlateau.update();
+        }
     }
     
     public void init() {
@@ -314,52 +361,6 @@ public class Controleur extends Observateur {
         }
     }
     
-    
-
-    //décompte le nombre d'actions disponibles pour le joueur et propose les actions en fonction de leur disponibilité
-    public void débutTour() {
-        verifMain(joueurActif);
-        if (joueurActif.getCouleur()==Color.YELLOW) {
-            setNbact(4);
-        } else {
-            setNbact(3);
-        }        
-        while (getNbact()>0) {
-            actionsPossibles[0]=joueurActif.isMvmntPossible();
-            actionsPossibles[1]=joueurActif.isAssPossible();
-            actionsPossibles[2]=joueurActif.isDonPossible();
-            actionsPossibles[3]=joueurActif.isReliquePossible();
-             
-            System.out.println("Désactivation interfaces");
-            for (Joueur j: joueurs) {
-                System.out.println("Joueur "+j.getNom());
-                if (j.equals(joueurActif)) {
-                    System.out.println("joueur actif");
-                    j.getVueAventurier().activerBoutons();
-                    if (j.isMvmntPossible()) {
-                        j.getVueAventurier().activerBoutonAller();
-                    } 
-                    if (j.isAssPossible()) {
-                        j.getVueAventurier().activerBoutonAssecher();
-                    }
-                    if (j.isDonPossible()) {
-                        j.getVueAventurier().activerBoutonDonner();
-                    }
-                    if (j.isReliquePossible()) {
-                        j.getVueAventurier().activerBoutonRelique();
-                    }
-                } else {
-                    j.getVueAventurier().desactiverBoutons();
-                    System.out.println("joueur inactif");
-                }
-            }
-            System.out.println("En attente d'un input");
-            this.waitForInput();
-            System.out.println("input Reçu");
-            setNbact(getNbact() - 1);
-            vuePlateau.update();
-        }
-    }
     
     public void terminerTour() {
         setNbact(0);
