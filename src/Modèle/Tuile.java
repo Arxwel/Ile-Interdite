@@ -67,7 +67,7 @@ public class Tuile {
         
         public ArrayList<Tuile> getAdjacent() {
             Grille g = this.getPlateau();
-            Coordonnees coo = this.getCoordonnees();
+            Coordonnees coo = this.getCoordonees();
             ArrayList<Tuile> tuilesAdj = new ArrayList();
             Tuile t;
             int[][] deltaCoo = {{1,1},{1,-1},{-1,1},{-1,-1}};
@@ -197,10 +197,6 @@ public class Tuile {
      */
     public ImageIcon getImage() {
         return image;
-    }
-
-    private Coordonnees getCoordonnees() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

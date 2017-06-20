@@ -18,23 +18,28 @@ public class Controleur extends Observateur {
   
     //private VueAventurier vueAventurier;
     private static Grille grille;
+    
     private static ArrayList<Joueur> joueurs;
+    private static Joueur joueurActif;
+    
     private static Stack<CarteInondation> piocheInondation;
     private static Stack<CarteInondation> défausseInondation;
     private static Stack<CarteInondation> cimetièreInondation;
-    private static Joueur joueurActif;
-    private static int numTour = 0;
-    private static int nbact;
-    private static boolean[] actionsPossibles = new boolean[4];
-    private static Scanner sc = new Scanner(System.in);
     private static Stack<CarteTresor> piocheCarteTresor;
     private static Stack<CarteTresor> defausseCarteTresor;
-    private static boolean suite = false;
-    private static VueInscription vueInscription;
-    private static VueEcranTitre vueEcranTitre;
+    
+    private static int numTour = 0;
+    private static int nbact;
     private static boolean joueurMort = false;
     private static boolean[] reliquesPrises = new boolean[4]; //Magenta(brasier) Orange(Zéphir) Gris(Globe(pété)) Cyan(Calice)
     private static int niveauDEau;
+    
+    private static boolean[] actionsPossibles = new boolean[4];
+    
+    private static Scanner sc = new Scanner(System.in);
+    
+    private static VueInscription vueInscription;
+    private static VueEcranTitre vueEcranTitre;
     
     public Controleur() {
         grille = new Grille();
@@ -77,13 +82,6 @@ public class Controleur extends Observateur {
         nbact = aNbact;
     }
     private VuePlateau vuePlateau;
-
-    /**
-     * @return the suite
-     */
-    public static boolean isSuite() {
-        return suite;
-    }
 
     /**
      * @return the joueurs
@@ -588,7 +586,6 @@ public class Controleur extends Observateur {
                 }
                 listRoles.remove(role);
                 vueInscription.getWindow().dispose();
-                suite = true;
                 System.out.println("Joueurs Enregistrés: ");
                 for (Joueur j: this.getJoueurs()) {
                     System.out.println(j.getNom()+" incarnant "+j.getClass().toString());

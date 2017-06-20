@@ -37,20 +37,9 @@ public abstract class Joueur {
 	public ArrayList<Tuile> listerCasesDispo() {
            ArrayList<Tuile> tuileslibres = new ArrayList<>();
 
-           Coordonnees coo = this.getPosition().getCoordonees();
-           Grille g = this.getPosition().getPlateau();
-           Tuile t;
-           Coordonnees[] cooAdj = new Coordonnees[4];
-           cooAdj[0]=new Coordonnees(coo.getX()+1,coo.getY());
-           cooAdj[1]=new Coordonnees(coo.getX()-1,coo.getY());
-           cooAdj[2]=new Coordonnees(coo.getX(),coo.getY()+1);
-           cooAdj[3]=new Coordonnees(coo.getX(),coo.getY()-1);
-           for (Coordonnees c: cooAdj) {
-               if (c.getX()>0 && c.getX()<6 && c.getY()>0 && c.getY()<6) {
-                   t = g.getTuile(c);
-                   if (t!=null && t.getEtat()==Etat.Sec) {
-                       tuileslibres.add(t);
-                   }
+           for (Tuile t: this.getPosition().getAdjacent()) {
+               if (t.getEtat()==Etat.Sec) {
+                   tuileslibres.add(t);
                }
            }
            return tuileslibres;
@@ -122,21 +111,14 @@ public abstract class Joueur {
         //Cette méthodes est redéfinie pour les type de joueurs ayant des mouvements spécifiques
 	public ArrayList<Tuile> listerTuilesAssechables() {
            ArrayList<Tuile> tuilesAss = new ArrayList<>();
+           
+           if (this.getPosition().getEtat()==Etat.Inondé) {
+               tuilesAss.add(this.getPosition());
+           }
 
-           Coordonnees coo = this.getPosition().getCoordonees();
-           Grille g = this.getPosition().getPlateau();
-           Tuile t;
-           Coordonnees[] cooAdj = new Coordonnees[4];
-           cooAdj[0]=new Coordonnees(coo.getX()+1,coo.getY());
-           cooAdj[1]=new Coordonnees(coo.getX()-1,coo.getY());
-           cooAdj[2]=new Coordonnees(coo.getX(),coo.getY()+1);
-           cooAdj[3]=new Coordonnees(coo.getX(),coo.getY()-1);
-           for (Coordonnees c: cooAdj) {
-               if (c.getX()>0 && c.getX()<6 && c.getY()>0 && c.getY()<6) {
-                   t = g.getTuile(c);
-                   if (t!=null && t.getEtat()==Etat.Inondé) {
-                       tuilesAss.add(t);
-                   }
+           for (Tuile t: this.getPosition().getAdjacent()) {
+               if (t.getEtat()==Etat.Sec) {
+                   tuilesAss.add(t);
                }
            }
            return tuilesAss;
