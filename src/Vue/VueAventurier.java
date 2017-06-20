@@ -180,6 +180,25 @@ public class VueAventurier  {
     public void setObservateur(Observateur o) {
         this.observateur = o;
     }
+    
+    public void desactiverBoutons() {
+        btnAller.setEnabled(false);
+        btnAssecher.setEnabled(false);
+        btnDonner.setEnabled(false);
+        btnRelique.setEnabled(false);
+        btnAutreAction.setEnabled(false);
+        btnTerminerTour.setEnabled(false);
+    }
+    
+    public void activerBoutons() {
+        btnAller.setEnabled(true);
+        btnAssecher.setEnabled(true);
+        btnDonner.setEnabled(true);
+        btnRelique.setEnabled(true);
+        btnAutreAction.setEnabled(true);
+        btnTerminerTour.setEnabled(true);
+    }
+    
 }
 
  

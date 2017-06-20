@@ -60,6 +60,9 @@ public class Controleur implements Observateur {
     private static void setDefausseCarteTresor(Stack<CarteTresor> aDefausseCarteTresor) {
         defausseCarteTresor = aDefausseCarteTresor;
     }
+
+    private static void waitForInput() {
+    }
     private VuePlateau vuePlateau;
     
     public Controleur() {
@@ -329,14 +332,26 @@ public class Controleur implements Observateur {
             actionsPossibles[2]=joueurActif.isDonPossible();
             actionsPossibles[3]=joueurActif.isReliquePossible();
             
-            joueurActif.getVueAventurier();
-            
+            joueurActif.getVueAventurier();            
+            for (Joueur j: joueurs) {
+                if (j.equals(joueurActif)) {
+                    j.getVueAventurier().activerBoutons();
+                } else {
+                    j.getVueAventurier().desactiverBoutons();
+                }
+            }
+            /*for (int i = 0; i<getJoueurs().size(); i++) {
+                if (i == numTour%getJoueurs().size()) {
+                    getJoueurs().get(i).getVueAventurier().activerBoutons();
+                }
+            }*/
+            waitForInput();
             nbact--;
         }
     }
 
     //Détermine le joueur dont c'est le tour de jouer en début de tour
-    public static void setJoueurActif() {
+    private static void setJoueurActif() {
         joueurActif = getJoueurs().get(numTour%getJoueurs().size());
     }
 
@@ -557,7 +572,7 @@ public class Controleur implements Observateur {
     public Grille getGrille() {
         return grille;
     }
-    
+ 
     //message d'erreur en cas de pseudo null
     public String fenetreNom(String Joueur) {
         String nom;
