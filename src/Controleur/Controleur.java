@@ -420,6 +420,7 @@ public class Controleur extends Observateur {
     
     public void terminerTour() {
         setNbact(0);
+        System.out.println("Terminance du Tour");
     }
     
     
@@ -700,26 +701,37 @@ public class Controleur extends Observateur {
 
     @Override
     public void traiterMessageAventurier(MessageAventurier msg) {
-        System.out.println("Le Joueur "+msg.getJoueur().getNom()+" a cliqué "+msg.getType().toString());
+        System.out.print("Le Joueur "+msg.getJoueur().getNom());
         switch(msg.getType().toString()){
             case ("Deplacer"):
+                System.out.println("a cliqué sur Deplacer");
                 actionChoisie=1;
                 this.notifier();
                 break;
             case ("Assecher"):
+                System.out.println("a cliqué sur Assecher");
                 actionChoisie=2;
+                this.notifier();
                 break;
             case ("Donner"):
+                System.out.println("a cliqué sur Donner");
                 actionChoisie=3;
+                this.notifier();
                 break;
             case ("PrendreRelique"):
+                System.out.println("a cliqué sur PrendreRelique");
                 actionChoisie=4;
+                this.notifier();
                 break;
             case ("CarteSpe"):
+                System.out.println("a cliqué sur CarteSpe");
                 actionChoisie=5;
+                this.notifier();
                 break;
-            case (" TerminerTour"):
+            case ("TerminerTour"):
+                System.out.println("a cliqué sur TerminerTour");
                 actionChoisie=6;
+                this.notifier();
                 break;
         }
     }

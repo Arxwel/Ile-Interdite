@@ -121,7 +121,7 @@ public abstract class Joueur {
            }
 
            for (Tuile t: this.getPosition().getAdjacent()) {
-               if (t.getEtat()==Etat.Sec) {
+               if (t.getEtat()==Etat.Inondé) {
                    tuilesAss.add(t);
                }
            }
@@ -289,10 +289,6 @@ public abstract class Joueur {
         this.image = image;
     }
 
-    public void donCarte() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     public void prendreRelique() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -302,11 +298,27 @@ public abstract class Joueur {
     }
 
     public void assecher() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Tuile> casesDispo = new ArrayList<>(this.listerTuilesAssechables());
+            
+            Integer i = 0;
+            controleur.surligner(casesDispo);
+            controleur.waitForInput();
+            Tuile caseAss = controleur.getLastCase();
+            if (!casesDispo.contains(caseAss)) {
+                controleur.waitForInput();
+                caseAss = controleur.getLastCase();
+            }
+            
+            System.out.println("Asséchance de "+caseAss.getIntitule());
+            caseAss.setEtat(Etat.Sec);
+            
+            
+            controleur.surligner(new ArrayList<Tuile>());
+            System.out.println("Le Joueur est maintenant à"+this.getPosition().getIntitule());
     }
 
     public void donnerCarte() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
 }
