@@ -132,7 +132,7 @@ public class VueInscription {
         j3GridPanel = new JPanel(new GridLayout(4,2));
         nomFieldJ3= new JTextField();
         roleComboJ3= new JComboBox(roles);
-        roleComboJ3.setSelectedItem(roles[0]);
+        roleComboJ3.setSelectedItem(roles[7]);
         rolej3 = roleComboJ3.getSelectedItem().toString();
         
         nomLabel4 = new JLabel();
@@ -141,7 +141,7 @@ public class VueInscription {
         j4GridPanel = new JPanel(new GridLayout(4,2));
         nomFieldJ4 = new JTextField();
         roleComboJ4 = new JComboBox(roles);
-        roleComboJ4.setSelectedItem(roles[0]);
+        roleComboJ4.setSelectedItem(roles[7]);
         rolej4 = roleComboJ4.getSelectedItem().toString();
         
         
@@ -306,6 +306,9 @@ public class VueInscription {
                     }
                 } else {
                     rolej1 = getRoleComboJ1();
+                    roleComboJ2.removeItem(rolej1);
+                    roleComboJ3.removeItem(rolej1);
+                    roleComboJ4.removeItem(rolej1);
                 }
             }
         });
@@ -349,6 +352,9 @@ public class VueInscription {
                     }
                 } else {
                     rolej2 = getRoleComboJ2();
+                    roleComboJ1.removeItem(rolej2);
+                    roleComboJ3.removeItem(rolej2);
+                    roleComboJ4.removeItem(rolej2);
                 }
 
             }
@@ -394,6 +400,9 @@ public class VueInscription {
                     }
                 } else {
                     rolej3 = getRoleComboJ3();
+                    roleComboJ2.removeItem(rolej3);
+                    roleComboJ1.removeItem(rolej3);
+                    roleComboJ4.removeItem(rolej3);
                 }
             }
         });
@@ -438,6 +447,9 @@ public class VueInscription {
                     }
                 } else {
                     rolej4 = getRoleComboJ4();
+                    roleComboJ2.removeItem(rolej4);
+                    roleComboJ1.removeItem(rolej4);
+                    roleComboJ3.removeItem(rolej4);
                 }
             }
         });

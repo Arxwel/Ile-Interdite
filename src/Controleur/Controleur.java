@@ -7,6 +7,9 @@ import Vue.VueInscription;
 import Vue.VuePlateau;
 import Vue.VueEcranTitre;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.SystemColor;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
@@ -40,6 +43,7 @@ public class Controleur extends Observateur {
     
     private static VueInscription vueInscription;
     private static VueEcranTitre vueEcranTitre;
+    private static JFrame ecranTitreFenetre;
     
     public Controleur() {
         grille = new Grille();
@@ -53,6 +57,15 @@ public class Controleur extends Observateur {
         
         vueEcranTitre = new VueEcranTitre();
         vueEcranTitre.setObservateur(this);
+        ecranTitreFenetre = new JFrame("L'Ile Interdite : Ecran Titre");
+        ecranTitreFenetre.setSize(800, 600);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        ecranTitreFenetre.setLocation(dim.width/2-ecranTitreFenetre.getSize().width/2, dim.height/2-ecranTitreFenetre.getSize().height/2);
+        ecranTitreFenetre.add(vueEcranTitre);
+        ecranTitreFenetre.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+        ecranTitreFenetre.setResizable(false);
+        ecranTitreFenetre.setVisible(true);
+        ecranTitreFenetre.repaint();
         this.waitForInput();
         
         
@@ -596,8 +609,7 @@ public class Controleur extends Observateur {
                 System.exit(0);
             break;
             case ("Jouer") :
-                vueEcranTitre.getWindow().setVisible(false);
-                vueEcranTitre.getWindow().dispose();
+                ecranTitreFenetre.dispose();
                 this.notifier();
             break;
         }
