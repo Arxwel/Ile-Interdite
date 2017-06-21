@@ -20,7 +20,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 import Modèle.*;
+import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
@@ -48,7 +50,9 @@ public class VueAventurier  {
 
         this.window = new JFrame();
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        window.setSize(410, 250);
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        window.setSize((int) (dimension.getWidth()*0.2), (int) (dimension.getHeight()*0.22));
+        window.setResizable(false);
 
         window.setTitle(j.getNom());
         mainPanel = new JPanel(new BorderLayout());

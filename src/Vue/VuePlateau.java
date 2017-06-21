@@ -17,6 +17,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -54,7 +55,8 @@ public class VuePlateau extends JFrame{
     //Affiche le plateau
     public VuePlateau(Controleur c) {
         super("L'Ile Interdite : Jeu");
-        this.setSize(1000, 1000);
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setSize((int) (dimension.getWidth()*0.55), (int) (dimension.getHeight()*0.9));
         this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         this.setControleur(c);
