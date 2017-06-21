@@ -16,38 +16,34 @@ public class Plongeur extends Joueur {
 
     @Override //peut traverser des tuiles inondées et des tuiles sombrées et peut s'arrêter sur des tuiles inondées
 	public ArrayList<Tuile> listerCasesDispo() {
-            Tuile posJ = this.getPosition();
+            System.out.println("ListerCasesDispo Plongeur");
             ArrayList<Tuile> tuilesATester = new ArrayList<>();
             ArrayList<Tuile> tuilesDispo = new ArrayList<>();
-            tuilesATester.add(posJ);
-            Grille g = posJ.getPlateau();
+            ArrayList<Tuile> tuilesAdj = new ArrayList<>();
+            Tuile positionInitiale = this.getPosition();
+            Grille g = positionInitiale.getPlateau();
             
-            for (Tuile t: tuilesATester) {
-                if (t==posJ) {
-                    tuilesATester.addAll(tuilesDispo);
-                    System.out.println("Tuile Départ");
-                } else {
-                    System.out.println("Tuile "+t.getIntitule());
-                    if (t.getEtat()==Etat.Sec) {
-                        System.out.println("Sec");
-                        tuilesDispo.add(t);
-                        System.out.println("ajouté");
-                    } else if (t.getEtat()==Etat.Inondé) {
-                        System.out.println("inondé");
-                        tuilesDispo.add(t);
-                        System.out.println("ajouté");
-                        for(Tuile tAdj: t.getAdjacent()) {
-                            if (!tuilesATester.contains(tAdj)) {
-                                tuilesATester.add(tAdj);
-                            }
+            for (int i=0;i<tuilesATester.size();i++){
+                Tuile t = tuilesATester.get(i);
+                tuilesAdj = t.getAdjacent();
+                for (int n=0;n<tuilesAdj.size();n++){
+                    Tuile tuile = tuilesAdj.get(n);
+                    System.out.println(tuile.getEtat().toString());
+                    if(tuile.getEtat()==Etat.Sec){
+                        if(!tuilesDispo.contains(tuile)){
+                            tuilesDispo.add(tuile);
                         }
-                    } else if (t.getEtat()==Etat.Sombré) {
-                        System.out.println("sombré");
-                        for(Tuile tAdj: t.getAdjacent()) {
-                            if (!tuilesATester.contains(tAdj)) {
-                                tuilesATester.add(tAdj);
+                    } else if(tuile.getEtat()==Etat.Inondé) {
+                        if(!tuilesATester.contains(tuile)){
+                            tuilesATester.add(tuile);
                             }
-                        } 
+                        if(!tuilesDispo.contains(tuile)){
+                            tuilesDispo.add(tuile);
+                        }
+                    } else if(tuile.getEtat() == Etat.Sombré){
+                        if(!tuilesATester.contains(tuile)){
+                            tuilesATester.add(tuile);
+                        }
                     }
                 }
             }
