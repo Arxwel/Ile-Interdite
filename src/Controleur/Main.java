@@ -20,7 +20,8 @@ import java.awt.Color;
  */
 public class Main {
     
-    private static VueAventurier vj1,vj2,vj3,vj4;
+private static VueAventurier vj1,vj2,vj3,vj4;
+
 public static void main(String[] args) {
         // Initalise la Vue Inscription et le controleur et rends la vue inscription visible et fonctionelle
         

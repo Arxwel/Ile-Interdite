@@ -41,14 +41,14 @@ public class VuePlateau extends JFrame{
     private ArrayList<JPanel> caseTuiles;
     private ArrayList<JPanel> panelPions;
     private ArrayList<JButton> buttonsCase;
-      private ArrayList<JPanel> casesSurlignees;
     
     private JLayeredPane calque;
-    private JPanel mapPanel;
     
+    private JPanel mapPanel;
     private JComponent pionsPlateau;
     private JComponent calqueButtons;
-    private JComponent calqueSurligner;
+    
+    private ArrayList<Tuile> aSurligner;
     
     
     //Affiche le plateau
@@ -63,6 +63,8 @@ public class VuePlateau extends JFrame{
         panelPions = new ArrayList<>();
         buttonsCase = new ArrayList<>();
         
+        aSurligner = new ArrayList<>();
+        
         calque = new JLayeredPane();
         calque.setPreferredSize(this.getSize());
         
@@ -73,15 +75,28 @@ public class VuePlateau extends JFrame{
         pionsPlateau.setOpaque(false);
         pionsPlateau.setBounds(new Rectangle(new Dimension(this.getBounds().width,this.getBounds().height-33)));
         
-        calqueSurligner = new JPanel(new GridLayout(6,6));
-        calqueSurligner.setBounds(new Rectangle(new Dimension(this.getBounds().width,this.getBounds().height-33)));
-        calqueSurligner.setOpaque(false);
-        
         calqueButtons = new JPanel(new GridLayout(6,6));
         calqueButtons.setBounds(new Rectangle(new Dimension(this.getBounds().width,this.getBounds().height-33)));
         calqueButtons.setOpaque(false);
-        Color colorBack;
         
+        peindreTuiles();
+        
+        
+        
+        calque.add(mapPanel,Integer.valueOf(1));
+        calque.add(pionsPlateau,Integer.valueOf(2));
+        calque.add(calqueButtons,Integer.valueOf(3));
+        
+        this.add(calque, BorderLayout.CENTER);
+        
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+             
+    }
+    
+    private void peindreTuiles() {
+        
+        Color colorBack;
         Grille g = controleur.getGrille();
         
         for (int x=0; x<6; x++) {           //Pour toutes les cases de la Grille
@@ -115,6 +130,9 @@ public class VuePlateau extends JFrame{
                     caseTuiles.get(caseTuiles.size()-1).add(new JLabel(icona), BorderLayout.CENTER);
                     
                 } else {    //si Case Jouable
+                    if (aSurligner.contains(t)) {
+                        buttonsCase.get(buttonsCase.size()-1).setBorder(BorderFactory.createLineBorder(Color.RED));
+                    }
                     
                     if (null==t.getEtat()) {
                         colorBack = Color.LIGHT_GRAY;
@@ -149,6 +167,10 @@ public class VuePlateau extends JFrame{
                     if (t.getIntitule() == Zone.Heliport) {//Mise en surbrillance de l'Héliport
                        caseTuiles.get(caseTuiles.size()-1).setBorder(BorderFactory.createLineBorder(Color.YELLOW));
                     }
+                    
+                    if (aSurligner.contains(t)) {
+                        buttonsCase.get(buttonsCase.size()-1).setBorder(BorderFactory.createLineBorder(Color.RED));
+                    }
                 }
             }
         }
@@ -168,39 +190,36 @@ public class VuePlateau extends JFrame{
             pionsPlateau.add(jppion);
         }
         
-        
-        
-        calque.add(mapPanel,Integer.valueOf(1));
-        calque.add(pionsPlateau,Integer.valueOf(2));
-        calque.add(calqueSurligner,Integer.valueOf(3));
-        calque.add(calqueButtons,Integer.valueOf(4));
-        
-        this.add(calque, BorderLayout.CENTER);
-        
-        this.setResizable(false);
-        this.setLocationRelativeTo(null);
-             
     }
     
+    
+    
     public void surlignerCases(ArrayList<Tuile> tuiles) {
-        Tuile t;
-        calqueSurligner.removeAll();
-        for(int x=0;x<6;x++) {
-            for(int y=0;y<6;y++) {
-                casesSurlignees.add(new JPanel());
-                for(Tuile tuile: tuiles) {
-                    if (tuile.getCoordonees().getX()==x&&tuile.getCoordonees().getY()==y) {
-                        t = tuile;
-                        tuiles.remove(tuile);
-                        casesSurlignees.get(casesSurlignees.size()-1).setBorder(BorderFactory.createLineBorder(Color.RED));
-                    }
-                }
-            }
-        }
+        aSurligner=tuiles;
+        
+        this.update();
     }
     
     public void afficher() {
         this.setVisible(true);
+    }
+    
+    public void update() {
+        System.out.println("Rafraichissement de Vue Plateau");
+        
+        caseTuiles.clear();
+        panelPions.clear();
+        buttonsCase.clear();
+        
+        mapPanel.removeAll();
+        pionsPlateau.removeAll();
+        calqueButtons.removeAll();
+        
+        this.peindreTuiles();
+        
+        this.validate();
+        this.repaint();
+        
     }
     
     public void setControleur(Controleur c) {

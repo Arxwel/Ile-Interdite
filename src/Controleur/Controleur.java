@@ -43,7 +43,6 @@ public class Controleur extends Observateur {
     
     private static VueInscription vueInscription;
     private static VueEcranTitre vueEcranTitre;
-    private static JFrame ecranTitreFenetre;
     
     public Controleur() {
         grille = new Grille();
@@ -52,20 +51,11 @@ public class Controleur extends Observateur {
         défausseInondation = new Stack<>();
         cimetièreInondation = new Stack<>();
         joueurActif = null;
-        nbact = 3;
         piocheCarteTresor = new Stack<>();
         
         vueEcranTitre = new VueEcranTitre();
         vueEcranTitre.setObservateur(this);
-        ecranTitreFenetre = new JFrame("L'Ile Interdite : Ecran Titre");
-        ecranTitreFenetre.setSize(800, 600);
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        ecranTitreFenetre.setLocation(dim.width/2-ecranTitreFenetre.getSize().width/2, dim.height/2-ecranTitreFenetre.getSize().height/2);
-        ecranTitreFenetre.add(vueEcranTitre);
-        ecranTitreFenetre.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        ecranTitreFenetre.setResizable(false);
-        ecranTitreFenetre.setVisible(true);
-        ecranTitreFenetre.repaint();
+        vueEcranTitre.afficher();
         this.waitForInput();
         
         
@@ -162,7 +152,7 @@ public class Controleur extends Observateur {
             this.waitForInput();
             System.out.println("input Reçu");
             setNbact(getNbact() - 1);
-            //vuePlateau.update();
+            vuePlateau.update();
         }
     }
     
@@ -429,6 +419,15 @@ public class Controleur extends Observateur {
         j.getMainJoueur().add(piocheCarteTresor.firstElement());
         piocheCarteTresor.remove(0);
     }
+    
+    
+
+    public void surligner(ArrayList<Tuile> casesDispo) {System.out.println("A afficher : ");
+        for (Tuile t: casesDispo) {
+            System.out.println(t.getIntitule());
+        }
+        vuePlateau.surlignerCases(casesDispo);
+    }
 
 
 
@@ -440,16 +439,28 @@ public class Controleur extends Observateur {
                Joueur j1, j2, j3, j4;
                String nom;
                nom = vueInscription.getNomFieldJ1();
-                while(nom == null) {
+                while(nom == null || nom.isEmpty()) {
                     nom = fenetreNom("Joueur 1");
                 }  
                 String role = vueInscription.getRoleComboJ1();
                 Random randomGenerator = new Random();
                 ArrayList<String> listRoles = new ArrayList<>();
                 for(String s : vueInscription.getRoles()) {
-                    if(!s.equals("Aléatoire") && !s.equals("Vide")) {
+                    if(!vueInscription.isAleatoireVide(s)) {
                         listRoles.add(s);
                     }
+                }
+                if(!vueInscription.isAleatoireVide(vueInscription.getRoleComboJ1())) {
+                    listRoles.remove(vueInscription.getRoleComboJ1());
+                }
+                if(!vueInscription.isAleatoireVide(vueInscription.getRoleComboJ2())) {
+                    listRoles.remove(vueInscription.getRoleComboJ2());
+                }
+                if(!vueInscription.isAleatoireVide(vueInscription.getRoleComboJ3())) {
+                    listRoles.remove(vueInscription.getRoleComboJ3());
+                }
+                if(!vueInscription.isAleatoireVide(vueInscription.getRoleComboJ4())) {
+                    listRoles.remove(vueInscription.getRoleComboJ4());
                 }
                 if(vueInscription.getRoleComboJ1() == "Aléatoire") {
                     int index = randomGenerator.nextInt(listRoles.size());
@@ -484,7 +495,7 @@ public class Controleur extends Observateur {
                 } 
                 listRoles.remove(role);
                 nom = vueInscription.getNomFieldJ2();
-                while(nom == null) {
+                while(nom == null || nom.isEmpty()) {
                     nom = fenetreNom("Joueur 2");
                 }  
                 role = vueInscription.getRoleComboJ2();
@@ -521,10 +532,11 @@ public class Controleur extends Observateur {
                 }
                 listRoles.remove(role);
                 nom = vueInscription.getNomFieldJ3();
-                while(nom == null) {
+                role = vueInscription.getRoleComboJ3();
+                while((nom == null || nom.isEmpty()) && role != "Vide") {
                     nom = fenetreNom("Joueur 3");
                 }  
-                role = vueInscription.getRoleComboJ3();
+                
                 if(vueInscription.getRoleComboJ3() == "Aléatoire") {
                     int index = randomGenerator.nextInt(listRoles.size());
                     role = listRoles.get(index);
@@ -560,10 +572,11 @@ public class Controleur extends Observateur {
                 }
                 listRoles.remove(role);
                 nom = vueInscription.getNomFieldJ4();
-                while(nom == null) {
+                role = vueInscription.getRoleComboJ4();
+                while((nom == null || nom.isEmpty()) && role != "Vide") {
                     nom = fenetreNom("Joueur 4");
                 }
-                role = vueInscription.getRoleComboJ4();
+                
                 if(vueInscription.getRoleComboJ4() == "Aléatoire") {
                     int index = randomGenerator.nextInt(listRoles.size());
                     role = listRoles.get(index);
@@ -609,7 +622,7 @@ public class Controleur extends Observateur {
                 System.exit(0);
             break;
             case ("Jouer") :
-                ecranTitreFenetre.dispose();
+                vueEcranTitre.fermer();
                 this.notifier();
             break;
         }

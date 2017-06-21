@@ -35,9 +35,12 @@ public abstract class Joueur {
             //lister les cases sur lesquelles le joueur peut se déplacer en usant une seule action
             //Cette méthodes est redéfinie pour les type de joueurs ayant des mouvements spécifiques
 	public ArrayList<Tuile> listerCasesDispo() {
+           System.out.println("Lister Cases Dispo pour "+this.getNom());
            ArrayList<Tuile> tuileslibres = new ArrayList<>();
 
+           System.out.println("Tuiles Adj");
            for (Tuile t: this.getPosition().getAdjacent()) {
+               System.out.println(t.getIntitule().toString());
                if (t.getEtat()==Etat.Sec) {
                    tuileslibres.add(t);
                }
@@ -89,10 +92,7 @@ public abstract class Joueur {
             ArrayList<Tuile> casesDispo = new ArrayList<>(this.listerCasesDispo());
             
             Integer i = 0;
-            for (Tuile t: casesDispo) {
-                System.out.println(i+". "+t.getIntitule().toString());
-                i++;
-            }
+            controleur.surligner(casesDispo);
             
             System.out.println("Choisissez:");
             int choix = sc.nextInt();
@@ -229,20 +229,7 @@ public abstract class Joueur {
                         }
                     }
                 }
-                // assécher la tuile désirée
                 
-                //affichage console
-               /* Integer i = 0;
-                for (Tuile t: tuilesInon) {
-                   System.out.println(i);
-                   System.out.println(t.getIntitule().toString());
-                   i++;
-                }
-                System.out.println("Choisissez:");
-                String choix = sc.nextLine();
-            
-                Tuile tuileAAssecher = tuilesInon.get(Integer.getInteger(choix));            
-                tuileAAssecher.setEtat(Etat.Sec); */ 
             } else if (c.getType()==TypeCarte.SpécialHélicoptère) {
                 ArrayList<Tuile> tuileslibres = new ArrayList<>();
                 for (int x=0; x<=5; x++) {
