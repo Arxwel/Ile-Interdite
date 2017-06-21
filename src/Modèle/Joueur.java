@@ -93,18 +93,23 @@ public abstract class Joueur {
             
             Integer i = 0;
             controleur.surligner(casesDispo);
-            
-            System.out.println("Choisissez:");
-            int choix = sc.nextInt();
-            
-            Tuile caseDepl = casesDispo.get(choix);
+            controleur.waitForInputPlateau();
+            Tuile caseDepl = controleur.getLastCase();
+            if (!casesDispo.contains(caseDepl)) {
+                controleur.waitForInputPlateau();
+                caseDepl = controleur.getLastCase();
+            }
             Tuile tuileQuittee = this.getPosition();
+            
             System.out.println("deplacement de "+tuileQuittee.getIntitule()+" a "+caseDepl.getIntitule());
+            
             tuileQuittee.delLocataire(this);
             this.setPosition(caseDepl);
             caseDepl.addLocataire(this);
-            System.out.println("Le Joueur est maintenant à"+this.getPosition().getIntitule());
             
+            controleur.surligner(new ArrayList<Tuile>());
+            System.out.println("Le Joueur est maintenant à"+this.getPosition().getIntitule());
+            controleur.signalerFinAction();
 	}
 
         //lister les cases que le joueur peut assécher en usant une seule action

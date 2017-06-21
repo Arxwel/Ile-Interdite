@@ -131,7 +131,7 @@ public class VuePlateau extends JFrame{
                     
                 } else {    //si Case Jouable
                     if (aSurligner.contains(t)) {
-                        buttonsCase.get(buttonsCase.size()-1).setBorder(BorderFactory.createLineBorder(Color.RED));
+                        buttonsCase.get(buttonsCase.size()-1).setBorder(BorderFactory.createLineBorder(Color.GREEN));
                     }
                     
                     if (null==t.getEtat()) {
@@ -169,7 +169,7 @@ public class VuePlateau extends JFrame{
                     }
                     
                     if (aSurligner.contains(t)) {
-                        buttonsCase.get(buttonsCase.size()-1).setBorder(BorderFactory.createLineBorder(Color.RED));
+                        buttonsCase.get(buttonsCase.size()-1).setBorder(BorderFactory.createLineBorder(Color.RED,3));
                     }
                 }
             }
@@ -194,7 +194,7 @@ public class VuePlateau extends JFrame{
     
     
     
-    public void surlignerCases(ArrayList<Tuile> tuiles) {
+    public void surligner(ArrayList<Tuile> tuiles) {
         aSurligner=tuiles;
         
         this.update();
