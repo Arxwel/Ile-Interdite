@@ -6,6 +6,7 @@ import Vue.VueEcranTitre;
 import Vue.VueInscription;
 import Vue.VuePlateau;
 import Vue.VueEcranTitre;
+import Vue.VueMonteeEaux;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.SystemColor;
@@ -14,6 +15,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 import java.util.Scanner;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -24,6 +28,7 @@ public class Controleur extends Observateur {
     
     private static ArrayList<Joueur> joueurs;
     private static Joueur joueurActif;
+    private static Tuile lastCase;
     
     private static Stack<CarteInondation> piocheInondation;
     private static Stack<CarteInondation> défausseInondation;
@@ -36,15 +41,27 @@ public class Controleur extends Observateur {
     private static boolean joueurMort = false;
     private static boolean[] reliquesPrises = new boolean[4]; //Magenta(brasier) Orange(Zéphir) Gris(Globe(pété)) Cyan(Calice)
     private static int niveauDEau;
+    private int actionChoisie;
     
     private static boolean[] actionsPossibles = new boolean[4];
     
     private static Scanner sc = new Scanner(System.in);
     
+    private Lock lockAct;
+    private Condition conditionAct;
+    
     private static VueInscription vueInscription;
     private static VueEcranTitre vueEcranTitre;
+    private static VueMonteeEaux monteeEau;
+    
+    private int difficulte = 1;
     
     public Controleur() {
+        
+        lockAct =  new ReentrantLock();
+        conditionAct = lock.newCondition();
+        
+        
         grille = new Grille();
         joueurs = new ArrayList<>();
         piocheInondation = new Stack<>();
@@ -58,7 +75,6 @@ public class Controleur extends Observateur {
         vueEcranTitre.afficher();
         this.waitForInput();
         
-        
         vueInscription = new VueInscription();
         vueInscription.setObservateur(this);
         vueInscription.afficher();
@@ -69,6 +85,9 @@ public class Controleur extends Observateur {
         vuePlateau = new VuePlateau(this);
         vuePlateau.setObservateur(this);
         vuePlateau.afficher();
+        
+        monteeEau = new VueMonteeEaux(difficulte);
+        monteeEau.setVisible(true);
     }
     
     /**
@@ -84,7 +103,7 @@ public class Controleur extends Observateur {
     private static void setNbact(int aNbact) {
         nbact = aNbact;
     }
-    private VuePlateau vuePlateau;
+    public VuePlateau vuePlateau;
 
     /**
      * @return the joueurs
@@ -151,6 +170,39 @@ public class Controleur extends Observateur {
             System.out.println("En attente d'un input");
             this.waitForInput();
             System.out.println("input Reçu");
+            switch (actionChoisie) {
+                case(1):
+                    System.out.println("[Contr] Déplacer");
+                    joueurActif.getVueAventurier().desactiverBoutons();
+                    joueurActif.déplacer();
+                    break;
+                case(2):
+                    System.out.println("[Contr] Assecher");
+                    joueurActif.getVueAventurier().desactiverBoutons();
+                    joueurActif.assecher();
+                    break;
+                case(3):
+                    System.out.println("[Contr] Donner Carte");
+                    joueurActif.getVueAventurier().desactiverBoutons();
+                    joueurActif.donnerCarte();
+                    break;
+                case(4):
+                    System.out.println("[Contr] Prendre Relique");
+                    joueurActif.getVueAventurier().desactiverBoutons();
+                    joueurActif.prendreRelique();
+                    break;
+                case(5):
+                    System.out.println("[Contr] Carte Spéciale");
+                    joueurActif.getVueAventurier().desactiverBoutons();
+                    joueurActif.prendreRelique();
+                    break;
+                case(6):
+                    System.out.println("[Contr] Terminer Tour");
+                    joueurActif.getVueAventurier().desactiverBoutons();
+                    this.terminerTour();
+                    break;
+            }
+            System.out.println("Action Finie");
             setNbact(getNbact() - 1);
             vuePlateau.update();
         }
@@ -426,7 +478,7 @@ public class Controleur extends Observateur {
         for (Tuile t: casesDispo) {
             System.out.println(t.getIntitule());
         }
-        vuePlateau.surlignerCases(casesDispo);
+        vuePlateau.surligner(casesDispo);
     }
 
 
@@ -629,6 +681,9 @@ public class Controleur extends Observateur {
         
     }
     
+    public Tuile getLastCase() {
+        return lastCase;
+    }
     
     public Grille getGrille() {
         return grille;
@@ -645,6 +700,8 @@ public class Controleur extends Observateur {
     @Override
     public void traiterMessagePlateau(MessagePlateau msg) {
         System.out.println(msg.getCoo().getX()+" "+msg.getCoo().getY()+" a été cliqué.");
+        lastCase = grille.getTuile(msg.getCoo().getX(), msg.getCoo().getY());
+        this.notifier();
     }
 
     @Override
@@ -652,24 +709,25 @@ public class Controleur extends Observateur {
         System.out.println("Le Joueur "+msg.getJoueur().getNom()+" a cliqué "+msg.getType().toString());
         switch(msg.getType().toString()){
             case ("Deplacer"):
-                joueurActif.déplacer();
+                actionChoisie=1;
+                this.notifier();
                 break;
             case ("Assecher"):
-                joueurActif.assécher();
+                actionChoisie=2;
                 break;
             case ("Donner"):
-                joueurActif.donCarte();
+                actionChoisie=3;
                 break;
             case ("PrendreRelique"):
-                joueurActif.prendreRelique();
+                actionChoisie=4;
                 break;
             case ("CarteSpe"):
-                joueurActif.utiliserCarte();
+                actionChoisie=5;
                 break;
             case (" TerminerTour"):
-                this.terminerTour();
+                actionChoisie=6;
                 break;
         }
-        this.notifier();
     }
+
 }

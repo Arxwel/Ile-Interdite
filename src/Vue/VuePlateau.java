@@ -17,6 +17,7 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -54,7 +55,8 @@ public class VuePlateau extends JFrame{
     //Affiche le plateau
     public VuePlateau(Controleur c) {
         super("L'Ile Interdite : Jeu");
-        this.setSize(1000, 1000);
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setSize((int) (dimension.getWidth()*0.55), (int) (dimension.getHeight()*0.95));
         this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         this.setControleur(c);
@@ -131,7 +133,7 @@ public class VuePlateau extends JFrame{
                     
                 } else {    //si Case Jouable
                     if (aSurligner.contains(t)) {
-                        buttonsCase.get(buttonsCase.size()-1).setBorder(BorderFactory.createLineBorder(Color.RED));
+                        buttonsCase.get(buttonsCase.size()-1).setBorder(BorderFactory.createLineBorder(Color.GREEN));
                     }
                     
                     if (null==t.getEtat()) {
@@ -169,7 +171,7 @@ public class VuePlateau extends JFrame{
                     }
                     
                     if (aSurligner.contains(t)) {
-                        buttonsCase.get(buttonsCase.size()-1).setBorder(BorderFactory.createLineBorder(Color.RED));
+                        buttonsCase.get(buttonsCase.size()-1).setBorder(BorderFactory.createLineBorder(Color.RED,3));
                     }
                 }
             }
@@ -194,7 +196,7 @@ public class VuePlateau extends JFrame{
     
     
     
-    public void surlignerCases(ArrayList<Tuile> tuiles) {
+    public void surligner(ArrayList<Tuile> tuiles) {
         aSurligner=tuiles;
         
         this.update();

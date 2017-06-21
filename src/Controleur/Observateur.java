@@ -14,11 +14,15 @@ import java.util.concurrent.locks.ReentrantLock;
  * @author pasdelor
  */
 public abstract class Observateur {
-    private Lock lock;
+    
+    Lock lock;
     private Condition condition;
+    
+    
     public Observateur() {
         lock =  new ReentrantLock();
         condition = lock.newCondition();
+        
     }
     
     
@@ -28,7 +32,7 @@ public abstract class Observateur {
     
     public abstract void traiterMessageAventurier(MessageAventurier msg);
     
-    protected void waitForInput() {
+    public void waitForInput() {
         lock.lock();
         try {
             condition.await();
@@ -46,6 +50,6 @@ public abstract class Observateur {
         } finally {
             lock.unlock();
         }
-}
+    }
     
 }

@@ -93,18 +93,22 @@ public abstract class Joueur {
             
             Integer i = 0;
             controleur.surligner(casesDispo);
-            
-            System.out.println("Choisissez:");
-            int choix = sc.nextInt();
-            
-            Tuile caseDepl = casesDispo.get(choix);
+            controleur.waitForInput();
+            Tuile caseDepl = controleur.getLastCase();
+            if (!casesDispo.contains(caseDepl)) {
+                controleur.waitForInput();
+                caseDepl = controleur.getLastCase();
+            }
             Tuile tuileQuittee = this.getPosition();
+            
             System.out.println("deplacement de "+tuileQuittee.getIntitule()+" a "+caseDepl.getIntitule());
+            
             tuileQuittee.delLocataire(this);
             this.setPosition(caseDepl);
             caseDepl.addLocataire(this);
-            System.out.println("Le Joueur est maintenant à"+this.getPosition().getIntitule());
             
+            controleur.surligner(new ArrayList<Tuile>());
+            System.out.println("Le Joueur est maintenant à"+this.getPosition().getIntitule());
 	}
 
         //lister les cases que le joueur peut assécher en usant une seule action
@@ -294,6 +298,14 @@ public abstract class Joueur {
     }
 
     public void utiliserCarte() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void assecher() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void donnerCarte() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

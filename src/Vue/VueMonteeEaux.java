@@ -8,9 +8,6 @@ package Vue;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,36 +17,40 @@ import javax.swing.JPanel;
  *
  * @author salmona
  */
-public class VueMonteeEaux extends JPanel{
+public class VueMonteeEaux extends JFrame {
     private ImageIcon image ;
-    private BufferedImage pointeurNiveau;
-    JLabel titre ;
+    private JPanel mainPanel;
+    private JLabel imgCarte;
     
-    public VueMonteeEaux() {
+    public VueMonteeEaux(int niveau) {
         super();
-        image = new ImageIcon(this.getClass().getResource("/resources/Niveau.png"));
-        JLabel imgCarte = new JLabel(new ImageIcon(image.getImage().getScaledInstance(425,850, Image.SCALE_DEFAULT)));
-        this.add(imgCarte);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setSize((int) (dim.getWidth()*0.15), (int) (dim.getHeight()*0.5));
+        mainPanel = new JPanel();
+        this.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+        this.setResizable(false);
+        this.setLocation((int) (dim.getWidth()*0.8), (int) (dim.getHeight()*0.01));
+        image = new ImageIcon(this.getClass().getResource("/resources/niveauDesEaux"+niveau+".png"));
+        imgCarte = new JLabel(new ImageIcon(image.getImage().getScaledInstance((int) (dim.getWidth()*0.12), (int) (dim.getHeight()*0.52), Image.SCALE_DEFAULT)));
+        mainPanel.add(imgCarte);
+        this.add(mainPanel);
        
     }
     
-    
-    public static void main(String[] args) {
-        JFrame window = new JFrame() ;
-        window.setSize(390, 770);
+    public void monteDesEaux(int niveau) {
+        this.mainPanel.remove(imgCarte);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-
-        window.setLocation(1500, 15); //dim.height/2-window.getSize().height/2
-
-        VueMonteeEaux vME = new VueMonteeEaux();
-        window.add(vME);
-
-        window.setVisible(true);
-        vME.repaint();
+        image = new ImageIcon(this.getClass().getResource("/resources/niveauDesEaux"+niveau+".png"));
+        imgCarte = new JLabel(new ImageIcon(image.getImage().getScaledInstance((int) (dim.getWidth()*0.12), (int) (dim.getHeight()*0.56), Image.SCALE_DEFAULT)));
+        mainPanel.add(imgCarte);
+        this.validate();
+        this.repaint();
     }
-    
-    public void monteDesEaux(int niveauEau) {
-        
+
+    /**
+     * @param image the image to set
+     */
+    public void setImage(ImageIcon image) {
+        this.image = image;
     }
 }
