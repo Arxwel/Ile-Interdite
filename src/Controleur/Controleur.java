@@ -6,6 +6,7 @@ import Vue.VueEcranTitre;
 import Vue.VueInscription;
 import Vue.VuePlateau;
 import Vue.VueEcranTitre;
+import Vue.VueMonteeEaux;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.SystemColor;
@@ -51,6 +52,9 @@ public class Controleur extends Observateur {
     
     private static VueInscription vueInscription;
     private static VueEcranTitre vueEcranTitre;
+    private static VueMonteeEaux monteeEau;
+    
+    private int difficulte = 1;
     
     public Controleur() {
         
@@ -71,7 +75,6 @@ public class Controleur extends Observateur {
         vueEcranTitre.afficher();
         this.waitForInput();
         
-        
         vueInscription = new VueInscription();
         vueInscription.setObservateur(this);
         vueInscription.afficher();
@@ -82,6 +85,9 @@ public class Controleur extends Observateur {
         vuePlateau = new VuePlateau(this);
         vuePlateau.setObservateur(this);
         vuePlateau.afficher();
+        
+        monteeEau = new VueMonteeEaux(difficulte);
+        monteeEau.setVisible(true);
     }
     
     /**
@@ -688,7 +694,7 @@ public class Controleur extends Observateur {
     public String fenetreNom(String Joueur) {
         String nom;
         JFrame frame = new JFrame("Saisie du Nom");
-        nom = JOptionPane.showInputDialog(frame, Joueur + " : Saisissez votre nom");
+        nom =JOptionPane.showInputDialog(frame, Joueur + " : Saisissez votre nom");
         return nom;
     }
 
