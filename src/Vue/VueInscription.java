@@ -25,6 +25,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -114,7 +115,7 @@ public class VueInscription {
         roleComboJ1 = new JComboBox(roles);
         roleComboJ1.setSelectedItem(roles[0]);
         roleComboJ1.removeItem(roles[7]);
-        rolej1 = roleComboJ1.getSelectedItem().toString();
+        rolej1 = roles[0];
         
         nomLabel2 = new JLabel();
         roleLabel2= new JLabel();
@@ -124,7 +125,7 @@ public class VueInscription {
         roleComboJ2 = new JComboBox(roles);
         roleComboJ2.setSelectedItem(roles[0]);
         roleComboJ2.removeItem(roles[7]);
-        rolej2 = roleComboJ2.getSelectedItem().toString();
+        rolej2 = roles[0];
         
         nomLabel3 = new JLabel();
         roleLabel3= new JLabel();
@@ -133,7 +134,7 @@ public class VueInscription {
         nomFieldJ3= new JTextField();
         roleComboJ3= new JComboBox(roles);
         roleComboJ3.setSelectedItem(roles[7]);
-        rolej3 = roleComboJ3.getSelectedItem().toString();
+        rolej3 = roles[7];
         
         nomLabel4 = new JLabel();
         roleLabel4= new JLabel();
@@ -142,7 +143,7 @@ public class VueInscription {
         nomFieldJ4 = new JTextField();
         roleComboJ4 = new JComboBox(roles);
         roleComboJ4.setSelectedItem(roles[7]);
-        rolej4 = roleComboJ4.getSelectedItem().toString();
+        rolej4 = roles[7];
         
         
         
@@ -251,8 +252,50 @@ public class VueInscription {
         buttVal.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String [] selection = new String[4];
+                boolean continuer = true;
+                if(!isAleatoireVide(getRoleComboJ1())) {
+                    selection[0] = getRoleComboJ1();
+                }
+                if(!isAleatoireVide(getRoleComboJ2())) {
+                    selection[1] = getRoleComboJ2();
+                }
+                if(!isAleatoireVide(getRoleComboJ3())) {
+                    selection[2] = getRoleComboJ3();
+                }
+                if(!isAleatoireVide(getRoleComboJ4())) {
+                    selection[3] = getRoleComboJ4();
+                }
+                int i = 0;
+                for (String s : selection) {
+                    if(s != null) {
+                        i++;
+                    }
+                }
+                String selection2[] = new String[i];
+                i=0;
+                for (String s : selection) {
+                    if(s != null) {
+                        selection2[i] = s;
+                        i++;
+                    }
+                }
+                if (selection2.length > 1) {
+                int a = 1;
+                while(a < selection2.length && selection2[a-1] != selection2[a]) {
+                    a++;
+                }
+                if (a != selection2.length) {
+                    continuer = false;
+                }
+                }
+                if (continuer) {
                 Message msg = new Message(TypeMessage.Valider);
                 observateur.traiterMessage(msg);
+                } else {
+                    fenetreInfo();
+                    continuer = true;
+                }
             }
             
         });
@@ -266,193 +309,6 @@ public class VueInscription {
             
         });
         
-        roleComboJ1.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                boolean dejaPresent = false;
-                if(!"Vide".equals(rolej1) && !"Aléatoire".equals(rolej1)) {
-                    for(int i=0; i < roleComboJ2.getItemCount(); i++) {
-                        if (roleComboJ2.getItemAt(i) == rolej1) {
-                            dejaPresent = true;
-                        }
-                    }
-                    if(!dejaPresent) {
-                     roleComboJ2.addItem(rolej1);   
-                    }
-                    dejaPresent = false;
-                    for(int i=0; i < roleComboJ3.getItemCount(); i++) {
-                        if (roleComboJ3.getItemAt(i) == rolej1) {
-                            dejaPresent = true;
-                        }
-                    }
-                    if(!dejaPresent) {
-                     roleComboJ3.addItem(rolej1);   
-                    }
-                    dejaPresent = false;
-                    for(int i=0; i < roleComboJ4.getItemCount(); i++) {
-                        if (roleComboJ4.getItemAt(i) == rolej1) {
-                            dejaPresent = true;
-                        }
-                    }
-                    if(!dejaPresent) {
-                     roleComboJ4.addItem(rolej1);   
-                    }
-                    rolej1 = getRoleComboJ1();
-                    if(!"Vide".equals(rolej1) && !"Aléatoire".equals(rolej1)) {
-                    roleComboJ2.removeItem(rolej1);
-                    roleComboJ3.removeItem(rolej1);
-                    roleComboJ4.removeItem(rolej1);
-                    }
-                } else {
-                    rolej1 = getRoleComboJ1();
-                    roleComboJ2.removeItem(rolej1);
-                    roleComboJ3.removeItem(rolej1);
-                    roleComboJ4.removeItem(rolej1);
-                }
-            }
-        });
-        roleComboJ2.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                boolean dejaPresent = false;
-                if(!"Vide".equals(rolej2) && !"Aléatoire".equals(rolej2)) {
-                    for(int i=0; i < roleComboJ1.getItemCount(); i++) {
-                        if (roleComboJ1.getItemAt(i) == rolej2) {
-                            dejaPresent = true;
-                        }
-                    }
-                    if(!dejaPresent) {
-                     roleComboJ1.addItem(rolej2);   
-                    }
-                    dejaPresent = false;
-                    for(int i=0; i < roleComboJ3.getItemCount(); i++) {
-                        if (roleComboJ3.getItemAt(i) == rolej2) {
-                            dejaPresent = true;
-                        }
-                    }
-                    if(!dejaPresent) {
-                     roleComboJ3.addItem(rolej2);   
-                    }
-                    dejaPresent = false;
-                    for(int i=0; i < roleComboJ4.getItemCount(); i++) {
-                        if (roleComboJ4.getItemAt(i) == rolej2) {
-                            dejaPresent = true;
-                        }
-                    }
-                    if(!dejaPresent) {
-                     roleComboJ4.addItem(rolej2);   
-                    }
-                    rolej2 = getRoleComboJ2();
-                    if(!"Vide".equals(rolej2) && !"Aléatoire".equals(rolej2)) {
-                    roleComboJ1.removeItem(rolej2);
-                    roleComboJ3.removeItem(rolej2);
-                    roleComboJ4.removeItem(rolej2);
-                    }
-                } else {
-                    rolej2 = getRoleComboJ2();
-                    roleComboJ1.removeItem(rolej2);
-                    roleComboJ3.removeItem(rolej2);
-                    roleComboJ4.removeItem(rolej2);
-                }
-
-            }
-        });
-        
-        roleComboJ3.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                boolean dejaPresent = false;
-                if(!"Vide".equals(rolej3) && !"Aléatoire".equals(rolej3)) {
-                    for(int i=0; i < roleComboJ2.getItemCount(); i++) {
-                        if (roleComboJ2.getItemAt(i) == rolej3) {
-                            dejaPresent = true;
-                        }
-                    }
-                    if(!dejaPresent) {
-                     roleComboJ2.addItem(rolej3);   
-                    }
-                    dejaPresent = false;
-                    for(int i=0; i < roleComboJ1.getItemCount(); i++) {
-                        if (roleComboJ1.getItemAt(i) == rolej3) {
-                            dejaPresent = true;
-                        }
-                    }
-                    if(!dejaPresent) {
-                     roleComboJ1.addItem(rolej3);   
-                    }
-                    dejaPresent = false;
-                    for(int i=0; i < roleComboJ4.getItemCount(); i++) {
-                        if (roleComboJ4.getItemAt(i) == rolej3) {
-                            dejaPresent = true;
-                        }
-                    }
-                    if(!dejaPresent) {
-                     roleComboJ4.addItem(rolej3);   
-                    }
-                    rolej3 = getRoleComboJ3();
-                    if(!"Vide".equals(rolej3) && !"Aléatoire".equals(rolej3)) {
-                    roleComboJ2.removeItem(rolej3);
-                    roleComboJ1.removeItem(rolej3);
-                    roleComboJ4.removeItem(rolej3);
-                    }
-                } else {
-                    rolej3 = getRoleComboJ3();
-                    roleComboJ2.removeItem(rolej3);
-                    roleComboJ1.removeItem(rolej3);
-                    roleComboJ4.removeItem(rolej3);
-                }
-            }
-        });
-        
-        roleComboJ4.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                               boolean dejaPresent = false;
-                if(!"Vide".equals(rolej4) && !"Aléatoire".equals(rolej4)) {
-                    for(int i=0; i < roleComboJ2.getItemCount(); i++) {
-                        if (roleComboJ2.getItemAt(i) == rolej4) {
-                            dejaPresent = true;
-                        }
-                    }
-                    if(!dejaPresent) {
-                     roleComboJ2.addItem(rolej4);   
-                    }
-                    dejaPresent = false;
-                    for(int i=0; i < roleComboJ1.getItemCount(); i++) {
-                        if (roleComboJ1.getItemAt(i) == rolej4) {
-                            dejaPresent = true;
-                        }
-                    }
-                    if(!dejaPresent) {
-                     roleComboJ1.addItem(rolej4);   
-                    }
-                    dejaPresent = false;
-                    for(int i=0; i < roleComboJ3.getItemCount(); i++) {
-                        if (roleComboJ3.getItemAt(i) == rolej4) {
-                            dejaPresent = true;
-                        }
-                    }
-                    if(!dejaPresent) {
-                     roleComboJ3.addItem(rolej4);   
-                    }
-                    rolej4 = getRoleComboJ4();
-                    if(!"Vide".equals(rolej4) && !"Aléatoire".equals(rolej4)) {
-                    roleComboJ2.removeItem(rolej4);
-                    roleComboJ1.removeItem(rolej4);
-                    roleComboJ3.removeItem(rolej4);
-                    }
-                } else {
-                    rolej4 = getRoleComboJ4();
-                    roleComboJ2.removeItem(rolej4);
-                    roleComboJ1.removeItem(rolej4);
-                    roleComboJ3.removeItem(rolej4);
-                }
-            }
-        });
         
         
     }
@@ -533,5 +389,14 @@ public class VueInscription {
 
     public void afficher() {
         this.window.setVisible(true);
+    }
+    
+    public boolean isAleatoireVide(String s) {
+        return s=="Aléatoire" || s=="Vide";
+    }
+    
+   public void fenetreInfo() {
+        JFrame frame = new JFrame("Saisie du Nom");
+        JOptionPane.showMessageDialog(null, "Plusieurs Joueurs ne peuvent pas avoir le même rôle", "Erreur", JOptionPane.ERROR_MESSAGE); 
     }
 }
