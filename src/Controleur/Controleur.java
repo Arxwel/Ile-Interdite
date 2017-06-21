@@ -638,7 +638,7 @@ public class Controleur extends Observateur {
     public String fenetreNom(String Joueur) {
         String nom;
         JFrame frame = new JFrame("Saisie du Nom");
-        nom = JOptionPane.showInputDialog(frame, Joueur + " : Saisissez votre nom");
+        nom =JOptionPane.showInputDialog(frame, Joueur + " : Saisissez votre nom");
         return nom;
     }
 
