@@ -94,7 +94,7 @@ public class Tuile {
             int[][] deltaCoo = {{1,0},{-1,0},{0,1},{0,-1}};
             for (int[] tabI:deltaCoo) {
                 int[] cooATest = {coo.getX()+tabI[0],coo.getY()+tabI[1]};
-                if (cooATest[0]>0&&cooATest[0]<6&&cooATest[1]>0&&cooATest[1]<6) {
+                if (cooATest[0]>=0&&cooATest[0]<6&&cooATest[1]>=0&&cooATest[1]<6) {
                     t = g.getTuile(cooATest[0],cooATest[1]);
                     if (t!=null) {
                         tuilesAdj.add(t);
