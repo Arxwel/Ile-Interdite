@@ -170,7 +170,7 @@ public class VuePlateau extends JFrame{
                     }
                     
                     if (aSurligner.contains(t)) {
-                        buttonsCase.get(buttonsCase.size()-1).setBorder(BorderFactory.createLineBorder(Color.GREEN,3));
+                        buttonsCase.get(buttonsCase.size()-1).setBorder(BorderFactory.createLineBorder(new Color(89, 214, 114),5));
                         buttonsCase.get(buttonsCase.size()-1).setEnabled(true);
                     }
                 }
