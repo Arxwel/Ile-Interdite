@@ -20,14 +20,18 @@ public class Tuile {
             setCoordonees(coo);
             locataires = new ArrayList<>();
             plateau = grille;
+            
+            this.setImage();
+        }
+        public void setImage() {
             if(null == etat) {
                 image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.png"));
             } else switch (etat) {
                 case Sec:
-                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/"+nom.name()+".png"));
+                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/"+this.getIntitule().name()+".png"));
                     break;
                 case Inondé:
-                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/"+nom.name()+"2.png"));
+                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/"+this.getIntitule().name()+"2.png"));
                     break;
                 case Sombré:
                     image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/EauSombree.png"));
@@ -36,8 +40,7 @@ public class Tuile {
                     image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.png"));
                     break;
             }
-
-          
+            
         }
         
         public Tuile(Zone nom, Etat etat, Grille grille, Coordonnees coo, Color reliqueDispo) {
