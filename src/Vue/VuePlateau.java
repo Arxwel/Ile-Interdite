@@ -107,6 +107,7 @@ public class VuePlateau extends JFrame{
                 Tuile t = g.getTuile(x,y);
                 
                 buttonsCase.add(new JButton(""));   //jouter un bouton sur le calque
+                buttonsCase.get(buttonsCase.size()-1).setEnabled(false); //désactiver le bouton
                 buttonsCase.get(buttonsCase.size()-1).addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -120,7 +121,7 @@ public class VuePlateau extends JFrame{
                 panelPions.add(new JPanel(new GridLayout(1,4)));
                 
                 if (t==null) {      //Si la case est non jouable
-                    buttonsCase.get(buttonsCase.size()-1).setEnabled(false); //désactiver le bouton
+                    
                     
                     if(x== 0 && y ==5) {//Afficher Image de Fond
                         icona = new ImageIcon(this.getClass().getResource("/ImagesTuiles/EauRoseVent.png"));
@@ -132,9 +133,7 @@ public class VuePlateau extends JFrame{
                     caseTuiles.get(caseTuiles.size()-1).add(new JLabel(icona), BorderLayout.CENTER);
                     
                 } else {    //si Case Jouable
-                    if (aSurligner.contains(t)) {
-                        buttonsCase.get(buttonsCase.size()-1).setBorder(BorderFactory.createLineBorder(Color.GREEN));
-                    }
+                    
                     
                     if (null==t.getEtat()) {
                         colorBack = Color.LIGHT_GRAY;
@@ -171,7 +170,8 @@ public class VuePlateau extends JFrame{
                     }
                     
                     if (aSurligner.contains(t)) {
-                        buttonsCase.get(buttonsCase.size()-1).setBorder(BorderFactory.createLineBorder(Color.RED,3));
+                        buttonsCase.get(buttonsCase.size()-1).setBorder(BorderFactory.createLineBorder(Color.GREEN,3));
+                        buttonsCase.get(buttonsCase.size()-1).setEnabled(true);
                     }
                 }
             }
