@@ -23,6 +23,17 @@ public class Tuile {
             
             this.setImage();
         }
+        
+        
+        public Tuile(Zone nom, Etat etat, Grille grille, Coordonnees coo, Color reliqueDispo) {
+            setIntitule(nom);
+            setEtat(etat);
+            setCoordonees(coo);
+            locataires = new ArrayList<>();
+            plateau = grille;
+            this.reliqueDispo = reliqueDispo; //quand relique recuperée supprimer reliqueDispo ou changer la couleur dans un truc qui n'existe pas
+        }
+        
         public void setImage() {
             if(null == etat) {
                 image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.png"));
@@ -41,31 +52,6 @@ public class Tuile {
                     break;
             }
             
-        }
-        
-        public Tuile(Zone nom, Etat etat, Grille grille, Coordonnees coo, Color reliqueDispo) {
-            setIntitule(nom);
-            setEtat(etat);
-            setCoordonees(coo);
-            locataires = new ArrayList<>();
-            plateau = grille;
-            this.reliqueDispo = reliqueDispo; //quand relique recuperée supprimer reliqueDispo ou changer la couleur dans un truc qui n'existe pas
-            if(null == etat) {
-                image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.png"));
-            } else switch (etat) {
-                case Sec:
-                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/"+nom.name()+".png"));
-                    break;
-                case Inondé:
-                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/"+nom.name()+"2.png"));
-                    break;
-                case Sombré:
-                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/EauSombree.png"));
-                    break;
-                default:
-                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.png"));
-                    break;
-            }
         }
         
         public ArrayList<Tuile> getDiagonales() {
