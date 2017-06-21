@@ -11,6 +11,7 @@ import Modèle.Joueur;
 import Vue.VueAventurier;
 import Vue.VueEcranTitre;
 import Vue.VueInscription;
+import Vue.VueMonteeEaux;
 import Vue.VuePlateau;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -65,8 +66,6 @@ public static void main(String[] args) {
             vj4.getWindow().setVisible(true);
             vj4.setObservateur(c);
         }
-
-        
         
         c.play();
     } 
