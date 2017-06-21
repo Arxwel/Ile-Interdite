@@ -16,6 +16,7 @@ import java.util.*;
 import java.util.Scanner;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -52,6 +53,11 @@ public class Controleur extends Observateur {
     private static VueEcranTitre vueEcranTitre;
     
     public Controleur() {
+        
+        lockAct =  new ReentrantLock();
+        conditionAct = lock.newCondition();
+        
+        
         grille = new Grille();
         joueurs = new ArrayList<>();
         piocheInondation = new Stack<>();
@@ -161,20 +167,36 @@ public class Controleur extends Observateur {
             switch (actionChoisie) {
                 case(1):
                     System.out.println("[Contr] Déplacer");
+                    joueurActif.getVueAventurier().desactiverBoutons();
                     joueurActif.déplacer();
                     break;
                 case(2):
+                    System.out.println("[Contr] Assecher");
+                    joueurActif.getVueAventurier().desactiverBoutons();
+                    joueurActif.assecher();
                     break;
                 case(3):
+                    System.out.println("[Contr] Donner Carte");
+                    joueurActif.getVueAventurier().desactiverBoutons();
+                    joueurActif.donnerCarte();
                     break;
                 case(4):
+                    System.out.println("[Contr] Prendre Relique");
+                    joueurActif.getVueAventurier().desactiverBoutons();
+                    joueurActif.prendreRelique();
                     break;
                 case(5):
+                    System.out.println("[Contr] Carte Spéciale");
+                    joueurActif.getVueAventurier().desactiverBoutons();
+                    joueurActif.prendreRelique();
                     break;
                 case(6):
+                    System.out.println("[Contr] Terminer Tour");
+                    joueurActif.getVueAventurier().desactiverBoutons();
+                    this.terminerTour();
                     break;
             }
-            this.attendreFinAction();
+            System.out.println("Action Finie");
             setNbact(getNbact() - 1);
             vuePlateau.update();
         }
@@ -653,28 +675,6 @@ public class Controleur extends Observateur {
         
     }
     
-    
-
-    public void signalerFinAction() {
-        lockAct.lock();
-        try{
-            conditionAct.signal();
-        } finally {
-            lockAct.unlock();
-        }
-    }
-
-    private void attendreFinAction() {
-        lockAct.lock();
-        try {
-            conditionAct.await();
-        } catch (InterruptedException ex) {
-            
-        } finally {
-            lockAct.unlock();
-        }
-    }
-    
     public Tuile getLastCase() {
         return lastCase;
     }
@@ -695,7 +695,7 @@ public class Controleur extends Observateur {
     public void traiterMessagePlateau(MessagePlateau msg) {
         System.out.println(msg.getCoo().getX()+" "+msg.getCoo().getY()+" a été cliqué.");
         lastCase = grille.getTuile(msg.getCoo().getX(), msg.getCoo().getY());
-        this.notifierPlateau();
+        this.notifier();
     }
 
     @Override

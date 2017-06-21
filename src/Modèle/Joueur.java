@@ -93,10 +93,10 @@ public abstract class Joueur {
             
             Integer i = 0;
             controleur.surligner(casesDispo);
-            controleur.waitForInputPlateau();
+            controleur.waitForInput();
             Tuile caseDepl = controleur.getLastCase();
             if (!casesDispo.contains(caseDepl)) {
-                controleur.waitForInputPlateau();
+                controleur.waitForInput();
                 caseDepl = controleur.getLastCase();
             }
             Tuile tuileQuittee = this.getPosition();
@@ -109,7 +109,6 @@ public abstract class Joueur {
             
             controleur.surligner(new ArrayList<Tuile>());
             System.out.println("Le Joueur est maintenant à"+this.getPosition().getIntitule());
-            controleur.signalerFinAction();
 	}
 
         //lister les cases que le joueur peut assécher en usant une seule action
@@ -299,6 +298,14 @@ public abstract class Joueur {
     }
 
     public void utiliserCarte() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void assecher() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void donnerCarte() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
