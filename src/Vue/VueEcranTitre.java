@@ -44,6 +44,7 @@ public class VueEcranTitre extends JPanel {
     private Image image ;
     private Integer width, height ;
     private Observateur observateur;
+    private JFrame ecranTitreFenetre;
 
     public VueEcranTitre() {
         super();
@@ -118,6 +119,20 @@ public class VueEcranTitre extends JPanel {
             }
         });
     }
+    
+    public void afficher() {
+        ecranTitreFenetre = new JFrame("L'Ile Interdite : Ecran Titre");
+        ecranTitreFenetre.setSize(800, 600);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        ecranTitreFenetre.setLocation(dim.width/2-ecranTitreFenetre.getSize().width/2, dim.height/2-ecranTitreFenetre.getSize().height/2);
+        ecranTitreFenetre.add(this);
+        ecranTitreFenetre.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+        ecranTitreFenetre.setResizable(false);
+        ecranTitreFenetre.setVisible(true);
+        ecranTitreFenetre.repaint();
+    }
+    
+    
 
     @Override
     /**
@@ -132,6 +147,10 @@ public class VueEcranTitre extends JPanel {
     
     public void setObservateur(Observateur o) {
         observateur = o;
+    }
+
+    public void fermer() {
+        ecranTitreFenetre.dispose();
     }
     
 }

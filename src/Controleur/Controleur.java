@@ -43,7 +43,6 @@ public class Controleur extends Observateur {
     
     private static VueInscription vueInscription;
     private static VueEcranTitre vueEcranTitre;
-    private static JFrame ecranTitreFenetre;
     
     public Controleur() {
         grille = new Grille();
@@ -52,20 +51,11 @@ public class Controleur extends Observateur {
         défausseInondation = new Stack<>();
         cimetièreInondation = new Stack<>();
         joueurActif = null;
-        nbact = 3;
         piocheCarteTresor = new Stack<>();
         
         vueEcranTitre = new VueEcranTitre();
         vueEcranTitre.setObservateur(this);
-        ecranTitreFenetre = new JFrame("L'Ile Interdite : Ecran Titre");
-        ecranTitreFenetre.setSize(800, 600);
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        ecranTitreFenetre.setLocation(dim.width/2-ecranTitreFenetre.getSize().width/2, dim.height/2-ecranTitreFenetre.getSize().height/2);
-        ecranTitreFenetre.add(vueEcranTitre);
-        ecranTitreFenetre.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        ecranTitreFenetre.setResizable(false);
-        ecranTitreFenetre.setVisible(true);
-        ecranTitreFenetre.repaint();
+        vueEcranTitre.afficher();
         this.waitForInput();
         
         
@@ -162,7 +152,7 @@ public class Controleur extends Observateur {
             this.waitForInput();
             System.out.println("input Reçu");
             setNbact(getNbact() - 1);
-            //vuePlateau.update();
+            vuePlateau.update();
         }
     }
     
@@ -429,6 +419,15 @@ public class Controleur extends Observateur {
         j.getMainJoueur().add(piocheCarteTresor.firstElement());
         piocheCarteTresor.remove(0);
     }
+    
+    
+
+    public void surligner(ArrayList<Tuile> casesDispo) {System.out.println("A afficher : ");
+        for (Tuile t: casesDispo) {
+            System.out.println(t.getIntitule());
+        }
+        vuePlateau.surlignerCases(casesDispo);
+    }
 
 
 
@@ -623,7 +622,7 @@ public class Controleur extends Observateur {
                 System.exit(0);
             break;
             case ("Jouer") :
-                ecranTitreFenetre.dispose();
+                vueEcranTitre.fermer();
                 this.notifier();
             break;
         }
