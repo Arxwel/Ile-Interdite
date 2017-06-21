@@ -32,7 +32,6 @@ public class Controleur extends Observateur {
     
     private static Stack<CarteInondation> piocheInondation;
     private static Stack<CarteInondation> défausseInondation;
-    private static Stack<CarteInondation> cimetièreInondation;
     private static Stack<CarteTresor> piocheCarteTresor;
     private static Stack<CarteTresor> defausseCarteTresor;
     
@@ -66,7 +65,6 @@ public class Controleur extends Observateur {
         joueurs = new ArrayList<>();
         piocheInondation = new Stack<>();
         défausseInondation = new Stack<>();
-        cimetièreInondation = new Stack<>();
         joueurActif = null;
         piocheCarteTresor = new Stack<>();
         
@@ -122,7 +120,7 @@ public class Controleur extends Observateur {
     /**
      * @param aDefausseCarteTresor the defausseCarteTresor to set
      */
-    private static void setDefausseCarteTresor(Stack<CarteTresor> aDefausseCarteTresor) {
+    public static void setDefausseCarteTresor(Stack<CarteTresor> aDefausseCarteTresor) {
         defausseCarteTresor = aDefausseCarteTresor;
     }
 
@@ -204,6 +202,8 @@ public class Controleur extends Observateur {
             }
             System.out.println("Action Finie");
             setNbact(getNbact() - 1);
+            piocherCarteTresorFinTour();
+            piocherCarteInondeFinTour(difficulte);
             vuePlateau.update();
         }
     }
@@ -216,9 +216,10 @@ public class Controleur extends Observateur {
         for (int i=0; i<4; i++) {
             reliquesPrises[i] = false;
         }
-        difficulte = 1;
-        //distribution des cartes
         
+        difficulte = 1;
+        
+        //distribution des cartes
         for (Joueur j: getJoueurs()) {
             System.out.println("Distribution à "+j.getNom());
             for (int i=0; i<4; i++) {
@@ -230,7 +231,7 @@ public class Controleur extends Observateur {
                 } else {
                     j.getMainJoueur().add(c);
                 }
-          }
+            }
         } 
     }
     
@@ -740,5 +741,53 @@ public class Controleur extends Observateur {
                 break;
         }
     }
-
+    
+    public void piocherCarteTresorFinTour() {
+        CarteTresor carteTresorFinTour;
+        if (piocheCarteTresor.isEmpty()) {
+            for (int i = 0; i < defausseCarteTresor.capacity(); i++) {
+                carteTresorFinTour = defausseCarteTresor.firstElement();
+                piocheCarteTresor.add(carteTresorFinTour);
+            }
+            Collections.shuffle(piocheCarteTresor);
+        }
+        
+        for (int i = 0; i < 2; i++) {
+            piocherCarte(joueurActif);
+            
+        }
+    }
+    
+    public void piocherCarteInondeFinTour(int difficulte) {
+        CarteInondation carteInondeFinTour;
+        if (piocheInondation.isEmpty()) {
+            for (int i = 0; i < défausseInondation.capacity(); i++) {
+                carteInondeFinTour = défausseInondation.firstElement();
+                piocheInondation.add(carteInondeFinTour);
+            }
+            Collections.shuffle(piocheInondation);
+        }
+        
+        int niveauEau = 2;
+        if (difficulte == 1 || difficulte == 2) {
+            niveauEau = 2;
+        } else if (difficulte == 3 || difficulte == 4 || difficulte == 5) {
+            niveauEau = 3;
+        } else if (difficulte == 6 || difficulte == 7) {
+            niveauEau = 4;
+        } else if (difficulte == 8 || difficulte == 9) {
+            niveauEau = 5;
+        }
+        for (int i = 0; i < niveauEau; i++) {
+            carteInondeFinTour = piocheInondation.firstElement();
+            if (carteInondeFinTour.getTuile().getEtat() == Etat.Sec) {
+                carteInondeFinTour.getTuile().setEtat(Etat.Inondé);
+                piocheInondation.remove(carteInondeFinTour);
+                défausseInondation.add(carteInondeFinTour);
+            } else if (carteInondeFinTour.getTuile().getEtat() == Etat.Inondé) {
+                carteInondeFinTour.getTuile().setEtat(Etat.Sombré);
+                piocheInondation.remove(carteInondeFinTour);
+            }
+        }
+    }
 }

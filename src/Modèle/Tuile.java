@@ -160,7 +160,7 @@ public class Tuile {
     /**
      * @param etat the etat to set
      */
-    protected void setEtat(Etat etat) {
+    public void setEtat(Etat etat) {
         this.etat = etat;
         setImage();
     }

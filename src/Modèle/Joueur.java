@@ -199,8 +199,8 @@ public abstract class Joueur {
         
         //gère la défausse d'une carte
         public void defausserCarte(CarteTresor c) {
-            //ajouter la carte à la pile de défausse
             this.getMainJoueur().remove(c);
+            controleur.getDefausseCarteTresor().add(c);
         }
         
         //gère l'utilisation de cartes spéciales (sac de sable, hélicoptère)
