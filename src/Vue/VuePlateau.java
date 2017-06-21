@@ -56,7 +56,7 @@ public class VuePlateau extends JFrame{
     public VuePlateau(Controleur c) {
         super("L'Ile Interdite : Jeu");
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setSize((int) (dimension.getWidth()*0.55), (int) (dimension.getHeight()*0.9));
+        this.setSize((int) (dimension.getWidth()*0.55), (int) (dimension.getHeight()*0.95));
         this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         this.setControleur(c);
