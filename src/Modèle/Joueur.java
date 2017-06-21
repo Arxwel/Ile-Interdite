@@ -2,6 +2,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import Vue.VueAventurier;
+import Vue.VueDefausse;
 import Vue.VueEchangeDeCartes;
 import java.awt.Color;
 import java.util.*;
@@ -205,8 +206,14 @@ public abstract class Joueur {
         
         //gère la défausse d'une carte
         public void defausserCarte(CarteTresor c) {
-            this.getMainJoueur().remove(c);
             controleur.getDefausseCarteTresor().add(c);
+            this.getMainJoueur().remove(c);            
+            this.vueAventurier.getWindow().validate();
+            this.vueAventurier.update();
+        }
+        
+        public void defausserCarte() {
+            VueDefausse defausse = new VueDefausse(this);
         }
         
         //gère l'utilisation de cartes spéciales (sac de sable, hélicoptère)

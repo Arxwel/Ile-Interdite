@@ -220,8 +220,8 @@ public class Controleur extends Observateur {
             }
             System.out.println("Action Finie");
             setNbact(getNbact() - 1);
-            piocherCarteTresorFinTour();
-            piocherCarteInondeFinTour(difficulte);
+            //piocherCarteTresorFinTour();
+            //piocherCarteInondeFinTour(difficulte);
             vuePlateau.update();
         }
     }
@@ -346,9 +346,15 @@ public class Controleur extends Observateur {
     }
 	
     //Assure que le joueur a moins de 6 cartes en main et propose l'utilisation ou la défausse de cartes
-    private static void verifMain(Joueur joueur) {   
-        while (joueur.getMainJoueur().size() >= 6) {
-            System.out.println(joueur.getNom() + " a trop de cartes en main. Il doit en défausser jusqu'à en avoir 5 au plus.");
+    private static void verifMain(Joueur joueur) {  
+        while (joueurActif.getMainJoueur().size() >= 6) {
+            joueur.getVueAventurier().desactiverBoutons();
+            joueur.defausserCarte();
+            while(true) {
+                System.out.print("");
+            }
+        }    
+            /*System.out.println(joueur.getNom() + " a trop de cartes en main. Il doit en défausser jusqu'à en avoir 5 au plus.");
             CarteTresor cs1 = new CarteTresor(TypeCarte.SpécialHélicoptère);
             CarteTresor cs2 = new CarteTresor(TypeCarte.SpécialSacDeSable);
             CarteTresor cr1 = new CarteTresor(TypeCarte.TresorCyan);
@@ -437,8 +443,8 @@ public class Controleur extends Observateur {
                         }
                     }
                 }
-            }
-        }
+            }*/
+        //}
     }
     
     
