@@ -216,7 +216,7 @@ public class Controleur extends Observateur {
         for (int i=0; i<4; i++) {
             reliquesPrises[i] = false;
         }
-        niveauDEau = 1;
+        difficulte = 1;
         //distribution des cartes
         
         for (Joueur j: getJoueurs()) {
@@ -231,8 +231,7 @@ public class Controleur extends Observateur {
                     j.getMainJoueur().add(c);
                 }
           }
-        }
-        
+        } 
     }
     
     public void play() {
