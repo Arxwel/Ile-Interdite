@@ -46,25 +46,7 @@ public abstract class Joueur {
                }
            }
            return tuileslibres;
-	}
-
-        //Gère l'assèchement des cases par les joueurs
-	public void assécher() {
-		// TODO - implement Joueur.assécher
-            ArrayList<Tuile> tuilesInon = new ArrayList<>(listerTuilesAssechables());
-            
-            Integer i = 0;
-            for (Tuile t: tuilesInon) {
-                System.out.println(i);
-                System.out.println(t.getIntitule().toString());
-                i++;
-            }
-            System.out.println("Choisissez:");
-            String choix = sc.nextLine();
-            
-            Tuile tuileAAssecher = tuilesInon.get(Integer.getInteger(choix));            
-            tuileAAssecher.setEtat(Etat.Sec);
-
+           
 	}
 
         //Gère l'action "donner carte"

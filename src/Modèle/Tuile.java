@@ -162,6 +162,7 @@ public class Tuile {
      */
     protected void setEtat(Etat etat) {
         this.etat = etat;
+        setImage();
     }
 
     /**

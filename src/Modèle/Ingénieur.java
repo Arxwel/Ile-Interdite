@@ -14,7 +14,7 @@ public class Ingénieur extends Joueur {
     }
     
     @Override //peut assecher 2 tuiles a la fois
-    public void assécher() {
+    public void assecher() {
 	// TODO - implement Ingénieur.assécher
 	throw new UnsupportedOperationException();
     }
