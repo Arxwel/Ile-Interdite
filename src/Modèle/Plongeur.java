@@ -14,7 +14,7 @@ public class Plongeur extends Joueur {
         this.setImage(new ImageIcon(this.getClass().getResource("/ImagesAventuriers/Plongeur.png")));
     }
 
-    @Override //peut traverser des tuiles inondées et des tuiles sombrées
+    @Override //peut traverser des tuiles inondées et des tuiles sombrées et peut s'arrêter sur des tuiles inondées
 	public ArrayList<Tuile> listerCasesDispo() {
             Tuile posJ = this.getPosition();
             ArrayList<Tuile> tuilesATester = new ArrayList<>();
