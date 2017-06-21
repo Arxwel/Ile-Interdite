@@ -38,7 +38,7 @@ public class Controleur extends Observateur {
     private static int numTour = 0;
     private static int nbact;
     private static boolean joueurMort = false;
-    private static boolean[] reliquesPrises = new boolean[4]; //Magenta(brasier) Orange(Zéphir) Gris(Globe(pété)) Cyan(Calice)
+    private static boolean[] reliquesPrises = new boolean[4]; //Magenta(brasier) Orange(Zéphir) Grey(Globe(pété)) Cyan(Calice)
     private static int niveauDEau;
     private int actionChoisie;
     
@@ -60,8 +60,8 @@ public class Controleur extends Observateur {
         lockAct =  new ReentrantLock();
         conditionAct = lock.newCondition();
         
-        
         grille = new Grille();
+        
         joueurs = new ArrayList<>();
         piocheInondation = new Stack<>();
         défausseInondation = new Stack<>();
@@ -185,14 +185,32 @@ public class Controleur extends Observateur {
                     joueurActif.donnerCarte();
                     break;
                 case(4):
-                    System.out.println("[Contr] Prendre Relique");
+                    System.out.print("[Contr] Prendre Relique ");
                     joueurActif.getVueAventurier().desactiverBoutons();
-                    joueurActif.prendreRelique();
+                    Color relique = joueurActif.getPosition().getReliqueDispo();
+                    switch(relique.toString()) {
+                        case("MAGENTA"):
+                            System.out.println("MAGENTA");
+                            reliquesPrises[0]=true;
+                            break;
+                        case("ORANGE"):
+                            System.out.println("ORANGE");
+                            reliquesPrises[1]=true;
+                            break;
+                        case("GRAY"):
+                            System.out.println("GRAY");
+                            reliquesPrises[2]=true;
+                            break;
+                        case("CYAN"):
+                            System.out.println("CYAN");
+                            reliquesPrises[3]=true;
+                            break;
+                    }
                     break;
                 case(5):
                     System.out.println("[Contr] Carte Spéciale");
                     joueurActif.getVueAventurier().desactiverBoutons();
-                    joueurActif.prendreRelique();
+                    joueurActif.utiliserCarte();
                     break;
                 case(6):
                     System.out.println("[Contr] Terminer Tour");
