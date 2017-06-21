@@ -2,6 +2,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import Vue.VueAventurier;
+import Vue.VueEchangeDeCartes;
 import java.awt.Color;
 import java.util.*;
 import java.util.Scanner;
@@ -50,8 +51,13 @@ public abstract class Joueur {
 	}
 
         //Gère l'action "donner carte"
-	public void donnerCarte(Joueur jDest) {
-		// TODO - implement Joueur.prendreTrésor
+	public void donnerCarte(Joueur jDest, CarteTresor cRecue) {
+		jDest.getMainJoueur().add(cRecue);
+                this.getMainJoueur().remove(cRecue);
+                this.vueAventurier.getWindow().validate();
+                this.vueAventurier.update();
+                jDest.vueAventurier.getWindow().validate();
+                jDest.vueAventurier.update();
             
 	}
         
@@ -300,7 +306,7 @@ public abstract class Joueur {
     }
 
     public void donnerCarte() {
-        
+        ArrayList<Joueur> joueursechangeables = new ArrayList<>(position.getLocataires());
+        VueEchangeDeCartes don = new VueEchangeDeCartes(this, joueursechangeables);
     }
-
 }

@@ -42,12 +42,12 @@ public class VueAventurier  {
     private final JButton btnRelique;
     private final JButton btnCarteSpeciale;
     private final JButton btnTerminerTour;
-    
+    private Joueur joueur;
     private static Observateur observateur;
     
     
     public VueAventurier (Joueur j) {
-
+        joueur = j;
         this.window = new JFrame();
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
@@ -213,6 +213,19 @@ public class VueAventurier  {
     
     public void activerBoutonRelique() {
         btnRelique.setEnabled(true);
+    }
+    
+     public void update() {
+        System.out.println("Rafraichissement de Vue Plateau");
+        
+        panelCartes.removeAll();  
+        for (CarteTresor c : joueur.getMainJoueur()) {
+            JLabel imgCarte = new JLabel(new ImageIcon(c.getImage().getImage().getScaledInstance(77,77, Image.SCALE_DEFAULT)));
+            panelCartes.add(imgCarte);
+        }
+        window.validate();
+        window.repaint();
+        
     }
     
 }
