@@ -397,6 +397,6 @@ public class VueInscription {
     
    public void fenetreInfo() {
         JFrame frame = new JFrame("Saisie du Nom");
-        JOptionPane.showMessageDialog(null, "Deux Joueurs ne peuvent pas avoir le même rôle, t con ou koi ???", "Erreur", JOptionPane.ERROR_MESSAGE); 
+        JOptionPane.showMessageDialog(null, "Plusieurs Joueurs ne peuvent pas avoir le même rôle", "Erreur", JOptionPane.ERROR_MESSAGE); 
     }
 }
