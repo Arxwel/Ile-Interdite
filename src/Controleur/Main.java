@@ -21,7 +21,7 @@ import java.awt.Toolkit;
  * @author salmona
  */
 public class Main {
-    
+
 private static VueAventurier vj1,vj2,vj3,vj4;
 
 public static void main(String[] args) {
