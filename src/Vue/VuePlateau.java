@@ -41,14 +41,12 @@ public class VuePlateau extends JFrame{
     private ArrayList<JPanel> caseTuiles;
     private ArrayList<JPanel> panelPions;
     private ArrayList<JButton> buttonsCase;
-    private ArrayList<JPanel> casesSurlignees;
     
     private JLayeredPane calque;
     
     private JPanel mapPanel;
     private JComponent pionsPlateau;
     private JComponent calqueButtons;
-    private JComponent calqueSurligner;
     
     private ArrayList<Tuile> aSurligner;
     
@@ -64,7 +62,6 @@ public class VuePlateau extends JFrame{
         caseTuiles = new ArrayList<>();
         panelPions = new ArrayList<>();
         buttonsCase = new ArrayList<>();
-        casesSurlignees = new ArrayList<>();
         
         aSurligner = new ArrayList<>();
         
@@ -78,10 +75,6 @@ public class VuePlateau extends JFrame{
         pionsPlateau.setOpaque(false);
         pionsPlateau.setBounds(new Rectangle(new Dimension(this.getBounds().width,this.getBounds().height-33)));
         
-        calqueSurligner = new JPanel(new GridLayout(6,6));
-        calqueSurligner.setBounds(new Rectangle(new Dimension(this.getBounds().width,this.getBounds().height-33)));
-        calqueSurligner.setOpaque(false);
-        
         calqueButtons = new JPanel(new GridLayout(6,6));
         calqueButtons.setBounds(new Rectangle(new Dimension(this.getBounds().width,this.getBounds().height-33)));
         calqueButtons.setOpaque(false);
@@ -92,8 +85,7 @@ public class VuePlateau extends JFrame{
         
         calque.add(mapPanel,Integer.valueOf(1));
         calque.add(pionsPlateau,Integer.valueOf(2));
-        calque.add(calqueSurligner,Integer.valueOf(3));
-        calque.add(calqueButtons,Integer.valueOf(4));
+        calque.add(calqueButtons,Integer.valueOf(3));
         
         this.add(calque, BorderLayout.CENTER);
         
@@ -124,7 +116,6 @@ public class VuePlateau extends JFrame{
                 
                 caseTuiles.add(new JPanel(new BorderLayout()));
                 panelPions.add(new JPanel(new GridLayout(1,4)));
-                casesSurlignees.add(new JPanel());
                 
                 if (t==null) {      //Si la case est non jouable
                     buttonsCase.get(buttonsCase.size()-1).setEnabled(false); //désactiver le bouton
@@ -139,6 +130,9 @@ public class VuePlateau extends JFrame{
                     caseTuiles.get(caseTuiles.size()-1).add(new JLabel(icona), BorderLayout.CENTER);
                     
                 } else {    //si Case Jouable
+                    if (aSurligner.contains(t)) {
+                        buttonsCase.get(buttonsCase.size()-1).setBorder(BorderFactory.createLineBorder(Color.RED));
+                    }
                     
                     if (null==t.getEtat()) {
                         colorBack = Color.LIGHT_GRAY;
@@ -175,7 +169,7 @@ public class VuePlateau extends JFrame{
                     }
                     
                     if (aSurligner.contains(t)) {
-                        casesSurlignees.get(casesSurlignees.size()-1).setBorder(BorderFactory.createLineBorder(Color.RED));
+                        buttonsCase.get(buttonsCase.size()-1).setBorder(BorderFactory.createLineBorder(Color.RED));
                     }
                 }
             }
@@ -194,11 +188,6 @@ public class VuePlateau extends JFrame{
         for (JPanel jppion : panelPions) {//ajout des pions au calque Pions
             jppion.setOpaque(false);
             pionsPlateau.add(jppion);
-        }
-        
-        for (JPanel jSurLign: casesSurlignees) {
-            jSurLign.setOpaque(false);
-            calqueSurligner.add(jSurLign);
         }
         
     }
@@ -221,12 +210,10 @@ public class VuePlateau extends JFrame{
         caseTuiles.clear();
         panelPions.clear();
         buttonsCase.clear();
-        casesSurlignees.clear();
         
         mapPanel.removeAll();
         pionsPlateau.removeAll();
         calqueButtons.removeAll();
-        calqueSurligner.removeAll();
         
         this.peindreTuiles();
         
