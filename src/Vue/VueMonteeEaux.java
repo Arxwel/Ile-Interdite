@@ -29,6 +29,7 @@ public class VueMonteeEaux extends JFrame {
         mainPanel = new JPanel();
         this.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
+        this.setTitle("Niveau d'eau");
         this.setLocation((int) (dim.getWidth()*0.8), (int) (dim.getHeight()*0.01));
         image = new ImageIcon(this.getClass().getResource("/resources/niveauDesEaux"+niveau+".png"));
         imgCarte = new JLabel(new ImageIcon(image.getImage().getScaledInstance((int) (dim.getWidth()*0.12), (int) (dim.getHeight()*0.52), Image.SCALE_DEFAULT)));

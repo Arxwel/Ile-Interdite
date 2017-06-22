@@ -2,6 +2,7 @@ package Modèle;
 
 import Controleur.Controleur;
 import Vue.VueAventurier;
+import Vue.VueCarteSpe;
 import Vue.VueDefausse;
 import Vue.VueDonDeCartes;
 import java.awt.Color;
@@ -102,8 +103,6 @@ public abstract class Joueur {
         //Gère le déplacement des joueurs
 	public void déplacer() {
             ArrayList<Tuile> casesDispo = new ArrayList<>(this.listerCasesDispo());
-            
-            Integer i = 0;
             controleur.surligner(casesDispo);
             controleur.waitForInput();
             Tuile caseDepl = controleur.getLastCase();
@@ -243,26 +242,57 @@ public abstract class Joueur {
         //gère l'utilisation de cartes spéciales (sac de sable, hélicoptère)
         public void useCarteSpe(CarteTresor c) {
             if (c.getType()==TypeCarte.SpécialSacDeSable) {
-                ArrayList<Tuile> tuilesInon = new ArrayList<>();
-                Coordonnees coor = new Coordonnees(position.getCoordonees().getX(),position.getCoordonees().getY());
-                for (int x=0; x<=5; x++) {
-                    for (int y=0; y<=5; y++) {
-                        if (((position.getPlateau().getTuile(coor.getX(),coor.getY()) != null)) && (position.getPlateau().getTuile(coor.getX(),coor.getY()).getEtat() == Etat.Inondé)) {
-                            tuilesInon.add(position.getPlateau().getTuile(coor.getX(),coor.getY()));
+                ArrayList<Tuile> dispo = new ArrayList<>();
+               Coordonnees coor = this.getPosition().getCoordonees();
+                for (Tuile[] tArr: this.getPosition().getPlateau().getTuiles()) {
+                    for (Tuile t: tArr) {
+                        if (t != null && t.getCoordonees() != coor && t.getEtat() == Etat.Inondé) {
+                            dispo.add(t);
                         }
                     }
                 }
+            controleur.surligner(dispo);
+            controleur.waitForInput();
+            Tuile caseAss = controleur.getLastCase();
+            if (!dispo.contains(caseAss)) {
+                controleur.waitForInput();
+                caseAss = controleur.getLastCase();
+            }
+            
+            System.out.println("Asséchance de "+caseAss.getIntitule());
+            caseAss.setEtat(Etat.Sec);
+            
+            
+            controleur.surligner(new ArrayList<Tuile>());                
                 
             } else if (c.getType()==TypeCarte.SpécialHélicoptère) {
-                ArrayList<Tuile> tuileslibres = new ArrayList<>();
-                for (int x=0; x<=5; x++) {
-                    for (int y=0; y<=5; y++) {
-                        if (((position.getPlateau().getTuile(position.getCoordonees().getX(),position.getCoordonees().getY()) != null)) && (position.getPlateau().getTuile(position.getCoordonees().getX()-1,position.getCoordonees().getY()).getEtat() == Etat.Sec)) {
-                            tuileslibres.add(position.getPlateau().getTuile(position.getCoordonees().getX(),position.getCoordonees().getY()));
-                        } 
+               ArrayList<Tuile> dispo = new ArrayList<>();
+               Coordonnees coor = this.getPosition().getCoordonees();
+                for (Tuile[] tArr: this.getPosition().getPlateau().getTuiles()) {
+                    for (Tuile t: tArr) {
+                        if (t != null && t.getCoordonees() != coor && t.getEtat() == Etat.Sec) {
+                            dispo.add(t);
+                        }
                     }
                 }
-                //déplacer le joueur désiré
+                controleur.surligner(dispo);
+                controleur.waitForInput();
+                Tuile caseDepl = controleur.getLastCase();
+                if (!dispo.contains(caseDepl)) {
+                    controleur.waitForInput();
+                    caseDepl = controleur.getLastCase();
+                }
+                Tuile tuileQuittee = this.getPosition();
+            
+                System.out.println("deplacement de "+tuileQuittee.getIntitule()+" a "+caseDepl.getIntitule());
+            
+                tuileQuittee.delLocataire(this);
+                this.setPosition(caseDepl);
+                caseDepl.addLocataire(this);
+            
+                controleur.surligner(new ArrayList<Tuile>());
+                System.out.println("Le Joueur est maintenant à"+this.getPosition().getIntitule());
+                
             }
         }
 
@@ -309,13 +339,18 @@ public abstract class Joueur {
     }
 
     public void utiliserCarte() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<CarteTresor> cSpeciales = new ArrayList<>();
+        for (CarteTresor c : this.getMainJoueur()) {
+            if(c.getType() == TypeCarte.SpécialHélicoptère || c.getType() == TypeCarte.SpécialSacDeSable) {
+                cSpeciales.add(c);
+            }
+        }
+         VueCarteSpe vuecs = new VueCarteSpe(this, cSpeciales);
+         this.controleur.waitForInput();
     }
 
     public void assecher() {
         ArrayList<Tuile> casesDispo = new ArrayList<>(this.listerTuilesAssechables());
-            
-            Integer i = 0;
             controleur.surligner(casesDispo);
             controleur.waitForInput();
             Tuile caseAss = controleur.getLastCase();
@@ -329,7 +364,6 @@ public abstract class Joueur {
             
             
             controleur.surligner(new ArrayList<Tuile>());
-            System.out.println("Le Joueur est maintenant à"+this.getPosition().getIntitule());
     }
 
     public void donnerCarte() {

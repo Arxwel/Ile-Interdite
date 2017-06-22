@@ -8,6 +8,7 @@ package Vue;
 import Controleur.Observateur;
 import Modèle.CarteTresor;
 import Modèle.Joueur;
+import Modèle.TypeCarte;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -80,23 +81,25 @@ public class VueDonDeCartes {
         JPanel cartesADonner = new JPanel(new GridLayout(1,9));
         cartesADonner.setBorder(BorderFactory.createTitledBorder("Choix de la Carte à donner"));
         for(CarteTresor ct : joueur.getMainJoueur()) {
-            JButton carte = new JButton(ct.getImage());
-            carte.setEnabled(false);
-            cartesADonner.add(carte);
-            cartesBoutons.add(carte);
-            carte.addActionListener(new ActionListener() {
+            if (ct.getType()!=TypeCarte.SpécialHélicoptère || ct.getType()!=TypeCarte.SpécialSacDeSable) {
+                JButton carte = new JButton(ct.getImage());
+                carte.setEnabled(false);
+                cartesADonner.add(carte);
+                cartesBoutons.add(carte);
+                carte.addActionListener(new ActionListener() {
 
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    carteEnvoye = ct;
-                    for(JButton bouton : cartesBoutons) {
-                        bouton.setEnabled(false);
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        carteEnvoye = ct;
+                        for(JButton bouton : cartesBoutons) {
+                            bouton.setEnabled(false);
+                        }
+                        joueur.donnerCarte(joueurReceveur, carteEnvoye);
+                        window.dispose();
+                        o.notifier();
                     }
-                    joueur.donnerCarte(joueurReceveur, carteEnvoye);
-                    window.dispose();
-                    o.notifier();
-                }
-            });
+                });
+            }
         }
         
         mainPanel.add(listeJoueurs, BorderLayout.NORTH);
