@@ -894,4 +894,24 @@ public class Controleur extends Observateur {
     public void addRelique(int i) {
         reliquesPrises[i]=true;
     }
+
+    public void signalerPriseRelique(TypeCarte compType) {
+        String couleur = null;
+        switch(compType.toString()){
+            case("TresorMagenta"):
+                couleur = "Magenta";
+                break;
+            case("TresorGray"):
+                couleur = "Grise";
+                break;
+            case("TresorCyan"):
+                couleur = "Cyan";
+                break;
+            case("TresorOrange"):
+                couleur = "Orange";
+                break;
+        }
+        vuePlateau.signalerPriseRelique(couleur);
+    }
+    
 }

@@ -238,8 +238,11 @@ public class VuePlateau extends JFrame{
     }
 
     public void obligationDeplacement(Joueur j) {
-        
         JOptionPane.showMessageDialog(null, "La case sous "+j.getNom()+" sombre, il doit se déplacer.", "Aventurier en Danger", JOptionPane.ERROR_MESSAGE); 
+    }
+
+    public void signalerPriseRelique(String couleur) {
+         JOptionPane.showMessageDialog(null, "La relique "+couleur+" a été ramassée.", "Relique Acquise", JOptionPane.INFORMATION_MESSAGE); 
     }
     
 }

@@ -66,32 +66,36 @@ public abstract class Joueur {
         
         //Gère la prise de trésors par les joueurs
 	public void prendreRelique() {
-            Color relique = this.getPosition().getReliqueDispo();
-            int i = 0;
-                switch(relique.toString()) {
-                    case("MAGENTA"):
-                    System.out.println("MAGENTA");
-                    controleur.addRelique(0);
-                    break;
-                case("ORANGE"):
-                    System.out.println("ORANGE");
-                    controleur.addRelique(1);
-                    break;
-                case("GRAY"):
-                    System.out.println("GRAY");
-                    controleur.addRelique(2);
-                    break;
-                case("CYAN"):
-                    System.out.println("CYAN");
-                    controleur.addRelique(3);
-                break;
+            Color relique =this.getPosition().getReliqueDispo();
+            TypeCarte compType;
+            ArrayList<CarteTresor> aSupr = new ArrayList<>();
+            
+            
+            if(relique == Color.MAGENTA){
+                compType = TypeCarte.TresorMagenta;
+                controleur.addRelique(0);
+                System.out.println("relique magenta");
+            } else if(relique == Color.CYAN){
+                compType = TypeCarte.TresorCyan;
+                controleur.addRelique(1);
+                System.out.println("relique cyan");
+            } else if(relique == Color.GRAY){
+                compType = TypeCarte.TresorGray;
+                controleur.addRelique(2);
+                System.out.println("relique gray");
+            } else {
+                compType = TypeCarte.TresorOrange;
+                controleur.addRelique(3);
+                System.out.println("relique orange");
             }
             for(CarteTresor c: this.getMainJoueur()) {
-                if(c.getType().toString().equalsIgnoreCase("Tresor"+relique.toString())&&i<=4) {
-                    i++;
-                    this.getMainJoueur().remove(c);
-                }
+                aSupr.add(c);
             }
+            for (CarteTresor c: aSupr) {
+                this.defausserCarte(c);
+            }
+            controleur.signalerPriseRelique(compType);
+            
 	}
 
 	/**
@@ -208,23 +212,18 @@ public abstract class Joueur {
         TypeCarte compType;
         int n = 0;
         if(relique!=null){
-            switch (relique.toString()) {
-                case("MAGENTA"):
-                    compType = TypeCarte.TresorMagenta;
-                    System.out.println("relique magenta");
-                    break;
-                case("CYAN"):
-                    compType = TypeCarte.TresorCyan;
-                    System.out.println("relique cyan");
-                    break;
-                case("GRAY"):
-                    compType = TypeCarte.TresorGray;
-                    System.out.println("relique gray");
-                    break;
-                default:
-                    compType = TypeCarte.TresorOrange;
-                    System.out.println("relique orange");
-                    break;
+            if(relique == Color.MAGENTA){
+                compType = TypeCarte.TresorMagenta;
+                System.out.println("relique magenta");
+            } else if(relique == Color.CYAN){
+                compType = TypeCarte.TresorCyan;
+                System.out.println("relique cyan");
+            } else if(relique == Color.GRAY){
+                compType = TypeCarte.TresorGray;
+                System.out.println("relique gray");
+            } else {
+                compType = TypeCarte.TresorOrange;
+                System.out.println("relique orange");
             }
             for (CarteTresor c: this.getMainJoueur()) {
                 if (c.getType() == compType){
@@ -233,7 +232,7 @@ public abstract class Joueur {
                 System.out.println(n);
             }
         } else {
-            System.out.println("pas de relique sur cette case");
+            System.err.println("pas de relique sur cette case");
         }
         return n>=4;
     }
@@ -279,63 +278,7 @@ public abstract class Joueur {
             VueDefausse defausse = new VueDefausse(this);
             this.controleur.waitForInput();
         }
-        /*
-        //gère l'utilisation de cartes spéciales (sac de sable, hélicoptère)
-        public void useCarteSpe(CarteTresor c) {
-            if (c.getType()==TypeCarte.SpécialSacDeSable) {
-                ArrayList<Tuile> dispo = new ArrayList<>();
-               Coordonnees coor = this.getPosition().getCoordonees();
-                for (Tuile[] tArr: this.getPosition().getPlateau().getTuiles()) {
-                    for (Tuile t: tArr) {
-                        if (t != null && t.getCoordonees() != coor && t.getEtat() == Etat.Inondé) {
-                            dispo.add(t);
-                        }
-                    }
-                }
-            controleur.surligner(dispo);
-            controleur.waitForInput();
-            Tuile caseAss = controleur.getLastCase();
-            if (!dispo.contains(caseAss)) {
-                controleur.waitForInput();
-                caseAss = controleur.getLastCase();
-            }
-            
-            System.out.println("Asséchance de "+caseAss.getIntitule());
-            caseAss.setEtat(Etat.Sec);
-            
-            
-            controleur.surligner(new ArrayList<Tuile>());                
-                
-            } else if (c.getType()==TypeCarte.SpécialHélicoptère) {
-               ArrayList<Tuile> dispo = new ArrayList<>();
-               Coordonnees coor = this.getPosition().getCoordonees();
-                for (Tuile[] tArr: this.getPosition().getPlateau().getTuiles()) {
-                    for (Tuile t: tArr) {
-                        if (t != null && t.getCoordonees() != coor && t.getEtat() == Etat.Sec) {
-                            dispo.add(t);
-                        }
-                    }
-                }
-                controleur.surligner(dispo);
-                controleur.waitForInput();
-                Tuile caseDepl = controleur.getLastCase();
-                if (!dispo.contains(caseDepl)) {
-                    controleur.waitForInput();
-                    caseDepl = controleur.getLastCase();
-                }
-                Tuile tuileQuittee = this.getPosition();
-            
-                System.out.println("deplacement de "+tuileQuittee.getIntitule()+" a "+caseDepl.getIntitule());
-            
-                tuileQuittee.delLocataire(this);
-                this.setPosition(caseDepl);
-                caseDepl.addLocataire(this);
-            
-                controleur.surligner(new ArrayList<Tuile>());
-                System.out.println("Le Joueur est maintenant à"+this.getPosition().getIntitule());
-                
-            }
-        }*/
+      
     public void utiliserHelico() {
         ArrayList<Tuile> casesDispo = new ArrayList<>();
         Coordonnees coor = this.getPosition().getCoordonees();
