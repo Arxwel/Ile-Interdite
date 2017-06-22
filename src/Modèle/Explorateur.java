@@ -29,7 +29,7 @@ public class Explorateur extends Joueur {
            for (Coordonnees c: cooAdj) {
                if (c.getX()>0 && c.getX()<6 && c.getY()>0 && c.getY()<6) {
                    t = g.getTuile(c);
-                   if (t!=null && t.getEtat()==Etat.Sec) {
+                   if (t!=null && t.getEtat()!=Etat.Sombré) {
                        tuilesDispo.add(t);
                    }
                }

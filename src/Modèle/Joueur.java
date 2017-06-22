@@ -43,7 +43,7 @@ public abstract class Joueur {
 
            System.out.println("Tuiles Adj");
            for (Tuile t: this.getPosition().getAdjacent()) {
-               if (t.getEtat()==Etat.Sec) {
+               if (t.getEtat()!=Etat.Sombré) {
                    tuileslibres.add(t);
                }
            }

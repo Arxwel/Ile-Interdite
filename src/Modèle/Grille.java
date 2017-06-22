@@ -23,16 +23,22 @@ public class Grille {
         //On met toutes les valeurs de la classe énumérée Zone dans une arraylist
         ArrayList<Zone> listeZones = new ArrayList<Zone>(EnumSet.allOf(Zone.class));
         Collections.shuffle(listeZones);
-        
         ArrayList<Coordonnees> coos = new ArrayList<>();
+        ArrayList<Coordonnees> coosInnondées = new ArrayList<>();
         
         int index = 0;
         for (int[] inTab: tuilesJouables){
             coos.add(new Coordonnees(inTab[0],inTab[1]));
         }
         
+        Collections.shuffle(coos);
+        coosInnondées.addAll(coos.subList(0, 6));
+        
         for (Coordonnees c: coos) {
             tuiles[c.getX()][c.getY()] = new Tuile(listeZones.get(index),Etat.Sec,this,c);
+            if (coosInnondées.contains(c)) {
+                this.getTuile(c).setEtat(Etat.Inondé);
+            }
             index++;
         }
     }
