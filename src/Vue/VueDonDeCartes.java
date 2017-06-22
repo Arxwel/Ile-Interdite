@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -57,6 +58,7 @@ public class VueDonDeCartes {
         for(Joueur j : liste) {
             if( j != joueur) {
             JButton personne = new JButton(j.getImage());
+            listeJoueurs.setBorder(BorderFactory.createTitledBorder("Choix du Joueur Receveur"));
             listeJoueurs.add(personne);
             joueursBoutons.add(personne);
             personne.addActionListener(new ActionListener() {
@@ -76,6 +78,7 @@ public class VueDonDeCartes {
         }
         
         JPanel cartesADonner = new JPanel(new GridLayout(1,9));
+        cartesADonner.setBorder(BorderFactory.createTitledBorder("Choix de la Carte à donner"));
         for(CarteTresor ct : joueur.getMainJoueur()) {
             JButton carte = new JButton(ct.getImage());
             carte.setEnabled(false);

@@ -234,6 +234,10 @@ public class VueAventurier  {
         window.repaint();
         
     }
+
+    public void dispose() {
+        window.dispose();
+    }
     
 }
 
