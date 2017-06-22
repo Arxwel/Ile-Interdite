@@ -736,7 +736,8 @@ public class Controleur extends Observateur {
                 this.notifier();
             break;
             case ("Rejouer") :
-                
+                this.init();
+                this.play();
             break;
             case("CarteSpeHelico"):
                 System.out.println("[Contr]Helico");
