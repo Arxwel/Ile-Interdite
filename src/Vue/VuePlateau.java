@@ -28,6 +28,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -170,6 +171,7 @@ public class VuePlateau extends JFrame{
                     }
                     
                     if (aSurligner.contains(t)) {
+                        System.out.println(t.getIntitule()+" Surligné");
                         buttonsCase.get(buttonsCase.size()-1).setBorder(BorderFactory.createLineBorder(new Color(89, 214, 114),5));
                         buttonsCase.get(buttonsCase.size()-1).setEnabled(true);
                     }
@@ -191,6 +193,7 @@ public class VuePlateau extends JFrame{
             jppion.setOpaque(false);
             pionsPlateau.add(jppion);
         }
+        System.out.println("[vueP] Grille peinte");
         
     }
     
@@ -198,6 +201,7 @@ public class VuePlateau extends JFrame{
     
     public void surligner(ArrayList<Tuile> tuiles) {
         aSurligner=tuiles;
+        System.out.println("[vueP] Surligner "+aSurligner.size());
         
         this.update();
     }
@@ -219,8 +223,9 @@ public class VuePlateau extends JFrame{
         
         this.peindreTuiles();
         
-        this.validate();
+        this.revalidate();
         this.repaint();
+        System.out.println("Update Fini");
         
     }
     
@@ -230,6 +235,11 @@ public class VuePlateau extends JFrame{
     
     public void setObservateur(Observateur o) {
         this.observateur = o;
+    }
+
+    public void obligationDeplacement(Joueur j) {
+        
+        JOptionPane.showMessageDialog(null, "La case sous "+j.getNom()+" sombre, il doit se déplacer.", "Aventurier en Danger", JOptionPane.ERROR_MESSAGE); 
     }
     
 }

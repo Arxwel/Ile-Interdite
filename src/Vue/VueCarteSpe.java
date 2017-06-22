@@ -5,9 +5,12 @@
  */
 package Vue;
 
+import Controleur.Message;
 import Controleur.Observateur;
+import Controleur.TypeMessage;
 import Modèle.CarteTresor;
 import Modèle.Joueur;
+import Modèle.TypeCarte;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -56,9 +59,17 @@ public class VueCarteSpe {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     carteUtilisee = ct;
-                    j.useCarteSpe(carteUtilisee);
+                    //j.useCarteSpe(carteUtilisee);
+                    Message msg;
+                    if (carteUtilisee.getType() == TypeCarte.SpécialHélicoptère) {
+                        msg = new Message(TypeMessage.CarteSpeHelico);
+                        System.out.println("[Vue] Hélico");
+                    } else {
+                        msg = new Message(TypeMessage.CarteSpeSac);
+                        System.out.println("[Vue] Sac");
+                    }
                     window.dispose();
-                    o.notifier();
+                    o.traiterMessage(msg);
                 }
             });
         }

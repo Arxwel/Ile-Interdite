@@ -19,5 +19,7 @@ public enum TypeMessage {
     Donner,
     PrendreRelique,
     CarteSpe,
+    CarteSpeHelico,
+    CarteSpeSac,
     TerminerTour
 }

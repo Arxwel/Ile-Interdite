@@ -454,8 +454,7 @@ public class VueInscription {
         return s=="Aléatoire" || s=="Vide";
     }
     
-   public void fenetreInfo() {
-        JFrame frame = new JFrame("Saisie du Nom");
+    public void fenetreInfo() {
         JOptionPane.showMessageDialog(null, "Plusieurs Joueurs ne peuvent pas avoir le même rôle", "Erreur", JOptionPane.ERROR_MESSAGE); 
     }
 

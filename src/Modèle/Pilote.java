@@ -20,7 +20,7 @@ public class Pilote extends Joueur {
             Coordonnees coor = this.getPosition().getCoordonees();
             for (Tuile[] tArr: this.getPosition().getPlateau().getTuiles()) {
                 for (Tuile t: tArr) {
-                    if (t != null && t.getCoordonees() != coor && t.getEtat() == Etat.Sec) {
+                    if (t != null && t.getCoordonees() != coor && t.getEtat() != Etat.Sombré) {
                         dispo.add(t);
                     }
                 }
