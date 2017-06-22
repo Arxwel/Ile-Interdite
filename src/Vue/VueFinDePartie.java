@@ -6,6 +6,7 @@
 package Vue;
 
 import Controleur.Message;
+import Controleur.Observateur;
 import Controleur.TypeMessage;
 import static Vue.VueInscription.getRoleComboJ1;
 import static Vue.VueInscription.getRoleComboJ2;
@@ -44,8 +45,10 @@ public class VueFinDePartie {
     private JPanel mainPanel;
     private JLabel titre;
     private JLabel sousTitre;
+    private Observateur observateur;
     
-    public VueFinDePartie(int numFin) {
+    
+    public VueFinDePartie() {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         try {
             ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("src/resources/PiecesofEight.ttf")));
@@ -61,7 +64,7 @@ public class VueFinDePartie {
         titre = new JLabel();
         sousTitre = new JLabel();
         JPanel auxPanel = new JPanel(new GridLayout(2,1));
-        JPanel buttPanel = new JPanel(new GridLayout(2,1));
+        JPanel buttPanel = new JPanel(new GridLayout(4,5));
         
         this.window.add(mainPanel);
         
@@ -76,16 +79,54 @@ public class VueFinDePartie {
         mainPanel.setBounds(window.getBounds());
         mainPanel.setOpaque(false);
         auxPanel.setOpaque(false);
+        buttPanel.setOpaque(false);
         
+        
+        titre.setFont(new Font("Pieces of Eight", Font.PLAIN,100));
+        titre.setHorizontalAlignment(JLabel.CENTER);
+        mainPanel.add(titre);
+        mainPanel.add(auxPanel);
+        mainPanel.add(buttPanel);
+        
+        
+        sousTitre.setFont(new Font("Pieces of Eight", Font.PLAIN,50));
+        sousTitre.setHorizontalAlignment(JLabel.CENTER);
+        auxPanel.add(sousTitre);
+        auxPanel.add(new JLabel());
+        JButton rejouer = new JButton("Rejouer");
+        JButton quitter = new JButton("Quitter");
+        for(int i =0; i<9; i++) {
+            buttPanel.add(new JLabel());
+        }
+        buttPanel.add(rejouer);
+        buttPanel.add(new JLabel());
+        buttPanel.add(quitter);
+        
+        rejouer.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Message msg = new Message(TypeMessage.Valider);
+                observateur.traiterMessage(msg);
+            }
+        });
+        
+        quitter.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+        
+    }
+    
+    public void update(int numFin){
         if (numFin == 0) {
             titre.setText(" * Victoire * ");
         }else{
             titre.setText(" $ Défaite $ ");
         }
-        titre.setFont(new Font("Pieces of Eight", Font.PLAIN,100));
-        titre.setHorizontalAlignment(JLabel.CENTER);
-        mainPanel.add(titre);
-        mainPanel.add(auxPanel);
         
         switch(numFin){
             case(0):
@@ -104,20 +145,18 @@ public class VueFinDePartie {
                 sousTitre.setText("L'Eau a atteint un niveau mortel");
                 break;
         }
-        sousTitre.setFont(new Font("Pieces of Eight", Font.PLAIN,50));
-        sousTitre.setHorizontalAlignment(JLabel.CENTER);
-        auxPanel.add(sousTitre);
-        auxPanel.add(new JLabel());
-        
-        
     }
     
     public static void main(String [] args) {
-        VueFinDePartie vue = new VueFinDePartie(0);
+        VueFinDePartie vue = new VueFinDePartie();
         vue.afficher();
     }
 
     private void afficher() {
         window.setVisible(true);
+    }
+    
+    public void setObservateur(Observateur o) {
+        observateur = o;
     }
 }
