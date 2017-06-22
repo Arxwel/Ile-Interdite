@@ -11,7 +11,11 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public abstract class Joueur {
 
@@ -283,8 +287,8 @@ public abstract class Joueur {
     public void utiliserHelico() {
         JOptionPane.showMessageDialog(null, "Si vous cliquez sur une tuile occupée par des personnes \n"
                     + "vous devez ensuite cliquer sur la tuile de destination"
-                    + "pour les transporter.\n"
-                    + "Si vous cliquez sur une tuile vide, cela vous téléportera dessus.");
+                    + " pour les transporter.\n"
+                    + "Si vous cliquez sur une tuile inoccupée, cela vous téléportera dessus.");
         ArrayList<Tuile> casesDispo = new ArrayList<>();
         Coordonnees coor = this.getPosition().getCoordonees();
         for (Tuile[] tArr: this.getPosition().getPlateau().getTuiles()) {
@@ -299,7 +303,7 @@ public abstract class Joueur {
         ArrayList<Joueur> groupe = new ArrayList<>(controleur.getLastCase().getLocataires());
         
         if(groupe.isEmpty()) {
-        this.deplacerHelico(casesDispo);
+            this.deplacerHelico(controleur.getLastCase());
         } else {
             deplacerHelico(casesDispo, groupe);
         }
@@ -318,7 +322,6 @@ public abstract class Joueur {
         }
         System.out.println("Vous êtes ici");
         controleur.surligner(dispo);
-        System.out.println("yiftyuitc");
         controleur.waitForInput();
         Tuile caseAss = controleur.getLastCase();
         System.out.println("Vous êtes là");
@@ -380,29 +383,32 @@ public abstract class Joueur {
         }
         ArrayList<String> cSpecialesName = new ArrayList<>();
         for (CarteTresor c : cSpeciales) {
-           cSpecialesName.add(c.getType().nameEsp());
+           cSpecialesName.add(c.getType().name());
         }
         while(choixCarte == null) {
-        choixCarte = (String) JOptionPane.showInputDialog(null, 
-        "Quelle carte spéciale voulez-vous utiliser ?",
-        "Carte Spéciale",
-        JOptionPane.QUESTION_MESSAGE, 
-        null, 
-        cSpecialesName.toArray(), 
-        cSpecialesName.toArray()[0]);
+        String[] bouton = {"OK"};
+        JPanel panel = new JPanel();
+        JLabel label = new JLabel("Quelle carte spéciale voulez-vous utiliser ?");
+        JComboBox txt = new JComboBox(cSpecialesName.toArray());
+        panel.add(label);
+        panel.add(txt);
+        int selectedOption = JOptionPane.showOptionDialog(null, panel, "Saisie de Nom", JOptionPane.NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, bouton , bouton[0]);
+
+        if(selectedOption == 0)
+        {
+            choixCarte = txt.getSelectedItem().toString();
         }
-        cSpeciales.removeAll(cSpeciales);
-            cSpecialesName.removeAll(cSpeciales);
-            int i =0;
-        if(choixCarte == TypeCarte.SpécialHélicoptère.nameEsp()) {
-            while(getMainJoueur().get(i).getType() != TypeCarte.SpécialHélicoptère) {
+        }
+        int i =0;
+        if(choixCarte == TypeCarte.SpécialHélicoptère.name()) {
+            while(i <getMainJoueur().size() && getMainJoueur().get(i).getType() != TypeCarte.SpécialHélicoptère) {
                 i++;
             }
             getMainJoueur().remove(i);
             getVueAventurier().update();
             this.utiliserHelico();
         } else {
-             while(getMainJoueur().get(i).getType() != TypeCarte.SpécialSacDeSable) {
+             while(i <getMainJoueur().size() && getMainJoueur().get(i).getType() != TypeCarte.SpécialSacDeSable) {
                 i++;
             }
             getMainJoueur().remove(i);
@@ -412,7 +418,6 @@ public abstract class Joueur {
         
         getVueAventurier().update();
     }
-
     public void assecher() {
         ArrayList<Tuile> casesDispo = new ArrayList<>(this.listerTuilesAssechables());
             controleur.surligner(casesDispo);
@@ -435,24 +440,14 @@ public abstract class Joueur {
         VueDonDeCartes don = new VueDonDeCartes(this, joueursechangeables);
     }
     
-    public void deplacerHelico(ArrayList<Tuile> tuileshelico) {
-            controleur.surligner(tuileshelico);
-            controleur.waitForInput();
-            Tuile caseDepl = controleur.getLastCase();
-            
-            
-            if (!tuileshelico.contains(caseDepl)) {
-                controleur.waitForInput();
-                caseDepl = controleur.getLastCase();
-            }
-            
+    public void deplacerHelico(Tuile t) {        
             Tuile tuileQuittee = this.getPosition();
             
-            System.out.println("deplacement de "+tuileQuittee.getIntitule()+" a "+caseDepl.getIntitule());
+            System.out.println("deplacement de "+tuileQuittee.getIntitule()+" a "+t.getIntitule());
             
             tuileQuittee.delLocataire(this);
-            this.setPosition(caseDepl);
-            caseDepl.addLocataire(this);
+            this.setPosition(t);
+            t.addLocataire(this);
             
             controleur.surligner(new ArrayList<Tuile>());
             System.out.println("Le Joueur est maintenant à"+this.getPosition().getIntitule());

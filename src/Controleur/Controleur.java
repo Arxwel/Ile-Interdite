@@ -15,7 +15,10 @@ import java.awt.Toolkit;
 import java.util.*;
 import java.util.Scanner;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 public class Controleur extends Observateur {
   
@@ -754,9 +757,19 @@ public class Controleur extends Observateur {
  
     //message d'erreur en cas de pseudo null
     public String fenetreNom(String Joueur) {
-        String nom;
-        JFrame frame = new JFrame("Saisie du Nom");
-        nom =JOptionPane.showInputDialog(frame, Joueur + " : Saisissez votre nom");
+        String nom = null;
+        String[] bouton = {"OK"};
+        JPanel panel = new JPanel();
+        JLabel label = new JLabel("Saisissez le nom du " + Joueur);
+        JTextField txt = new JTextField(10);
+        panel.add(label);
+        panel.add(txt);
+        int selectedOption = JOptionPane.showOptionDialog(null, panel, "Saisie de Nom", JOptionPane.NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, bouton , bouton[0]);
+
+        if(selectedOption == 0)
+        {
+            nom = txt.getText();
+        }
         return nom;
     }
 
