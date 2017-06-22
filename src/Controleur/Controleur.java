@@ -6,6 +6,7 @@ import Vue.VueEcranTitre;
 import Vue.VueInscription;
 import Vue.VuePlateau;
 import Vue.VueEcranTitre;
+import Vue.VueMonteeEaux;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.SystemColor;
@@ -16,8 +17,10 @@ import java.util.*;
 import java.util.Scanner;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import jdk.nashorn.internal.codegen.CompilerConstants;
 
 public class Controleur extends Observateur {
   
@@ -30,14 +33,13 @@ public class Controleur extends Observateur {
     
     private static Stack<CarteInondation> piocheInondation;
     private static Stack<CarteInondation> défausseInondation;
-    private static Stack<CarteInondation> cimetièreInondation;
     private static Stack<CarteTresor> piocheCarteTresor;
     private static Stack<CarteTresor> defausseCarteTresor;
     
     private static int numTour = 0;
     private static int nbact;
     private static boolean joueurMort = false;
-    private static boolean[] reliquesPrises = new boolean[4]; //Magenta(brasier) Orange(Zéphir) Gris(Globe(pété)) Cyan(Calice)
+    private static boolean[] reliquesPrises = new boolean[4]; //Magenta(brasier) Orange(Zéphir) Grey(Globe(pété)) Cyan(Calice)
     private static int niveauDEau;
     private int actionChoisie;
     
@@ -50,15 +52,23 @@ public class Controleur extends Observateur {
     
     private static VueInscription vueInscription;
     private static VueEcranTitre vueEcranTitre;
+    private static VueMonteeEaux monteeEau;
+    
+    private int difficulte = 1;
     
     private int finFinDeJeu;
     
     public Controleur() {
+        
+        lockAct =  new ReentrantLock();
+        conditionAct = lock.newCondition();
+        
         grille = new Grille();
+        
         joueurs = new ArrayList<>();
         piocheInondation = new Stack<>();
         défausseInondation = new Stack<>();
-        cimetièreInondation = new Stack<>();
+        defausseCarteTresor = new Stack<>();
         joueurActif = null;
         piocheCarteTresor = new Stack<>();
         
@@ -66,7 +76,6 @@ public class Controleur extends Observateur {
         vueEcranTitre.setObservateur(this);
         vueEcranTitre.afficher();
         this.waitForInput();
-        
         
         vueInscription = new VueInscription();
         vueInscription.setObservateur(this);
@@ -78,6 +87,9 @@ public class Controleur extends Observateur {
         vuePlateau = new VuePlateau(this);
         vuePlateau.setObservateur(this);
         vuePlateau.afficher();
+        
+        monteeEau = new VueMonteeEaux(difficulte);
+        monteeEau.setVisible(true);
     }
     
     /**
@@ -112,7 +124,7 @@ public class Controleur extends Observateur {
     /**
      * @param aDefausseCarteTresor the defausseCarteTresor to set
      */
-    private static void setDefausseCarteTresor(Stack<CarteTresor> aDefausseCarteTresor) {
+    public static void setDefausseCarteTresor(Stack<CarteTresor> aDefausseCarteTresor) {
         defausseCarteTresor = aDefausseCarteTresor;
     }
 
@@ -163,21 +175,58 @@ public class Controleur extends Observateur {
             switch (actionChoisie) {
                 case(1):
                     System.out.println("[Contr] Déplacer");
+                    joueurActif.getVueAventurier().desactiverBoutons();
                     joueurActif.déplacer();
                     break;
                 case(2):
+                    System.out.println("[Contr] Assecher");
+                    joueurActif.getVueAventurier().desactiverBoutons();
+                    joueurActif.assecher();
                     break;
                 case(3):
+                    System.out.println("[Contr] Donner Carte");
+                    joueurActif.getVueAventurier().desactiverBoutons();
+                    joueurActif.donnerCarte();
+                    this.waitForInput();
                     break;
                 case(4):
+                    System.out.print("[Contr] Prendre Relique ");
+                    joueurActif.getVueAventurier().desactiverBoutons();
+                    Color relique = joueurActif.getPosition().getReliqueDispo();
+                    switch(relique.toString()) {
+                        case("MAGENTA"):
+                            System.out.println("MAGENTA");
+                            reliquesPrises[0]=true;
+                            break;
+                        case("ORANGE"):
+                            System.out.println("ORANGE");
+                            reliquesPrises[1]=true;
+                            break;
+                        case("GRAY"):
+                            System.out.println("GRAY");
+                            reliquesPrises[2]=true;
+                            break;
+                        case("CYAN"):
+                            System.out.println("CYAN");
+                            reliquesPrises[3]=true;
+                            break;
+                    }
                     break;
                 case(5):
+                    System.out.println("[Contr] Carte Spéciale");
+                    joueurActif.getVueAventurier().desactiverBoutons();
+                    joueurActif.utiliserCarte();
                     break;
                 case(6):
+                    System.out.println("[Contr] Terminer Tour");
+                    joueurActif.getVueAventurier().desactiverBoutons();
+                    this.terminerTour();
                     break;
             }
-            this.attendreFinAction();
+            System.out.println("Action Finie");
             setNbact(getNbact() - 1);
+            //piocherCarteTresorFinTour();
+            //piocherCarteInondeFinTour(difficulte);
             vuePlateau.update();
         }
     }
@@ -190,9 +239,10 @@ public class Controleur extends Observateur {
         for (int i=0; i<4; i++) {
             reliquesPrises[i] = false;
         }
-        niveauDEau = 1;
-        //distribution des cartes
         
+        difficulte = 1;
+        
+        //distribution des cartes
         for (Joueur j: getJoueurs()) {
             System.out.println("Distribution à "+j.getNom());
             for (int i=0; i<4; i++) {
@@ -204,9 +254,8 @@ public class Controleur extends Observateur {
                 } else {
                     j.getMainJoueur().add(c);
                 }
-          }
-        }
-        
+            }
+        } 
     }
     
     public void play() {
@@ -312,9 +361,12 @@ public class Controleur extends Observateur {
     }
 	
     //Assure que le joueur a moins de 6 cartes en main et propose l'utilisation ou la défausse de cartes
-    private static void verifMain(Joueur joueur) {   
-        while (joueur.getMainJoueur().size() >= 6) {
-            System.out.println(joueur.getNom() + " a trop de cartes en main. Il doit en défausser jusqu'à en avoir 5 au plus.");
+    private static void verifMain(Joueur joueur) {  
+        while (joueurActif.getMainJoueur().size() >= 6) {
+            joueur.getVueAventurier().desactiverBoutons();
+            joueur.defausserCarte();
+        }    
+            /*System.out.println(joueur.getNom() + " a trop de cartes en main. Il doit en défausser jusqu'à en avoir 5 au plus.");
             CarteTresor cs1 = new CarteTresor(TypeCarte.SpécialHélicoptère);
             CarteTresor cs2 = new CarteTresor(TypeCarte.SpécialSacDeSable);
             CarteTresor cr1 = new CarteTresor(TypeCarte.TresorCyan);
@@ -403,13 +455,14 @@ public class Controleur extends Observateur {
                         }
                     }
                 }
-            }
-        }
+            }*/
+        //}
     }
     
     
     public void terminerTour() {
         setNbact(0);
+        System.out.println("Terminance du Tour");
     }
     
     
@@ -665,28 +718,6 @@ public class Controleur extends Observateur {
         
     }
     
-    
-
-    public void signalerFinAction() {
-        lockAct.lock();
-        try{
-            conditionAct.signal();
-        } finally {
-            lockAct.unlock();
-        }
-    }
-
-    private void attendreFinAction() {
-        lockAct.lock();
-        try {
-            conditionAct.await();
-        } catch (InterruptedException ex) {
-            
-        } finally {
-            lockAct.unlock();
-        }
-    }
-    
     public Tuile getLastCase() {
         return lastCase;
     }
@@ -699,7 +730,7 @@ public class Controleur extends Observateur {
     public String fenetreNom(String Joueur) {
         String nom;
         JFrame frame = new JFrame("Saisie du Nom");
-        nom = JOptionPane.showInputDialog(frame, Joueur + " : Saisissez votre nom");
+        nom =JOptionPane.showInputDialog(frame, Joueur + " : Saisissez votre nom");
         return nom;
     }
 
@@ -707,33 +738,92 @@ public class Controleur extends Observateur {
     public void traiterMessagePlateau(MessagePlateau msg) {
         System.out.println(msg.getCoo().getX()+" "+msg.getCoo().getY()+" a été cliqué.");
         lastCase = grille.getTuile(msg.getCoo().getX(), msg.getCoo().getY());
-        this.notifierPlateau();
+        this.notifier();
     }
 
     @Override
     public void traiterMessageAventurier(MessageAventurier msg) {
-        System.out.println("Le Joueur "+msg.getJoueur().getNom()+" a cliqué "+msg.getType().toString());
+        System.out.print("Le Joueur "+msg.getJoueur().getNom());
         switch(msg.getType().toString()){
             case ("Deplacer"):
+                System.out.println("a cliqué sur Deplacer");
                 actionChoisie=1;
                 this.notifier();
                 break;
             case ("Assecher"):
+                System.out.println("a cliqué sur Assecher");
                 actionChoisie=2;
+                this.notifier();
                 break;
             case ("Donner"):
+                System.out.println("a cliqué sur Donner");
                 actionChoisie=3;
+                this.notifier();
                 break;
             case ("PrendreRelique"):
+                System.out.println("a cliqué sur PrendreRelique");
                 actionChoisie=4;
+                this.notifier();
                 break;
             case ("CarteSpe"):
+                System.out.println("a cliqué sur CarteSpe");
                 actionChoisie=5;
+                this.notifier();
                 break;
-            case (" TerminerTour"):
+            case ("TerminerTour"):
+                System.out.println("a cliqué sur TerminerTour");
                 actionChoisie=6;
+                this.notifier();
                 break;
         }
     }
-
+    
+    public void piocherCarteTresorFinTour() {
+        CarteTresor carteTresorFinTour;
+        if (piocheCarteTresor.isEmpty()) {
+            for (int i = 0; i < defausseCarteTresor.capacity(); i++) {
+                carteTresorFinTour = defausseCarteTresor.firstElement();
+                piocheCarteTresor.add(carteTresorFinTour);
+            }
+            Collections.shuffle(piocheCarteTresor);
+        }
+        
+        for (int i = 0; i < 2; i++) {
+            piocherCarte(joueurActif);
+            
+        }
+    }
+    
+    public void piocherCarteInondeFinTour(int difficulte) {
+        CarteInondation carteInondeFinTour;
+        if (piocheInondation.isEmpty()) {
+            for (int i = 0; i < défausseInondation.capacity(); i++) {
+                carteInondeFinTour = défausseInondation.firstElement();
+                piocheInondation.add(carteInondeFinTour);
+            }
+            Collections.shuffle(piocheInondation);
+        }
+        
+        int niveauEau = 2;
+        if (difficulte == 1 || difficulte == 2) {
+            niveauEau = 2;
+        } else if (difficulte == 3 || difficulte == 4 || difficulte == 5) {
+            niveauEau = 3;
+        } else if (difficulte == 6 || difficulte == 7) {
+            niveauEau = 4;
+        } else if (difficulte == 8 || difficulte == 9) {
+            niveauEau = 5;
+        }
+        for (int i = 0; i < niveauEau; i++) {
+            carteInondeFinTour = piocheInondation.firstElement();
+            if (carteInondeFinTour.getTuile().getEtat() == Etat.Sec) {
+                carteInondeFinTour.getTuile().setEtat(Etat.Inondé);
+                piocheInondation.remove(carteInondeFinTour);
+                défausseInondation.add(carteInondeFinTour);
+            } else if (carteInondeFinTour.getTuile().getEtat() == Etat.Inondé) {
+                carteInondeFinTour.getTuile().setEtat(Etat.Sombré);
+                piocheInondation.remove(carteInondeFinTour);
+            }
+        }
+    }
 }

@@ -17,21 +17,21 @@ import javax.swing.JPanel;
  *
  * @author salmona
  */
-public class VueMonteeEaux extends JFrame{
+public class VueMonteeEaux extends JFrame {
     private ImageIcon image ;
     private JPanel mainPanel;
     private JLabel imgCarte;
     
     public VueMonteeEaux(int niveau) {
         super();
-        this.setSize(310, 700);
-        mainPanel = new JPanel();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setSize((int) (dim.getWidth()*0.15), (int) (dim.getHeight()*0.5));
+        mainPanel = new JPanel();
         this.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
-        this.setLocation(1550, 20); //dim.height/2-window.getSize().height/2
+        this.setLocation((int) (dim.getWidth()*0.8), (int) (dim.getHeight()*0.01));
         image = new ImageIcon(this.getClass().getResource("/resources/niveauDesEaux"+niveau+".png"));
-        imgCarte = new JLabel(new ImageIcon(image.getImage().getScaledInstance(320,745, Image.SCALE_DEFAULT)));
+        imgCarte = new JLabel(new ImageIcon(image.getImage().getScaledInstance((int) (dim.getWidth()*0.12), (int) (dim.getHeight()*0.52), Image.SCALE_DEFAULT)));
         mainPanel.add(imgCarte);
         this.add(mainPanel);
        
@@ -39,8 +39,9 @@ public class VueMonteeEaux extends JFrame{
     
     public void monteDesEaux(int niveau) {
         this.mainPanel.remove(imgCarte);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         image = new ImageIcon(this.getClass().getResource("/resources/niveauDesEaux"+niveau+".png"));
-        imgCarte = new JLabel(new ImageIcon(image.getImage().getScaledInstance(320,745, Image.SCALE_DEFAULT)));
+        imgCarte = new JLabel(new ImageIcon(image.getImage().getScaledInstance((int) (dim.getWidth()*0.12), (int) (dim.getHeight()*0.56), Image.SCALE_DEFAULT)));
         mainPanel.add(imgCarte);
         this.validate();
         this.repaint();

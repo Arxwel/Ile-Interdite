@@ -2,6 +2,8 @@ package Modèle;
 
 import Controleur.Controleur;
 import Vue.VueAventurier;
+import Vue.VueDefausse;
+import Vue.VueDonDeCartes;
 import java.awt.Color;
 import java.util.*;
 import java.util.Scanner;
@@ -46,30 +48,17 @@ public abstract class Joueur {
                }
            }
            return tuileslibres;
-	}
-
-        //Gère l'assèchement des cases par les joueurs
-	public void assécher() {
-		// TODO - implement Joueur.assécher
-            ArrayList<Tuile> tuilesInon = new ArrayList<>(listerTuilesAssechables());
-            
-            Integer i = 0;
-            for (Tuile t: tuilesInon) {
-                System.out.println(i);
-                System.out.println(t.getIntitule().toString());
-                i++;
-            }
-            System.out.println("Choisissez:");
-            String choix = sc.nextLine();
-            
-            Tuile tuileAAssecher = tuilesInon.get(Integer.getInteger(choix));            
-            tuileAAssecher.setEtat(Etat.Sec);
-
+           
 	}
 
         //Gère l'action "donner carte"
-	public void donnerCarte(Joueur jDest) {
-		// TODO - implement Joueur.prendreTrésor
+	public void donnerCarte(Joueur jDest, CarteTresor cRecue) {
+		jDest.getMainJoueur().add(cRecue);
+                this.getMainJoueur().remove(cRecue);
+                this.vueAventurier.getWindow().validate();
+                this.vueAventurier.update();
+                jDest.vueAventurier.getWindow().validate();
+                jDest.vueAventurier.update();
             
 	}
         
@@ -93,10 +82,10 @@ public abstract class Joueur {
             
             Integer i = 0;
             controleur.surligner(casesDispo);
-            controleur.waitForInputPlateau();
+            controleur.waitForInput();
             Tuile caseDepl = controleur.getLastCase();
             if (!casesDispo.contains(caseDepl)) {
-                controleur.waitForInputPlateau();
+                controleur.waitForInput();
                 caseDepl = controleur.getLastCase();
             }
             Tuile tuileQuittee = this.getPosition();
@@ -109,7 +98,6 @@ public abstract class Joueur {
             
             controleur.surligner(new ArrayList<Tuile>());
             System.out.println("Le Joueur est maintenant à"+this.getPosition().getIntitule());
-            controleur.signalerFinAction();
 	}
 
         //lister les cases que le joueur peut assécher en usant une seule action
@@ -122,7 +110,7 @@ public abstract class Joueur {
            }
 
            for (Tuile t: this.getPosition().getAdjacent()) {
-               if (t.getEtat()==Etat.Sec) {
+               if (t.getEtat()==Etat.Inondé) {
                    tuilesAss.add(t);
                }
            }
@@ -218,8 +206,15 @@ public abstract class Joueur {
         
         //gère la défausse d'une carte
         public void defausserCarte(CarteTresor c) {
-            //ajouter la carte à la pile de défausse
-            this.getMainJoueur().remove(c);
+            controleur.getDefausseCarteTresor().add(c);
+            this.getMainJoueur().remove(c);            
+            this.vueAventurier.getWindow().validate();
+            this.vueAventurier.update();
+        }
+        
+        public void defausserCarte() {
+            VueDefausse defausse = new VueDefausse(this);
+            this.controleur.waitForInput();
         }
         
         //gère l'utilisation de cartes spéciales (sac de sable, hélicoptère)
@@ -290,16 +285,32 @@ public abstract class Joueur {
         this.image = image;
     }
 
-    public void donCarte() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public void prendreRelique() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     public void utiliserCarte() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public void assecher() {
+        ArrayList<Tuile> casesDispo = new ArrayList<>(this.listerTuilesAssechables());
+            
+            Integer i = 0;
+            controleur.surligner(casesDispo);
+            controleur.waitForInput();
+            Tuile caseAss = controleur.getLastCase();
+            if (!casesDispo.contains(caseAss)) {
+                controleur.waitForInput();
+                caseAss = controleur.getLastCase();
+            }
+            
+            System.out.println("Asséchance de "+caseAss.getIntitule());
+            caseAss.setEtat(Etat.Sec);
+            
+            
+            controleur.surligner(new ArrayList<Tuile>());
+            System.out.println("Le Joueur est maintenant à"+this.getPosition().getIntitule());
+    }
+
+    public void donnerCarte() {
+        ArrayList<Joueur> joueursechangeables = new ArrayList<>(position.getLocataires());
+        VueDonDeCartes don = new VueDonDeCartes(this, joueursechangeables);
+    }
 }

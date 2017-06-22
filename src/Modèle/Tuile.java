@@ -20,25 +20,10 @@ public class Tuile {
             setCoordonees(coo);
             locataires = new ArrayList<>();
             plateau = grille;
-            if(null == etat) {
-                image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.png"));
-            } else switch (etat) {
-                case Sec:
-                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/"+nom.name()+".png"));
-                    break;
-                case Inondé:
-                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/"+nom.name()+"2.png"));
-                    break;
-                case Sombré:
-                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/EauSombree.png"));
-                    break;    
-                default:
-                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.png"));
-                    break;
-            }
-
-          
+            
+            this.setImage();
         }
+        
         
         public Tuile(Zone nom, Etat etat, Grille grille, Coordonnees coo, Color reliqueDispo) {
             setIntitule(nom);
@@ -47,22 +32,26 @@ public class Tuile {
             locataires = new ArrayList<>();
             plateau = grille;
             this.reliqueDispo = reliqueDispo; //quand relique recuperée supprimer reliqueDispo ou changer la couleur dans un truc qui n'existe pas
+        }
+        
+        public void setImage() {
             if(null == etat) {
                 image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.png"));
             } else switch (etat) {
                 case Sec:
-                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/"+nom.name()+".png"));
+                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/"+this.getIntitule().name()+".png"));
                     break;
                 case Inondé:
-                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/"+nom.name()+"2.png"));
+                    image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/"+this.getIntitule().name()+"2.png"));
                     break;
                 case Sombré:
                     image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/EauSombree.png"));
-                    break;
+                    break;    
                 default:
                     image = new ImageIcon(this.getClass().getResource("/ImagesTuiles/Eau.png"));
                     break;
             }
+            
         }
         
         public ArrayList<Tuile> getDiagonales() {
@@ -91,7 +80,7 @@ public class Tuile {
             int[][] deltaCoo = {{1,0},{-1,0},{0,1},{0,-1}};
             for (int[] tabI:deltaCoo) {
                 int[] cooATest = {coo.getX()+tabI[0],coo.getY()+tabI[1]};
-                if (cooATest[0]>0&&cooATest[0]<6&&cooATest[1]>0&&cooATest[1]<6) {
+                if (cooATest[0]>=0&&cooATest[0]<6&&cooATest[1]>=0&&cooATest[1]<6) {
                     t = g.getTuile(cooATest[0],cooATest[1]);
                     if (t!=null) {
                         tuilesAdj.add(t);
@@ -157,8 +146,9 @@ public class Tuile {
     /**
      * @param etat the etat to set
      */
-    protected void setEtat(Etat etat) {
+    public void setEtat(Etat etat) {
         this.etat = etat;
+        setImage();
     }
 
     /**

@@ -18,15 +18,10 @@ public abstract class Observateur {
     Lock lock;
     private Condition condition;
     
-    private Lock lockPlat;
-    private Condition conditionPlat;
-    
     
     public Observateur() {
         lock =  new ReentrantLock();
-        lockPlat =  new ReentrantLock();
         condition = lock.newCondition();
-        conditionPlat = lock.newCondition();
         
     }
     
@@ -54,26 +49,6 @@ public abstract class Observateur {
             condition.signal();
         } finally {
             lock.unlock();
-        }
-    }
-    
-    public void waitForInputPlateau() {
-        lockPlat.lock();
-        try {
-            conditionPlat.await();
-        } catch (InterruptedException ex) {
-            
-        } finally {
-            lockPlat.unlock();
-        }
-    }
-    
-    public void notifierPlateau() {
-        lockPlat.lock();
-        try{
-            condition.signal();
-        } finally {
-            lockPlat.unlock();
         }
     }
     
