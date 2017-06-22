@@ -2,8 +2,6 @@ package Modèle;
 
 import java.awt.Color;
 import java.util.*;
-import java.util.Arrays;
-
 public class Grille {
 
     Tuile[][] tuiles;

@@ -1,8 +1,6 @@
 package Vue;
 
 
-import Controleur.Controleur;
-import Controleur.Message;
 import Controleur.MessageAventurier;
 import Controleur.Observateur;
 import Controleur.TypeMessage;
@@ -16,7 +14,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 import Modèle.*;

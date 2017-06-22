@@ -8,14 +8,11 @@ import java.awt.Color;
 import java.util.*;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 public abstract class Joueur {
 
@@ -92,8 +89,12 @@ public abstract class Joueur {
                 controleur.addRelique(1);
                 System.out.println("relique orange");
             }
+            int n = 0;
             for(CarteTresor c: this.getMainJoueur()) {
-                aSupr.add(c);
+                if (c.getType() == compType&&n<5){
+                    aSupr.add(c);
+                    n++;
+                }
             }
             for (CarteTresor c: aSupr) {
                 this.defausserCarte(c);
@@ -453,27 +454,27 @@ public abstract class Joueur {
             System.out.println("Le Joueur est maintenant à"+this.getPosition().getIntitule());
     }
     
-        public void deplacerHelico(ArrayList<Tuile> tuileshelico, ArrayList<Joueur> groupe) {
-            controleur.surligner(tuileshelico);
+    public void deplacerHelico(ArrayList<Tuile> tuileshelico, ArrayList<Joueur> groupe) {
+        controleur.surligner(tuileshelico);
+        controleur.waitForInput();
+        Tuile caseDepl = controleur.getLastCase();
+
+
+        if (!tuileshelico.contains(caseDepl)) {
             controleur.waitForInput();
-            Tuile caseDepl = controleur.getLastCase();
-            
-            
-            if (!tuileshelico.contains(caseDepl)) {
-                controleur.waitForInput();
-                caseDepl = controleur.getLastCase();
-            }
-            
-            for(Joueur j : groupe) {
-            Tuile tuileQuittee = j.getPosition();
-            System.out.println("deplacement de "+tuileQuittee.getIntitule()+" a "+caseDepl.getIntitule());
-            tuileQuittee.delLocataire(j);
-            j.setPosition(caseDepl);
-            caseDepl.addLocataire(j);
-            System.out.println("Le Joueur est maintenant à"+this.getPosition().getIntitule());
-            }
-            
-            controleur.surligner(new ArrayList<Tuile>());
+            caseDepl = controleur.getLastCase();
+        }
+
+        for(Joueur j : groupe) {
+        Tuile tuileQuittee = j.getPosition();
+        System.out.println("deplacement de "+tuileQuittee.getIntitule()+" a "+caseDepl.getIntitule());
+        tuileQuittee.delLocataire(j);
+        j.setPosition(caseDepl);
+        caseDepl.addLocataire(j);
+        System.out.println("Le Joueur est maintenant à"+this.getPosition().getIntitule());
+        }
+
+        controleur.surligner(new ArrayList<Tuile>());
     }
 
     
