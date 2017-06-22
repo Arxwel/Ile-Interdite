@@ -2,7 +2,6 @@ package Modèle;
 
 import Controleur.Controleur;
 import Vue.VueAventurier;
-import Vue.VueCarteSpe;
 import Vue.VueDefausse;
 import Vue.VueDonDeCartes;
 import java.awt.Color;
@@ -78,7 +77,7 @@ public abstract class Joueur {
                 System.out.println("relique magenta");
             } else if(relique == Color.CYAN){
                 compType = TypeCarte.TresorCyan;
-                controleur.addRelique(1);
+                controleur.addRelique(3);
                 System.out.println("relique cyan");
             } else if(relique == Color.GRAY){
                 compType = TypeCarte.TresorGray;
@@ -86,7 +85,7 @@ public abstract class Joueur {
                 System.out.println("relique gray");
             } else {
                 compType = TypeCarte.TresorOrange;
-                controleur.addRelique(3);
+                controleur.addRelique(1);
                 System.out.println("relique orange");
             }
             for(CarteTresor c: this.getMainJoueur()) {
