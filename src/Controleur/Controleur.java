@@ -2,10 +2,12 @@ package Controleur;
 
 
 import Modèle.*;
+import Vue.VueAventurier;
 import Vue.VueEcranTitre;
 import Vue.VueInscription;
 import Vue.VuePlateau;
 import Vue.VueEcranTitre;
+import Vue.VueFinDePartie;
 import Vue.VueMonteeEaux;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -52,9 +54,14 @@ public class Controleur extends Observateur {
     
     private static VueInscription vueInscription;
     private static VueEcranTitre vueEcranTitre;
-    private static VueMonteeEaux monteeEau;
+    private static VueFinDePartie vueFinDePartie;
+    private static VueMonteeEaux vueMonteeEau;
+    private static VueAventurier vj1,vj2,vj3,vj4;
+    private ArrayList<VueAventurier> vuesAventuriers;
     
     private int difficulte = 1;
+    
+    private int finDeJeu;
     
     public Controleur() {
         
@@ -86,8 +93,51 @@ public class Controleur extends Observateur {
         vuePlateau.setObservateur(this);
         vuePlateau.afficher();
         
-        monteeEau = new VueMonteeEaux(difficulte);
-        monteeEau.setVisible(true);
+        vueFinDePartie = new VueFinDePartie();
+        vueFinDePartie.setObservateur(this);
+        
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        
+        vj1 = new VueAventurier(this.getJoueurs().get(0));
+        this.getJoueurs().get(0).setVueAventurier(vj1);
+        vj1.getWindow().setLocation((int) (dim.getWidth()*0.01), (int) (dim.getHeight()*0.015));
+        vj1.getWindow().setVisible(true);
+        vj1.setObservateur(this);
+        
+        vj2 = new VueAventurier(this.getJoueurs().get(1));
+        this.getJoueurs().get(1).setVueAventurier(vj2);
+        vj2.getWindow().setLocation((int) (dim.getWidth()*0.01), (int) (dim.getHeight()*0.245));
+        vj2.getWindow().setVisible(true);
+        vj2.setObservateur(this);
+        
+        if(this.getJoueurs().size() >=3) {
+            vj3 = new VueAventurier(this.getJoueurs().get(2));
+            this.getJoueurs().get(2).setVueAventurier(vj3);
+            vj3.getWindow().setLocation((int) (dim.getWidth()*0.01), (int) (dim.getHeight()*0.475));
+            vj3.getWindow().setVisible(true);
+            vj3.setObservateur(this);
+        }
+        
+        if(this.getJoueurs().size() ==4) {
+            vj4 = new VueAventurier(this.getJoueurs().get(3));
+            this.getJoueurs().get(3).setVueAventurier(vj4);
+            vj4.getWindow().setLocation((int) (dim.getWidth()*0.01), (int) (dim.getHeight()*0.705));
+            vj4.getWindow().setVisible(true);
+            vj4.setObservateur(this);
+        }
+        
+        vuesAventuriers = new ArrayList<VueAventurier>();
+        vuesAventuriers.add(vj1);
+        vuesAventuriers.add(vj2);
+        if (this.getJoueurs().size()>2){
+            vuesAventuriers.add(vj3);
+            if (this.getJoueurs().size()==4){
+                vuesAventuriers.add(vj4);
+            }
+        }
+        
+        vueMonteeEau = new VueMonteeEaux(difficulte);
+        vueMonteeEau.setVisible(true);
     }
     
     /**
@@ -131,7 +181,6 @@ public class Controleur extends Observateur {
     
     //décompte le nombre d'actions disponibles pour le joueur et propose les actions en fonction de leur disponibilité
     public void débutTour() {
-        verifMain(joueurActif);
         if (joueurActif.getCouleur()==Color.YELLOW) {
             setNbact(4);
         } else {
@@ -223,9 +272,6 @@ public class Controleur extends Observateur {
             }
             System.out.println("Action Finie");
             setNbact(getNbact() - 1);
-            //piocherCarteTresorFinTour();
-            //piocherCarteInondeFinTour(difficulte);
-            vuePlateau.update();
         }
     }
     
@@ -260,12 +306,28 @@ public class Controleur extends Observateur {
         //Boucle de jeu
         while (!isPartieFinie()) {
             setJoueurActif();
-            débutTour();
+            débutTour(); 
+            piocherCarteTresorFinTour();
+            verifMain(joueurActif);
+            piocherCarteInondeFinTour(difficulte);
+            vuePlateau.update();
+            for (VueAventurier v: vuesAventuriers) {
+                v.update();
+            }
             numTour++;
-        }    
+        }
+        System.err.println("GAME OVER");
+        vuePlateau.dispose();
+        for (VueAventurier v: vuesAventuriers) {
+            v.dispose();
+        }
+        vueMonteeEau.dispose();
+        vueFinDePartie.update(finDeJeu);
+        vueFinDePartie.afficher();
+        this.waitForInput();
     } 
     
-    private static boolean isPartiePerdue(){
+    private boolean isPartiePerdue(){
         boolean resultat = false;
         // L'Héliport est il sombré?
         for (int x=0; x<6; x++) {
@@ -273,39 +335,58 @@ public class Controleur extends Observateur {
                 Tuile t = grille.getTuile(x,y);
                 if (t!=null&&t.getIntitule()==Zone.Heliport&&t.getEtat()==Etat.Sombré) {
                         resultat = true;
+                        finDeJeu = 1;
                 }
             }
         }
         // Un joueur est il "mort"?
-        resultat = (resultat||joueurMort);
+        if (joueurMort) {
+            resultat = true;
+            finDeJeu = 2;
+        }
         // La récupération des reliques manquantes est elle possible?
         for (int i=0; i<4; i++) {
             if (!reliquesPrises[i]) {
                 switch(i) {
                     case(0):
-                        resultat = (resultat||(grille.getTuile(Zone.LaCaverneDesOmbres).isSombre()&&grille.getTuile(Zone.LaCaverneDuBrasier).isSombre()));
+                        if(grille.getTuile(Zone.LaCaverneDesOmbres).isSombre()&&grille.getTuile(Zone.LaCaverneDuBrasier).isSombre()){
+                           resultat=true;
+                           finDeJeu = 3;
+                        }
                         break;
                     case(1):
-                        resultat = (resultat||(grille.getTuile(Zone.LeJardinDesHurlements).isSombre()&&grille.getTuile(Zone.LeJardinDesMurmures).isSombre()));
+                        if(grille.getTuile(Zone.LeJardinDesHurlements).isSombre()&&grille.getTuile(Zone.LeJardinDesMurmures).isSombre()){
+                           resultat=true;
+                           finDeJeu = 3;
+                        }
                         break;
                     case(2):
-                        resultat = (resultat||(grille.getTuile(Zone.LeTempleDeLaLune).isSombre()&&grille.getTuile(Zone.LeTempleDuSoleil).isSombre()));
+                        if(grille.getTuile(Zone.LeTempleDeLaLune).isSombre()&&grille.getTuile(Zone.LeTempleDuSoleil).isSombre()){
+                           resultat=true;
+                           finDeJeu = 3;
+                        }
                         break;
                     case(3):
-                        resultat = (resultat||(grille.getTuile(Zone.LePalaisDeCorail).isSombre()&&grille.getTuile(Zone.LePalaisDesMarees).isSombre()));
+                        if(grille.getTuile(Zone.LePalaisDeCorail).isSombre()&&grille.getTuile(Zone.LePalaisDesMarees).isSombre()){
+                           resultat=true;
+                           finDeJeu = 3;
+                        }
                         break;
-                    
                 }
             }
         }
         // Le niveau d'eau est il mortel
-        resultat = (resultat||niveauDEau>9);
+        if (niveauDEau>9){
+             resultat = true;
+             finDeJeu = 4;
+        }
+       
         
         
         return resultat;
     }
     
-    private static boolean isPartieGagnée(){
+    private boolean isPartieGagnée(){
         //Les joueurs sont ils tout les 4 sur l'héliport, ont ils les 4 reliques, ont ils au moins une carte hélicoptère
         boolean resultat = false;
         if (grille.getTuile(Zone.Heliport).getLocataires().size()==joueurs.size()) {
@@ -320,15 +401,17 @@ public class Controleur extends Observateur {
                     for (CarteTresor c: j.getMainJoueur()){
                         if (c.getType()==TypeCarte.SpécialHélicoptère) {
                             resultat = true;
+                            finDeJeu = 0;
                         }
                     }
                 }
             }
         }
+        
         return resultat;
     }
     
-    private static boolean isPartieFinie() {
+    private boolean isPartieFinie() {
         return (isPartiePerdue() || isPartieGagnée());
     }
 
@@ -354,97 +437,6 @@ public class Controleur extends Observateur {
             joueur.getVueAventurier().desactiverBoutons();
             joueur.defausserCarte();
         }    
-            /*System.out.println(joueur.getNom() + " a trop de cartes en main. Il doit en défausser jusqu'à en avoir 5 au plus.");
-            CarteTresor cs1 = new CarteTresor(TypeCarte.SpécialHélicoptère);
-            CarteTresor cs2 = new CarteTresor(TypeCarte.SpécialSacDeSable);
-            CarteTresor cr1 = new CarteTresor(TypeCarte.TresorCyan);
-            CarteTresor cr2 = new CarteTresor(TypeCarte.TresorGray);
-            CarteTresor cr3 = new CarteTresor(TypeCarte.TresorMagenta);
-            CarteTresor cr4 = new CarteTresor(TypeCarte.TresorOrange);
-            for (int i = 1; i<joueur.getMainJoueur().size(); i++) {
-                int choix;
-                
-                if (joueur.getMainJoueur().get(i).equals(cs1)) {
-                    System.out.println("Carte Hélicoptère. Choisissez votre action: Utiliser (1) ou Passer à la carte suivante (2).");
-                    choix = sc.nextInt();
-                    if (sc.hasNextInt(choix) && choix<4) {
-                        switch (choix-1) {
-                            case 0:
-                                joueur.defausserCarte(cs1);
-                                break;
-                            case 1:
-                                break;
-                                
-                        }
-                    }
-                } else if (joueur.getMainJoueur().get(i).equals(cs2)) {
-                    System.out.println("Carte Sac de sable. Choisissez votre action: Utiliser (1) ou Passer à la carte suivante (2).");
-                    choix = sc.nextInt();
-                    if (sc.hasNextInt(choix) && choix<4) {
-                        switch (choix-1) {
-                            case 0:
-                                joueur.defausserCarte(cs2);
-                                break;
-                            case 1:
-                                break;
-                                
-                        }
-                    }
-                } else if (joueur.getMainJoueur().get(i).equals(cr1)) {
-                    System.out.println("Carte relique Cyan. Choisissez votre action: Defausser (1) ou Passer à la carte suivante (2).");
-                    choix = sc.nextInt();
-                    if (sc.hasNextInt(choix) && choix<4) {
-                        switch (choix-1) {
-                            case 0:
-                                joueur.defausserCarte(cr1);
-                                break;
-                            case 1:
-                                break;
-                                
-                        }
-                    }
-                } else if (joueur.getMainJoueur().get(i).equals(cr2)) {
-                    System.out.println("Carte relique Grise. Choisissez votre action: Defausser (1) ou Passer à la carte suivante (2).");
-                    choix = sc.nextInt();
-                    if (sc.hasNextInt(choix) && choix<4) {
-                        switch (choix-1) {
-                            case 0:
-                                joueur.defausserCarte(cr2);
-                                break;
-                            case 1:
-                                break;
-                                
-                        }
-                    }
-                } else if (joueur.getMainJoueur().get(i).equals(cr3)) {
-                    System.out.println("Carte relique Magenta. Choisissez votre action: Defausser (1) ou Passer à la carte suivante (2).");
-                    choix = sc.nextInt();
-                    if (sc.hasNextInt(choix) && choix<4) {
-                        switch (choix-1) {
-                            case 0:
-                                joueur.defausserCarte(cr3);
-                                break;
-                            case 1:
-                                break;
-                                
-                        }
-                    }
-                } else if (joueur.getMainJoueur().get(i).equals(cr4)) {
-                    System.out.println("Carte relique Orange. Choisissez votre action: Defausser (1) ou Passer à la carte suivante (2).");
-                    choix = sc.nextInt();
-                    if (sc.hasNextInt(choix) && choix<4) {
-                        switch (choix-1) {
-                            case 0:
-                                joueur.defausserCarte(cr4);
-                                break;
-                            case 1:
-                                break;
-                                
-                        }
-                    }
-                }
-            }*/
-        //}
     }
     
     
@@ -479,13 +471,16 @@ public class Controleur extends Observateur {
            piocheCarteTresor.add(new CarteTresor(TypeCarte.SpécialSacDeSable));
         }
         Collections.shuffle(piocheCarteTresor);
+        System.out.println(piocheCarteTresor.size());
     }
     
     //met les bonnes cartes dans la pioche inondation et les mélange
     private static void initPiocheInondation() {
         for (Tuile[] tArray: grille.getTuiles()) {
             for (Tuile t: tArray) {
-                piocheInondation.add(new CarteInondation(t));
+                if (t!=null&&t.getEtat()!=Etat.Sombré){
+                    piocheInondation.add(new CarteInondation(t));
+                }
             }
         }
         Collections.shuffle(piocheInondation);
@@ -493,7 +488,21 @@ public class Controleur extends Observateur {
     
     // gère l'action "donner carte"
     private static void piocherCarte(Joueur j) {
-        j.getMainJoueur().add(piocheCarteTresor.firstElement());
+        
+        System.out.println(piocheCarteTresor.size());
+        if (piocheCarteTresor.isEmpty()) {
+            System.out.println("Pioche carte tresor vide.");
+            
+            piocheCarteTresor.addAll(defausseCarteTresor);
+            defausseCarteTresor.clear();
+            
+            Collections.shuffle(piocheCarteTresor);
+            System.out.println("La défausse vient d'etre mélangée pour reformer la pioche.");
+        }
+        
+        CarteTresor carte = piocheCarteTresor.firstElement();
+        j.getMainJoueur().add(carte);
+        System.out.println("Carte Piochée"+carte.getType().toString());
         piocheCarteTresor.remove(0);
     }
     
@@ -702,6 +711,8 @@ public class Controleur extends Observateur {
                 vueEcranTitre.fermer();
                 this.notifier();
             break;
+            case ("Rejouer") :
+            break;
         }
         
     }
@@ -768,28 +779,33 @@ public class Controleur extends Observateur {
     
     public void piocherCarteTresorFinTour() {
         CarteTresor carteTresorFinTour;
-        if (piocheCarteTresor.isEmpty()) {
-            for (int i = 0; i < defausseCarteTresor.capacity(); i++) {
-                carteTresorFinTour = defausseCarteTresor.firstElement();
-                piocheCarteTresor.add(carteTresorFinTour);
-            }
-            Collections.shuffle(piocheCarteTresor);
-        }
+        
         
         for (int i = 0; i < 2; i++) {
             piocherCarte(joueurActif);
-            
+            CarteTresor cartePiochee = joueurActif.getMainJoueur().get(joueurActif.getMainJoueur().size()-1);
+            if(cartePiochee.getType() == TypeCarte.MontéeEaux ) {
+                monteeEau();
+                joueurActif.getMainJoueur().remove(cartePiochee);
+                System.out.println(joueurActif.getNom() + "vient de piocher: " + cartePiochee);
+            }
+        }
+        for (VueAventurier v: vuesAventuriers) {
+            v.update();
         }
     }
     
     public void piocherCarteInondeFinTour(int difficulte) {
         CarteInondation carteInondeFinTour;
         if (piocheInondation.isEmpty()) {
+            System.out.println("Pioche carte inondation vide.");
             for (int i = 0; i < défausseInondation.capacity(); i++) {
                 carteInondeFinTour = défausseInondation.firstElement();
                 piocheInondation.add(carteInondeFinTour);
+                défausseInondation.remove(carteInondeFinTour);
             }
             Collections.shuffle(piocheInondation);
+            System.out.println("La défausse vient d'etre mélangée pour reformer la pioche.");
         }
         
         int niveauEau = 2;
@@ -804,14 +820,32 @@ public class Controleur extends Observateur {
         }
         for (int i = 0; i < niveauEau; i++) {
             carteInondeFinTour = piocheInondation.firstElement();
+            System.out.println("Vous allez piocher " + niveauEau + " cartes inondation.");
+            System.out.println("Carte Tirée "+carteInondeFinTour.getTuile().getIntitule().toString());
             if (carteInondeFinTour.getTuile().getEtat() == Etat.Sec) {
                 carteInondeFinTour.getTuile().setEtat(Etat.Inondé);
                 piocheInondation.remove(carteInondeFinTour);
                 défausseInondation.add(carteInondeFinTour);
+                System.out.println(carteInondeFinTour.getTuile().getIntitule().nomEspace() + " a été inondé.");
             } else if (carteInondeFinTour.getTuile().getEtat() == Etat.Inondé) {
                 carteInondeFinTour.getTuile().setEtat(Etat.Sombré);
                 piocheInondation.remove(carteInondeFinTour);
+                System.out.println(carteInondeFinTour.getTuile().getIntitule().nomEspace() + " a coulé.");
+                if(!carteInondeFinTour.getTuile().getLocataires().isEmpty()){
+                    joueurMort=true;
+                }
             }
         }
+    }
+
+    private void monteeEau() {
+        CarteInondation carteInonde;
+        difficulte++;
+        System.out.println("L'eau monte.");
+        vueMonteeEau.monteDesEaux(difficulte);
+        piocheInondation.addAll(défausseInondation);
+        défausseInondation.clear();
+        Collections.shuffle(piocheInondation);
+        System.out.println("La défausse vient d'etre mélangée a la pioche.");
     }
 }

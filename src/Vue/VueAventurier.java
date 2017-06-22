@@ -175,12 +175,6 @@ public class VueAventurier  {
     }
  
 
-    
-     public static void main(String [] args) {
-        // Instanciation de la fenêtre 
-        //VueAventurier vueAventurier = new VueAventurier (new Messager("Jack"));
-    }
-
     /**
      * @return the window
      */
@@ -223,7 +217,7 @@ public class VueAventurier  {
     }
     
      public void update() {
-        System.out.println("Rafraichissement de Vue Plateau");
+        System.out.println("Rafraichissement de Vue Joueur");
         
         panelCartes.removeAll();  
         for (CarteTresor c : joueur.getMainJoueur()) {
@@ -233,6 +227,10 @@ public class VueAventurier  {
         window.validate();
         window.repaint();
         
+    }
+
+    public void dispose() {
+        window.dispose();
     }
     
 }
