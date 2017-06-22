@@ -70,9 +70,6 @@ public class Controleur extends Observateur {
         
         lockAct =  new ReentrantLock();
         conditionAct = lock.newCondition();
-        
-        grille = new Grille();
-        
         joueurs = new ArrayList<>();
         piocheInondation = new Stack<>();
         défausseInondation = new Stack<>();
@@ -90,6 +87,8 @@ public class Controleur extends Observateur {
         vueInscription.afficher();
         
         this.waitForInput();
+        
+        grille = new Grille(modeDebug);
         this.init();
         
         vuePlateau = new VuePlateau(this);
@@ -709,7 +708,7 @@ public class Controleur extends Observateur {
                 }
                 System.out.println("Difficulté :" + vueInscription.getComboDiff());
                 modeDebug = vueInscription.getCheckDebug();
-                System.out.println("Mode Debug :" + vueInscription.getCheckDebug());
+                System.out.println("Mode Debug :" + modeDebug);
                 this.notifier();
             break;
             case ("Annuler"):
