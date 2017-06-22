@@ -51,6 +51,8 @@ public class Controleur extends Observateur {
     private static VueInscription vueInscription;
     private static VueEcranTitre vueEcranTitre;
     
+    private int finFinDeJeu;
+    
     public Controleur() {
         grille = new Grille();
         joueurs = new ArrayList<>();
@@ -216,7 +218,7 @@ public class Controleur extends Observateur {
         }    
     } 
     
-    private static boolean isPartiePerdue(){
+    private boolean isPartiePerdue(){
         boolean resultat = false;
         // L'Héliport est il sombré?
         for (int x=0; x<6; x++) {
@@ -224,11 +226,15 @@ public class Controleur extends Observateur {
                 Tuile t = grille.getTuile(x,y);
                 if (t!=null&&t.getIntitule()==Zone.Heliport&&t.getEtat()==Etat.Sombré) {
                         resultat = true;
+                        finFinDeJeu = 1;
                 }
             }
         }
         // Un joueur est il "mort"?
-        resultat = (resultat||joueurMort);
+        if (joueurMort) {
+            resultat = true;
+            finFinDeJeu = 2;
+        }
         // La récupération des reliques manquantes est elle possible?
         for (int i=0; i<4; i++) {
             if (!reliquesPrises[i]) {
@@ -250,13 +256,17 @@ public class Controleur extends Observateur {
             }
         }
         // Le niveau d'eau est il mortel
-        resultat = (resultat||niveauDEau>9);
+        if (niveauDEau>9){
+             resultat = true;
+             finFinDeJeu = 4;
+        }
+       
         
         
         return resultat;
     }
     
-    private static boolean isPartieGagnée(){
+    private boolean isPartieGagnée(){
         //Les joueurs sont ils tout les 4 sur l'héliport, ont ils les 4 reliques, ont ils au moins une carte hélicoptère
         boolean resultat = false;
         if (grille.getTuile(Zone.Heliport).getLocataires().size()==joueurs.size()) {
@@ -271,15 +281,17 @@ public class Controleur extends Observateur {
                     for (CarteTresor c: j.getMainJoueur()){
                         if (c.getType()==TypeCarte.SpécialHélicoptère) {
                             resultat = true;
+                            finFinDeJeu = 0;
                         }
                     }
                 }
             }
         }
+        
         return resultat;
     }
     
-    private static boolean isPartieFinie() {
+    private boolean isPartieFinie() {
         return (isPartiePerdue() || isPartieGagnée());
     }
 
