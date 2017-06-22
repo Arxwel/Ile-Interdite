@@ -40,11 +40,11 @@ public class Explorateur extends Joueur {
         
     @Override //peut assecher des tuiles en diagonale
         public ArrayList<Tuile> listerTuilesAssechables() {
-           ArrayList<Tuile> tuilesDispo = super.listerCasesDispo();
+           ArrayList<Tuile> tuilesDispo = super.listerTuilesAssechables();
            
            tuilesDispo.addAll(super.listerTuilesAssechables());
            
-           for (Tuile t: this.getPosition().getAdjacent()) {
+           for (Tuile t: this.getPosition().getDiagonales()) {
                if (t.getEtat()==Etat.Inondé) {
                    tuilesDispo.add(t);
                }
