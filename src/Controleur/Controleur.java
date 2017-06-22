@@ -67,7 +67,6 @@ public class Controleur extends Observateur {
     private int finDeJeu;
     
     public Controleur() {
-        
         lockAct =  new ReentrantLock();
         conditionAct = lock.newCondition();
         joueurs = new ArrayList<>();
@@ -202,7 +201,7 @@ public class Controleur extends Observateur {
             System.out.println("Désactivation interfaces");
             for (Joueur j: joueurs) {
                 System.out.println("Joueur "+j.getNom());
-                if (j.equals(joueurActif)) {
+                if (j == joueurActif) {
                     System.out.println("joueur actif");
                     j.getVueAventurier().desactiverBoutons();
                     j.getVueAventurier().activerBoutons();
@@ -217,6 +216,9 @@ public class Controleur extends Observateur {
                     }
                     if (j.isReliquePossible()) {
                         j.getVueAventurier().activerBoutonRelique();
+                    }
+                    if (j.isCSPossible()) {
+                        j.getVueAventurier().activerBoutonCS();
                     }
                 } else {
                     j.getVueAventurier().desactiverBoutons();
@@ -247,6 +249,7 @@ public class Controleur extends Observateur {
                     System.out.print("[Contr] Prendre Relique ");
                     joueurActif.getVueAventurier().desactiverBoutons();
                     joueurActif.prendreRelique();
+                    vueReliques.update(reliquesPrises);
                     break;
                 case(5):
                     System.out.println("[Contr] Carte Spéciale");
@@ -260,7 +263,6 @@ public class Controleur extends Observateur {
                     this.terminerTour();
                     break;
             }
-            vueReliques.update(reliquesPrises);
             System.out.println("Action Finie");
             if(actionChoisie !=5 ) {
             setNbact(getNbact() - 1);
@@ -500,7 +502,8 @@ public class Controleur extends Observateur {
     
     
 
-    public void surligner(ArrayList<Tuile> casesDispo) {System.out.println("A afficher : ");
+    public void surligner(ArrayList<Tuile> casesDispo) {
+        System.out.println("A afficher : ");
         for (Tuile t: casesDispo) {
             System.out.println(t.getIntitule());
         }
@@ -724,6 +727,15 @@ public class Controleur extends Observateur {
                 this.notifier();
             break;
             case ("Rejouer") :
+                
+            break;
+            case("CarteSpeHelico"):
+                System.out.println("[Contr]Helico");
+                joueurActif.utiliserHelico();
+            break;
+            case("CarteSpeSac"):
+                System.out.println("[Contr]Sac");
+                joueurActif.utiliserSac();
             break;
         }
         
@@ -824,7 +836,7 @@ public class Controleur extends Observateur {
         for (int i = 0; i < niveauEau; i++) {
             if (piocheInondation.isEmpty()) {
                 System.out.println("Pioche carte inondation vide.");
-                for (int j = 0; j < défausseInondation.capacity(); j++) {
+                for (int j = 0; j < défausseInondation.size(); j++) {
                     carteInondeFinTour = défausseInondation.firstElement();
                     piocheInondation.add(carteInondeFinTour);
                     défausseInondation.remove(carteInondeFinTour);
@@ -845,7 +857,14 @@ public class Controleur extends Observateur {
                 piocheInondation.remove(carteInondeFinTour);
                 System.out.println(carteInondeFinTour.getTuile().getIntitule().nomEspace() + " a coulé.");
                 if(!carteInondeFinTour.getTuile().getLocataires().isEmpty()){
-                    joueurMort=true;
+                    for (Joueur j:carteInondeFinTour.getTuile().getLocataires()){
+                        if (j.isMvmntPossible()) {
+                            vuePlateau.obligationDeplacement(j);
+                            j.déplacer();
+                        } else {
+                            joueurMort = true;
+                        }
+                    }
                 }
             }
         }

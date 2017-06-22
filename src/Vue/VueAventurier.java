@@ -196,7 +196,6 @@ public class VueAventurier  {
     }
     
     public void activerBoutons() {
-        btnCarteSpeciale.setEnabled(true);
         btnTerminerTour.setEnabled(true);
     }
     
@@ -214,6 +213,10 @@ public class VueAventurier  {
     
     public void activerBoutonRelique() {
         btnRelique.setEnabled(true);
+    }
+    
+    public void activerBoutonCS() {
+        btnCarteSpeciale.setEnabled(true);
     }
     
      public void update() {
