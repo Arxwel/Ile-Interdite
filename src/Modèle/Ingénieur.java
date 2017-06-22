@@ -3,6 +3,7 @@ package Modèle;
 import Controleur.Controleur;
 import java.awt.Color;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 public class Ingénieur extends Joueur {
     
@@ -15,7 +16,18 @@ public class Ingénieur extends Joueur {
     
     @Override //peut assecher 2 tuiles a la fois
     public void assecher() {
-        
+        super.assecher();
+        if (this.isAssPossible()) {
+        int reponse = JOptionPane.showConfirmDialog(
+            null,
+            "Voulez-vous assecher une deuxième tuile gratuitement ?",
+            "2ème Assechement",
+            JOptionPane.YES_NO_OPTION);
+
+        if(reponse == JOptionPane.YES_OPTION){
+            super.assecher();
+        }
+        }
     }
 
 }
