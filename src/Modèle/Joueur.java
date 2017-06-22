@@ -45,7 +45,7 @@ public abstract class Joueur {
 
            System.out.println("Tuiles Adj");
            for (Tuile t: this.getPosition().getAdjacent()) {
-               if (t.getEtat()==Etat.Sec) {
+               if (t.getEtat()!=Etat.Sombré) {
                    tuileslibres.add(t);
                }
            }
@@ -199,7 +199,7 @@ public abstract class Joueur {
 
 	public boolean isReliquePossible() {
             //couleur relique == couleur cartes && position joueur == tuile relique && nb cartes relique >= 4
-            int n = 0;
+            int n = 1;
             if (this.getPosition().getReliqueDispo() != null) {
                 Color c = this.getPosition().getReliqueDispo();
                 for(CarteTresor carte: this.getMainJoueur()) {
@@ -217,7 +217,14 @@ public abstract class Joueur {
         
         //true si le don d'une carte est possible
 	public boolean isDonPossible() {
-            return (!this.getMainJoueur().isEmpty()) && (this.getPosition().getLocataires().size()>1);
+            boolean possible = false;
+            for (CarteTresor ct : this.getMainJoueur()) {
+                if (ct.getType() != TypeCarte.SpécialHélicoptère && ct.getType() != TypeCarte.SpécialSacDeSable) {
+                    possible = true;
+                }
+                
+            }
+            return (!this.getMainJoueur().isEmpty()) && (this.getPosition().getLocataires().size()>1) && possible;
 	}
         
         //true si le joueur possède des cartes spéciales

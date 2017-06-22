@@ -81,7 +81,7 @@ public class VueDonDeCartes {
         JPanel cartesADonner = new JPanel(new GridLayout(1,9));
         cartesADonner.setBorder(BorderFactory.createTitledBorder("Choix de la Carte à donner"));
         for(CarteTresor ct : joueur.getMainJoueur()) {
-            if (ct.getType()!=TypeCarte.SpécialHélicoptère || ct.getType()!=TypeCarte.SpécialSacDeSable) {
+            if (ct.getType()!=TypeCarte.SpécialHélicoptère && ct.getType()!=TypeCarte.SpécialSacDeSable) {
                 JButton carte = new JButton(ct.getImage());
                 carte.setEnabled(false);
                 cartesADonner.add(carte);

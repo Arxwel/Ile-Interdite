@@ -68,9 +68,6 @@ public class Controleur extends Observateur {
     public Controleur() {
         
         conditionAct = lock.newCondition();
-        
-        grille = new Grille();
-        
         joueurs = new ArrayList<>();
         piocheInondation = new Stack<>();
         défausseInondation = new Stack<>();
@@ -88,6 +85,8 @@ public class Controleur extends Observateur {
         vueInscription.afficher();
         
         this.waitForInput();
+        
+        grille = new Grille(modeDebug);
         this.init();
         
         vuePlateau = new VuePlateau(this);
@@ -214,9 +213,6 @@ public class Controleur extends Observateur {
                     if (j.isDonPossible()) {
                         j.getVueAventurier().activerBoutonDonner();
                     }
-                    if (j.getCouleur()==Color.WHITE) {
-                        j.getVueAventurier().activerBoutonDonner();
-                    }
                     if (j.isReliquePossible()) {
                         j.getVueAventurier().activerBoutonRelique();
                     }
@@ -266,8 +262,11 @@ public class Controleur extends Observateur {
                     this.terminerTour();
                     break;
             }
-            System.err.println("Action Finie");
+            vueReliques.update(reliquesPrises);
+            System.out.println("Action Finie");
+            if(actionChoisie !=5 ) {
             setNbact(getNbact() - 1);
+            }
         }
     }
     
@@ -283,7 +282,7 @@ public class Controleur extends Observateur {
         //distribution des cartes
         for (Joueur j: getJoueurs()) {
             System.out.println("Distribution à "+j.getNom());
-            for (int i=0; i<4; i++) {
+            for (int i=0; i<2; i++) {
                 CarteTresor c = piocheCarteTresor.firstElement();
                 piocheCarteTresor.remove(0);
                 if (c.getType() == TypeCarte.MontéeEaux) {
@@ -717,7 +716,7 @@ public class Controleur extends Observateur {
                 }
                 System.out.println("Difficulté :" + vueInscription.getComboDiff());
                 modeDebug = vueInscription.getCheckDebug();
-                System.out.println("Mode Debug :" + vueInscription.getCheckDebug());
+                System.out.println("Mode Debug :" + modeDebug);
                 this.notifier();
             break;
             case ("Annuler"):
@@ -837,7 +836,7 @@ public class Controleur extends Observateur {
         for (int i = 0; i < niveauEau; i++) {
             if (piocheInondation.isEmpty()) {
                 System.out.println("Pioche carte inondation vide.");
-                for (int j = 0; j < défausseInondation.capacity(); j++) {
+                for (int j = 0; j < défausseInondation.size(); j++) {
                     carteInondeFinTour = défausseInondation.firstElement();
                     piocheInondation.add(carteInondeFinTour);
                     défausseInondation.remove(carteInondeFinTour);
