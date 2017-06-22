@@ -20,6 +20,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import jdk.nashorn.internal.codegen.CompilerConstants;
 
 public class Controleur extends Observateur {
   
@@ -65,6 +66,7 @@ public class Controleur extends Observateur {
         joueurs = new ArrayList<>();
         piocheInondation = new Stack<>();
         défausseInondation = new Stack<>();
+        defausseCarteTresor = new Stack<>();
         joueurActif = null;
         piocheCarteTresor = new Stack<>();
         
@@ -183,6 +185,7 @@ public class Controleur extends Observateur {
                     System.out.println("[Contr] Donner Carte");
                     joueurActif.getVueAventurier().desactiverBoutons();
                     joueurActif.donnerCarte();
+                    this.waitForInput();
                     break;
                 case(4):
                     System.out.print("[Contr] Prendre Relique ");
@@ -350,9 +353,6 @@ public class Controleur extends Observateur {
         while (joueurActif.getMainJoueur().size() >= 6) {
             joueur.getVueAventurier().desactiverBoutons();
             joueur.defausserCarte();
-            while(true) {
-                System.out.print("");
-            }
         }    
             /*System.out.println(joueur.getNom() + " a trop de cartes en main. Il doit en défausser jusqu'à en avoir 5 au plus.");
             CarteTresor cs1 = new CarteTresor(TypeCarte.SpécialHélicoptère);

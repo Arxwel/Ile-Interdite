@@ -29,6 +29,13 @@ import javax.swing.ImageIcon;
 
  
 public class VueAventurier  {
+
+    /**
+     * @return the observateur
+     */
+    public static Observateur getObservateur() {
+        return observateur;
+    }
      
     private final JPanel panelBoutons ;
     private final JPanel panelCentre ;
@@ -99,7 +106,7 @@ public class VueAventurier  {
             @Override
             public void actionPerformed(ActionEvent e) {
                 MessageAventurier msg = new MessageAventurier(TypeMessage.Deplacer, j);
-                observateur.traiterMessageAventurier(msg);
+                getObservateur().traiterMessageAventurier(msg);
                 System.out.println("Deplacement de " + msg.getJoueur().getNom());
 
             }
@@ -111,7 +118,7 @@ public class VueAventurier  {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Assechement");
                 MessageAventurier msg = new MessageAventurier(TypeMessage.Assecher, j);
-                observateur.traiterMessageAventurier(msg);
+                getObservateur().traiterMessageAventurier(msg);
             }
         });
         this.btnDonner = new JButton("Donner une Carte");
@@ -121,7 +128,7 @@ public class VueAventurier  {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Don de carte");
                 MessageAventurier msg = new MessageAventurier(TypeMessage.Donner, j);
-                observateur.traiterMessageAventurier(msg);
+                getObservateur().traiterMessageAventurier(msg);
             }
         });
         this.btnRelique = new JButton("Prendre Relique");
@@ -131,7 +138,7 @@ public class VueAventurier  {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Prise de relique");
                 MessageAventurier msg = new MessageAventurier(TypeMessage.PrendreRelique, j);
-                observateur.traiterMessageAventurier(msg);
+                getObservateur().traiterMessageAventurier(msg);
             }
         });
         this.btnCarteSpeciale = new JButton("Carte Spéciale");
@@ -141,7 +148,7 @@ public class VueAventurier  {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Carte Spéciale");
                 MessageAventurier msg = new MessageAventurier(TypeMessage.CarteSpe, j);
-                observateur.traiterMessageAventurier(msg);
+                getObservateur().traiterMessageAventurier(msg);
             }
         });
         this.btnTerminerTour = new JButton("Terminer Tour");
@@ -150,7 +157,7 @@ public class VueAventurier  {
             @Override
             public void actionPerformed(ActionEvent e) {
                 MessageAventurier msg = new MessageAventurier(TypeMessage.TerminerTour, j);
-                observateur.traiterMessageAventurier(msg);
+                getObservateur().traiterMessageAventurier(msg);
                 System.out.println("Fin de tour de " + msg.getJoueur().getNom());
 
             }

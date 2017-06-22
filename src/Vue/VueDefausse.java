@@ -5,6 +5,7 @@
  */
 package Vue;
 
+import Controleur.Observateur;
 import Modèle.CarteTresor;
 import Modèle.Joueur;
 import java.awt.BorderLayout;
@@ -29,11 +30,13 @@ public class VueDefausse {
     private CarteTresor carteDefaussee;
     private ArrayList<JButton> cartesBoutons = new ArrayList<>();
     private JLabel messageDef;
+    private Observateur o;
     
     public VueDefausse (Joueur joueur) {
         
         window = new JFrame();
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+        o = joueur.getVueAventurier().getObservateur();
         window.setSize(500, 200);
         window.setResizable(false);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -60,6 +63,7 @@ public class VueDefausse {
                     }
                     joueur.defausserCarte(carteDefaussee);
                     window.dispose();
+                    o.notifier();
                 }
             });
         }

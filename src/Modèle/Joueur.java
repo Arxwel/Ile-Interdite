@@ -3,7 +3,7 @@ package Modèle;
 import Controleur.Controleur;
 import Vue.VueAventurier;
 import Vue.VueDefausse;
-import Vue.VueEchangeDeCartes;
+import Vue.VueDonDeCartes;
 import java.awt.Color;
 import java.util.*;
 import java.util.Scanner;
@@ -214,6 +214,7 @@ public abstract class Joueur {
         
         public void defausserCarte() {
             VueDefausse defausse = new VueDefausse(this);
+            this.controleur.waitForInput();
         }
         
         //gère l'utilisation de cartes spéciales (sac de sable, hélicoptère)
@@ -310,6 +311,6 @@ public abstract class Joueur {
 
     public void donnerCarte() {
         ArrayList<Joueur> joueursechangeables = new ArrayList<>(position.getLocataires());
-        VueEchangeDeCartes don = new VueEchangeDeCartes(this, joueursechangeables);
+        VueDonDeCartes don = new VueDonDeCartes(this, joueursechangeables);
     }
 }

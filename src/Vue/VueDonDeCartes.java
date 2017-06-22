@@ -5,6 +5,7 @@
  */
 package Vue;
 
+import Controleur.Observateur;
 import Modèle.CarteTresor;
 import Modèle.Joueur;
 import java.awt.BorderLayout;
@@ -32,15 +33,17 @@ import javax.swing.JTextField;
  *
  * @author pasdelor
  */
-public class VueEchangeDeCartes {
+public class VueDonDeCartes {
   
     private JFrame window;
     private Joueur joueurReceveur;
     private CarteTresor carteEnvoye;
     private ArrayList<JButton> joueursBoutons = new ArrayList<>();
     private ArrayList<JButton> cartesBoutons = new ArrayList<>();
-    public VueEchangeDeCartes(Joueur joueur, ArrayList<Joueur> liste) {
+    private Observateur o;
+    public VueDonDeCartes(Joueur joueur, ArrayList<Joueur> liste) {
         window = new JFrame();
+        o = joueur.getVueAventurier().getObservateur();
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         window.setSize(500, 300);
         window.setResizable(false);
@@ -88,6 +91,7 @@ public class VueEchangeDeCartes {
                     }
                     joueur.donnerCarte(joueurReceveur, carteEnvoye);
                     window.dispose();
+                    o.notifier();
                 }
             });
         }
