@@ -9,6 +9,7 @@ import Vue.VuePlateau;
 import Vue.VueEcranTitre;
 import Vue.VueFinDePartie;
 import Vue.VueMonteeEaux;
+import Vue.VueReliques;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.SystemColor;
@@ -56,6 +57,7 @@ public class Controleur extends Observateur {
     private static VueEcranTitre vueEcranTitre;
     private static VueFinDePartie vueFinDePartie;
     private static VueMonteeEaux vueMonteeEau;
+    private static VueReliques vueReliques;
     private static VueAventurier vj1,vj2,vj3,vj4;
     private ArrayList<VueAventurier> vuesAventuriers;
     
@@ -138,6 +140,9 @@ public class Controleur extends Observateur {
         
         vueMonteeEau = new VueMonteeEaux(difficulte);
         vueMonteeEau.setVisible(true);
+        
+        vueReliques = new VueReliques();
+        vueReliques.setVisible(true);
     }
     
     /**
@@ -181,7 +186,6 @@ public class Controleur extends Observateur {
     
     //décompte le nombre d'actions disponibles pour le joueur et propose les actions en fonction de leur disponibilité
     public void débutTour() {
-        verifMain(joueurActif);
         if (joueurActif.getCouleur()==Color.YELLOW) {
             setNbact(4);
         } else {
@@ -271,6 +275,7 @@ public class Controleur extends Observateur {
                     this.terminerTour();
                     break;
             }
+            vueReliques.update(reliquesPrises);
             System.out.println("Action Finie");
             setNbact(getNbact() - 1);
         }
@@ -309,10 +314,11 @@ public class Controleur extends Observateur {
             setJoueurActif();
             débutTour(); 
             piocherCarteTresorFinTour();
+            verifMain(joueurActif);
             piocherCarteInondeFinTour(difficulte);
             vuePlateau.update();
             for (VueAventurier v: vuesAventuriers) {
-            v.getWindow().repaint();
+                v.update();
             }
             numTour++;
         }
@@ -789,6 +795,9 @@ public class Controleur extends Observateur {
                 joueurActif.getMainJoueur().remove(cartePiochee);
                 System.out.println(joueurActif.getNom() + "vient de piocher: " + cartePiochee);
             }
+        }
+        for (VueAventurier v: vuesAventuriers) {
+            v.update();
         }
     }
     
