@@ -38,18 +38,18 @@ public class VueDefausse {
         window = new JFrame();
         window.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
         o = joueur.getVueAventurier().getObservateur();
-        window.setSize(500, 200);
+        window.setSize(520, 180);
         window.setResizable(false);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         window.setLocation(dim.width/2-window.getSize().width/2, dim.height/2-window.getSize().height/2);
         window.setTitle("Défausser");
         JPanel mainPanel = new JPanel(new BorderLayout());
         window.add(mainPanel);
-        /*messageDef = new JLabel("Trop de cartes");
-        messageDef.setText("Le joueur" + joueur.getNom() + " a trop de cartes en main, il doit en défausser jusqu'à en avoir 5 au plus.");*/
+        messageDef = new JLabel("Trop de cartes");
+        messageDef.setText("Le joueur " + joueur.getNom() + " a trop de cartes en main, il doit en défausser jusqu'à en avoir 5 au plus.");
         
         JPanel cartesADefausser = new JPanel(new GridLayout(1,9));
-        cartesADefausser.setBorder(BorderFactory.createTitledBorder("Choix de la Carte à défausser"));
+        cartesADefausser.setBorder(BorderFactory.createTitledBorder("Choisir une Carte à défausser."));
         for(CarteTresor ct : joueur.getMainJoueur()) {
             JButton carte = new JButton(ct.getImage());
             carte.setEnabled(true);
@@ -70,8 +70,8 @@ public class VueDefausse {
             });
         }
         
-        //mainPanel.add(messageDef, BorderLayout.NORTH);
-        mainPanel.add(cartesADefausser, BorderLayout.SOUTH);
+        mainPanel.add(messageDef, BorderLayout.NORTH);
+        mainPanel.add(cartesADefausser, BorderLayout.CENTER);
         mainPanel.repaint();
         
         window.setVisible(true);

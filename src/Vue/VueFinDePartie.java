@@ -139,7 +139,7 @@ public class VueFinDePartie {
                 sousTitre.setText("Un Aventurier est Mort");
                 break;
             case(3):
-                sousTitre.setText("La Récupération d'une relique n'est plus possible");
+                sousTitre.setText("Une Relique n'est plus récupérable");
                 break;
             case(4):
                 sousTitre.setText("L'Eau a atteint un niveau mortel");

@@ -63,9 +63,33 @@ public abstract class Joueur {
 	}
         
         //Gère la prise de trésors par les joueurs
-	public void prendreTrésor() {
-		// TODO - implement Joueur.prendreTrésor
-		throw new UnsupportedOperationException();
+	public void prendreRelique() {
+            Color relique = this.getPosition().getReliqueDispo();
+            int i = 0;
+                switch(relique.toString()) {
+                    case("MAGENTA"):
+                    System.out.println("MAGENTA");
+                    controleur.addRelique(0);
+                    break;
+                case("ORANGE"):
+                    System.out.println("ORANGE");
+                    controleur.addRelique(1);
+                    break;
+                case("GRAY"):
+                    System.out.println("GRAY");
+                    controleur.addRelique(2);
+                    break;
+                case("CYAN"):
+                    System.out.println("CYAN");
+                    controleur.addRelique(3);
+                break;
+            }
+            for(CarteTresor c: this.getMainJoueur()) {
+                if(c.getType().toString().equalsIgnoreCase("Tresor"+relique.toString())&&i<=4) {
+                    i++;
+                    this.getMainJoueur().remove(c);
+                }
+            }
 	}
 
 	/**
@@ -346,4 +370,6 @@ public abstract class Joueur {
         ArrayList<Joueur> joueursechangeables = new ArrayList<>(position.getLocataires());
         VueDonDeCartes don = new VueDonDeCartes(this, joueursechangeables);
     }
+
+    
 }
