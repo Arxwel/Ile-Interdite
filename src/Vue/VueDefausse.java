@@ -15,6 +15,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -48,6 +49,7 @@ public class VueDefausse {
         messageDef.setText("Le joueur" + joueur.getNom() + " a trop de cartes en main, il doit en défausser jusqu'à en avoir 5 au plus.");*/
         
         JPanel cartesADefausser = new JPanel(new GridLayout(1,9));
+        cartesADefausser.setBorder(BorderFactory.createTitledBorder("Choix de la Carte à défausser"));
         for(CarteTresor ct : joueur.getMainJoueur()) {
             JButton carte = new JButton(ct.getImage());
             carte.setEnabled(true);
