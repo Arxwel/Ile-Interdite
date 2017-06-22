@@ -117,7 +117,7 @@ public class VueFinDePartie {
         vue.afficher();
     }
 
-    private void afficher() {
+    public void afficher() {
         window.setVisible(true);
     }
 }

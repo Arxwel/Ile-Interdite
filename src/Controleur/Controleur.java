@@ -60,7 +60,7 @@ public class Controleur extends Observateur {
     
     private int difficulte = 1;
     
-    private int finFinDeJeu;
+    private int finDeJeu;
     
     public Controleur() {
         
@@ -91,6 +91,9 @@ public class Controleur extends Observateur {
         vuePlateau = new VuePlateau(this);
         vuePlateau.setObservateur(this);
         vuePlateau.afficher();
+        
+        vueFinDePartie = new VueFinDePartie();
+        vueFinDePartie.setObservateur(this);
         
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         
@@ -310,7 +313,9 @@ public class Controleur extends Observateur {
             }
         }
         vueMonteeEau.dispose();
-        //vueFinDePartie = (new VueFinDePartie());
+        vueFinDePartie.update(finDeJeu);
+        vueFinDePartie.afficher();
+        this.waitForInput();
     } 
     
     private boolean isPartiePerdue(){
@@ -321,14 +326,14 @@ public class Controleur extends Observateur {
                 Tuile t = grille.getTuile(x,y);
                 if (t!=null&&t.getIntitule()==Zone.Heliport&&t.getEtat()==Etat.Sombré) {
                         resultat = true;
-                        finFinDeJeu = 1;
+                        finDeJeu = 1;
                 }
             }
         }
         // Un joueur est il "mort"?
         if (joueurMort) {
             resultat = true;
-            finFinDeJeu = 2;
+            finDeJeu = 2;
         }
         // La récupération des reliques manquantes est elle possible?
         for (int i=0; i<4; i++) {
@@ -337,25 +342,25 @@ public class Controleur extends Observateur {
                     case(0):
                         if(resultat||(grille.getTuile(Zone.LaCaverneDesOmbres).isSombre()&&grille.getTuile(Zone.LaCaverneDuBrasier).isSombre())){
                            resultat=true;
-                           finFinDeJeu = 3;
+                           finDeJeu = 3;
                         }
                         break;
                     case(1):
                         if(resultat||(grille.getTuile(Zone.LeJardinDesHurlements).isSombre()&&grille.getTuile(Zone.LeJardinDesMurmures).isSombre())){
                            resultat=true;
-                           finFinDeJeu = 3;
+                           finDeJeu = 3;
                         }
                         break;
                     case(2):
                         if(resultat||(grille.getTuile(Zone.LeTempleDeLaLune).isSombre()&&grille.getTuile(Zone.LeTempleDuSoleil).isSombre())){
                            resultat=true;
-                           finFinDeJeu = 3;
+                           finDeJeu = 3;
                         }
                         break;
                     case(3):
                         if(resultat||(grille.getTuile(Zone.LePalaisDeCorail).isSombre()&&grille.getTuile(Zone.LePalaisDesMarees).isSombre())){
                            resultat=true;
-                           finFinDeJeu = 3;
+                           finDeJeu = 3;
                         }
                         break;
                 }
@@ -364,7 +369,7 @@ public class Controleur extends Observateur {
         // Le niveau d'eau est il mortel
         if (niveauDEau>9){
              resultat = true;
-             finFinDeJeu = 4;
+             finDeJeu = 4;
         }
        
         
@@ -387,7 +392,7 @@ public class Controleur extends Observateur {
                     for (CarteTresor c: j.getMainJoueur()){
                         if (c.getType()==TypeCarte.SpécialHélicoptère) {
                             resultat = true;
-                            finFinDeJeu = 0;
+                            finDeJeu = 0;
                         }
                     }
                 }
@@ -457,6 +462,7 @@ public class Controleur extends Observateur {
            piocheCarteTresor.add(new CarteTresor(TypeCarte.SpécialSacDeSable));
         }
         Collections.shuffle(piocheCarteTresor);
+        System.out.println(piocheCarteTresor.size());
     }
     
     //met les bonnes cartes dans la pioche inondation et les mélange
@@ -473,6 +479,18 @@ public class Controleur extends Observateur {
     
     // gère l'action "donner carte"
     private static void piocherCarte(Joueur j) {
+        
+        System.out.println(piocheCarteTresor.size());
+        if (piocheCarteTresor.isEmpty()) {
+            System.out.println("Pioche carte tresor vide.");
+            
+            piocheCarteTresor.addAll(defausseCarteTresor);
+            defausseCarteTresor.clear();
+            
+            Collections.shuffle(piocheCarteTresor);
+            System.out.println("La défausse vient d'etre mélangée pour reformer la pioche.");
+        }
+        
         CarteTresor carte = piocheCarteTresor.firstElement();
         j.getMainJoueur().add(carte);
         System.out.println("Carte Piochée"+carte.getType().toString());
@@ -750,15 +768,7 @@ public class Controleur extends Observateur {
     
     public void piocherCarteTresorFinTour() {
         CarteTresor carteTresorFinTour;
-        if (piocheCarteTresor.isEmpty()) {
-            System.out.println("Pioche carte tresor vide.");
-            for (int i = 0; i < defausseCarteTresor.capacity(); i++) {
-                carteTresorFinTour = defausseCarteTresor.firstElement();
-                piocheCarteTresor.add(carteTresorFinTour);
-            }
-            Collections.shuffle(piocheCarteTresor);
-            System.out.println("La défausse vient d'etre mélangée pour reformer la pioche.");
-        }
+        
         
         for (int i = 0; i < 2; i++) {
             piocherCarte(joueurActif);
