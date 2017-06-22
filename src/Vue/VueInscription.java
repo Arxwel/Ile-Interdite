@@ -31,6 +31,7 @@ import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -90,9 +91,13 @@ public class VueInscription {
     private static JTextField nomFieldJ4;
     private static JComboBox roleComboJ4;
     
+    private JComboBox comboDiff;
+    private JCheckBox checkDebug;
+    
     private static Observateur observateur;
     String rolej1="",rolej2="",rolej3="",rolej4="";
     private String [] roles = {"Aléatoire","Pilote","Messager","Explorateur","Navigateur","Plongeur","Ingénieur", "Vide"};
+    private String [] niveauxDiff = {"Novice", "Normal", "Élite", "Légendaire", "Mortel"};
     //crée l'interface permettant l'inscription des joueurs (choix du rôle et du pseudonyme)
     public VueInscription() {
         GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -117,7 +122,7 @@ public class VueInscription {
         window.setContentPane(new AfficheImage("src/resources/fondinscription.jpg"));
         this.window.add(mainPanel);
         titrePanel = new JPanel();
-        buttPanel = new JPanel(new GridLayout(1,6));
+        buttPanel = new JPanel(new GridLayout(2,5));
         buttPanel.setOpaque(false);
         centrePanel = new JPanel(new GridLayout(2,2));
         centrePanel.setOpaque(false);
@@ -200,11 +205,23 @@ public class VueInscription {
         
         buttVal.setText("Valider");
         buttQui.setText("Quitter");
-        
-        buttPanel.add(new JLabel());
+
         buttPanel.setOpaque(false);
-        buttPanel.add(buttVal);
+        JLabel difficulte = new JLabel("Difficulté : ");
+        difficulte.setFont(new Font("Pieces of Eight", Font.PLAIN,24));
+        difficulte.setHorizontalAlignment(JLabel.RIGHT);
+        buttPanel.add(difficulte);
+        comboDiff = new JComboBox(getNiveauxDiff());
+        buttPanel.add(comboDiff);
+        
+        buttPanel.add(new JLabel(" "));
+        checkDebug = new JCheckBox("Mode Debug");
+        checkDebug.setFont(new Font("Pieces of Eight", Font.PLAIN,24));
+        checkDebug.setOpaque(false);
+        buttPanel.add(checkDebug);
         buttPanel.add(new JLabel());
+        buttPanel.add(new JLabel());
+        buttPanel.add(buttVal);
         buttPanel.add(new JLabel());
         buttPanel.add(buttQui);
         buttPanel.add(new JLabel());
@@ -440,5 +457,26 @@ public class VueInscription {
    public void fenetreInfo() {
         JFrame frame = new JFrame("Saisie du Nom");
         JOptionPane.showMessageDialog(null, "Plusieurs Joueurs ne peuvent pas avoir le même rôle", "Erreur", JOptionPane.ERROR_MESSAGE); 
+    }
+
+    /**
+     * @return the comboDiff
+     */
+    public String getComboDiff() {
+        return comboDiff.getSelectedItem().toString();
+    }
+
+    /**
+     * @return the checkDebug
+     */
+    public boolean getCheckDebug() {
+        return checkDebug.isSelected();
+    }
+
+    /**
+     * @return the niveauxDiff
+     */
+    public String[] getNiveauxDiff() {
+        return niveauxDiff;
     }
 }
