@@ -702,6 +702,8 @@ public class Controleur extends Observateur {
                 vueEcranTitre.fermer();
                 this.notifier();
             break;
+            case ("Rejouer") :
+            break;
         }
         
     }
