@@ -218,7 +218,14 @@ public abstract class Joueur {
         
         //true si le don d'une carte est possible
 	public boolean isDonPossible() {
-            return (!this.getMainJoueur().isEmpty()) && (this.getPosition().getLocataires().size()>1);
+            boolean possible = false;
+            for (CarteTresor ct : this.getMainJoueur()) {
+                if (ct.getType() != TypeCarte.SpécialHélicoptère && ct.getType() != TypeCarte.SpécialSacDeSable) {
+                    possible = true;
+                }
+                
+            }
+            return (!this.getMainJoueur().isEmpty()) && (this.getPosition().getLocataires().size()>1) && possible;
 	}
         
         //retourne le point d'appartion originel des joueurs en fonction de leur Classe

@@ -25,7 +25,14 @@ public class Messager extends Joueur {
     
     @Override
     public boolean isDonPossible() {
-        return (!this.getMainJoueur().isEmpty());
+        boolean possible = false;
+            for (CarteTresor ct : this.getMainJoueur()) {
+                if (ct.getType() != TypeCarte.SpécialHélicoptère && ct.getType() != TypeCarte.SpécialSacDeSable) {
+                    possible = true;
+                }
+                
+            }
+        return (!this.getMainJoueur().isEmpty() && possible);
     }
 
 }

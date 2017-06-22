@@ -215,9 +215,6 @@ public class Controleur extends Observateur {
                     if (j.isDonPossible()) {
                         j.getVueAventurier().activerBoutonDonner();
                     }
-                    if (j.getCouleur()==Color.WHITE) {
-                        j.getVueAventurier().activerBoutonDonner();
-                    }
                     if (j.isReliquePossible()) {
                         j.getVueAventurier().activerBoutonRelique();
                     }
@@ -281,7 +278,7 @@ public class Controleur extends Observateur {
         //distribution des cartes
         for (Joueur j: getJoueurs()) {
             System.out.println("Distribution à "+j.getNom());
-            for (int i=0; i<4; i++) {
+            for (int i=0; i<2; i++) {
                 CarteTresor c = piocheCarteTresor.firstElement();
                 piocheCarteTresor.remove(0);
                 if (c.getType() == TypeCarte.MontéeEaux) {
