@@ -255,7 +255,6 @@ public class Controleur extends Observateur {
                     System.out.println("[Contr] Carte Spéciale");
                     joueurActif.getVueAventurier().desactiverBoutons();
                     joueurActif.utiliserCarte();
-                    this.waitForInput();
                     break;
                 case(6):
                     System.out.println("[Contr] Terminer Tour");
@@ -732,6 +731,8 @@ public class Controleur extends Observateur {
             case("CarteSpeHelico"):
                 System.out.println("[Contr]Helico");
                 joueurActif.utiliserHelico();
+
+                
             break;
             case("CarteSpeSac"):
                 System.out.println("[Contr]Sac");
@@ -861,6 +862,7 @@ public class Controleur extends Observateur {
                         if (j.isMvmntPossible()) {
                             vuePlateau.obligationDeplacement(j);
                             j.déplacer();
+                            carteInondeFinTour.getTuile().delLocataire(j);
                         } else {
                             joueurMort = true;
                         }

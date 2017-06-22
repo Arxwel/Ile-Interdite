@@ -224,9 +224,10 @@ public class VuePlateau extends JFrame{
         this.peindreTuiles();
         
         this.revalidate();
-        this.repaint();
+        this.update(this.getGraphics());
+        this.revalidate();
+        this.paintAll(this.getGraphics());
         System.out.println("Update Fini");
-        
     }
     
     public void setControleur(Controleur c) {

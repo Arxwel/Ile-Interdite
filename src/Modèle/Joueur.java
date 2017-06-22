@@ -324,27 +324,12 @@ public abstract class Joueur {
         Coordonnees coor = this.getPosition().getCoordonees();
         for (Tuile[] tArr: this.getPosition().getPlateau().getTuiles()) {
             for (Tuile t: tArr) {
-                if (t != null && t.getCoordonees() != coor && t.getEtat() == Etat.Sec) {
+                if (t != null && t.getCoordonees() != coor && t.getEtat() != Etat.Sombré) {
                     casesDispo.add(t);
                 }
             }
         }
-        
-        
-        controleur.vuePlateau.surligner(casesDispo);
-        controleur.waitForInput();
-        Tuile caseDepl = controleur.getLastCase();
-
-        Tuile tuileQuittee = this.getPosition();
-
-        System.out.println("deplacement de "+tuileQuittee.getIntitule()+" a "+caseDepl.getIntitule());
-
-        tuileQuittee.delLocataire(this);
-        this.setPosition(caseDepl);
-        caseDepl.addLocataire(this);
-
-        controleur.surligner(new ArrayList<Tuile>());
-        System.out.println("Le Joueur est maintenant à"+this.getPosition().getIntitule());
+        this.deplacerHelico(casesDispo);
         
     }
     
@@ -442,6 +427,29 @@ public abstract class Joueur {
     public void donnerCarte() {
         ArrayList<Joueur> joueursechangeables = new ArrayList<>(position.getLocataires());
         VueDonDeCartes don = new VueDonDeCartes(this, joueursechangeables);
+    }
+    
+    public void deplacerHelico(ArrayList<Tuile> tuileshelico) {
+            controleur.surligner(tuileshelico);
+            controleur.waitForInput();
+            Tuile caseDepl = controleur.getLastCase();
+            
+//            
+//            if (!tuileshelico.contains(caseDepl)) {
+//                controleur.waitForInput();
+//                caseDepl = controleur.getLastCase();
+//            }
+            
+            Tuile tuileQuittee = this.getPosition();
+            
+            System.out.println("deplacement de "+tuileQuittee.getIntitule()+" a "+caseDepl.getIntitule());
+            
+            tuileQuittee.delLocataire(this);
+            this.setPosition(caseDepl);
+            caseDepl.addLocataire(this);
+            
+            controleur.surligner(new ArrayList<Tuile>());
+            System.out.println("Le Joueur est maintenant à"+this.getPosition().getIntitule());
     }
 
     
