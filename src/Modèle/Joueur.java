@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 public abstract class Joueur {
 
@@ -357,13 +358,33 @@ public abstract class Joueur {
     }
 
     public void utiliserCarte() {
+        String choixCarte;
         ArrayList<CarteTresor> cSpeciales = new ArrayList<>();
         for (CarteTresor c : this.getMainJoueur()) {
             if(c.getType() == TypeCarte.SpécialHélicoptère || c.getType() == TypeCarte.SpécialSacDeSable) {
                 cSpeciales.add(c);
             }
         }
-        VueCarteSpe vuecs = new VueCarteSpe(this, cSpeciales);
+        ArrayList<String> cSpecialesName = new ArrayList<>();
+        for (CarteTresor c : cSpeciales) {
+           cSpecialesName.add(c.getType().name());
+        }
+        choixCarte = (String) JOptionPane.showInputDialog(null, 
+        "Quelle carte spéciale voulez-vous utiliser ?",
+        "Carte Spéciale",
+        JOptionPane.QUESTION_MESSAGE, 
+        null, 
+        cSpecialesName.toArray(), 
+        cSpecialesName.toArray()[0]);
+        if(choixCarte == TypeCarte.SpécialHélicoptère.name()) {
+            this.utiliserHelico();
+            this.defausserCarte(new CarteTresor(TypeCarte.SpécialHélicoptère));
+        } else {
+            this.utiliserSac();
+            this.defausserCarte(new CarteTresor(TypeCarte.SpécialSacDeSable));
+        }
+        
+        getVueAventurier().update();
     }
 
     public void assecher() {
