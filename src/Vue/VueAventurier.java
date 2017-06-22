@@ -73,7 +73,12 @@ public class VueAventurier  {
 
         this.panelAventurier = new JPanel();
         panelAventurier.setBackground(j.getCouleur());
-        panelAventurier.add(new JLabel(j.getClass().toString().substring(13),SwingConstants.CENTER ));
+       JLabel lab = new JLabel(j.getClass().toString().substring(13),SwingConstants.CENTER);
+        if (j.getCouleur()==Color.BLACK){
+            System.err.println("PLONGEUR!");
+            lab.setForeground(Color.WHITE);
+        }
+        panelAventurier.add(lab);
         mainPanel.add(panelAventurier, BorderLayout.NORTH);
    
         // =================================================================================
