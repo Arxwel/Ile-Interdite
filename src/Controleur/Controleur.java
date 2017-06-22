@@ -57,6 +57,7 @@ public class Controleur extends Observateur {
     private static VueFinDePartie vueFinDePartie;
     private static VueMonteeEaux vueMonteeEau;
     private static VueAventurier vj1,vj2,vj3,vj4;
+    private ArrayList<VueAventurier> vuesAventuriers;
     
     private int difficulte = 1;
     
@@ -123,6 +124,16 @@ public class Controleur extends Observateur {
             vj4.getWindow().setLocation((int) (dim.getWidth()*0.01), (int) (dim.getHeight()*0.705));
             vj4.getWindow().setVisible(true);
             vj4.setObservateur(this);
+        }
+        
+        vuesAventuriers = new ArrayList<VueAventurier>();
+        vuesAventuriers.add(vj1);
+        vuesAventuriers.add(vj2);
+        if (this.getJoueurs().size()>2){
+            vuesAventuriers.add(vj3);
+            if (this.getJoueurs().size()==4){
+                vuesAventuriers.add(vj4);
+            }
         }
         
         vueMonteeEau = new VueMonteeEaux(difficulte);
@@ -300,17 +311,15 @@ public class Controleur extends Observateur {
             piocherCarteTresorFinTour();
             piocherCarteInondeFinTour(difficulte);
             vuePlateau.update();
+            for (VueAventurier v: vuesAventuriers) {
+            v.getWindow().repaint();
+            }
             numTour++;
         }
         System.err.println("GAME OVER");
         vuePlateau.dispose();
-        vj1.dispose();
-        vj2.dispose();
-        if (this.getJoueurs().size()>2){
-            vj3.dispose();
-            if (this.getJoueurs().size()==4){
-                vj4.dispose();
-            }
+        for (VueAventurier v: vuesAventuriers) {
+            v.dispose();
         }
         vueMonteeEau.dispose();
         vueFinDePartie.update(finDeJeu);
@@ -340,25 +349,25 @@ public class Controleur extends Observateur {
             if (!reliquesPrises[i]) {
                 switch(i) {
                     case(0):
-                        if(resultat||(grille.getTuile(Zone.LaCaverneDesOmbres).isSombre()&&grille.getTuile(Zone.LaCaverneDuBrasier).isSombre())){
+                        if(grille.getTuile(Zone.LaCaverneDesOmbres).isSombre()&&grille.getTuile(Zone.LaCaverneDuBrasier).isSombre()){
                            resultat=true;
                            finDeJeu = 3;
                         }
                         break;
                     case(1):
-                        if(resultat||(grille.getTuile(Zone.LeJardinDesHurlements).isSombre()&&grille.getTuile(Zone.LeJardinDesMurmures).isSombre())){
+                        if(grille.getTuile(Zone.LeJardinDesHurlements).isSombre()&&grille.getTuile(Zone.LeJardinDesMurmures).isSombre()){
                            resultat=true;
                            finDeJeu = 3;
                         }
                         break;
                     case(2):
-                        if(resultat||(grille.getTuile(Zone.LeTempleDeLaLune).isSombre()&&grille.getTuile(Zone.LeTempleDuSoleil).isSombre())){
+                        if(grille.getTuile(Zone.LeTempleDeLaLune).isSombre()&&grille.getTuile(Zone.LeTempleDuSoleil).isSombre()){
                            resultat=true;
                            finDeJeu = 3;
                         }
                         break;
                     case(3):
-                        if(resultat||(grille.getTuile(Zone.LePalaisDeCorail).isSombre()&&grille.getTuile(Zone.LePalaisDesMarees).isSombre())){
+                        if(grille.getTuile(Zone.LePalaisDeCorail).isSombre()&&grille.getTuile(Zone.LePalaisDesMarees).isSombre()){
                            resultat=true;
                            finDeJeu = 3;
                         }
