@@ -358,7 +358,7 @@ public abstract class Joueur {
     }
 
     public void utiliserCarte() {
-        String choixCarte;
+        String choixCarte = null;
         ArrayList<CarteTresor> cSpeciales = new ArrayList<>();
         for (CarteTresor c : this.getMainJoueur()) {
             if(c.getType() == TypeCarte.SpécialHélicoptère || c.getType() == TypeCarte.SpécialSacDeSable) {
@@ -369,6 +369,7 @@ public abstract class Joueur {
         for (CarteTresor c : cSpeciales) {
            cSpecialesName.add(c.getType().name());
         }
+        while(choixCarte == null) {
         choixCarte = (String) JOptionPane.showInputDialog(null, 
         "Quelle carte spéciale voulez-vous utiliser ?",
         "Carte Spéciale",
@@ -376,12 +377,24 @@ public abstract class Joueur {
         null, 
         cSpecialesName.toArray(), 
         cSpecialesName.toArray()[0]);
+        }
+        cSpeciales.removeAll(cSpeciales);
+            cSpecialesName.removeAll(cSpeciales);
+            int i =0;
         if(choixCarte == TypeCarte.SpécialHélicoptère.name()) {
+            while(getMainJoueur().get(i).getType() != TypeCarte.SpécialHélicoptère) {
+                i++;
+            }
+            getMainJoueur().remove(i);
+            getVueAventurier().update();
             this.utiliserHelico();
-            this.defausserCarte(new CarteTresor(TypeCarte.SpécialHélicoptère));
         } else {
+             while(getMainJoueur().get(i).getType() != TypeCarte.SpécialSacDeSable) {
+                i++;
+            }
+            getMainJoueur().remove(i);
+            getVueAventurier().update();
             this.utiliserSac();
-            this.defausserCarte(new CarteTresor(TypeCarte.SpécialSacDeSable));
         }
         
         getVueAventurier().update();
