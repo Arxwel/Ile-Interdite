@@ -5,17 +5,8 @@
  */
 package Controleur;
 
-import static Controleur.Controleur.getJoueurs;
 import Modèle.CarteTresor;
 import Modèle.Joueur;
-import Vue.VueAventurier;
-import Vue.VueEcranTitre;
-import Vue.VueInscription;
-import Vue.VueMonteeEaux;
-import Vue.VuePlateau;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 
 /**
  *
@@ -27,16 +18,6 @@ public class Main {
         // Initalise la Vue Inscription et le controleur et rends la vue inscription visible et fonctionelle
         
         Controleur c = new Controleur();
-        
-        for (Joueur j: c.getJoueurs()) {
-            System.out.println(j.getNom());
-            for (CarteTresor ca : j.getMainJoueur()) {
-                System.out.println(ca.getType().toString());
-            }
-        }
-        
-        
-        
         c.play();
     } 
 
