@@ -6,6 +6,7 @@ import Vue.VueEcranTitre;
 import Vue.VueInscription;
 import Vue.VuePlateau;
 import Vue.VueEcranTitre;
+import Vue.VueFinDePartie;
 import Vue.VueMonteeEaux;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -53,6 +54,7 @@ public class Controleur extends Observateur {
     private static VueInscription vueInscription;
     private static VueEcranTitre vueEcranTitre;
     private static VueMonteeEaux monteeEau;
+    private static VueFinDePartie vueFinDePartie;
     
     private int difficulte = 1;
     
@@ -264,7 +266,8 @@ public class Controleur extends Observateur {
             setJoueurActif();
             débutTour();
             numTour++;
-        }    
+        }
+        //vueFinDePartie = (new VueFinDePartie());
     } 
     
     private boolean isPartiePerdue(){
@@ -289,18 +292,29 @@ public class Controleur extends Observateur {
             if (!reliquesPrises[i]) {
                 switch(i) {
                     case(0):
-                        resultat = (resultat||(grille.getTuile(Zone.LaCaverneDesOmbres).isSombre()&&grille.getTuile(Zone.LaCaverneDuBrasier).isSombre()));
+                        if(resultat||(grille.getTuile(Zone.LaCaverneDesOmbres).isSombre()&&grille.getTuile(Zone.LaCaverneDuBrasier).isSombre())){
+                           resultat=true;
+                           finFinDeJeu = 3;
+                        }
                         break;
                     case(1):
-                        resultat = (resultat||(grille.getTuile(Zone.LeJardinDesHurlements).isSombre()&&grille.getTuile(Zone.LeJardinDesMurmures).isSombre()));
+                        if(resultat||(grille.getTuile(Zone.LeJardinDesHurlements).isSombre()&&grille.getTuile(Zone.LeJardinDesMurmures).isSombre())){
+                           resultat=true;
+                           finFinDeJeu = 3;
+                        }
                         break;
                     case(2):
-                        resultat = (resultat||(grille.getTuile(Zone.LeTempleDeLaLune).isSombre()&&grille.getTuile(Zone.LeTempleDuSoleil).isSombre()));
+                        if(resultat||(grille.getTuile(Zone.LeTempleDeLaLune).isSombre()&&grille.getTuile(Zone.LeTempleDuSoleil).isSombre())){
+                           resultat=true;
+                           finFinDeJeu = 3;
+                        }
                         break;
                     case(3):
-                        resultat = (resultat||(grille.getTuile(Zone.LePalaisDeCorail).isSombre()&&grille.getTuile(Zone.LePalaisDesMarees).isSombre()));
+                        if(resultat||(grille.getTuile(Zone.LePalaisDeCorail).isSombre()&&grille.getTuile(Zone.LePalaisDesMarees).isSombre())){
+                           resultat=true;
+                           finFinDeJeu = 3;
+                        }
                         break;
-                    
                 }
             }
         }
