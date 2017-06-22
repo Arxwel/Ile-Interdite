@@ -191,13 +191,13 @@ public class Controleur extends Observateur {
         } else {
             setNbact(3);
         }
+        
         while (getNbact()>0) {
             verifMain(joueurActif);            
             actionsPossibles[0]=joueurActif.isMvmntPossible();
             actionsPossibles[1]=joueurActif.isAssPossible();
             actionsPossibles[2]=joueurActif.isDonPossible();
             actionsPossibles[3]=joueurActif.isReliquePossible();
-             
             System.out.println("Désactivation interfaces");
             for (Joueur j: joueurs) {
                 System.out.println("Joueur "+j.getNom());
@@ -279,19 +279,29 @@ public class Controleur extends Observateur {
         }
         
         //distribution des cartes
-        for (Joueur j: getJoueurs()) {
-            System.out.println("Distribution à "+j.getNom());
-            for (int i=0; i<2; i++) {
-                CarteTresor c = piocheCarteTresor.firstElement();
-                piocheCarteTresor.remove(0);
-                if (c.getType() == TypeCarte.MontéeEaux) {
-                    piocheCarteTresor.add(piocheCarteTresor.size(), c);
-                    i--;
-                } else {
-                    j.getMainJoueur().add(c);
+        if (!modeDebug) {
+            for (Joueur j: getJoueurs()) {
+                System.out.println("Distribution à "+j.getNom());
+                for (int i=0; i<2; i++) {
+                    CarteTresor c = piocheCarteTresor.firstElement();
+                    piocheCarteTresor.remove(0);
+                    if (c.getType() == TypeCarte.MontéeEaux) {
+                        piocheCarteTresor.add(piocheCarteTresor.size(), c);
+                        i--;
+                    } else {
+                        j.getMainJoueur().add(c);
+                    }
                 }
+            } 
+        } else {
+            for (int i=0; i<4; i++){
+                this.getJoueurs().get(0).getMainJoueur().add(new CarteTresor(TypeCarte.TresorMagenta));
             }
-        } 
+            for (int i=0; i<2; i++){
+                this.getJoueurs().get(1).getMainJoueur().add(new CarteTresor(TypeCarte.SpécialSacDeSable));
+                this.getJoueurs().get(1).getMainJoueur().add(new CarteTresor(TypeCarte.SpécialHélicoptère));
+            }
+        }
     }
     
     public void play() {
