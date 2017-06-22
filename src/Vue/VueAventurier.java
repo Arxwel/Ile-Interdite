@@ -217,7 +217,7 @@ public class VueAventurier  {
     }
     
      public void update() {
-        System.out.println("Rafraichissement de Vue Plateau");
+        System.out.println("Rafraichissement de Vue Joueur");
         
         panelCartes.removeAll();  
         for (CarteTresor c : joueur.getMainJoueur()) {

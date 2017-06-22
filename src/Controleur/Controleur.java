@@ -181,7 +181,6 @@ public class Controleur extends Observateur {
     
     //décompte le nombre d'actions disponibles pour le joueur et propose les actions en fonction de leur disponibilité
     public void débutTour() {
-        verifMain(joueurActif);
         if (joueurActif.getCouleur()==Color.YELLOW) {
             setNbact(4);
         } else {
@@ -309,10 +308,11 @@ public class Controleur extends Observateur {
             setJoueurActif();
             débutTour(); 
             piocherCarteTresorFinTour();
+            verifMain(joueurActif);
             piocherCarteInondeFinTour(difficulte);
             vuePlateau.update();
             for (VueAventurier v: vuesAventuriers) {
-            v.getWindow().repaint();
+                v.update();
             }
             numTour++;
         }
@@ -789,6 +789,9 @@ public class Controleur extends Observateur {
                 joueurActif.getMainJoueur().remove(cartePiochee);
                 System.out.println(joueurActif.getNom() + "vient de piocher: " + cartePiochee);
             }
+        }
+        for (VueAventurier v: vuesAventuriers) {
+            v.update();
         }
     }
     
