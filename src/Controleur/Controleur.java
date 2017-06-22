@@ -61,7 +61,8 @@ public class Controleur extends Observateur {
     private static VueAventurier vj1,vj2,vj3,vj4;
     private ArrayList<VueAventurier> vuesAventuriers;
     
-    private int difficulte = 1;
+    private int difficulte;
+    private boolean modeDebug;
     
     private int finDeJeu;
     
@@ -139,6 +140,7 @@ public class Controleur extends Observateur {
         }
         
         vueMonteeEau = new VueMonteeEaux(difficulte);
+        System.out.println("Difficulté de départ "+difficulte);
         vueMonteeEau.setVisible(true);
         
         vueReliques = new VueReliques();
@@ -271,8 +273,6 @@ public class Controleur extends Observateur {
         for (int i=0; i<4; i++) {
             reliquesPrises[i] = false;
         }
-        
-        difficulte = 1;
         
         //distribution des cartes
         for (Joueur j: getJoueurs()) {
@@ -690,6 +690,26 @@ public class Controleur extends Observateur {
                 for (Joueur j: this.getJoueurs()) {
                     System.out.println(j.getNom()+" incarnant "+j.getClass().toString());
                 }
+                switch(vueInscription.getComboDiff()) {
+                    case ("Novice"):
+                        difficulte = 1;
+                    break;
+                    case ("Normal"):
+                        difficulte = 2;
+                    break;
+                    case ("Élite"):
+                        difficulte = 3;
+                    break;
+                    case ("Légendaire"): 
+                        difficulte = 4;
+                    break;
+                    case ("Mortel"):
+                        difficulte = 10;
+                    break;
+                }
+                System.out.println("Difficulté :" + vueInscription.getComboDiff());
+                modeDebug = vueInscription.getCheckDebug();
+                System.out.println("Mode Debug :" + vueInscription.getCheckDebug());
                 this.notifier();
             break;
             case ("Annuler"):
