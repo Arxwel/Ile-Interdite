@@ -7,6 +7,7 @@ import java.util.Arrays;
 public class Grille {
 
     Tuile[][] tuiles;
+    
         
     public Grille(boolean modeDebug) {
         tuiles = new Tuile[6][6];

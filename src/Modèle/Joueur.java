@@ -211,28 +211,27 @@ public abstract class Joueur {
         Color relique =this.getPosition().getReliqueDispo();
         TypeCarte compType;
         int n = 0;
-        if(relique!=null){
-            if(relique == Color.MAGENTA){
-                compType = TypeCarte.TresorMagenta;
-                System.out.println("relique magenta");
-            } else if(relique == Color.CYAN){
-                compType = TypeCarte.TresorCyan;
-                System.out.println("relique cyan");
-            } else if(relique == Color.GRAY){
-                compType = TypeCarte.TresorGray;
-                System.out.println("relique gray");
-            } else {
-                compType = TypeCarte.TresorOrange;
-                System.out.println("relique orange");
-            }
-            for (CarteTresor c: this.getMainJoueur()) {
-                if (c.getType() == compType){
-                    n++;
-                }
-                System.out.println(n);
-            }
+        if(relique == Color.MAGENTA){
+            compType = TypeCarte.TresorMagenta;
+            System.out.println("relique magenta");
+        } else if(relique == Color.CYAN){
+            compType = TypeCarte.TresorCyan;
+            System.out.println("relique cyan");
+        } else if(relique == Color.GRAY){
+            compType = TypeCarte.TresorGray;
+            System.out.println("relique gray");
+        } else if(relique == Color.ORANGE) {
+            compType = TypeCarte.TresorOrange;
+            System.out.println("relique orange");
         } else {
+            compType = null;
             System.err.println("pas de relique sur cette case");
+        }
+        for (CarteTresor c: this.getMainJoueur()) {
+            if (c.getType() == compType){
+                n++;
+            }
+            System.out.println(n);
         }
         return n>=4;
     }

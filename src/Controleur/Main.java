@@ -23,7 +23,7 @@ import java.awt.Toolkit;
  */
 public class Main {
 
-public static void main(String[] args) {
+    public static void main(String[] args) {
         // Initalise la Vue Inscription et le controleur et rends la vue inscription visible et fonctionelle
         
         Controleur c = new Controleur();

@@ -294,8 +294,8 @@ public class Controleur extends Observateur {
                 }
             } 
         } else {
-            for (int i=0; i<4; i++){
-                this.getJoueurs().get(0).getMainJoueur().add(new CarteTresor(TypeCarte.TresorMagenta));
+            for (int i=0; i<5; i++){
+                this.getJoueurs().get(0).getMainJoueur().add(new CarteTresor(TypeCarte.TresorCyan));
             }
             for (int i=0; i<2; i++){
                 this.getJoueurs().get(1).getMainJoueur().add(new CarteTresor(TypeCarte.SpécialSacDeSable));
