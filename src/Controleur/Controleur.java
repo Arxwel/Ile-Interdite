@@ -270,6 +270,7 @@ public class Controleur extends Observateur {
                     System.out.println("[Contr] Carte Spéciale");
                     joueurActif.getVueAventurier().desactiverBoutons();
                     joueurActif.utiliserCarte();
+                    this.waitForInput();
                     break;
                 case(6):
                     System.out.println("[Contr] Terminer Tour");
