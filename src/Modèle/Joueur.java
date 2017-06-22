@@ -200,7 +200,7 @@ public abstract class Joueur {
 
 	public boolean isReliquePossible() {
             //couleur relique == couleur cartes && position joueur == tuile relique && nb cartes relique >= 4
-            int n = 0;
+            int n = 1;
             if (this.getPosition().getReliqueDispo() != null) {
                 Color c = this.getPosition().getReliqueDispo();
                 for(CarteTresor carte: this.getMainJoueur()) {

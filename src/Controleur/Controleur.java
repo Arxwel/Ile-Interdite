@@ -824,7 +824,7 @@ public class Controleur extends Observateur {
         for (int i = 0; i < niveauEau; i++) {
             if (piocheInondation.isEmpty()) {
                 System.out.println("Pioche carte inondation vide.");
-                for (int j = 0; j < défausseInondation.capacity(); j++) {
+                for (int j = 0; j < défausseInondation.size(); j++) {
                     carteInondeFinTour = défausseInondation.firstElement();
                     piocheInondation.add(carteInondeFinTour);
                     défausseInondation.remove(carteInondeFinTour);
