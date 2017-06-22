@@ -59,7 +59,7 @@ public class Tuile {
             Coordonnees coo = this.getCoordonees();
             ArrayList<Tuile> tuilesDia = new ArrayList();
             Tuile t;
-            int[][] deltaCoo = {{1,1},{-1,1},{-1,1},{-1,-1}};
+            int[][] deltaCoo = {{1,1},{1,-1},{-1,1},{-1,-1}};
             for (int[] tabI:deltaCoo) {
                 int[] cooATest = {coo.getX()+tabI[0],coo.getY()+tabI[1]};
                 if (cooATest[0]>0&&cooATest[0]<6&&cooATest[1]>0&&cooATest[1]<6) {
