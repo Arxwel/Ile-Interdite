@@ -19,7 +19,7 @@ public abstract class Joueur {
 	private Color couleur;
         protected Zone spawnPoint;
         public VueAventurier vueAventurier;
-        private Controleur controleur;
+        protected Controleur controleur;
         private ImageIcon image;
         
         
@@ -198,23 +198,40 @@ public abstract class Joueur {
         return !this.listerTuilesAssechables().isEmpty();
     }
 
-	public boolean isReliquePossible() {
-            //couleur relique == couleur cartes && position joueur == tuile relique && nb cartes relique >= 4
-            int n = 1;
-            if (this.getPosition().getReliqueDispo() != null) {
-                Color c = this.getPosition().getReliqueDispo();
-                for(CarteTresor carte: this.getMainJoueur()) {
-                    //exemple: si TypeCarte == TresorMagenta && couleur case == magenta
-                    if ((carte.getType()== TypeCarte.TresorMagenta && c == Color.MAGENTA)
-                         ||(carte.getType()== TypeCarte.TresorCyan && c == Color.CYAN)
-                         ||(carte.getType()== TypeCarte.TresorGray && c == Color.GRAY)
-                         ||(carte.getType()== TypeCarte.TresorOrange && c == Color.ORANGE)) {
-                        n++;
-                    }
-                }
+    public boolean isReliquePossible() {
+        Color relique =this.getPosition().getReliqueDispo();
+        TypeCarte compType;
+        int n = 0;
+        if(relique!=null){
+            switch (relique.toString()) {
+                case("MAGENTA"):
+                    compType = TypeCarte.TresorMagenta;
+                    System.out.println("relique magenta");
+                    break;
+                case("CYAN"):
+                    compType = TypeCarte.TresorCyan;
+                    System.out.println("relique cyan");
+                    break;
+                case("GRAY"):
+                    compType = TypeCarte.TresorGray;
+                    System.out.println("relique gray");
+                    break;
+                default:
+                    compType = TypeCarte.TresorOrange;
+                    System.out.println("relique orange");
+                    break;
             }
-            return (n>=4);
-	}
+            for (CarteTresor c: this.getMainJoueur()) {
+                if (c.getType() == compType){
+                    n++;
+                }
+                System.out.println(n);
+            }
+        } else {
+            System.out.println("pas de relique sur cette case");
+        }
+        return n>=4;
+    }
         
         //true si le don d'une carte est possible
 	public boolean isDonPossible() {

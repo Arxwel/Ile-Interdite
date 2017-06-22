@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 public class Pilote extends Joueur {
-
     public Pilote(String nom, Controleur controleur) {
         super(nom, controleur);
         this.spawnPoint = Zone.Heliport;
@@ -17,6 +16,7 @@ public class Pilote extends Joueur {
     @Override //peut se deplacer sur n'importe quelle case seche du plateau
 	public ArrayList<Tuile> listerCasesDispo() {
             ArrayList<Tuile> dispo = new ArrayList<>();
+            System.out.println("TP Possible");
             Coordonnees coor = this.getPosition().getCoordonees();
             for (Tuile[] tArr: this.getPosition().getPlateau().getTuiles()) {
                 for (Tuile t: tArr) {
