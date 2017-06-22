@@ -7,6 +7,7 @@ import Vue.VueEcranTitre;
 import Vue.VueInscription;
 import Vue.VuePlateau;
 import Vue.VueEcranTitre;
+import Vue.VueFinDePartie;
 import Vue.VueMonteeEaux;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -53,10 +54,13 @@ public class Controleur extends Observateur {
     
     private static VueInscription vueInscription;
     private static VueEcranTitre vueEcranTitre;
+    private static VueFinDePartie vueFinDePartie;
     private static VueMonteeEaux vueMonteeEau;
     private static VueAventurier vj1,vj2,vj3,vj4;
     
     private int difficulte = 1;
+    
+    private int finFinDeJeu;
     
     public Controleur() {
         
@@ -306,9 +310,10 @@ public class Controleur extends Observateur {
             }
         }
         vueMonteeEau.dispose();
+        //vueFinDePartie = (new VueFinDePartie());
     } 
     
-    private static boolean isPartiePerdue(){
+    private boolean isPartiePerdue(){
         boolean resultat = false;
         // L'Héliport est il sombré?
         for (int x=0; x<6; x++) {
@@ -316,39 +321,58 @@ public class Controleur extends Observateur {
                 Tuile t = grille.getTuile(x,y);
                 if (t!=null&&t.getIntitule()==Zone.Heliport&&t.getEtat()==Etat.Sombré) {
                         resultat = true;
+                        finFinDeJeu = 1;
                 }
             }
         }
         // Un joueur est il "mort"?
-        resultat = (resultat||joueurMort);
+        if (joueurMort) {
+            resultat = true;
+            finFinDeJeu = 2;
+        }
         // La récupération des reliques manquantes est elle possible?
         for (int i=0; i<4; i++) {
             if (!reliquesPrises[i]) {
                 switch(i) {
                     case(0):
-                        resultat = (resultat||(grille.getTuile(Zone.LaCaverneDesOmbres).isSombre()&&grille.getTuile(Zone.LaCaverneDuBrasier).isSombre()));
+                        if(resultat||(grille.getTuile(Zone.LaCaverneDesOmbres).isSombre()&&grille.getTuile(Zone.LaCaverneDuBrasier).isSombre())){
+                           resultat=true;
+                           finFinDeJeu = 3;
+                        }
                         break;
                     case(1):
-                        resultat = (resultat||(grille.getTuile(Zone.LeJardinDesHurlements).isSombre()&&grille.getTuile(Zone.LeJardinDesMurmures).isSombre()));
+                        if(resultat||(grille.getTuile(Zone.LeJardinDesHurlements).isSombre()&&grille.getTuile(Zone.LeJardinDesMurmures).isSombre())){
+                           resultat=true;
+                           finFinDeJeu = 3;
+                        }
                         break;
                     case(2):
-                        resultat = (resultat||(grille.getTuile(Zone.LeTempleDeLaLune).isSombre()&&grille.getTuile(Zone.LeTempleDuSoleil).isSombre()));
+                        if(resultat||(grille.getTuile(Zone.LeTempleDeLaLune).isSombre()&&grille.getTuile(Zone.LeTempleDuSoleil).isSombre())){
+                           resultat=true;
+                           finFinDeJeu = 3;
+                        }
                         break;
                     case(3):
-                        resultat = (resultat||(grille.getTuile(Zone.LePalaisDeCorail).isSombre()&&grille.getTuile(Zone.LePalaisDesMarees).isSombre()));
+                        if(resultat||(grille.getTuile(Zone.LePalaisDeCorail).isSombre()&&grille.getTuile(Zone.LePalaisDesMarees).isSombre())){
+                           resultat=true;
+                           finFinDeJeu = 3;
+                        }
                         break;
-                    
                 }
             }
         }
         // Le niveau d'eau est il mortel
-        resultat = (resultat||niveauDEau>9);
+        if (niveauDEau>9){
+             resultat = true;
+             finFinDeJeu = 4;
+        }
+       
         
         
         return resultat;
     }
     
-    private static boolean isPartieGagnée(){
+    private boolean isPartieGagnée(){
         //Les joueurs sont ils tout les 4 sur l'héliport, ont ils les 4 reliques, ont ils au moins une carte hélicoptère
         boolean resultat = false;
         if (grille.getTuile(Zone.Heliport).getLocataires().size()==joueurs.size()) {
@@ -363,15 +387,17 @@ public class Controleur extends Observateur {
                     for (CarteTresor c: j.getMainJoueur()){
                         if (c.getType()==TypeCarte.SpécialHélicoptère) {
                             resultat = true;
+                            finFinDeJeu = 0;
                         }
                     }
                 }
             }
         }
+        
         return resultat;
     }
     
-    private static boolean isPartieFinie() {
+    private boolean isPartieFinie() {
         return (isPartiePerdue() || isPartieGagnée());
     }
 
