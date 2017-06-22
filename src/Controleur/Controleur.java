@@ -244,25 +244,7 @@ public class Controleur extends Observateur {
                 case(4):
                     System.out.print("[Contr] Prendre Relique ");
                     joueurActif.getVueAventurier().desactiverBoutons();
-                    Color relique = joueurActif.getPosition().getReliqueDispo();
-                    switch(relique.toString()) {
-                        case("MAGENTA"):
-                            System.out.println("MAGENTA");
-                            reliquesPrises[0]=true;
-                            break;
-                        case("ORANGE"):
-                            System.out.println("ORANGE");
-                            reliquesPrises[1]=true;
-                            break;
-                        case("GRAY"):
-                            System.out.println("GRAY");
-                            reliquesPrises[2]=true;
-                            break;
-                        case("CYAN"):
-                            System.out.println("CYAN");
-                            reliquesPrises[3]=true;
-                            break;
-                    }
+                    joueurActif.prendreRelique();
                     break;
                 case(5):
                     System.out.println("[Contr] Carte Spéciale");
@@ -853,5 +835,9 @@ public class Controleur extends Observateur {
         défausseInondation.clear();
         Collections.shuffle(piocheInondation);
         System.out.println("La défausse vient d'etre mélangée a la pioche.");
+    }
+
+    public void addRelique(int i) {
+        reliquesPrises[i]=true;
     }
 }
