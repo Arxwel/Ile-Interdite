@@ -3,7 +3,6 @@ package Controleur;
 
 import Modèle.*;
 import Vue.VueAventurier;
-import Vue.VueEcranTitre;
 import Vue.VueInscription;
 import Vue.VuePlateau;
 import Vue.VueEcranTitre;
@@ -12,18 +11,11 @@ import Vue.VueMonteeEaux;
 import Vue.VueReliques;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.SystemColor;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.*;
 import java.util.Scanner;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import jdk.nashorn.internal.codegen.CompilerConstants;
 
 public class Controleur extends Observateur {
   
@@ -50,9 +42,6 @@ public class Controleur extends Observateur {
     
     private static Scanner sc = new Scanner(System.in);
     
-    private Lock lockAct;
-    private Condition conditionAct;
-    
     private static VueInscription vueInscription;
     private static VueEcranTitre vueEcranTitre;
     private static VueFinDePartie vueFinDePartie;
@@ -67,9 +56,6 @@ public class Controleur extends Observateur {
     private int finDeJeu;
     
     public Controleur() {
-        lockAct =  new ReentrantLock();
-        conditionAct = lock.newCondition();
-        joueurs = new ArrayList<>();
         piocheInondation = new Stack<>();
         défausseInondation = new Stack<>();
         defausseCarteTresor = new Stack<>();
@@ -79,15 +65,13 @@ public class Controleur extends Observateur {
         vueEcranTitre = new VueEcranTitre();
         vueEcranTitre.setObservateur(this);
         vueEcranTitre.afficher();
-        this.waitForInput();
-        
-        vueInscription = new VueInscription();
-        vueInscription.setObservateur(this);
-        vueInscription.afficher();
         
         this.waitForInput();
+        
+        this.inscriptionJoueurs();
         
         grille = new Grille(modeDebug);
+        
         this.init();
         
         vuePlateau = new VuePlateau(this);
@@ -143,6 +127,15 @@ public class Controleur extends Observateur {
         
         vueReliques = new VueReliques();
         vueReliques.setVisible(true);
+    }
+    
+    public void inscriptionJoueurs() {
+        joueurs = new ArrayList<>();
+        vueInscription = new VueInscription();
+        vueInscription.setObservateur(this);
+        vueInscription.afficher();
+        
+        this.waitForInput();
     }
     
     /**
@@ -658,6 +651,7 @@ public class Controleur extends Observateur {
                         getJoueurs().add(j3);
                     break;
                     case ("Vide"):
+                        j3 = null;
                     break;
                 }
                 listRoles.remove(role);
@@ -698,6 +692,7 @@ public class Controleur extends Observateur {
                         getJoueurs().add(j4);
                     break;
                     case ("Vide"):
+                        j4 = null;
                     break;
                 }
                 listRoles.remove(role);
@@ -734,10 +729,6 @@ public class Controleur extends Observateur {
             case ("Jouer") :
                 vueEcranTitre.fermer();
                 this.notifier();
-            break;
-            case ("Rejouer") :
-                this.init();
-                this.play();
             break;
             case("CarteSpeHelico"):
                 System.out.println("[Contr]Helico");
