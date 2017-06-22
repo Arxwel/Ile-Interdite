@@ -8,14 +8,11 @@ import java.awt.Color;
 import java.util.*;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 public abstract class Joueur {
 

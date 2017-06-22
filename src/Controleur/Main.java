@@ -5,17 +5,8 @@
  */
 package Controleur;
 
-import static Controleur.Controleur.getJoueurs;
 import Modèle.CarteTresor;
 import Modèle.Joueur;
-import Vue.VueAventurier;
-import Vue.VueEcranTitre;
-import Vue.VueInscription;
-import Vue.VueMonteeEaux;
-import Vue.VuePlateau;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Toolkit;
 
 /**
  *

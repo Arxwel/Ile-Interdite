@@ -5,15 +5,7 @@
  */
 package Vue;
 
-import Controleur.Message;
 import Controleur.Observateur;
-import Controleur.TypeMessage;
-import static Vue.VueInscription.getRoleComboJ1;
-import static Vue.VueInscription.getRoleComboJ2;
-import static Vue.VueInscription.getRoleComboJ3;
-import static Vue.VueInscription.getRoleComboJ4;
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
@@ -26,13 +18,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 /**
  *
@@ -138,12 +127,6 @@ public class VueFinDePartie {
                 sousTitre.setText("L'Eau a atteint un niveau mortel");
                 break;
         }
-    }
-    
-    public static void main(String [] args) {
-        VueFinDePartie vue = new VueFinDePartie();
-        vue.update(3);
-        vue.afficher();
     }
 
     public void afficher() {

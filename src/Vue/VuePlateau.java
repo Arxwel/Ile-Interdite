@@ -6,7 +6,6 @@
 package Vue;
 
 import Controleur.Controleur;
-import Controleur.Message;
 import Controleur.MessagePlateau;
 import Controleur.Observateur;
 import Controleur.TypeMessage;
