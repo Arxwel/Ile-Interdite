@@ -106,7 +106,7 @@ public class VueFinDePartie {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                Message msg = new Message(TypeMessage.Valider);
+                Message msg = new Message(TypeMessage.Rejouer);
                 observateur.traiterMessage(msg);
             }
         });

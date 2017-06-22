@@ -21,5 +21,6 @@ public enum TypeMessage {
     CarteSpe,
     CarteSpeHelico,
     CarteSpeSac,
-    TerminerTour
+    TerminerTour,
+    Rejouer
 }
