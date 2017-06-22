@@ -262,7 +262,9 @@ public class Controleur extends Observateur {
             }
             vueReliques.update(reliquesPrises);
             System.out.println("Action Finie");
+            if(actionChoisie !=5 ) {
             setNbact(getNbact() - 1);
+            }
         }
     }
     
