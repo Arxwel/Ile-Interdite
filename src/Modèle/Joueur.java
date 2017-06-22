@@ -380,7 +380,7 @@ public abstract class Joueur {
         }
         ArrayList<String> cSpecialesName = new ArrayList<>();
         for (CarteTresor c : cSpeciales) {
-           cSpecialesName.add(c.getType().name());
+           cSpecialesName.add(c.getType().nameEsp());
         }
         while(choixCarte == null) {
         choixCarte = (String) JOptionPane.showInputDialog(null, 
@@ -394,7 +394,7 @@ public abstract class Joueur {
         cSpeciales.removeAll(cSpeciales);
             cSpecialesName.removeAll(cSpeciales);
             int i =0;
-        if(choixCarte == TypeCarte.SpécialHélicoptère.name()) {
+        if(choixCarte == TypeCarte.SpécialHélicoptère.nameEsp()) {
             while(getMainJoueur().get(i).getType() != TypeCarte.SpécialHélicoptère) {
                 i++;
             }

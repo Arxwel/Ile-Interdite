@@ -894,16 +894,16 @@ public class Controleur extends Observateur {
         String couleur = null;
         switch(compType.toString()){
             case("TresorMagenta"):
-                couleur = "Magenta";
+                couleur = "Cristal Ardent";
                 break;
             case("TresorGray"):
-                couleur = "Grise";
+                couleur = "Pierre Sacrée";
                 break;
             case("TresorCyan"):
-                couleur = "Cyan";
+                couleur = "Calice de l'Onde";
                 break;
             case("TresorOrange"):
-                couleur = "Orange";
+                couleur = "Statue du Zéphyr";
                 break;
         }
         vuePlateau.signalerPriseRelique(couleur);
