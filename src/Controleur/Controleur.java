@@ -868,12 +868,13 @@ public class Controleur extends Observateur {
                 piocheInondation.remove(carteInondeFinTour);
                 System.out.println(carteInondeFinTour.getTuile().getIntitule().nomEspace() + " a coulé.");
                 if(!carteInondeFinTour.getTuile().getLocataires().isEmpty()){
-                    for (Joueur j:carteInondeFinTour.getTuile().getLocataires()){
-                        if (j.isMvmntPossible()) {
+                    while (carteInondeFinTour.getTuile().getLocataires().size()>0){
+                        Joueur j = carteInondeFinTour.getTuile().getLocataires().get(0);
+                        if (j.isMvmntPossible()){
                             vuePlateau.obligationDeplacement(j);
                             j.déplacer();
                             carteInondeFinTour.getTuile().delLocataire(j);
-                        } else {
+                        }else{
                             joueurMort = true;
                         }
                     }
