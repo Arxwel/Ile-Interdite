@@ -98,18 +98,11 @@ public class VueFinDePartie {
         for(int i =0; i<9; i++) {
             buttPanel.add(new JLabel());
         }
-        buttPanel.add(rejouer);
         buttPanel.add(new JLabel());
         buttPanel.add(quitter);
+        buttPanel.add(new JLabel());
         
-        rejouer.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Message msg = new Message(TypeMessage.Rejouer);
-                observateur.traiterMessage(msg);
-            }
-        });
+      
         
         quitter.addActionListener(new ActionListener() {
 
