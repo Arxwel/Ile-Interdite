@@ -149,6 +149,7 @@ public class VueFinDePartie {
     
     public static void main(String [] args) {
         VueFinDePartie vue = new VueFinDePartie();
+        vue.update(3);
         vue.afficher();
     }
 
