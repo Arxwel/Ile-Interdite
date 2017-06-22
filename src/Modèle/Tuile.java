@@ -206,5 +206,28 @@ public class Tuile {
     public ImageIcon getImage() {
         return image;
     }
+    //méthode pour lister des tuiles de déplacement spéciales du plongeur
+    public Collection<Tuile> tuilesPlongeurs() {
+        ArrayList<Tuile> adjacentsSombres = new ArrayList<>();
+        
+        adjacentsSombres.addAll(this.getAdjacent());
+        
+        for(int i = 0; i < adjacentsSombres.size(); i++)
+        {
+            if (!adjacentsSombres.get(i).getEtat().equals(Etat.Sec)){
+                for(Tuile t : adjacentsSombres.get(i).getAdjacent()){
+                    if (!adjacentsSombres.contains(t)){
+                        adjacentsSombres.add(t);
+                    }
+                }
+            } else {
+                if (!adjacentsSombres.contains(adjacentsSombres.get(i))){ 
+                    adjacentsSombres.add(adjacentsSombres.get(i));
+                }
+            }
+        }
+    
+        return adjacentsSombres;
+}
 
 }
