@@ -14,39 +14,19 @@ public class Plongeur extends Joueur {
         this.setImage(new ImageIcon(this.getClass().getResource("/ImagesAventuriers/Plongeur.png")));
     }
 
-    @Override //peut traverser des tuiles inondées et des tuiles sombrées et peut s'arrêter sur des tuiles inondées
+    @Override //peut traverser des tuiles inondées et des tuiles sombrées
 	public ArrayList<Tuile> listerCasesDispo() {
-            System.out.println("ListerCasesDispo Plongeur");
-            ArrayList<Tuile> tuilesATester = new ArrayList<>();
+            System.out.println("ListerCasesDispo Plongeur");            
             ArrayList<Tuile> tuilesDispo = new ArrayList<>();
-            ArrayList<Tuile> tuilesAdj = new ArrayList<>();
-            Tuile positionInitiale = this.getPosition();
-            Grille g = positionInitiale.getPlateau();
-            
-            for (int i=0;i<tuilesATester.size();i++){
-                Tuile t = tuilesATester.get(i);
-                tuilesAdj = t.getAdjacent();
-                for (int n=0;n<tuilesAdj.size();n++){
-                    Tuile tuile = tuilesAdj.get(n);
-                    System.out.println(tuile.getEtat().toString());
-                    if(tuile.getEtat()==Etat.Sec){
-                        if(!tuilesDispo.contains(tuile)){
-                            tuilesDispo.add(tuile);
-                        }
-                    } else if(tuile.getEtat()==Etat.Inondé) {
-                        if(!tuilesATester.contains(tuile)){
-                            tuilesATester.add(tuile);
-                            }
-                        if(!tuilesDispo.contains(tuile)){
-                            tuilesDispo.add(tuile);
-                        }
-                    } else if(tuile.getEtat() == Etat.Sombré){
-                        if(!tuilesATester.contains(tuile)){
-                            tuilesATester.add(tuile);
-                        }
-                    }
+            tuilesDispo = (ArrayList<Tuile>) this.getPosition().tuilesPlongeurs();
+            ArrayList<Tuile> casesAEnlever = new ArrayList<>();
+            for (int i =0;i<tuilesDispo.size();i++){ 
+                if (tuilesDispo.get(i).getEtat().equals(Etat.Sombré)){
+                    casesAEnlever.add(tuilesDispo.get(i));
                 }
             }
-            return tuilesDispo;
+            tuilesDispo.removeAll(casesAEnlever);
+            tuilesDispo.remove(this.getPosition());
+            return tuilesDispo;            
         }
 }
