@@ -41,7 +41,7 @@ public class VueMonteeEaux extends JFrame {
         this.mainPanel.remove(imgCarte);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         image = new ImageIcon(this.getClass().getResource("/resources/niveauDesEaux"+niveau+".png"));
-        imgCarte = new JLabel(new ImageIcon(image.getImage().getScaledInstance((int) (dim.getWidth()*0.12), (int) (dim.getHeight()*0.56), Image.SCALE_DEFAULT)));
+        imgCarte = new JLabel(new ImageIcon(image.getImage().getScaledInstance((int) (dim.getWidth()*0.12), (int) (dim.getHeight()*0.52), Image.SCALE_DEFAULT)));
         mainPanel.add(imgCarte);
         this.validate();
         this.repaint();
