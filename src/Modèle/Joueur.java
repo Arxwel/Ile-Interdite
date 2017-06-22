@@ -255,7 +255,9 @@ public abstract class Joueur {
             for (CarteTresor cs : this.getMainJoueur()) {
                 if(cs.getType() == TypeCarte.SpécialHélicoptère || cs.getType() == TypeCarte.SpécialSacDeSable) {
                     possible = true;
+                    
                 }
+                
             }
             
             return possible;
@@ -280,6 +282,10 @@ public abstract class Joueur {
         }
       
     public void utiliserHelico() {
+        JOptionPane.showMessageDialog(null, "Si vous cliquez sur une tuile occupée par des personnes \n"
+                    + "vous devez ensuite cliquer sur la tuile de destination"
+                    + "pour les transporter.\n"
+                    + "Si vous cliquez sur une tuile vide, cela vous téléportera dessus.");
         ArrayList<Tuile> casesDispo = new ArrayList<>();
         Coordonnees coor = this.getPosition().getCoordonees();
         for (Tuile[] tArr: this.getPosition().getPlateau().getTuiles()) {
@@ -289,7 +295,15 @@ public abstract class Joueur {
                 }
             }
         }
+        controleur.surligner(casesDispo);
+        controleur.waitForInput();
+        ArrayList<Joueur> groupe = new ArrayList<>(controleur.getLastCase().getLocataires());
+        
+        if(groupe.isEmpty()) {
         this.deplacerHelico(casesDispo);
+        } else {
+            deplacerHelico(casesDispo, groupe);
+        }
         
     }
     
@@ -427,11 +441,11 @@ public abstract class Joueur {
             controleur.waitForInput();
             Tuile caseDepl = controleur.getLastCase();
             
-//            
-//            if (!tuileshelico.contains(caseDepl)) {
-//                controleur.waitForInput();
-//                caseDepl = controleur.getLastCase();
-//            }
+            
+            if (!tuileshelico.contains(caseDepl)) {
+                controleur.waitForInput();
+                caseDepl = controleur.getLastCase();
+            }
             
             Tuile tuileQuittee = this.getPosition();
             
@@ -443,6 +457,29 @@ public abstract class Joueur {
             
             controleur.surligner(new ArrayList<Tuile>());
             System.out.println("Le Joueur est maintenant à"+this.getPosition().getIntitule());
+    }
+    
+        public void deplacerHelico(ArrayList<Tuile> tuileshelico, ArrayList<Joueur> groupe) {
+            controleur.surligner(tuileshelico);
+            controleur.waitForInput();
+            Tuile caseDepl = controleur.getLastCase();
+            
+            
+            if (!tuileshelico.contains(caseDepl)) {
+                controleur.waitForInput();
+                caseDepl = controleur.getLastCase();
+            }
+            
+            for(Joueur j : groupe) {
+            Tuile tuileQuittee = j.getPosition();
+            System.out.println("deplacement de "+tuileQuittee.getIntitule()+" a "+caseDepl.getIntitule());
+            tuileQuittee.delLocataire(j);
+            j.setPosition(caseDepl);
+            caseDepl.addLocataire(j);
+            System.out.println("Le Joueur est maintenant à"+this.getPosition().getIntitule());
+            }
+            
+            controleur.surligner(new ArrayList<Tuile>());
     }
 
     
