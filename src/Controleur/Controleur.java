@@ -190,8 +190,9 @@ public class Controleur extends Observateur {
             setNbact(4);
         } else {
             setNbact(3);
-        }        
+        }
         while (getNbact()>0) {
+            verifMain(joueurActif);            
             actionsPossibles[0]=joueurActif.isMvmntPossible();
             actionsPossibles[1]=joueurActif.isAssPossible();
             actionsPossibles[2]=joueurActif.isDonPossible();
@@ -211,6 +212,9 @@ public class Controleur extends Observateur {
                         j.getVueAventurier().activerBoutonAssecher();
                     }
                     if (j.isDonPossible()) {
+                        j.getVueAventurier().activerBoutonDonner();
+                    }
+                    if (j.getCouleur()==Color.WHITE) {
                         j.getVueAventurier().activerBoutonDonner();
                     }
                     if (j.isReliquePossible()) {
@@ -328,6 +332,7 @@ public class Controleur extends Observateur {
             v.dispose();
         }
         vueMonteeEau.dispose();
+        vueReliques.dispose();
         vueFinDePartie.update(finDeJeu);
         vueFinDePartie.afficher();
         this.waitForInput();
