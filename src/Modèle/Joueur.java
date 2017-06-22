@@ -387,18 +387,18 @@ public abstract class Joueur {
            cSpecialesName.add(c.getType().name());
         }
         while(choixCarte == null) {
-        String[] bouton = {"OK"};
-        JPanel panel = new JPanel();
-        JLabel label = new JLabel("Quelle carte spéciale voulez-vous utiliser ?");
-        JComboBox txt = new JComboBox(cSpecialesName.toArray());
-        panel.add(label);
-        panel.add(txt);
-        int selectedOption = JOptionPane.showOptionDialog(null, panel, "Saisie de Nom", JOptionPane.NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, bouton , bouton[0]);
+            String[] bouton = {"OK"};
+            JPanel panel = new JPanel();
+            JLabel label = new JLabel("Quelle carte spéciale voulez-vous utiliser ?");
+            JComboBox txt = new JComboBox(cSpecialesName.toArray());
+            panel.add(label);
+            panel.add(txt);
+            int selectedOption = JOptionPane.showOptionDialog(null, panel, "Saisie de Nom", JOptionPane.NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, bouton , bouton[0]);
 
-        if(selectedOption == 0)
-        {
-            choixCarte = txt.getSelectedItem().toString();
-        }
+            if(selectedOption == 0)
+            {
+                choixCarte = txt.getSelectedItem().toString();
+            }
         }
         int i =0;
         if(choixCarte == TypeCarte.SpécialHélicoptère.name()) {
