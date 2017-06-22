@@ -369,7 +369,7 @@ public class Controleur extends Observateur {
             }
         }
         // Le niveau d'eau est il mortel
-        if (niveauDEau>9){
+        if (difficulte>9){
              resultat = true;
              finDeJeu = 4;
         }
@@ -810,16 +810,6 @@ public class Controleur extends Observateur {
     
     public void piocherCarteInondeFinTour(int difficulte) {
         CarteInondation carteInondeFinTour;
-        if (piocheInondation.isEmpty()) {
-            System.out.println("Pioche carte inondation vide.");
-            for (int i = 0; i < défausseInondation.capacity(); i++) {
-                carteInondeFinTour = défausseInondation.firstElement();
-                piocheInondation.add(carteInondeFinTour);
-                défausseInondation.remove(carteInondeFinTour);
-            }
-            Collections.shuffle(piocheInondation);
-            System.out.println("La défausse vient d'etre mélangée pour reformer la pioche.");
-        }
         
         int niveauEau = 2;
         if (difficulte == 1 || difficulte == 2) {
@@ -831,7 +821,18 @@ public class Controleur extends Observateur {
         } else if (difficulte == 8 || difficulte == 9) {
             niveauEau = 5;
         }
+        
         for (int i = 0; i < niveauEau; i++) {
+            if (piocheInondation.isEmpty()) {
+                System.out.println("Pioche carte inondation vide.");
+                for (int j = 0; j < défausseInondation.capacity(); j++) {
+                    carteInondeFinTour = défausseInondation.firstElement();
+                    piocheInondation.add(carteInondeFinTour);
+                    défausseInondation.remove(carteInondeFinTour);
+                }
+                Collections.shuffle(piocheInondation);
+                System.out.println("La défausse vient d'etre mélangée pour reformer la pioche.");
+            }
             carteInondeFinTour = piocheInondation.firstElement();
             System.out.println("Vous allez piocher " + niveauEau + " cartes inondation.");
             System.out.println("Carte Tirée "+carteInondeFinTour.getTuile().getIntitule().toString());
