@@ -286,10 +286,10 @@ public abstract class Joueur {
         }
       
     public void utiliserHelico() {
-        JOptionPane.showMessageDialog(null, "Si vous cliquez sur une tuile occupée par des personnes \n"
-                    + "vous devez ensuite cliquer sur la tuile de destination"
-                    + " pour les transporter.\n"
-                    + "Si vous cliquez sur une tuile inoccupée, cela vous téléportera dessus.");
+        JOptionPane.showMessageDialog(null, "Si vous cliquez sur une tuile inoccupée, cela vous téléportera dessus.\n" +
+                    "Si vous souhaitez vous déplacer sur une tuile déjà occupée ou déplacer un groupe de personnes, sélectionnez d'abord la tuile\n"
+                    + "initiale où se trouve les personnes à déplacer puis cliquez ensuite sur la tuile de destination"
+                    + " pour effectuer le transport.\n");
         ArrayList<Tuile> casesDispo = new ArrayList<>();
         Coordonnees coor = this.getPosition().getCoordonees();
         for (Tuile[] tArr: this.getPosition().getPlateau().getTuiles()) {
