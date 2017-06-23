@@ -18,16 +18,6 @@ public class Main {
         // Initalise la Vue Inscription et le controleur et rends la vue inscription visible et fonctionelle
         
         Controleur c = new Controleur();
-        
-        for (Joueur j: c.getJoueurs()) {
-            System.out.println(j.getNom());
-            for (CarteTresor ca : j.getMainJoueur()) {
-                System.out.println(ca.getType().toString());
-            }
-        }
-        
-        
-        
         c.play();
     } 
 

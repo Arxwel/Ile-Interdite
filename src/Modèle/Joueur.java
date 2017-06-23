@@ -89,8 +89,12 @@ public abstract class Joueur {
                 controleur.addRelique(1);
                 System.out.println("relique orange");
             }
+            int n = 0;
             for(CarteTresor c: this.getMainJoueur()) {
-                aSupr.add(c);
+                if (c.getType() == compType&&n<5){
+                    aSupr.add(c);
+                    n++;
+                }
             }
             for (CarteTresor c: aSupr) {
                 this.defausserCarte(c);
@@ -383,18 +387,18 @@ public abstract class Joueur {
            cSpecialesName.add(c.getType().name());
         }
         while(choixCarte == null) {
-        String[] bouton = {"OK"};
-        JPanel panel = new JPanel();
-        JLabel label = new JLabel("Quelle carte spéciale voulez-vous utiliser ?");
-        JComboBox txt = new JComboBox(cSpecialesName.toArray());
-        panel.add(label);
-        panel.add(txt);
-        int selectedOption = JOptionPane.showOptionDialog(null, panel, "Saisie de Nom", JOptionPane.NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, bouton , bouton[0]);
+            String[] bouton = {"OK"};
+            JPanel panel = new JPanel();
+            JLabel label = new JLabel("Quelle carte spéciale voulez-vous utiliser ?");
+            JComboBox txt = new JComboBox(cSpecialesName.toArray());
+            panel.add(label);
+            panel.add(txt);
+            int selectedOption = JOptionPane.showOptionDialog(null, panel, "Saisie de Nom", JOptionPane.NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, bouton , bouton[0]);
 
-        if(selectedOption == 0)
-        {
-            choixCarte = txt.getSelectedItem().toString();
-        }
+            if(selectedOption == 0)
+            {
+                choixCarte = txt.getSelectedItem().toString();
+            }
         }
         int i =0;
         if(choixCarte == TypeCarte.SpécialHélicoptère.name()) {
@@ -450,27 +454,27 @@ public abstract class Joueur {
             System.out.println("Le Joueur est maintenant à"+this.getPosition().getIntitule());
     }
     
-        public void deplacerHelico(ArrayList<Tuile> tuileshelico, ArrayList<Joueur> groupe) {
-            controleur.surligner(tuileshelico);
+    public void deplacerHelico(ArrayList<Tuile> tuileshelico, ArrayList<Joueur> groupe) {
+        controleur.surligner(tuileshelico);
+        controleur.waitForInput();
+        Tuile caseDepl = controleur.getLastCase();
+
+
+        if (!tuileshelico.contains(caseDepl)) {
             controleur.waitForInput();
-            Tuile caseDepl = controleur.getLastCase();
-            
-            
-            if (!tuileshelico.contains(caseDepl)) {
-                controleur.waitForInput();
-                caseDepl = controleur.getLastCase();
-            }
-            
-            for(Joueur j : groupe) {
-            Tuile tuileQuittee = j.getPosition();
-            System.out.println("deplacement de "+tuileQuittee.getIntitule()+" a "+caseDepl.getIntitule());
-            tuileQuittee.delLocataire(j);
-            j.setPosition(caseDepl);
-            caseDepl.addLocataire(j);
-            System.out.println("Le Joueur est maintenant à"+this.getPosition().getIntitule());
-            }
-            
-            controleur.surligner(new ArrayList<Tuile>());
+            caseDepl = controleur.getLastCase();
+        }
+
+        for(Joueur j : groupe) {
+        Tuile tuileQuittee = j.getPosition();
+        System.out.println("deplacement de "+tuileQuittee.getIntitule()+" a "+caseDepl.getIntitule());
+        tuileQuittee.delLocataire(j);
+        j.setPosition(caseDepl);
+        caseDepl.addLocataire(j);
+        System.out.println("Le Joueur est maintenant à"+this.getPosition().getIntitule());
+        }
+
+        controleur.surligner(new ArrayList<Tuile>());
     }
 
     

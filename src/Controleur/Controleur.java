@@ -13,7 +13,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.*;
-import java.util.Scanner;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -26,30 +25,28 @@ public class Controleur extends Observateur {
     
     private static ArrayList<Joueur> joueurs;
     private static Joueur joueurActif;
-    private static Tuile lastCase;
+    private Tuile lastCase;
     
     private static Stack<CarteInondation> piocheInondation;
-    private static Stack<CarteInondation> défausseInondation;
+    private Stack<CarteInondation> défausseInondation;
     private static Stack<CarteTresor> piocheCarteTresor;
     private static Stack<CarteTresor> defausseCarteTresor;
     
     private static int numTour = 0;
     private static int nbact;
-    private static boolean joueurMort = false;
-    private static boolean[] reliquesPrises = new boolean[4]; //Magenta(brasier) Orange(Zéphir) Grey(Globe(pété)) Cyan(Calice)
-    private static int niveauDEau;
+    private boolean joueurMort = false;
+    private boolean[] reliquesPrises = new boolean[4]; //Magenta(brasier) Orange(Zéphir) Grey(Globe(pété)) Cyan(Calice)
+    private int niveauDEau;
     private int actionChoisie;
     
-    private static boolean[] actionsPossibles = new boolean[4];
+    private boolean[] actionsPossibles = new boolean[4];
     
-    private static Scanner sc = new Scanner(System.in);
-    
-    private static VueInscription vueInscription;
-    private static VueEcranTitre vueEcranTitre;
-    private static VueFinDePartie vueFinDePartie;
-    private static VueMonteeEaux vueMonteeEau;
-    private static VueReliques vueReliques;
-    private static VueAventurier vj1,vj2,vj3,vj4;
+    private VueInscription vueInscription;
+    private VueEcranTitre vueEcranTitre;
+    private VueFinDePartie vueFinDePartie;
+    private VueMonteeEaux vueMonteeEau;
+    private VueReliques vueReliques;
+    private VueAventurier vj1,vj2,vj3,vj4;
     private ArrayList<VueAventurier> vuesAventuriers;
     
     private int difficulte;

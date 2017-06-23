@@ -225,8 +225,7 @@ public class Tuile {
         
         adjacentsSombres.addAll(this.getAdjacent());
         
-        for(int i = 0; i < adjacentsSombres.size(); i++)
-        {
+        for(int i = 0; i < adjacentsSombres.size(); i++){
             if (!adjacentsSombres.get(i).getEtat().equals(Etat.Sec)){
                 for(Tuile t : adjacentsSombres.get(i).getAdjacent()){
                     if (!adjacentsSombres.contains(t)){
