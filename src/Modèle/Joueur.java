@@ -290,7 +290,7 @@ public abstract class Joueur {
         Coordonnees coor = this.getPosition().getCoordonees();
         for (Tuile[] tArr: this.getPosition().getPlateau().getTuiles()) {
             for (Tuile t: tArr) {
-                if (t != null && t.getCoordonees() != coor && t.getEtat() != Etat.Sombré) {
+                if (t != null && t.getEtat() != Etat.Sombré) {
                     casesDispo.add(t);
                 }
             }
